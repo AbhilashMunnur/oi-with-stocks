@@ -8,6 +8,12 @@ rsi:
 oi:
   proximity_pct: 2.0      # e.g. 2% means price within 2% of the strike
 
+# Live data provider: "dhan" or "angelone"
+data:
+  provider: dhan
+  history_days: 120                # Daily candles pulled for the RSI calculation
+  option_chain_delay_seconds: 3.0  # Dhan allows 1 option chain request per 3s
+
 # Stocks to scan (NSE F&O symbols without .NS suffix)
 watchlist:
   - RELIANCE
@@ -17,7 +23,7 @@ watchlist:
   - ICICIBANK
   - SBIN
   - TATASTEEL
-  - TATAMOTORS
+  - TMPV          # Tata Motors Passenger Vehicles (post-demerger F&O symbol)
   - WIPRO
   - ITC
 

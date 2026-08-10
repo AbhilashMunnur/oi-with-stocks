@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import load_config
+from src.data.provider import ProviderError
 from src.scanner import OIRsiScanner
 
 
@@ -53,13 +54,25 @@ def main() -> None:
         "--symbol",
         help="Scan only one symbol (overrides watchlist)",
     )
+    parser.add_argument(
+        "--provider",
+        choices=["dhan", "angelone"],
+        help="Override the live data provider set in config",
+    )
     args = parser.parse_args()
 
     config = load_config(args.config)
-    scanner = OIRsiScanner(config)
 
+    if args.provider:
+        config.data.provider = args.provider
     if args.symbol:
         config.watchlist = [args.symbol.upper()]
+
+    try:
+        scanner = OIRsiScanner(config)
+    except ProviderError as exc:
+        print(f"Error: {exc}")
+        sys.exit(1)
 
     if args.once:
         with scanner:

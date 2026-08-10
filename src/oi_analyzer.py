@@ -3,8 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from src.config import SignalType
-from src.data.nse_client import OISnapshot
-from src.data.price_client import PriceSnapshot
+from src.data.models import OISnapshot, PriceSnapshot
 
 
 @dataclass
@@ -43,7 +42,7 @@ def evaluate_stock(
     if price.rsi is None:
         return None
 
-    ltp = oi.ltp if oi.ltp > 0 else price.ltp
+    ltp = price.ltp if price.ltp > 0 else oi.ltp
     rsi = price.rsi
 
     # RSI >= 70 and price near highest call OI strike

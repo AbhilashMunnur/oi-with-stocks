@@ -1,6 +1,5 @@
 from src.config import SignalType
-from src.data.nse_client import OISnapshot
-from src.data.price_client import PriceSnapshot
+from src.data.models import OISnapshot, PriceSnapshot
 from src.oi_analyzer import evaluate_stock
 
 

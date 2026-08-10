@@ -25,6 +25,13 @@ class OIConfig:
 
 
 @dataclass
+class DataConfig:
+    provider: str
+    history_days: int
+    option_chain_delay_seconds: float = 3.0
+
+
+@dataclass
 class ScheduleConfig:
     interval_minutes: int
     market_start: str
@@ -42,6 +49,7 @@ class NotificationConfig:
 class AppConfig:
     rsi: RSIConfig
     oi: OIConfig
+    data: DataConfig
     watchlist: list[str]
     schedule: ScheduleConfig
     notifications: NotificationConfig
@@ -55,6 +63,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
         oi=OIConfig(**raw["oi"]),
+        data=DataConfig(**raw["data"]),
         watchlist=list(raw["watchlist"]),
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
