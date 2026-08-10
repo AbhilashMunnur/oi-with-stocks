@@ -1,0 +1,34 @@
+# RSI settings
+rsi:
+  period: 14
+  call_threshold: 70      # Notify when RSI is at or above this
+  put_threshold: 35       # Notify when RSI is at or below this
+
+# How close price must be to the max OI strike (percentage)
+oi:
+  proximity_pct: 2.0      # e.g. 2% means price within 2% of the strike
+
+# Stocks to scan (NSE F&O symbols without .NS suffix)
+watchlist:
+  - RELIANCE
+  - TCS
+  - INFY
+  - HDFCBANK
+  - ICICIBANK
+  - SBIN
+  - TATASTEEL
+  - TATAMOTORS
+  - WIPRO
+  - ITC
+
+# Scanner schedule (24h format, IST assumed)
+schedule:
+  interval_minutes: 15
+  market_start: "09:20"
+  market_end: "15:30"
+
+# Notification settings
+notifications:
+  console: true
+  telegram: false
+  cooldown_minutes: 60    # Don't repeat same alert within this window
