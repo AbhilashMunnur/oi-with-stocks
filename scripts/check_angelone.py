@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 
 from src.config import load_config
 from src.data.base import CredentialsError
+from src.oi_analyzer import format_oi
 
 REQUIRED_VARS = ["ANGEL_API_KEY", "ANGEL_CLIENT_CODE", "ANGEL_PIN", "ANGEL_TOTP_SECRET"]
 
@@ -79,9 +80,9 @@ def main() -> None:
     print(f"  Symbol          {oi.symbol}")
     print(f"  Live LTP        Rs {price.ltp:,.2f}")
     print(f"  RSI({config.rsi.period})         {rsi_text}")
-    print(f"  Expiry          {oi.expiry}")
-    print(f"  Max Call OI     Rs {oi.max_call_oi_strike:,.0f}  ({oi.max_call_oi:,} contracts)")
-    print(f"  Max Put OI      Rs {oi.max_put_oi_strike:,.0f}  ({oi.max_put_oi:,} contracts)")
+    print(f"  Expiry          {oi.expiry}  (lot size {oi.lot_size})")
+    print(f"  Max Call OI     Rs {oi.max_call_oi_strike:,.0f}  ({format_oi(oi, oi.max_call_oi)})")
+    print(f"  Max Put OI      Rs {oi.max_put_oi_strike:,.0f}  ({format_oi(oi, oi.max_put_oi)})")
     print("\nReady to scan: python main.py --once")
 
     client.close()

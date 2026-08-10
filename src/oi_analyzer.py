@@ -32,6 +32,14 @@ def distance_to_strike_pct(price: float, strike: float) -> float:
     return abs(price - strike) / strike * 100
 
 
+def format_oi(oi: OISnapshot, open_interest: int) -> str:
+    """Render open interest as contracts when the lot size is known."""
+    lots = oi.contracts(open_interest)
+    if lots is None:
+        return f"{open_interest:,} shares"
+    return f"{lots:,} contracts"
+
+
 def evaluate_stock(
     price: PriceSnapshot,
     oi: OISnapshot,
@@ -60,7 +68,7 @@ def evaluate_stock(
             message=(
                 f"{price.symbol}: RSI {rsi:.1f} (>= {rsi_call_threshold}) and price "
                 f"₹{ltp:.2f} is near max Call OI strike ₹{oi.max_call_oi_strike:.0f} "
-                f"(OI: {oi.max_call_oi:,}, distance: {distance:.2f}%)"
+                f"(OI: {format_oi(oi, oi.max_call_oi)}, distance: {distance:.2f}%)"
             ),
         )
 
@@ -79,7 +87,7 @@ def evaluate_stock(
             message=(
                 f"{price.symbol}: RSI {rsi:.1f} (<= {rsi_put_threshold}) and price "
                 f"₹{ltp:.2f} is near max Put OI strike ₹{oi.max_put_oi_strike:.0f} "
-                f"(OI: {oi.max_put_oi:,}, distance: {distance:.2f}%)"
+                f"(OI: {format_oi(oi, oi.max_put_oi)}, distance: {distance:.2f}%)"
             ),
         )
 

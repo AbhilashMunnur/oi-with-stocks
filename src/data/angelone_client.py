@@ -1,14 +1,19 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import time
 from datetime import date, datetime, timedelta
 
+import logzero
 import pandas as pd
 import pyotp
 from dotenv import load_dotenv
 from SmartApi import SmartConnect
+
+# The SDK logs connection pool chatter at info level on every call.
+logzero.loglevel(logging.WARNING)
 
 from src.data.base import CredentialsError, download_cached
 from src.data.models import OISnapshot, PriceSnapshot
@@ -173,6 +178,7 @@ class AngelOneClient:
             return None
 
         ltp = self._live_ltp(symbol) or 0.0
+        lot_size = int(float(contracts[0].get("lotsize") or 0))
 
         return OISnapshot(
             symbol=symbol,
@@ -182,6 +188,7 @@ class AngelOneClient:
             max_put_oi_strike=max_put_strike,
             max_put_oi=max_put_oi,
             expiry=expiry,
+            lot_size=lot_size,
         )
 
     def _live_ltp(self, symbol: str) -> float | None:
