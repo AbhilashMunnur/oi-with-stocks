@@ -47,5 +47,5 @@ paper_trading:
   journal_csv: data/paper_trades.csv    # One row per closed trade
   # Optional: mirror closed trades into a Google Sheet. Needs a service account
   # in GOOGLE_SERVICE_ACCOUNT_JSON and the sheet shared with its email.
-  google_sheet_id: "1M1SoXMkPoLQIbLEnLaKmJzqc76U9Xk0tdTacVQX9pF8"
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "Paper trades"

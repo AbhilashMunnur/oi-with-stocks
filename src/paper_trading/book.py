@@ -116,6 +116,11 @@ class PaperBook:
         position.lots_open -= lots
         self.realised_pnl += pnl
 
+        margin_per_lot = (
+            released / lots
+            if lots
+            else position.margin_blocked / max(position.lots_open, 1)
+        )
         self._pending_rows.append(
             build_row(
                 symbol=position.symbol,
@@ -127,8 +132,7 @@ class PaperBook:
                 exit_price=price,
                 exit_rsi=exit_rsi,
                 lots=lots,
-                lot_size=position.lot_size,
-                capital=released,
+                margin_per_lot=margin_per_lot,
                 pnl=pnl,
                 reason=reason.value,
             )

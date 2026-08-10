@@ -8,8 +8,8 @@ from pathlib import Path
 
 import numpy as np
 
-# Column order follows the trade journal this replaces, with the extra fields a
-# multi-stock, scale-out book needs appended at the end.
+# Same columns as the Nifty backtesting sheet, plus Symbol (multi-stock) and
+# Exit reason (scale-out / stop / expiry).
 COLUMNS = [
     "Symbol",
     "Buy/Sell",
@@ -22,8 +22,6 @@ COLUMNS = [
     "Holding trading period",
     "Capital needed",
     "Profit/loss",
-    "Lots",
-    "Lot size",
     "Exit reason",
 ]
 
@@ -33,6 +31,11 @@ DATE_FORMAT = "%d-%b-%y"
 def trading_days_between(entry: datetime, exit_: datetime) -> int:
     """Weekdays between two dates, matching the journal's holding period."""
     return int(np.busday_count(entry.date(), exit_.date()))
+
+
+def capital_needed(margin_per_lot: float, lots: int) -> str:
+    """Match the sheet style, e.g. 180000*2."""
+    return f"{int(round(margin_per_lot))}*{lots}"
 
 
 def build_row(
@@ -46,8 +49,7 @@ def build_row(
     exit_price: float,
     exit_rsi: float | None,
     lots: int,
-    lot_size: int,
-    capital: float,
+    margin_per_lot: float,
     pnl: float,
     reason: str,
 ) -> dict:
@@ -64,10 +66,8 @@ def build_row(
         "Exit price": round(exit_price, 2),
         "Exit RSI": round(exit_rsi, 1) if exit_rsi is not None else "",
         "Holding trading period": trading_days_between(entry_dt, exit_dt),
-        "Capital needed": round(capital),
+        "Capital needed": capital_needed(margin_per_lot, lots),
         "Profit/loss": round(pnl),
-        "Lots": lots,
-        "Lot size": lot_size,
         "Exit reason": reason,
     }
 
@@ -78,7 +78,7 @@ class TradeJournal:
     def __init__(self, csv_path: str | Path, sheet_id: str = "", worksheet: str = ""):
         self.csv_path = Path(csv_path)
         self.sheet_id = sheet_id
-        self.worksheet = worksheet or "Sheet1"
+        self.worksheet = worksheet or "Paper trades"
 
     def append(self, rows: list[dict]) -> None:
         if not rows:
@@ -108,7 +108,11 @@ class TradeJournal:
 
         raw = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
         if not raw:
-            raise RuntimeError("GOOGLE_SERVICE_ACCOUNT_JSON is not set")
+            raise RuntimeError(
+                "GOOGLE_SERVICE_ACCOUNT_JSON is not set. "
+                "Put the service-account JSON in .env (or a path to the file), "
+                "and share the sheet with that service account as Editor."
+            )
 
         info = json.loads(Path(raw).read_text()) if raw.endswith(".json") else json.loads(raw)
         return Credentials.from_service_account_info(
@@ -124,10 +128,15 @@ class TradeJournal:
         try:
             sheet = spreadsheet.worksheet(self.worksheet)
         except gspread.WorksheetNotFound:
-            sheet = spreadsheet.add_worksheet(self.worksheet, rows=1000, cols=len(COLUMNS))
+            sheet = spreadsheet.add_worksheet(self.worksheet, rows=2000, cols=len(COLUMNS))
 
-        if not sheet.get_all_values():
+        existing = sheet.get_all_values()
+        if not existing:
             sheet.append_row(COLUMNS)
+        elif existing[0] != COLUMNS:
+            # Don't overwrite the historical Nifty sheet; ensure our tab has headers.
+            if existing[0][:3] != COLUMNS[:3]:
+                sheet.insert_row(COLUMNS, 1)
 
         sheet.append_rows([[row[column] for column in COLUMNS] for row in rows])
-        print(f"  Logged {len(rows)} trade(s) to Google Sheets.")
+        print(f"  Logged {len(rows)} trade(s) to Google Sheets → '{self.worksheet}'.")

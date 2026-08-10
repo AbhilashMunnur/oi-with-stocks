@@ -247,10 +247,14 @@ Every closed trade is appended to `data/paper_trades.csv`, one row per lot exite
 so a scale-out produces two rows:
 
 ```
-Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Lots,Lot size,Exit reason
-TITAN,Sell,10-Aug-26,5090.0,74.6,24-Aug-26,4784.6,41.2,10,178150,53445,1,175,first_target
-TITAN,Sell,10-Aug-26,5090.0,74.6,28-Aug-26,4326.5,28.4,14,178150,133612,1,175,second_target
+Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
+TITAN,Sell,10-Aug-26,5090.0,74.6,24-Aug-26,4784.6,41.2,10,178150*1,53445,first_target
+TITAN,Sell,10-Aug-26,5090.0,74.6,28-Aug-26,4326.5,28.4,14,178150*1,133612,second_target
 ```
+
+That matches your Nifty backtesting sheet columns, with `Symbol` and `Exit reason`
+added for the multi-stock paper book. Rows go to a separate **Paper trades** tab
+so the historical Nifty results are left alone.
 
 `Holding trading period` counts weekdays, so a Friday-to-Monday trade reads as 1.
 

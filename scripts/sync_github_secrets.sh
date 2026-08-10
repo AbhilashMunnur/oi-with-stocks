@@ -28,11 +28,17 @@ while IFS= read -r line || [ -n "$line" ]; do
   key="${line%%=*}"
   value="${line#*=}"
 
-  case "$key" in ANGEL_*|TELEGRAM_*) ;; *) continue;; esac
+  case "$key" in ANGEL_*|TELEGRAM_*|GOOGLE_SERVICE_ACCOUNT_JSON) ;; *) continue;; esac
 
   if [ -z "$value" ]; then
     skipped+=("$key")
     continue
+  fi
+
+  # Local .env may store a path to the service-account file; Actions needs the
+  # JSON contents themselves because that path won't exist on the runner.
+  if [ "$key" = "GOOGLE_SERVICE_ACCOUNT_JSON" ] && [[ "$value" == *.json ]] && [ -f "$value" ]; then
+    value="$(cat "$value")"
   fi
 
   printf '%s' "$value" | gh secret set "$key"

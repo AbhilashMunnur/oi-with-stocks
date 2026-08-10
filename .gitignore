@@ -4,5 +4,6 @@ __pycache__/
 .env
 .cache/
 logs/
+secrets/
 .DS_Store
 scanner.log

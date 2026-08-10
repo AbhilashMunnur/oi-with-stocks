@@ -1,7 +1,13 @@
 import csv
 from datetime import datetime
 
-from src.paper_trading.journal import COLUMNS, TradeJournal, build_row, trading_days_between
+from src.paper_trading.journal import (
+    COLUMNS,
+    TradeJournal,
+    build_row,
+    capital_needed,
+    trading_days_between,
+)
 
 
 def sample_row(**overrides) -> dict:
@@ -15,8 +21,7 @@ def sample_row(**overrides) -> dict:
         exit_price=4784.6,
         exit_rsi=41.2,
         lots=1,
-        lot_size=175,
-        capital=445_375.0,
+        margin_per_lot=178_150.0,
         pnl=53_445.0,
         reason="first_target",
     )
@@ -39,7 +44,6 @@ def test_dates_use_the_journal_format():
 
 
 def test_holding_period_counts_trading_days_only():
-    # 10 Aug 2026 is a Monday; 24 Aug is the Monday two weeks later.
     assert sample_row()["Holding trading period"] == 10
 
 
@@ -47,6 +51,11 @@ def test_holding_period_skips_the_weekend():
     friday = datetime(2026, 8, 14)
     monday = datetime(2026, 8, 17)
     assert trading_days_between(friday, monday) == 1
+
+
+def test_capital_needed_matches_sheet_style():
+    assert capital_needed(180_000, 2) == "180000*2"
+    assert sample_row(lots=2, margin_per_lot=180_000)["Capital needed"] == "180000*2"
 
 
 def test_entry_and_exit_rsi_are_both_kept():
@@ -57,6 +66,22 @@ def test_entry_and_exit_rsi_are_both_kept():
 
 def test_missing_exit_rsi_is_left_blank():
     assert sample_row(exit_rsi=None)["Exit RSI"] == ""
+
+
+def test_csv_columns_match_the_shared_sheet():
+    assert COLUMNS[:11] == [
+        "Symbol",
+        "Buy/Sell",
+        "Entry date",
+        "Entry price",
+        "Entry RSI",
+        "Exit date",
+        "Exit price",
+        "Exit RSI",
+        "Holding trading period",
+        "Capital needed",
+        "Profit/loss",
+    ]
 
 
 def test_csv_gets_a_header_once_and_appends_after(tmp_path):
@@ -76,7 +101,6 @@ def test_csv_gets_a_header_once_and_appends_after(tmp_path):
 
 
 def test_google_sheet_failure_does_not_lose_the_csv_record(tmp_path):
-    """Logging is best effort; the local record must still be written."""
     path = tmp_path / "trades.csv"
     journal = TradeJournal(path, sheet_id="not-a-real-sheet")
 
