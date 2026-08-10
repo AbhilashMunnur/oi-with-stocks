@@ -33,9 +33,17 @@ cp .env.example .env
 
 ### Option A — Angel One (default, free)
 
-1. Create an app at [smartapi.angelone.in](https://smartapi.angelone.in) to get an API key
-2. Enable TOTP and save the secret shown with the QR code
-3. Fill in `.env`:
+1. Create an app at [smartapi.angelone.in](https://smartapi.angelone.in), choosing the
+   **Trading API** type — the narrower Market Feed and Historical Data keys only work
+   for their one function, and the scanner needs both quotes and candles
+2. Enable TOTP at [smartapi.angelone.in/enable-totp](https://smartapi.angelone.in/enable-totp)
+   and save the secret shown with the QR code
+3. Run the guided setup, which prompts for each value with hidden input and writes
+   `.env` for you:
+   ```bash
+   python scripts/setup_angelone.py
+   ```
+   Or fill in `.env` by hand:
    ```
    ANGEL_API_KEY=your_api_key
    ANGEL_CLIENT_CODE=your_client_code
