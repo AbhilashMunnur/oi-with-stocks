@@ -44,6 +44,18 @@ class NotificationConfig:
 
 
 @dataclass
+class PaperTradingConfig:
+    enabled: bool
+    capital: float
+    lots_per_trade: int
+    first_target_pct: float
+    second_target_pct: float
+    stop_loss_pct: float
+    margin_pct: float
+    ledger_path: str
+
+
+@dataclass
 class AppConfig:
     rsi: RSIConfig
     oi: OIConfig
@@ -52,6 +64,7 @@ class AppConfig:
     watchlist: list[str] | str
     schedule: ScheduleConfig
     notifications: NotificationConfig
+    paper_trading: PaperTradingConfig
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -68,4 +81,5 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         watchlist=watchlist if isinstance(watchlist, str) else list(watchlist),
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
+        paper_trading=PaperTradingConfig(**raw["paper_trading"]),
     )

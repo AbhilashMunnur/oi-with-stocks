@@ -7,6 +7,7 @@ from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, evaluate_stock, matched_signal
+from src.paper_trading import PaperBook
 
 
 class OIRsiScanner:
@@ -17,6 +18,7 @@ class OIRsiScanner:
             history_days=config.data.history_days,
         )
         self.notifier = Notifier(config.notifications)
+        self.book = PaperBook(config.paper_trading) if config.paper_trading.enabled else None
 
     def close(self) -> None:
         self.client.close()
@@ -47,9 +49,10 @@ class OIRsiScanner:
             return self.client.fno_symbols()
         return [symbol.upper() for symbol in watchlist]
 
-    def _rsi_candidates(self, symbols: list[str]) -> list[PriceSnapshot]:
+    def _rsi_candidates(
+        self, symbols: list[str], prices: dict[str, float]
+    ) -> list[PriceSnapshot]:
         """Stocks whose RSI is stretched enough to be worth an option-chain lookup."""
-        prices = self.client.get_ltps(symbols)
         missing = [s for s in symbols if s not in prices]
         if missing:
             print(f"  no live price for {len(missing)} symbol(s): {', '.join(missing[:5])}")
@@ -96,12 +99,39 @@ class OIRsiScanner:
         )
         return None
 
+    def _run_paper_trading(self, alerts: list[ScanAlert], prices: dict[str, float]) -> None:
+        if not self.book:
+            return
+
+        # Exits are settled before entries so freed margin can fund new trades.
+        events = self.book.update(prices)
+        events += self.book.open_from_alerts(alerts)
+        self.book.save()
+
+        if events:
+            print("\nPaper trading")
+            for event in events:
+                pnl = f"  P&L ₹{event.pnl:+,.0f}" if event.pnl else ""
+                print(f"  [{event.kind}] {event.symbol}: {event.detail}{pnl}")
+
+        print()
+        print(self.book.summary(prices))
+
+        if events and self.notifier.telegram_ready:
+            lines = ["Paper trading update", ""]
+            for event in events:
+                pnl = f"  (₹{event.pnl:+,.0f})" if event.pnl else ""
+                lines.append(f"• [{event.kind}] {event.symbol}: {event.detail}{pnl}")
+            lines += ["", self.book.summary(prices)]
+            self.notifier.send_message("\n".join(lines))
+
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         symbols = self.symbols()
         print(f"\nScan started at {started} over {len(symbols)} stocks (live Angel One data)")
 
-        candidates = self._rsi_candidates(symbols)
+        prices = self.client.get_ltps(symbols)
+        candidates = self._rsi_candidates(symbols, prices)
         print(
             f"\n{len(candidates)} stock(s) passed the RSI filter "
             f"(>= {self.config.rsi.call_threshold} or <= {self.config.rsi.put_threshold})"
@@ -118,4 +148,5 @@ class OIRsiScanner:
         else:
             print("\nNo alerts this scan.")
 
+        self._run_paper_trading(alerts, prices)
         return alerts

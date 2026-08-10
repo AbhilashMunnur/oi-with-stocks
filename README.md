@@ -218,6 +218,43 @@ Angel One's quote feed has no change-in-OI field, so this comes from its histori
 OI endpoint, costing two extra requests per alerting stock. Those requests are only
 made once a stock has already qualified, which keeps a full scan around a minute.
 
+## Paper trading
+
+Every alert is also taken as a simulated stock-futures trade, tracked in
+`data/paper_book.json`. The strategy treats the signal as a **reversal**: the max
+OI strikes are read as resistance and support.
+
+| Signal | Position |
+|--------|----------|
+| RSI ≥ 70 near max Call OI | **SHORT** 2 lots — selling into resistance |
+| RSI ≤ 35 near max Put OI | **LONG** 2 lots — buying at support |
+
+Exits, checked on every scan:
+
+| Rule | Action |
+|------|--------|
+| 6% move in our favour | Close 1 lot |
+| 15% move in our favour | Close the remaining lot |
+| 3% move against us | Close everything |
+| Expiry reached | Close everything at market |
+
+Settings live under `paper_trading` in `config.yaml` — capital, lot count, both
+targets, the stop and the assumed margin.
+
+### What the simulation assumes
+
+These matter when comparing against what real fills would have produced:
+
+- **Prices are only seen every 30 minutes.** A move that pierces a level and
+  recovers inside that window is never observed, so some real stop-outs are missed.
+- **Targets and stops fill at their exact trigger levels**, like resting orders. A
+  price gapping straight past a stop would fill worse in reality.
+- **When one snapshot shows both a stop and a target reached**, the stop is taken,
+  since the order they happened within the window is unknowable.
+- **Margin is approximated at 20% of notional.** Real SPAN plus exposure margin
+  varies by stock and volatility.
+- Costs are not modelled: no brokerage, slippage, STT or impact.
+
 ## Notes
 
 - Only the **nearest expiry** is used for the OI comparison
