@@ -195,3 +195,51 @@ def test_ledger_survives_a_restart(config):
     assert len(reloaded.positions) == 1
     assert reloaded.positions[0].lots_open == 1
     assert reloaded.realised_pnl == pytest.approx(book.realised_pnl)
+    assert reloaded.day_realised_pnl == pytest.approx(book.day_realised_pnl)
+
+
+def test_day_realised_tracks_todays_exits(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+
+    book.update({"TITAN": 4700.0})
+
+    assert book.day_realised_pnl == pytest.approx(300.0 * 175)
+    assert book.day_pnl({"TITAN": 4700.0}) == pytest.approx(
+        book.day_realised_pnl + book.unrealised({"TITAN": 4700.0})
+    )
+
+
+def test_day_realised_resets_on_a_new_calendar_day(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+    book.update({"TITAN": 4700.0})
+    book.day_date = "2020-01-01"
+    book.save()
+
+    reloaded = PaperBook(config)
+
+    assert reloaded.day_date == str(date.today())
+    assert reloaded.day_realised_pnl == 0.0
+    assert reloaded.realised_pnl == pytest.approx(300.0 * 175)
+
+
+def test_telegram_report_lists_each_open_position_and_day_pnl(config):
+    book = PaperBook(config)
+    book.open_from_alerts(
+        [
+            alert(symbol="TITAN", ltp=5000.0),
+            alert(signal=SignalType.PUT_OI, symbol="HAL", ltp=4900.0, lot_size=150),
+        ]
+    )
+
+    report = book.telegram_report(
+        {"TITAN": 4900.0, "HAL": 5000.0},
+        events=[],
+    )
+
+    assert "Open positions (2)" in report
+    assert "TITAN SHORT" in report
+    assert "HAL LONG" in report
+    assert "Day P&L" in report
+    assert "P&L ₹" in report

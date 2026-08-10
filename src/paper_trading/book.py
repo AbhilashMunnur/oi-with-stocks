@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
@@ -43,12 +43,21 @@ class PaperBook:
         self.positions: list[Position] = []
         self.realised_pnl: float = 0.0
         self.closed_count: int = 0
+        self.day_date: str = str(date.today())
+        self.day_realised_pnl: float = 0.0
         self._pending_rows: list[dict] = []
         self._load()
 
     # ------------------------------------------------------------------ #
     # Persistence
     # ------------------------------------------------------------------ #
+
+    def _roll_day(self, today: date | None = None) -> None:
+        """Reset the day bucket when the calendar date changes."""
+        today_s = str(today or date.today())
+        if self.day_date != today_s:
+            self.day_date = today_s
+            self.day_realised_pnl = 0.0
 
     def _load(self) -> None:
         if not self.path.exists():
@@ -58,13 +67,19 @@ class PaperBook:
         self.positions = [Position.from_dict(p) for p in raw.get("positions", [])]
         self.realised_pnl = float(raw.get("realised_pnl", 0.0))
         self.closed_count = int(raw.get("closed_count", 0))
+        self.day_date = str(raw.get("day_date") or date.today())
+        self.day_realised_pnl = float(raw.get("day_realised_pnl", 0.0))
+        self._roll_day()
 
     def save(self) -> None:
+        self._roll_day()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "capital": self.config.capital,
             "realised_pnl": round(self.realised_pnl, 2),
             "closed_count": self.closed_count,
+            "day_date": self.day_date,
+            "day_realised_pnl": round(self.day_realised_pnl, 2),
             "updated_at": now_stamp(),
             "positions": [p.to_dict() for p in self.positions],
         }
@@ -115,6 +130,8 @@ class PaperBook:
         position.margin_blocked -= released
         position.lots_open -= lots
         self.realised_pnl += pnl
+        self._roll_day()
+        self.day_realised_pnl += pnl
 
         margin_per_lot = (
             released / lots
@@ -304,17 +321,76 @@ class PaperBook:
             if p.is_open and p.symbol in prices
         )
 
+    def day_pnl(self, prices: dict[str, float]) -> float:
+        """Exits booked today plus current mark-to-market on open lots."""
+        self._roll_day()
+        return self.day_realised_pnl + self.unrealised(prices)
+
     def summary(self, prices: dict[str, float]) -> str:
         open_pnl = self.unrealised(prices)
         total = self.realised_pnl + open_pnl
         equity = self.config.capital + total
+        day = self.day_pnl(prices)
 
         lines = [
             "Paper book",
             f"  Open positions   {len(self.positions)}",
+            f"  Day P&L          ₹{day:,.0f}  (realised today ₹{self.day_realised_pnl:,.0f} + open ₹{open_pnl:,.0f})",
             f"  Realised P&L     ₹{self.realised_pnl:,.0f} over {self.closed_count} closed trade(s)",
             f"  Unrealised P&L   ₹{open_pnl:,.0f}",
             f"  Equity           ₹{equity:,.0f} ({total / self.config.capital * 100:+.2f}%)",
             f"  Free capital     ₹{self.free_capital:,.0f}",
+        ]
+        return "\n".join(lines)
+
+    def telegram_report(
+        self,
+        prices: dict[str, float],
+        events: list[TradeEvent] | None = None,
+    ) -> str:
+        """Position-level book update for Telegram."""
+        self._roll_day()
+        stamp = datetime.now().strftime("%d %b %Y %H:%M")
+        lines = [f"Paper book — {stamp}"]
+
+        if events:
+            lines.append("")
+            lines.append("This scan")
+            for event in events:
+                pnl = f"  ₹{event.pnl:+,.0f}" if event.pnl else ""
+                lines.append(f"• [{event.kind}] {event.symbol}: {event.detail}{pnl}")
+
+        open_positions = [p for p in self.positions if p.is_open]
+        if open_positions:
+            lines.append("")
+            lines.append(f"Open positions ({len(open_positions)})")
+            for position in sorted(open_positions, key=lambda p: p.symbol):
+                price = prices.get(position.symbol)
+                if price is None:
+                    lines.append(
+                        f"• {position.symbol} {position.direction} "
+                        f"{position.lots_open}/{position.lots_total} lots @ "
+                        f"₹{position.entry_price:,.2f} | LTP n/a"
+                    )
+                    continue
+
+                move = position.move_pct(price)
+                upnl = position.unrealised(price)
+                lines.append(
+                    f"• {position.symbol} {position.direction} "
+                    f"{position.lots_open}/{position.lots_total} lots @ "
+                    f"₹{position.entry_price:,.2f} | LTP ₹{price:,.2f} "
+                    f"({move:+.2f}%) | P&L ₹{upnl:+,.0f}"
+                )
+
+        open_pnl = self.unrealised(prices)
+        day = self.day_realised_pnl + open_pnl
+        lines += [
+            "",
+            f"Day realised   ₹{self.day_realised_pnl:+,.0f}",
+            f"Open unrealised ₹{open_pnl:+,.0f}",
+            f"Day P&L        ₹{day:+,.0f}",
+            f"Lifetime realised ₹{self.realised_pnl:+,.0f} ({self.closed_count} closed)",
+            f"Free capital   ₹{self.free_capital:,.0f}",
         ]
         return "\n".join(lines)

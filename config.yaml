@@ -6,7 +6,7 @@ rsi:
 
 # How close price must be to the max OI strike (percentage)
 oi:
-  proximity_pct: 2.0      # e.g. 2% means price within 2% of the strike
+  proximity_pct: 1.0      # e.g. 1% means price within 1% of the strike
 
 # Live data from Angel One SmartAPI
 data:
@@ -41,7 +41,7 @@ paper_trading:
   lots_per_trade: 2
   first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
   second_target_pct: 15.0   # Close the remaining lot at 15%
-  stop_loss_pct: 3.0        # Close everything on a 3% adverse move
+  stop_loss_pct: 4.0        # Close everything on a 4% adverse move
   margin_pct: 20.0          # Approximate futures margin as a % of notional
   ledger_path: data/paper_book.json     # Open positions and running P&L
   journal_csv: data/paper_trades.csv    # One row per closed trade

@@ -141,13 +141,15 @@ class OIRsiScanner:
         print()
         print(self.book.summary(prices))
 
-        if events and self.notifier.telegram_ready:
-            lines = ["Paper trading update", ""]
-            for event in events:
-                pnl = f"  (₹{event.pnl:+,.0f})" if event.pnl else ""
-                lines.append(f"• [{event.kind}] {event.symbol}: {event.detail}{pnl}")
-            lines += ["", self.book.summary(prices)]
-            self.notifier.send_message("\n".join(lines))
+        # Send a book snapshot whenever something changed or positions are open,
+        # so Telegram always has live per-position and day P&L during the session.
+        if self.notifier.telegram_ready and (events or self.book.positions):
+            report = self.book.telegram_report(prices, events)
+            delivered = self.notifier.send_message(report)
+            print(
+                f"Sent paper book to Telegram "
+                f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
+            )
 
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

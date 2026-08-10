@@ -61,7 +61,7 @@ Edit `config.yaml`:
 |---------|---------|-------------|
 | `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
 | `rsi.put_threshold` | 35 | RSI must be at or below this for a Put OI alert |
-| `oi.proximity_pct` | 2.0 | Price must be within this % of the max OI strike |
+| `oi.proximity_pct` | 1.0 | Price must be within this % of the max OI strike |
 | `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
 | `schedule.interval_minutes` | 30 | How often to scan during market hours |
