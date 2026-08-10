@@ -134,10 +134,14 @@ from 09:15 to 15:45 IST on weekdays, so nothing needs to stay open at home.
 It is free for public repositories.
 
 1. Set up Telegram first — a hosted run has no terminal to print to
-2. In your repo, open **Settings → Secrets and variables → Actions**, and add six
-   repository secrets:
+2. Push the credentials in `.env` up as repository secrets:
+   ```bash
+   ./scripts/sync_github_secrets.sh
+   ```
+   Re-run it whenever you rotate a credential. To do it by hand instead, add
    `ANGEL_API_KEY`, `ANGEL_CLIENT_CODE`, `ANGEL_PIN`, `ANGEL_TOTP_SECRET`,
-   `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+   `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` under
+   **Settings → Secrets and variables → Actions**
 3. Open the **Actions** tab, pick **OI + RSI scan**, and use **Run workflow** to
    trigger a scan by hand and confirm the alert reaches your phone
 
