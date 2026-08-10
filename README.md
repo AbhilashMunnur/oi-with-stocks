@@ -7,13 +7,17 @@ Scans NSE F&O stocks on **live broker data** and alerts when:
 
 ## Data providers
 
-Pick whichever broker account you have. Both are free with an account and give live
-prices *and* live option-chain OI from a single authenticated session.
+Either broker supplies live prices *and* live option-chain OI from a single
+authenticated session. **Angel One is the default because its market data is free.**
 
-| Provider | Config value | OI source | Notes |
-|----------|--------------|-----------|-------|
-| **Dhan** | `dhan` | Native option chain endpoint | Simplest; access token lasts 30 days |
-| **Angel One** | `angelone` | Chain rebuilt from instrument master + full quotes | TOTP auto-login, no daily step |
+| Provider | Config value | Data cost | OI source |
+|----------|--------------|-----------|-----------|
+| **Angel One** | `angelone` | Free — no subscription, historical data included | Chain rebuilt from instrument master + full quotes |
+| **Dhan** | `dhan` | ₹499 + taxes/month Data API plan | Native option chain endpoint |
+
+Dhan bills Trading APIs and Data APIs separately: trading is free, but the live feed,
+historical candles and option chain this scanner relies on all sit behind the paid
+Data API plan. Angel One SmartAPI charges nothing for the same endpoints.
 
 Switch with `data.provider` in `config.yaml`, or per run with `--provider`.
 
@@ -27,18 +31,7 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-### Option A — Dhan
-
-1. Open [web.dhan.co](https://web.dhan.co) → **DhanHQ Trading APIs** → generate an access token
-2. Fill in `.env`:
-   ```
-   DHAN_CLIENT_ID=your_client_id
-   DHAN_ACCESS_TOKEN=your_access_token
-   ```
-
-The token is valid for 30 days, so there is no daily login step.
-
-### Option B — Angel One
+### Option A — Angel One (default, free)
 
 1. Create an app at [smartapi.angelone.in](https://smartapi.angelone.in) to get an API key
 2. Enable TOTP and save the secret shown with the QR code
@@ -49,9 +42,25 @@ The token is valid for 30 days, so there is no daily login step.
    ANGEL_PIN=your_pin
    ANGEL_TOTP_SECRET=your_totp_secret
    ```
-4. Set `provider: angelone` in `config.yaml`
 
-Login happens automatically on every run using the TOTP secret.
+Login happens automatically on every run using the TOTP secret, so there is no daily step.
+
+From 1 Apr 2026 Angel One requires a registered static IP, but only for **order
+execution**. This scanner is read-only and places no orders, so it is unaffected.
+
+### Option B — Dhan (paid data plan)
+
+1. Subscribe to **DhanHQ Data APIs** (₹499 + taxes/month) — the free Trading API tier
+   does not include the live feed, historical candles or option chain
+2. Open [web.dhan.co](https://web.dhan.co) → **DhanHQ Trading APIs** → generate an access token
+3. Fill in `.env`:
+   ```
+   DHAN_CLIENT_ID=your_client_id
+   DHAN_ACCESS_TOKEN=your_access_token
+   ```
+4. Set `provider: dhan` in `config.yaml`
+
+The token is valid for 30 days, so there is no daily login step.
 
 ## Configuration
 
@@ -62,7 +71,7 @@ Edit `config.yaml`:
 | `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
 | `rsi.put_threshold` | 35 | RSI must be at or below this for a Put OI alert |
 | `oi.proximity_pct` | 2.0 | Price must be within this % of the max OI strike |
-| `data.provider` | dhan | `dhan` or `angelone` |
+| `data.provider` | angelone | `angelone` (free) or `dhan` (paid data plan) |
 | `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
 | `watchlist` | 10 stocks | NSE F&O symbols to scan |
 | `schedule.interval_minutes` | 15 | How often to scan during market hours |
