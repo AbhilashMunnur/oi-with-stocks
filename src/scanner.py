@@ -6,7 +6,7 @@ from src.config import AppConfig
 from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
-from src.oi_analyzer import ScanAlert, evaluate_stock
+from src.oi_analyzer import ScanAlert, evaluate_stock, matched_signal
 
 
 class OIRsiScanner:
@@ -77,16 +77,17 @@ class OIRsiScanner:
         if not oi:
             return None
 
-        alert = evaluate_stock(
-            price=price,
-            oi=oi,
+        thresholds = dict(
             rsi_call_threshold=self.config.rsi.call_threshold,
             rsi_put_threshold=self.config.rsi.put_threshold,
             proximity_pct=self.config.oi.proximity_pct,
         )
 
-        if alert:
-            return alert
+        # OI history costs two extra requests, so only price it in once the
+        # stock has actually qualified.
+        if matched_signal(price, oi, **thresholds) is not None:
+            self.client.add_oi_changes(oi)
+            return evaluate_stock(price=price, oi=oi, **thresholds)
 
         print(
             f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "

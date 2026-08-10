@@ -118,10 +118,13 @@ OI + RSI alerts — 10 Aug 2026 15:45
 
 CALL OI (overbought, near max Call OI)
 • TITAN: RSI 74.6 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
+    ΔOI +1,467,000 | ΔPCR 1.02 | call writing, put writing
 • HAL: RSI 75.8 | ₹4,928.00 vs strike ₹5,000 (1.44% away)
+    ΔOI +48,600 | ΔPCR 0.28 | call writing, put writing
 
 PUT OI (oversold, near max Put OI)
 • LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
+    ΔOI -73,000 | call unwinding, put unwinding
 ```
 
 Telegram is enabled in `config.yaml` but only used when both values are present,
@@ -176,6 +179,25 @@ Typical timings for the full 208-stock universe:
 |-----|------|
 | First scan of the day (fetches candles) | ~2m 20s |
 | Later scans (candle cache warm) | ~1m |
+
+## Open interest change and the change PCR
+
+Alerts also carry how open interest moved since the previous session's close, at
+the two peak strikes:
+
+- **ΔOI** — today's OI at that strike minus its previous closing OI. Positive means
+  fresh positions are being written there, negative means the strike is unwinding.
+- **Change PCR** — ΔPut OI at the max Put strike divided by ΔCall OI at the max Call
+  strike. Above 1 means puts are building faster than calls.
+
+The ratio is deliberately **only shown when both sides are adding** positions. If
+either side is unwinding, the division flips sign and stops meaning anything, so
+the scanner reports the raw changes and a plain description like `call writing,
+put unwinding` instead of a misleading number.
+
+Angel One's quote feed has no change-in-OI field, so this comes from its historical
+OI endpoint, costing two extra requests per alerting stock. Those requests are only
+made once a stock has already qualified, which keeps a full scan around a minute.
 
 ## Notes
 

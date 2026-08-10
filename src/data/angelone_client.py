@@ -397,6 +397,7 @@ class AngelOneClient:
 
         max_call_oi = max_put_oi = -1
         max_call_strike = max_put_strike = 0.0
+        max_call_token = max_put_token = ""
 
         for token, oi in open_interest.items():
             row = by_token.get(token)
@@ -409,10 +410,10 @@ class AngelOneClient:
 
             if str(row.get("symbol", "")).endswith("CE"):
                 if oi > max_call_oi:
-                    max_call_oi, max_call_strike = oi, strike
+                    max_call_oi, max_call_strike, max_call_token = oi, strike, token
             elif str(row.get("symbol", "")).endswith("PE"):
                 if oi > max_put_oi:
-                    max_put_oi, max_put_strike = oi, strike
+                    max_put_oi, max_put_strike, max_put_token = oi, strike, token
 
         if max_call_oi < 0 or max_put_oi < 0:
             return None
@@ -426,4 +427,47 @@ class AngelOneClient:
             max_put_oi=max_put_oi,
             expiry=expiry,
             lot_size=int(float(contracts[0].get("lotsize") or 0)),
+            max_call_token=max_call_token,
+            max_put_token=max_put_token,
         )
+
+    def _previous_session_oi(self, token: str) -> int | None:
+        """Open interest at the previous session's close for one contract."""
+        now = datetime.now()
+        try:
+            response = self._call(
+                self._candle_throttle,
+                "getOIData",
+                {
+                    "exchange": "NFO",
+                    "symboltoken": token,
+                    "interval": "ONE_DAY",
+                    "fromdate": (now - timedelta(days=10)).strftime("%Y-%m-%d %H:%M"),
+                    "todate": now.strftime("%Y-%m-%d %H:%M"),
+                },
+            )
+        except Exception as exc:
+            print(f"  OI history unavailable for token {token} ({exc})")
+            return None
+
+        today = f"{date.today():%Y-%m-%d}"
+        prior = [
+            int(float(row["oi"]))
+            for row in (response or {}).get("data") or []
+            if str(row.get("time", ""))[:10] < today
+        ]
+        return prior[-1] if prior else None
+
+    def add_oi_changes(self, snapshot: OISnapshot) -> OISnapshot:
+        """Fill in OI change at the peak call and put strikes, versus yesterday."""
+        if snapshot.max_call_token:
+            previous = self._previous_session_oi(snapshot.max_call_token)
+            if previous is not None:
+                snapshot.call_oi_change = snapshot.max_call_oi - previous
+
+        if snapshot.max_put_token:
+            previous = self._previous_session_oi(snapshot.max_put_token)
+            if previous is not None:
+                snapshot.put_oi_change = snapshot.max_put_oi - previous
+
+        return snapshot

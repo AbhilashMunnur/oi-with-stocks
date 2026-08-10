@@ -60,6 +60,16 @@ class Notifier:
                     f"vs strike ₹{alert.oi_strike:,.0f} ({alert.distance_pct:.2f}% away)"
                 )
 
+                detail = []
+                if alert.oi_change is not None:
+                    detail.append(f"ΔOI {alert.oi_change:+,}")
+                if alert.change_pcr is not None:
+                    detail.append(f"ΔPCR {alert.change_pcr:.2f}")
+                if alert.buildup:
+                    detail.append(alert.buildup)
+                if detail:
+                    lines.append(f"    {' | '.join(detail)}")
+
         lines.append(f"\nExpiry: {alerts[0].expiry}")
         return "\n".join(lines)
 

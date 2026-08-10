@@ -17,13 +17,15 @@ class ScanAlert:
     distance_pct: float
     expiry: str
     message: str
+    oi_change: int | None = None
+    change_pcr: float | None = None
+    buildup: str = ""
 
 
 def is_near_strike(price: float, strike: float, proximity_pct: float) -> bool:
     if strike <= 0:
         return False
-    distance_pct = abs(price - strike) / strike * 100
-    return distance_pct <= proximity_pct
+    return distance_to_strike_pct(price, strike) <= proximity_pct
 
 
 def distance_to_strike_pct(price: float, strike: float) -> float:
@@ -40,6 +42,40 @@ def format_oi(oi: OISnapshot, open_interest: int) -> str:
     return f"{lots:,} contracts"
 
 
+def format_oi_change(oi: OISnapshot, change: int | None) -> str:
+    if change is None:
+        return "ΔOI n/a"
+    lots = oi.contracts(change)
+    value = f"{lots:+,} contracts" if lots is not None else f"{change:+,} shares"
+    return f"ΔOI {value}"
+
+
+def matched_signal(
+    price: PriceSnapshot,
+    oi: OISnapshot,
+    rsi_call_threshold: float,
+    rsi_put_threshold: float,
+    proximity_pct: float,
+) -> SignalType | None:
+    """Which alert, if any, this stock qualifies for. No API calls."""
+    if price.rsi is None:
+        return None
+
+    ltp = price.ltp if price.ltp > 0 else oi.ltp
+
+    if price.rsi >= rsi_call_threshold and is_near_strike(
+        ltp, oi.max_call_oi_strike, proximity_pct
+    ):
+        return SignalType.CALL_OI
+
+    if price.rsi <= rsi_put_threshold and is_near_strike(
+        ltp, oi.max_put_oi_strike, proximity_pct
+    ):
+        return SignalType.PUT_OI
+
+    return None
+
+
 def evaluate_stock(
     price: PriceSnapshot,
     oi: OISnapshot,
@@ -47,48 +83,48 @@ def evaluate_stock(
     rsi_put_threshold: float,
     proximity_pct: float,
 ) -> ScanAlert | None:
-    if price.rsi is None:
+    signal = matched_signal(price, oi, rsi_call_threshold, rsi_put_threshold, proximity_pct)
+    if signal is None:
         return None
 
     ltp = price.ltp if price.ltp > 0 else oi.ltp
     rsi = price.rsi
 
-    # RSI >= 70 and price near highest call OI strike
-    if rsi >= rsi_call_threshold and is_near_strike(ltp, oi.max_call_oi_strike, proximity_pct):
-        distance = distance_to_strike_pct(ltp, oi.max_call_oi_strike)
-        return ScanAlert(
-            symbol=price.symbol,
-            signal=SignalType.CALL_OI,
-            ltp=ltp,
-            rsi=rsi,
-            oi_strike=oi.max_call_oi_strike,
-            oi_value=oi.max_call_oi,
-            distance_pct=distance,
-            expiry=oi.expiry,
-            message=(
-                f"{price.symbol}: RSI {rsi:.1f} (>= {rsi_call_threshold}) and price "
-                f"₹{ltp:.2f} is near max Call OI strike ₹{oi.max_call_oi_strike:.0f} "
-                f"(OI: {format_oi(oi, oi.max_call_oi)}, distance: {distance:.2f}%)"
-            ),
-        )
+    if signal is SignalType.CALL_OI:
+        strike, value = oi.max_call_oi_strike, oi.max_call_oi
+        change = oi.call_oi_change
+        comparison = f"RSI {rsi:.1f} (>= {rsi_call_threshold})"
+        label = "Call"
+    else:
+        strike, value = oi.max_put_oi_strike, oi.max_put_oi
+        change = oi.put_oi_change
+        comparison = f"RSI {rsi:.1f} (<= {rsi_put_threshold})"
+        label = "Put"
 
-    # RSI <= 35 and price near highest put OI strike
-    if rsi <= rsi_put_threshold and is_near_strike(ltp, oi.max_put_oi_strike, proximity_pct):
-        distance = distance_to_strike_pct(ltp, oi.max_put_oi_strike)
-        return ScanAlert(
-            symbol=price.symbol,
-            signal=SignalType.PUT_OI,
-            ltp=ltp,
-            rsi=rsi,
-            oi_strike=oi.max_put_oi_strike,
-            oi_value=oi.max_put_oi,
-            distance_pct=distance,
-            expiry=oi.expiry,
-            message=(
-                f"{price.symbol}: RSI {rsi:.1f} (<= {rsi_put_threshold}) and price "
-                f"₹{ltp:.2f} is near max Put OI strike ₹{oi.max_put_oi_strike:.0f} "
-                f"(OI: {format_oi(oi, oi.max_put_oi)}, distance: {distance:.2f}%)"
-            ),
-        )
+    distance = distance_to_strike_pct(ltp, strike)
+    pcr = oi.change_pcr
 
-    return None
+    detail = (
+        f"OI: {format_oi(oi, value)}, {format_oi_change(oi, change)}, "
+        f"distance: {distance:.2f}%"
+    )
+    if pcr is not None:
+        detail += f", change PCR: {pcr:.2f}"
+
+    return ScanAlert(
+        symbol=price.symbol,
+        signal=signal,
+        ltp=ltp,
+        rsi=rsi,
+        oi_strike=strike,
+        oi_value=value,
+        distance_pct=distance,
+        expiry=oi.expiry,
+        oi_change=change,
+        change_pcr=pcr,
+        buildup=oi.buildup,
+        message=(
+            f"{price.symbol}: {comparison} and price ₹{ltp:.2f} is near max {label} "
+            f"OI strike ₹{strike:.0f} ({detail})"
+        ),
+    )
