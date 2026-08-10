@@ -83,15 +83,17 @@ python main.py --once
 python main.py --once --symbol RELIANCE
 ```
 
-**Run continuously (scans every 30 min during market hours):**
+**Scheduled mode (scans every 30 min, 09:15–15:45 on weekdays):**
 ```bash
 python main.py
 ```
 
-It scans on weekdays between `market_start` and `market_end`, skips weekends and
-after-hours, and keeps running if a single scan fails so a transient API error does
-not end the session. Angel One tokens expire daily, so it re-logins automatically
-when the session is rejected or the date rolls over. Press Ctrl+C to stop.
+Scans only run inside that window. Outside it — after hours, weekends — the process
+stays up but idles, printing a skip line instead of calling the API, so it costs
+nothing while waiting for the next session. It also keeps running if a single scan
+fails, so a transient API error does not end the day. Angel One tokens expire daily,
+so it re-logins automatically when the session is rejected or the date rolls over.
+Press Ctrl+C to stop.
 
 To keep it alive after closing the terminal:
 
