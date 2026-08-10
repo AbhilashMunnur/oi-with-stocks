@@ -130,6 +130,23 @@ PUT OI (oversold, near max Put OI)
 Telegram is enabled in `config.yaml` but only used when both values are present,
 so it stays quiet until you set it up.
 
+### Sending to more than one person
+
+```bash
+python scripts/add_telegram_recipient.py
+```
+
+Telegram only lets a bot message people who have contacted it first, so the new
+person must open the bot and press **Start** before running this. The script waits
+for them, then appends their chat ID to `TELEGRAM_CHAT_ID`, which accepts a comma
+separated list. A failure to reach one recipient does not stop the others.
+
+Run `./scripts/sync_github_secrets.sh` afterwards so the hosted scans pick up the
+new list.
+
+For a larger group, create a Telegram group, add the bot to it, and use the group's
+chat ID instead — then people can be added or removed without touching the config.
+
 ## Running without your own machine
 
 `.github/workflows/scan.yml` runs the scan on GitHub's servers every 30 minutes

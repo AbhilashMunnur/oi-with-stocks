@@ -17,13 +17,18 @@ class Notifier:
         load_dotenv()
         self.config = config
         self.bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-        self.chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+        # One or more recipients, comma separated.
+        self.chat_ids = [
+            chat_id.strip()
+            for chat_id in os.getenv("TELEGRAM_CHAT_ID", "").split(",")
+            if chat_id.strip()
+        ]
         self._recent: dict[str, datetime] = {}
         self._warned_missing = False
 
     @property
     def telegram_ready(self) -> bool:
-        return bool(self.config.telegram and self.bot_token and self.chat_id)
+        return bool(self.config.telegram and self.bot_token and self.chat_ids)
 
     def _cooldown_key(self, alert: ScanAlert) -> str:
         return f"{alert.symbol}:{alert.signal.value}"
@@ -79,13 +84,26 @@ class Notifier:
         lines.append(f"\nExpiry: {alerts[0].expiry}")
         return "\n".join(lines)
 
-    def send_message(self, text: str) -> None:
-        response = requests.post(
-            TELEGRAM_API.format(token=self.bot_token),
-            json={"chat_id": self.chat_id, "text": text},
-            timeout=20,
-        )
-        response.raise_for_status()
+    def send_message(self, text: str) -> int:
+        """Send to every recipient. One bad chat ID must not silence the rest."""
+        delivered = 0
+
+        for chat_id in self.chat_ids:
+            try:
+                response = requests.post(
+                    TELEGRAM_API.format(token=self.bot_token),
+                    json={"chat_id": chat_id, "text": text},
+                    timeout=20,
+                )
+                response.raise_for_status()
+                delivered += 1
+            except requests.RequestException as exc:
+                detail = ""
+                if exc.response is not None:
+                    detail = f": {exc.response.json().get('description', '')}"
+                print(f"  could not reach chat {chat_id}{detail}")
+
+        return delivered
 
     def notify(self, alerts: list[ScanAlert]) -> None:
         fresh = [alert for alert in alerts if not self._is_on_cooldown(alert)]
@@ -98,11 +116,9 @@ class Notifier:
 
         if self.config.telegram:
             if self.telegram_ready:
-                try:
-                    self.send_message(self._digest(fresh))
-                    print(f"\nSent {len(fresh)} alert(s) to Telegram.")
-                except requests.RequestException as exc:
-                    print(f"\nTelegram notification failed: {exc}")
+                delivered = self.send_message(self._digest(fresh))
+                recipients = f"{delivered}/{len(self.chat_ids)} recipient(s)"
+                print(f"\nSent {len(fresh)} alert(s) to Telegram ({recipients}).")
             elif not self._warned_missing:
                 print("\nTelegram enabled but TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID are missing.")
                 self._warned_missing = True
