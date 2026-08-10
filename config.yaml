@@ -41,7 +41,8 @@ paper_trading:
   lots_per_trade: 2
   first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
   second_target_pct: 15.0   # Close the remaining lot at 15%
-  stop_loss_pct: 4.0        # Close everything on a 4% adverse move
+  stop_loss_pct: 4.0        # Close everything on a 4% adverse move (before first target)
+  second_lot_stop_pct: 1.0  # After booking 1 lot at 6%, SL on the rest = 1% from entry
   margin_pct: 20.0          # Approximate futures margin as a % of notional
   # Paper futures month: 1 = current, 3 = far month (August → October).
   futures_month: 3

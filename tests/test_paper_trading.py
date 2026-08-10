@@ -133,6 +133,32 @@ def test_stop_loss_closes_everything(config):
     assert book.realised_pnl == pytest.approx(-150.0 * 2 * 175)
 
 
+def test_one_percent_adverse_does_not_stop_before_first_target(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+
+    # Short @ 5000; 1% adverse is 5050, but initial stop is 3% in the fixture.
+    events = book.update({"TITAN": 5050.0})
+
+    assert not events
+    assert book.positions[0].lots_open == 2
+
+
+def test_after_first_target_stop_tightens_to_one_percent_from_entry(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+
+    book.update({"TITAN": 4700.0})  # +6% for the short → book 1 lot
+    assert book.positions[0].lots_open == 1
+
+    # 1% adverse from entry on a short @ 5000 is 5050.
+    events = book.update({"TITAN": 5050.0})
+
+    assert [e.kind for e in events] == ["stop_loss"]
+    assert not book.positions
+    assert events[0].pnl == pytest.approx(-50.0 * 175)
+
+
 def test_stop_wins_when_a_snapshot_shows_both_levels(config):
     """Intrabar order is unknown, so the adverse case is assumed."""
     book = PaperBook(config)

@@ -169,6 +169,12 @@ class PaperBook:
             pnl=pnl,
         )
 
+    def _stop_pct(self, position: Position) -> float:
+        """Full stop until the first lot is booked; then tighten from entry."""
+        if position.lots_open < position.lots_total:
+            return self.config.second_lot_stop_pct
+        return self.config.stop_loss_pct
+
     def _apply_exits(
         self, position: Position, price: float, today: date, rsi: float | None
     ) -> list[TradeEvent]:
@@ -177,8 +183,9 @@ class PaperBook:
 
         # Stop first: on a 30-minute snapshot we cannot know the intrabar order,
         # so assume the adverse level was reached before any target.
-        if move <= -self.config.stop_loss_pct + TRIGGER_TOLERANCE:
-            stop_price = position.price_at_move(-self.config.stop_loss_pct)
+        stop_pct = self._stop_pct(position)
+        if move <= -stop_pct + TRIGGER_TOLERANCE:
+            stop_price = position.price_at_move(-stop_pct)
             events.append(
                 self._close_lots(
                     position, position.lots_open, stop_price, ExitReason.STOP_LOSS, rsi
@@ -202,6 +209,9 @@ class PaperBook:
                     rsi,
                 )
             )
+            # Remaining lot now uses second_lot_stop_pct from entry. The same
+            # snapshot is still at/above the first target, so it cannot also
+            # be through the tighter stop.
 
         if move >= second_target - TRIGGER_TOLERANCE and position.is_open:
             events.append(

@@ -58,6 +58,9 @@ class PaperTradingConfig:
     google_worksheet: str = ""
     # 1 = current month futures, 3 = far month (e.g. August → October).
     futures_month: int = 3
+    # After the first lot is booked at first_target_pct, the remaining lot's
+    # stop tightens to this % adverse from the original entry price.
+    second_lot_stop_pct: float = 1.0
 
 
 @dataclass

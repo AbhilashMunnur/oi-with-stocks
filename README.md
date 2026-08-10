@@ -236,7 +236,8 @@ Exits, checked on every scan:
 |------|--------|
 | 6% move in our favour | Close 1 lot |
 | 15% move in our favour | Close the remaining lot |
-| 3% move against us | Close everything |
+| 4% move against us (before first target) | Close everything |
+| After 1st lot booked, 1% against entry | Close the remaining lot |
 | Expiry reached | Close everything at market |
 
 Settings live under `paper_trading` in `config.yaml` — capital, lot count, both
