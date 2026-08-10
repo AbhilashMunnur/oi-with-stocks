@@ -339,7 +339,7 @@ class PaperBook:
             f"  Day P&L          ₹{day:,.0f}  (realised today ₹{self.day_realised_pnl:,.0f} + open ₹{open_pnl:,.0f})",
             f"  Realised P&L     ₹{self.realised_pnl:,.0f} over {self.closed_count} closed trade(s)",
             f"  Unrealised P&L   ₹{open_pnl:,.0f}",
-            f"  Equity           ₹{equity:,.0f} ({total / self.config.capital * 100:+.2f}%)",
+            f"  Book value       ₹{equity:,.0f} ({total / self.config.capital * 100:+.2f}%)",
             f"  Free capital     ₹{self.free_capital:,.0f}",
         ]
         return "\n".join(lines)

@@ -144,8 +144,8 @@ def format_pnl_dashboard(
     lines = [
         f"<b>Paper positions</b> · <i>{stamp}</i>",
         f"Day P&amp;L <b>{html.escape(_inr(m['day_pnl'], signed=True))}</b>  ·  "
-        f"Equity {html.escape(_inr(m['equity']))} ({m['equity_pct']:+.2f}%)",
-        f"Open {len(m['open_positions'])}  ·  Free {html.escape(_inr(free_capital))}  ·  "
+        f"Book {html.escape(_inr(m['equity']))} ({m['equity_pct']:+.2f}%)",
+        f"Open {len(m['open_positions'])} fut  ·  Free {html.escape(_inr(free_capital))}  ·  "
         f"Closed {closed_count}",
     ]
     if events:
@@ -248,13 +248,13 @@ def render_positions_image(
         draw.text((x0 + 12, y + 40), value, fill=color, font=value_font)
     y += SUMMARY_H + 8
 
-    # Equity line
-    equity_line = (
-        f"Equity {_inr(m['equity'])} ({m['equity_pct']:+.2f}%)   ·   "
+    # Book value = starting capital + lifetime P&L (futures paper book, not cash equity).
+    book_line = (
+        f"Book {_inr(m['equity'])} ({m['equity_pct']:+.2f}%)   ·   "
         f"Free {_inr(free_capital)}   ·   Lifetime {_inr(m['realised_pnl'], signed=True)} "
         f"({closed_count} closed)"
     )
-    draw.text((PAD, y), equity_line, fill=MUTED, font=small_font)
+    draw.text((PAD, y), book_line, fill=MUTED, font=small_font)
     y += 28
 
     # Column headers

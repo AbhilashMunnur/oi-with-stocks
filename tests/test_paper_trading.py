@@ -240,4 +240,4 @@ def test_telegram_report_lists_each_open_position_and_day_pnl(config):
 
     assert "Paper positions" in report
     assert "Day P&amp;L" in report
-    assert "Equity" in report
+    assert "Book" in report

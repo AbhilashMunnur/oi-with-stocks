@@ -37,7 +37,7 @@ def test_dashboard_caption_keeps_day_pnl_up_front():
 
     assert "Paper positions" in text
     assert "Day P&amp;L" in text
-    assert "Equity" in text
+    assert "Book" in text
 
 
 def test_positions_image_is_a_valid_png():
