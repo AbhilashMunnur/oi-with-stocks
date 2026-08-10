@@ -6,8 +6,10 @@ from datetime import datetime, timedelta
 import requests
 from dotenv import load_dotenv
 
-from src.config import NotificationConfig
+from src.config import NotificationConfig, SignalType
 from src.oi_analyzer import ScanAlert
+
+TELEGRAM_API = "https://api.telegram.org/bot{token}/sendMessage"
 
 
 class Notifier:
@@ -17,52 +19,77 @@ class Notifier:
         self.bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
         self.chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
         self._recent: dict[str, datetime] = {}
+        self._warned_missing = False
+
+    @property
+    def telegram_ready(self) -> bool:
+        return bool(self.config.telegram and self.bot_token and self.chat_id)
 
     def _cooldown_key(self, alert: ScanAlert) -> str:
         return f"{alert.symbol}:{alert.signal.value}"
 
     def _is_on_cooldown(self, alert: ScanAlert) -> bool:
-        key = self._cooldown_key(alert)
-        last_sent = self._recent.get(key)
+        last_sent = self._recent.get(self._cooldown_key(alert))
         if not last_sent:
             return False
-        cooldown = timedelta(minutes=self.config.cooldown_minutes)
-        return datetime.now() - last_sent < cooldown
+        return datetime.now() - last_sent < timedelta(minutes=self.config.cooldown_minutes)
 
     def _mark_sent(self, alert: ScanAlert) -> None:
         self._recent[self._cooldown_key(alert)] = datetime.now()
 
     def _send_console(self, alert: ScanAlert) -> None:
-        tag = "CALL OI ALERT" if alert.signal.value == "CALL_OI" else "PUT OI ALERT"
+        tag = "CALL OI ALERT" if alert.signal is SignalType.CALL_OI else "PUT OI ALERT"
         print(f"\n[{tag}] {alert.message}")
 
-    def _send_telegram(self, alert: ScanAlert) -> None:
-        if not self.bot_token or not self.chat_id:
-            print("Telegram enabled but TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.")
-            return
+    def _digest(self, alerts: list[ScanAlert]) -> str:
+        """One message per scan reads better on a phone than one per stock."""
+        lines = [f"OI + RSI alerts — {datetime.now():%d %b %Y %H:%M}"]
 
-        tag = "CALL OI" if alert.signal.value == "CALL_OI" else "PUT OI"
-        text = f"*{tag} ALERT*\n{alert.message}\nExpiry: {alert.expiry}"
+        for signal, heading in (
+            (SignalType.CALL_OI, "CALL OI (overbought, near max Call OI)"),
+            (SignalType.PUT_OI, "PUT OI (oversold, near max Put OI)"),
+        ):
+            group = [a for a in alerts if a.signal is signal]
+            if not group:
+                continue
 
+            lines.append(f"\n{heading}")
+            for alert in sorted(group, key=lambda a: a.distance_pct):
+                lines.append(
+                    f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
+                    f"vs strike ₹{alert.oi_strike:,.0f} ({alert.distance_pct:.2f}% away)"
+                )
+
+        lines.append(f"\nExpiry: {alerts[0].expiry}")
+        return "\n".join(lines)
+
+    def send_message(self, text: str) -> None:
         response = requests.post(
-            f"https://api.telegram.org/bot{self.bot_token}/sendMessage",
-            json={"chat_id": self.chat_id, "text": text, "parse_mode": "Markdown"},
-            timeout=15,
+            TELEGRAM_API.format(token=self.bot_token),
+            json={"chat_id": self.chat_id, "text": text},
+            timeout=20,
         )
         response.raise_for_status()
 
     def notify(self, alerts: list[ScanAlert]) -> None:
-        for alert in alerts:
-            if self._is_on_cooldown(alert):
-                continue
+        fresh = [alert for alert in alerts if not self._is_on_cooldown(alert)]
+        if not fresh:
+            return
 
-            if self.config.console:
+        if self.config.console:
+            for alert in fresh:
                 self._send_console(alert)
 
-            if self.config.telegram:
+        if self.config.telegram:
+            if self.telegram_ready:
                 try:
-                    self._send_telegram(alert)
+                    self.send_message(self._digest(fresh))
+                    print(f"\nSent {len(fresh)} alert(s) to Telegram.")
                 except requests.RequestException as exc:
-                    print(f"Telegram notification failed: {exc}")
+                    print(f"\nTelegram notification failed: {exc}")
+            elif not self._warned_missing:
+                print("\nTelegram enabled but TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID are missing.")
+                self._warned_missing = True
 
+        for alert in fresh:
             self._mark_sent(alert)

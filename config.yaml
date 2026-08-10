@@ -28,7 +28,7 @@ schedule:
 # Notification settings
 notifications:
   console: true
-  telegram: false
+  telegram: true          # Used only when the bot token and chat ID are set
   cooldown_minutes: 30    # Matches the scan interval, so a stock that still
                           # qualifies is re-alerted once per scan. Raise it to
                           # hear about each stock less often.

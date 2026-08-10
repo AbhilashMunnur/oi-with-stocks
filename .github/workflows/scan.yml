@@ -1,0 +1,52 @@
+name: OI + RSI scan
+
+# GitHub cron runs in UTC; IST is UTC+5:30.
+# These fire every 30 minutes from 09:15 to 15:45 IST on weekdays.
+on:
+  schedule:
+    - cron: "45 3 * * 1-5"      # 09:15 IST
+    - cron: "15,45 4-9 * * 1-5" # 09:45 - 15:15 IST
+    - cron: "15 10 * * 1-5"     # 15:45 IST
+  workflow_dispatch:            # lets you trigger a scan by hand
+
+concurrency:
+  group: oi-rsi-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TZ: Asia/Kolkata
+      ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
+      ANGEL_CLIENT_CODE: ${{ secrets.ANGEL_CLIENT_CODE }}
+      ANGEL_PIN: ${{ secrets.ANGEL_PIN }}
+      ANGEL_TOTP_SECRET: ${{ secrets.ANGEL_TOTP_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Cache key for today
+        id: today
+        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+
+      # Daily closes and the instrument master only change once a day, so
+      # sharing them across runs keeps each scan near a minute instead of two.
+      - name: Restore market data cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: market-data-${{ steps.today.outputs.date }}
+
+      - name: Run scan
+        run: python -u main.py --once

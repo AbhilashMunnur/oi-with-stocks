@@ -104,14 +104,46 @@ tail -f scanner.log
 
 ## Telegram notifications
 
-1. Create a bot via [@BotFather](https://t.me/BotFather)
-2. Get your chat ID (e.g. via [@userinfobot](https://t.me/userinfobot))
-3. Add to `.env`:
-   ```
-   TELEGRAM_BOT_TOKEN=your_token
-   TELEGRAM_CHAT_ID=your_chat_id
-   ```
-4. Set `notifications.telegram: true` in `config.yaml`
+```bash
+python scripts/setup_telegram.py
+```
+
+It asks for the bot token from [@BotFather](https://t.me/BotFather), finds your chat
+ID automatically, sends a test message and writes both values to `.env`.
+
+Each scan sends one grouped message rather than one per stock:
+
+```
+OI + RSI alerts — 10 Aug 2026 15:45
+
+CALL OI (overbought, near max Call OI)
+• TITAN: RSI 74.6 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
+• HAL: RSI 75.8 | ₹4,928.00 vs strike ₹5,000 (1.44% away)
+
+PUT OI (oversold, near max Put OI)
+• LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
+```
+
+Telegram is enabled in `config.yaml` but only used when both values are present,
+so it stays quiet until you set it up.
+
+## Running without your own machine
+
+`.github/workflows/scan.yml` runs the scan on GitHub's servers every 30 minutes
+from 09:15 to 15:45 IST on weekdays, so nothing needs to stay open at home.
+It is free for public repositories.
+
+1. Set up Telegram first — a hosted run has no terminal to print to
+2. In your repo, open **Settings → Secrets and variables → Actions**, and add six
+   repository secrets:
+   `ANGEL_API_KEY`, `ANGEL_CLIENT_CODE`, `ANGEL_PIN`, `ANGEL_TOTP_SECRET`,
+   `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+3. Open the **Actions** tab, pick **OI + RSI scan**, and use **Run workflow** to
+   trigger a scan by hand and confirm the alert reaches your phone
+
+GitHub schedules are best effort, so a scan can start 5–20 minutes later than
+listed during busy periods. Exchange holidays are not detected either, so a
+holiday scan will report the previous session's values.
 
 ## How it works
 
