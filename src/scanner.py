@@ -8,6 +8,7 @@ from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, evaluate_stock, matched_signal
 from src.paper_trading import PaperBook
+from src.paper_trading.journal import TradeJournal
 
 
 class OIRsiScanner:
@@ -18,7 +19,15 @@ class OIRsiScanner:
             history_days=config.data.history_days,
         )
         self.notifier = Notifier(config.notifications)
-        self.book = PaperBook(config.paper_trading) if config.paper_trading.enabled else None
+        self.book = None
+        if config.paper_trading.enabled:
+            paper = config.paper_trading
+            journal = TradeJournal(
+                csv_path=paper.journal_csv,
+                sheet_id=paper.google_sheet_id,
+                worksheet=paper.google_worksheet,
+            )
+            self.book = PaperBook(paper, journal=journal)
 
     def close(self) -> None:
         self.client.close()
@@ -50,9 +59,13 @@ class OIRsiScanner:
         return [symbol.upper() for symbol in watchlist]
 
     def _rsi_candidates(
-        self, symbols: list[str], prices: dict[str, float]
+        self, symbols: list[str], prices: dict[str, float], rsi_values: dict[str, float]
     ) -> list[PriceSnapshot]:
-        """Stocks whose RSI is stretched enough to be worth an option-chain lookup."""
+        """Stocks whose RSI is stretched enough to be worth an option-chain lookup.
+
+        Fills `rsi_values` for every symbol, since open positions need an exit RSI
+        even when they are nowhere near alerting.
+        """
         missing = [s for s in symbols if s not in prices]
         if missing:
             print(f"  no live price for {len(missing)} symbol(s): {', '.join(missing[:5])}")
@@ -66,6 +79,8 @@ class OIRsiScanner:
             rsi = self.client.get_rsi(symbol, ltp)
             if rsi is None:
                 continue
+
+            rsi_values[symbol] = rsi
 
             if rsi >= self.config.rsi.call_threshold or rsi <= self.config.rsi.put_threshold:
                 candidates.append(PriceSnapshot(symbol=symbol, ltp=ltp, rsi=rsi))
@@ -99,14 +114,23 @@ class OIRsiScanner:
         )
         return None
 
-    def _run_paper_trading(self, alerts: list[ScanAlert], prices: dict[str, float]) -> None:
+    def _run_paper_trading(
+        self,
+        alerts: list[ScanAlert],
+        prices: dict[str, float],
+        rsi_values: dict[str, float],
+    ) -> None:
         if not self.book:
             return
 
         # Exits are settled before entries so freed margin can fund new trades.
-        events = self.book.update(prices)
+        events = self.book.update(prices, rsi_values=rsi_values)
         events += self.book.open_from_alerts(alerts)
         self.book.save()
+
+        logged = self.book.flush_journal()
+        if logged:
+            print(f"\nLogged {logged} closed trade(s) to the journal.")
 
         if events:
             print("\nPaper trading")
@@ -131,7 +155,8 @@ class OIRsiScanner:
         print(f"\nScan started at {started} over {len(symbols)} stocks (live Angel One data)")
 
         prices = self.client.get_ltps(symbols)
-        candidates = self._rsi_candidates(symbols, prices)
+        rsi_values: dict[str, float] = {}
+        candidates = self._rsi_candidates(symbols, prices, rsi_values)
         print(
             f"\n{len(candidates)} stock(s) passed the RSI filter "
             f"(>= {self.config.rsi.call_threshold} or <= {self.config.rsi.put_threshold})"
@@ -148,5 +173,5 @@ class OIRsiScanner:
         else:
             print("\nNo alerts this scan.")
 
-        self._run_paper_trading(alerts, prices)
+        self._run_paper_trading(alerts, prices, rsi_values)
         return alerts

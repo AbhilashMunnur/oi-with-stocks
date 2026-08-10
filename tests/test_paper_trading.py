@@ -18,6 +18,7 @@ def config(tmp_path):
         stop_loss_pct=3.0,
         margin_pct=20.0,
         ledger_path=str(tmp_path / "book.json"),
+        journal_csv=str(tmp_path / "trades.csv"),
     )
 
 
@@ -98,6 +99,27 @@ def test_a_jump_past_both_targets_still_books_the_first_lot_at_6_percent(config)
     assert first == 1
     # 1 lot at 6% plus 1 lot at 15%, both at their trigger levels.
     assert second == pytest.approx((300.0 + 750.0) * 175)
+
+
+def test_price_landing_exactly_on_the_target_still_triggers(config):
+    """5090 * 0.94 computes as 5.999...% in floating point."""
+    book = PaperBook(config)
+    book.open_from_alerts([alert(ltp=5090.0)])
+
+    events = book.update({"TITAN": 5090.0 * 0.94})
+
+    assert [e.kind for e in events] == ["first_target"]
+
+
+def test_exit_rsi_is_recorded_per_leg(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert(ltp=5090.0)])
+
+    book.update({"TITAN": 5090.0 * 0.94}, rsi_values={"TITAN": 41.2})
+    book.update({"TITAN": 5090.0 * 0.85}, rsi_values={"TITAN": 28.4})
+
+    rsi_by_leg = [row["Exit RSI"] for row in book._pending_rows]
+    assert rsi_by_leg == [41.2, 28.4]
 
 
 def test_stop_loss_closes_everything(config):

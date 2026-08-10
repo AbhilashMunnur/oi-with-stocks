@@ -6,6 +6,7 @@ from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
 from src.oi_analyzer import ScanAlert
+from src.paper_trading.journal import TradeJournal, build_row
 from src.paper_trading.models import (
     ClosedLeg,
     Direction,
@@ -14,6 +15,11 @@ from src.paper_trading.models import (
     TradeEvent,
     now_stamp,
 )
+
+
+# A price landing exactly on a target can compute as 5.999...% instead of 6%,
+# so comparisons carry a tolerance rather than missing the trigger.
+TRIGGER_TOLERANCE = 1e-9
 
 
 class PaperBook:
@@ -25,12 +31,19 @@ class PaperBook:
     are modelled optimistically.
     """
 
-    def __init__(self, config: PaperTradingConfig, path: str | Path | None = None):
+    def __init__(
+        self,
+        config: PaperTradingConfig,
+        path: str | Path | None = None,
+        journal: TradeJournal | None = None,
+    ):
         self.config = config
         self.path = Path(path or config.ledger_path)
+        self.journal = journal
         self.positions: list[Position] = []
         self.realised_pnl: float = 0.0
         self.closed_count: int = 0
+        self._pending_rows: list[dict] = []
         self._load()
 
     # ------------------------------------------------------------------ #
@@ -78,14 +91,20 @@ class PaperBook:
     # ------------------------------------------------------------------ #
 
     def _close_lots(
-        self, position: Position, lots: int, price: float, reason: ExitReason
+        self,
+        position: Position,
+        lots: int,
+        price: float,
+        reason: ExitReason,
+        exit_rsi: float | None = None,
     ) -> TradeEvent:
         pnl = position.pnl_for(lots, price)
+        exit_time = now_stamp()
         position.closed_legs.append(
             ClosedLeg(
                 lots=lots,
                 exit_price=round(price, 2),
-                exit_time=now_stamp(),
+                exit_time=exit_time,
                 reason=reason.value,
                 pnl=round(pnl, 2),
             )
@@ -96,6 +115,24 @@ class PaperBook:
         position.margin_blocked -= released
         position.lots_open -= lots
         self.realised_pnl += pnl
+
+        self._pending_rows.append(
+            build_row(
+                symbol=position.symbol,
+                direction=position.direction,
+                entry_time=position.entry_time,
+                entry_price=position.entry_price,
+                entry_rsi=position.rsi_at_entry,
+                exit_time=exit_time,
+                exit_price=price,
+                exit_rsi=exit_rsi,
+                lots=lots,
+                lot_size=position.lot_size,
+                capital=released,
+                pnl=pnl,
+                reason=reason.value,
+            )
+        )
 
         if not position.is_open:
             self.closed_count += 1
@@ -111,59 +148,86 @@ class PaperBook:
             pnl=pnl,
         )
 
-    def _apply_exits(self, position: Position, price: float, today: date) -> list[TradeEvent]:
+    def _apply_exits(
+        self, position: Position, price: float, today: date, rsi: float | None
+    ) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         move = position.move_pct(price)
 
         # Stop first: on a 30-minute snapshot we cannot know the intrabar order,
         # so assume the adverse level was reached before any target.
-        if move <= -self.config.stop_loss_pct:
+        if move <= -self.config.stop_loss_pct + TRIGGER_TOLERANCE:
             stop_price = position.price_at_move(-self.config.stop_loss_pct)
             events.append(
-                self._close_lots(position, position.lots_open, stop_price, ExitReason.STOP_LOSS)
+                self._close_lots(
+                    position, position.lots_open, stop_price, ExitReason.STOP_LOSS, rsi
+                )
             )
             return events
 
         first_target = self.config.first_target_pct
         second_target = self.config.second_target_pct
 
-        if move >= first_target and position.lots_open == position.lots_total:
+        if (
+            move >= first_target - TRIGGER_TOLERANCE
+            and position.lots_open == position.lots_total
+        ):
             events.append(
                 self._close_lots(
-                    position, 1, position.price_at_move(first_target), ExitReason.FIRST_TARGET
+                    position,
+                    1,
+                    position.price_at_move(first_target),
+                    ExitReason.FIRST_TARGET,
+                    rsi,
                 )
             )
 
-        if move >= second_target and position.is_open:
+        if move >= second_target - TRIGGER_TOLERANCE and position.is_open:
             events.append(
                 self._close_lots(
                     position,
                     position.lots_open,
                     position.price_at_move(second_target),
                     ExitReason.SECOND_TARGET,
+                    rsi,
                 )
             )
 
         if position.is_open and position.expiry and str(today) >= position.expiry:
             events.append(
-                self._close_lots(position, position.lots_open, price, ExitReason.EXPIRY)
+                self._close_lots(position, position.lots_open, price, ExitReason.EXPIRY, rsi)
             )
 
         return events
 
-    def update(self, prices: dict[str, float], today: date | None = None) -> list[TradeEvent]:
+    def update(
+        self,
+        prices: dict[str, float],
+        today: date | None = None,
+        rsi_values: dict[str, float] | None = None,
+    ) -> list[TradeEvent]:
         """Mark open positions to market and run the exit rules."""
         today = today or date.today()
+        rsi_values = rsi_values or {}
         events: list[TradeEvent] = []
 
         for position in list(self.positions):
             price = prices.get(position.symbol)
             if not price or not position.is_open:
                 continue
-            events.extend(self._apply_exits(position, price, today))
+            events.extend(
+                self._apply_exits(position, price, today, rsi_values.get(position.symbol))
+            )
 
         self.positions = [p for p in self.positions if p.is_open]
         return events
+
+    def flush_journal(self) -> int:
+        """Write any closed trades out to the journal."""
+        rows, self._pending_rows = self._pending_rows, []
+        if rows and self.journal:
+            self.journal.append(rows)
+        return len(rows)
 
     # ------------------------------------------------------------------ #
     # Entries

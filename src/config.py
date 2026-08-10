@@ -53,6 +53,9 @@ class PaperTradingConfig:
     stop_loss_pct: float
     margin_pct: float
     ledger_path: str
+    journal_csv: str
+    google_sheet_id: str = ""
+    google_worksheet: str = ""
 
 
 @dataclass

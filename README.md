@@ -241,6 +241,33 @@ Exits, checked on every scan:
 Settings live under `paper_trading` in `config.yaml` — capital, lot count, both
 targets, the stop and the assumed margin.
 
+### The trade journal
+
+Every closed trade is appended to `data/paper_trades.csv`, one row per lot exited,
+so a scale-out produces two rows:
+
+```
+Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Lots,Lot size,Exit reason
+TITAN,Sell,10-Aug-26,5090.0,74.6,24-Aug-26,4784.6,41.2,10,178150,53445,1,175,first_target
+TITAN,Sell,10-Aug-26,5090.0,74.6,28-Aug-26,4326.5,28.4,14,178150,133612,1,175,second_target
+```
+
+`Holding trading period` counts weekdays, so a Friday-to-Monday trade reads as 1.
+
+### Mirroring to Google Sheets
+
+Set `google_sheet_id` and `google_worksheet` in `config.yaml`, then:
+
+1. In [Google Cloud Console](https://console.cloud.google.com), create a project and
+   enable the **Google Sheets API**
+2. Create a **service account** and download its JSON key
+3. Share the spreadsheet with the service account's email, as **Editor**
+4. Store the JSON key as `GOOGLE_SERVICE_ACCOUNT_JSON` — the whole file contents in
+   `.env`, and the same as a repository secret for the hosted scans
+
+Without those credentials the CSV is still written; only the mirroring is skipped.
+A Sheets failure never blocks the local record.
+
 ### What the simulation assumes
 
 These matter when comparing against what real fills would have produced:
