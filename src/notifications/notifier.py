@@ -62,7 +62,12 @@ class Notifier:
 
                 detail = []
                 if alert.oi_change is not None:
-                    detail.append(f"ΔOI {alert.oi_change:+,}")
+                    lots = alert.in_contracts(alert.oi_change)
+                    detail.append(
+                        f"ΔOI {lots:+,} contracts"
+                        if lots is not None
+                        else f"ΔOI {alert.oi_change:+,} shares"
+                    )
                 if alert.change_pcr is not None:
                     detail.append(f"ΔPCR {alert.change_pcr:.2f}")
                 if alert.buildup:

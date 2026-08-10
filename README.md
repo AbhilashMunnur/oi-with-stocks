@@ -118,13 +118,13 @@ OI + RSI alerts — 10 Aug 2026 15:45
 
 CALL OI (overbought, near max Call OI)
 • TITAN: RSI 74.6 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
-    ΔOI +1,467,000 | ΔPCR 1.02 | call writing, put writing
+    ΔOI +2,934 contracts | ΔPCR 1.02 | call writing, put writing
 • HAL: RSI 75.8 | ₹4,928.00 vs strike ₹5,000 (1.44% away)
-    ΔOI +48,600 | ΔPCR 0.28 | call writing, put writing
+    ΔOI +162 contracts | ΔPCR 0.28 | call writing, put writing
 
 PUT OI (oversold, near max Put OI)
 • LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
-    ΔOI -73,000 | call unwinding, put unwinding
+    ΔOI -73 contracts | call unwinding, put unwinding
 ```
 
 Telegram is enabled in `config.yaml` but only used when both values are present,

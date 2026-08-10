@@ -20,6 +20,13 @@ class ScanAlert:
     oi_change: int | None = None
     change_pcr: float | None = None
     buildup: str = ""
+    lot_size: int = 0
+
+    def in_contracts(self, shares: int | None) -> int | None:
+        """Angel One reports OI in shares; traders read it in contracts."""
+        if shares is None or self.lot_size <= 0:
+            return None
+        return int(shares / self.lot_size)
 
 
 def is_near_strike(price: float, strike: float, proximity_pct: float) -> bool:
@@ -123,6 +130,7 @@ def evaluate_stock(
         oi_change=change,
         change_pcr=pcr,
         buildup=oi.buildup,
+        lot_size=oi.lot_size,
         message=(
             f"{price.symbol}: {comparison} and price ₹{ltp:.2f} is near max {label} "
             f"OI strike ₹{strike:.0f} ({detail})"
