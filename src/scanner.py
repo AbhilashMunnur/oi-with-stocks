@@ -114,6 +114,43 @@ class OIRsiScanner:
         )
         return None
 
+    def _apply_futures_expiry(self, alerts: list[ScanAlert]) -> None:
+        """Point paper entries at the configured futures month (default: 3rd)."""
+        month = self.config.paper_trading.futures_month
+        for alert in alerts:
+            contract = self.client.futures_contract(alert.symbol, month_index=month)
+            if not contract:
+                print(
+                    f"  {alert.symbol}: no month-{month} stock future listed; "
+                    "paper entry will keep the options expiry"
+                )
+                continue
+            expiry, lot = contract
+            alert.expiry = expiry
+            if lot > 0:
+                alert.lot_size = lot
+
+    def _align_open_futures_expiry(self) -> None:
+        """Roll open paper positions onto the configured futures month."""
+        if not self.book:
+            return
+
+        month = self.config.paper_trading.futures_month
+        changed = 0
+        for position in self.book.positions:
+            if not position.is_open:
+                continue
+            contract = self.client.futures_contract(position.symbol, month_index=month)
+            if not contract:
+                continue
+            expiry, _lot = contract
+            if position.expiry != expiry:
+                position.expiry = expiry
+                changed += 1
+
+        if changed:
+            print(f"Aligned {changed} open paper position(s) to month-{month} futures expiry.")
+
     def _run_paper_trading(
         self,
         alerts: list[ScanAlert],
@@ -122,6 +159,11 @@ class OIRsiScanner:
     ) -> None:
         if not self.book:
             return
+
+        # Paper futures always use the configured month (default: 3rd / far month).
+        # OI alerts still describe the nearest options expiry used for the signal.
+        self._align_open_futures_expiry()
+        self._apply_futures_expiry(alerts)
 
         # Exits are settled before entries so freed margin can fund new trades.
         events = self.book.update(prices, rsi_values=rsi_values)

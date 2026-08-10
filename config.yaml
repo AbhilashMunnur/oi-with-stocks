@@ -43,6 +43,8 @@ paper_trading:
   second_target_pct: 15.0   # Close the remaining lot at 15%
   stop_loss_pct: 4.0        # Close everything on a 4% adverse move
   margin_pct: 20.0          # Approximate futures margin as a % of notional
+  # Paper futures month: 1 = current, 3 = far month (August → October).
+  futures_month: 3
   ledger_path: data/paper_book.json     # Open positions and running P&L
   journal_csv: data/paper_trades.csv    # One row per closed trade
   # Optional: mirror closed trades into a Google Sheet. Needs a service account

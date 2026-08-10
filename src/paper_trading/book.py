@@ -303,7 +303,8 @@ class PaperBook:
                     kind="entry",
                     detail=(
                         f"{direction.value} {lots} lot(s) x {alert.lot_size} @ "
-                        f"₹{alert.ltp:,.2f} (RSI {alert.rsi:.1f}, strike ₹{alert.oi_strike:,.0f})"
+                        f"₹{alert.ltp:,.2f} (RSI {alert.rsi:.1f}, strike ₹{alert.oi_strike:,.0f}, "
+                        f"fut {alert.expiry})"
                     ),
                 )
             )

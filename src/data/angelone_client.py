@@ -19,6 +19,11 @@ logzero.loglevel(logging.WARNING)
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
 from src.indicators import calculate_rsi
+from src.paper_trading.futures_expiry import (
+    futures_symbol_year_month,
+    is_standard_stock_future,
+    target_futures_year_month,
+)
 
 SCRIP_MASTER_URL = (
     "https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json"
@@ -84,6 +89,7 @@ class AngelOneClient:
 
         self._equity_tokens: dict[str, str] | None = None
         self._option_rows: dict[str, list[dict]] | None = None
+        self._futures_rows: dict[str, list[dict]] | None = None
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
         self._cache_date: date | None = None
 
@@ -113,6 +119,7 @@ class AngelOneClient:
             self._save_closes_cache()
             self._equity_tokens = None
             self._option_rows = None
+            self._futures_rows = None
             self._closes_cache = None
             if getattr(self, "_session_date", None) != today:
                 self.login()
@@ -147,6 +154,7 @@ class AngelOneClient:
 
         equities: dict[str, str] = {}
         options: dict[str, list[dict]] = {}
+        futures: dict[str, list[dict]] = {}
 
         for row in rows:
             segment = row.get("exch_seg")
@@ -155,9 +163,13 @@ class AngelOneClient:
                 equities[str(row["symbol"])[:-3].upper()] = str(row["token"])
             elif segment == "NFO" and row.get("instrumenttype") == "OPTSTK":
                 options.setdefault(str(row.get("name", "")).upper(), []).append(row)
+            # Monthly stock futures appear under NFO and/or BFO in Angel's master.
+            elif segment in {"NFO", "BFO"} and row.get("instrumenttype") == "FUTSTK":
+                futures.setdefault(str(row.get("name", "")).upper(), []).append(row)
 
         self._equity_tokens = equities
         self._option_rows = options
+        self._futures_rows = futures
 
     def fno_symbols(self) -> list[str]:
         """Every NSE stock with listed options, that also has a tradable equity token."""
@@ -173,6 +185,49 @@ class AngelOneClient:
         if not nearest:
             return 0
         return int(float(nearest[1][0].get("lotsize") or 0))
+
+    def futures_contract(
+        self, symbol: str, month_index: int = 3, as_of: date | None = None
+    ) -> tuple[str, int] | None:
+        """Monthly stock future for the chosen month index.
+
+        Returns ``(expiry YYYY-MM-DD, lot_size)`` for the standard NSE symbol
+        in that month (e.g. month_index=3 in August → October).
+        """
+        self._load_instruments()
+        rows = (self._futures_rows or {}).get(symbol.upper())
+        if not rows:
+            return None
+
+        as_of = as_of or date.today()
+        target_year, target_month = target_futures_year_month(as_of, month_index)
+        standard: list[tuple[date, int]] = []
+        fallback: list[tuple[date, int]] = []
+
+        for row in rows:
+            try:
+                expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+            except (KeyError, ValueError):
+                continue
+            if (expiry.year, expiry.month) != (target_year, target_month):
+                continue
+
+            lot = int(float(row.get("lotsize") or 0))
+            symbol_name = str(row.get("symbol", "")).upper()
+            if (
+                is_standard_stock_future(symbol_name)
+                and futures_symbol_year_month(symbol_name) == (target_year, target_month)
+            ):
+                standard.append((expiry, lot))
+            else:
+                fallback.append((expiry, lot))
+
+        matches = standard or fallback
+        if not matches:
+            return None
+
+        expiry, lot = max(matches, key=lambda item: item[0])
+        return expiry.strftime("%Y-%m-%d"), lot
 
     def _nearest_expiry_rows(self, symbol: str) -> tuple[str, list[dict]] | None:
         self._load_instruments()

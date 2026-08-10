@@ -220,7 +220,8 @@ made once a stock has already qualified, which keeps a full scan around a minute
 
 ## Paper trading
 
-Every alert is also taken as a simulated stock-futures trade, tracked in
+Every alert is also taken as a simulated stock-futures trade on the **3rd
+month** contract (e.g. in August that is the October future), tracked in
 `data/paper_book.json`. The strategy treats the signal as a **reversal**: the max
 OI strikes are read as resistance and support.
 
