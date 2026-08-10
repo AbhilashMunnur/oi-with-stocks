@@ -64,7 +64,8 @@ Edit `config.yaml`:
 | `oi.proximity_pct` | 2.0 | Price must be within this % of the max OI strike |
 | `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
-| `schedule.interval_minutes` | 15 | How often to scan during market hours |
+| `schedule.interval_minutes` | 30 | How often to scan during market hours |
+| `notifications.cooldown_minutes` | 30 | Minimum gap before repeating the same alert |
 
 The F&O universe (208 stocks as of writing) and every lot size are read from Angel
 One's instrument master rather than hardcoded, so contract changes and new listings
@@ -82,9 +83,21 @@ python main.py --once
 python main.py --once --symbol RELIANCE
 ```
 
-**Run on a schedule (every 15 min during market hours):**
+**Run continuously (scans every 30 min during market hours):**
 ```bash
 python main.py
+```
+
+It scans on weekdays between `market_start` and `market_end`, skips weekends and
+after-hours, and keeps running if a single scan fails so a transient API error does
+not end the session. Angel One tokens expire daily, so it re-logins automatically
+when the session is rejected or the date rolls over. Press Ctrl+C to stop.
+
+To keep it alive after closing the terminal:
+
+```bash
+nohup python -u main.py > scanner.log 2>&1 &
+tail -f scanner.log
 ```
 
 ## Telegram notifications

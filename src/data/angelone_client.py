@@ -33,6 +33,9 @@ CANDLE_INTERVAL_SECONDS = 0.35
 
 RETRY_BACKOFF_SECONDS = (2, 5, 10)
 
+# Angel One error codes that mean the session must be re-established.
+AUTH_ERROR_CODES = {"AG8001", "AG8002", "AG8003", "AB1010", "AB1011", "AB8050", "AB8051"}
+
 # Strikes in the instrument master are quoted in paise.
 STRIKE_DIVISOR = 100.0
 
@@ -72,12 +75,9 @@ class AngelOneClient:
         self.rsi_period = rsi_period
         self.history_days = history_days
         self.client_code = client_code
-        self.client = SmartConnect(api_key=api_key)
-
-        session = self.client.generateSession(client_code, pin, pyotp.TOTP(totp_secret).now())
-        if not session or not session.get("status"):
-            message = (session or {}).get("message", "unknown error")
-            raise CredentialsError(f"Angel One login failed: {message}")
+        self._api_key = api_key
+        self._pin = pin
+        self._totp_secret = totp_secret
 
         self._quote_throttle = Throttle(QUOTE_INTERVAL_SECONDS)
         self._candle_throttle = Throttle(CANDLE_INTERVAL_SECONDS)
@@ -85,6 +85,39 @@ class AngelOneClient:
         self._equity_tokens: dict[str, str] | None = None
         self._option_rows: dict[str, list[dict]] | None = None
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
+        self._cache_date: date | None = None
+
+        self.login()
+
+    def login(self) -> None:
+        """Open a fresh session. Tokens expire daily, so long runs re-login."""
+        self.client = SmartConnect(api_key=self._api_key)
+        session = self.client.generateSession(
+            self.client_code, self._pin, pyotp.TOTP(self._totp_secret).now()
+        )
+
+        if not session or not session.get("status"):
+            message = (session or {}).get("message", "unknown error")
+            raise CredentialsError(f"Angel One login failed: {message}")
+
+        self._session_date = date.today()
+
+    def _refresh_for_new_day(self) -> None:
+        """Drop day-scoped caches and re-login once the date rolls over."""
+        today = date.today()
+        if self._cache_date == today:
+            return
+
+        if self._cache_date is not None:
+            print(f"New trading day ({today}); refreshing instruments and session.")
+            self._save_closes_cache()
+            self._equity_tokens = None
+            self._option_rows = None
+            self._closes_cache = None
+            if getattr(self, "_session_date", None) != today:
+                self.login()
+
+        self._cache_date = today
 
     def __enter__(self) -> AngelOneClient:
         return self
@@ -104,6 +137,7 @@ class AngelOneClient:
     # ------------------------------------------------------------------ #
 
     def _load_instruments(self) -> None:
+        self._refresh_for_new_day()
         if self._equity_tokens is not None:
             return
 
@@ -166,8 +200,8 @@ class AngelOneClient:
     # Requests
     # ------------------------------------------------------------------ #
 
-    def _call(self, throttle: Throttle, func, *args):
-        """Call an endpoint, backing off when the server reports a rate limit."""
+    def _call(self, throttle: Throttle, method_name: str, *args):
+        """Call an endpoint, retrying past rate limits and expired sessions."""
         last_error: Exception | None = None
 
         for attempt, backoff in enumerate((0, *RETRY_BACKOFF_SECONDS)):
@@ -176,7 +210,7 @@ class AngelOneClient:
 
             throttle.wait()
             try:
-                response = func(*args)
+                response = getattr(self.client, method_name)(*args)
             except Exception as exc:
                 last_error = exc
                 if "access rate" not in str(exc).lower() and attempt >= 1:
@@ -184,10 +218,19 @@ class AngelOneClient:
                 continue
 
             if isinstance(response, dict) and not response.get("status"):
+                code = str(response.get("errorcode", ""))
                 message = str(response.get("message", ""))
-                if "access rate" in message.lower() or "rate" in message.lower():
+
+                if code in AUTH_ERROR_CODES:
+                    print(f"  session expired ({code}); logging in again")
+                    self.login()
+                    last_error = RuntimeError(message or code)
+                    continue
+
+                if "rate" in message.lower():
                     last_error = RuntimeError(message)
                     continue
+
             return response
 
         if last_error:
@@ -210,7 +253,7 @@ class AngelOneClient:
             batch = token_list[start : start + MAX_TOKENS_PER_REQUEST]
             try:
                 response = self._call(
-                    self._quote_throttle, self.client.getMarketData, "LTP", {"NSE": batch}
+                    self._quote_throttle, "getMarketData", "LTP", {"NSE": batch}
                 )
             except Exception as exc:
                 print(f"  quote batch failed: {exc}")
@@ -235,6 +278,7 @@ class AngelOneClient:
         return CACHE_DIR / f"daily_closes_{date.today():%Y-%m-%d}.json"
 
     def _load_closes_cache(self) -> dict[str, list[tuple[str, float]]]:
+        self._refresh_for_new_day()
         if self._closes_cache is not None:
             return self._closes_cache
 
@@ -270,7 +314,7 @@ class AngelOneClient:
         try:
             response = self._call(
                 self._candle_throttle,
-                self.client.getCandleData,
+                "getCandleData",
                 {
                     "exchange": "NSE",
                     "symboltoken": token,
@@ -318,7 +362,7 @@ class AngelOneClient:
         for start in range(0, len(tokens), MAX_TOKENS_PER_REQUEST):
             batch = tokens[start : start + MAX_TOKENS_PER_REQUEST]
             response = self._call(
-                self._quote_throttle, self.client.getMarketData, "FULL", {"NFO": batch}
+                self._quote_throttle, "getMarketData", "FULL", {"NFO": batch}
             )
 
             if not response or not response.get("status"):

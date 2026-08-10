@@ -33,6 +33,9 @@ class OIRsiScanner:
 
     def is_market_hours(self, now: datetime | None = None) -> bool:
         now = now or datetime.now()
+        if now.weekday() >= 5:
+            return False
+
         start = self._parse_hhmm(self.config.schedule.market_start)
         end = self._parse_hhmm(self.config.schedule.market_end)
         return start <= now.time() <= end

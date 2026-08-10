@@ -18,17 +18,26 @@ from src.data.base import MarketDataError
 from src.scanner import OIRsiScanner
 
 
-def run_scheduled(scanner: OIRsiScanner, config_path: str) -> None:
+def run_scheduled(scanner: OIRsiScanner) -> None:
     def job() -> None:
-        if scanner.is_market_hours():
-            scanner.run_once()
-        else:
-            print(f"[{datetime.now():%H:%M:%S}] Outside market hours, skipping scan.")
+        if not scanner.is_market_hours():
+            print(f"[{datetime.now():%a %H:%M:%S}] Market closed, skipping scan.")
+            return
 
-    interval = load_config(config_path).schedule.interval_minutes
+        try:
+            scanner.run_once()
+        except Exception as exc:
+            # One bad scan should not end the session; try again next interval.
+            print(f"[{datetime.now():%H:%M:%S}] Scan failed: {exc}")
+
+    interval = scanner.config.schedule.interval_minutes
     schedule.every(interval).minutes.do(job)
 
-    print(f"Scheduler running every {interval} minutes. Press Ctrl+C to stop.")
+    window = scanner.config.schedule
+    print(
+        f"Scanning every {interval} minutes between {window.market_start} and "
+        f"{window.market_end} on weekdays. Press Ctrl+C to stop."
+    )
     job()
 
     while True:
@@ -67,13 +76,14 @@ def main() -> None:
         print(f"Error: {exc}")
         sys.exit(1)
 
-    if args.once:
+    try:
         with scanner:
-            scanner.run_once()
-        return
-
-    with scanner:
-        run_scheduled(scanner, args.config)
+            if args.once:
+                scanner.run_once()
+            else:
+                run_scheduled(scanner)
+    except KeyboardInterrupt:
+        print("\nStopped.")
 
 
 if __name__ == "__main__":

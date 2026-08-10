@@ -21,7 +21,7 @@ watchlist: all
 
 # Scanner schedule (24h format, IST assumed)
 schedule:
-  interval_minutes: 15
+  interval_minutes: 30
   market_start: "09:20"
   market_end: "15:30"
 
@@ -29,4 +29,6 @@ schedule:
 notifications:
   console: true
   telegram: false
-  cooldown_minutes: 60    # Don't repeat same alert within this window
+  cooldown_minutes: 30    # Matches the scan interval, so a stock that still
+                          # qualifies is re-alerted once per scan. Raise it to
+                          # hear about each stock less often.
