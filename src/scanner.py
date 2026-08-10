@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, time as dt_time
 
 from src.config import AppConfig
-from src.data.provider import create_provider
+from src.data.angelone_client import AngelOneClient
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, evaluate_stock
 
@@ -11,11 +11,14 @@ from src.oi_analyzer import ScanAlert, evaluate_stock
 class OIRsiScanner:
     def __init__(self, config: AppConfig):
         self.config = config
-        self.provider = create_provider(config)
+        self.client = AngelOneClient(
+            rsi_period=config.rsi.period,
+            history_days=config.data.history_days,
+        )
         self.notifier = Notifier(config.notifications)
 
     def close(self) -> None:
-        self.provider.close()
+        self.client.close()
 
     def __enter__(self) -> OIRsiScanner:
         return self
@@ -34,12 +37,12 @@ class OIRsiScanner:
         return start <= now.time() <= end
 
     def scan_symbol(self, symbol: str) -> ScanAlert | None:
-        oi = self.provider.get_oi_snapshot(symbol)
+        oi = self.client.get_oi_snapshot(symbol)
         if not oi:
             return None
 
-        # The option chain already carries a live underlying price, so reuse it.
-        price = self.provider.get_price_snapshot(symbol, ltp=oi.ltp or None)
+        # The OI lookup already fetched a live underlying price, so reuse it.
+        price = self.client.get_price_snapshot(symbol, ltp=oi.ltp or None)
         if not price:
             return None
 
@@ -63,7 +66,7 @@ class OIRsiScanner:
 
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"\nScan started at {started} using live {self.provider.name} data")
+        print(f"\nScan started at {started} using live Angel One data")
         alerts: list[ScanAlert] = []
 
         for symbol in self.config.watchlist:

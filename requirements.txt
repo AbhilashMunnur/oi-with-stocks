@@ -5,12 +5,8 @@ python-dotenv>=1.0.0
 PyYAML>=6.0.0
 schedule>=1.2.0
 
-# Angel One provider (default, free market data)
+# Angel One SmartAPI
 smartapi-python>=1.5.5
 pyotp>=2.9.0
 logzero>=1.7.0
 websocket-client>=1.7.0
-
-# Dhan provider is optional and needs the paid DhanHQ Data API plan.
-# Install only if you set data.provider to "dhan":
-#   pip install dhanhq

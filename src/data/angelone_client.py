@@ -10,7 +10,7 @@ import pyotp
 from dotenv import load_dotenv
 from SmartApi import SmartConnect
 
-from src.data.base import MarketDataProvider, ProviderCredentialsError, download_cached
+from src.data.base import CredentialsError, download_cached
 from src.data.models import OISnapshot, PriceSnapshot
 from src.indicators import calculate_rsi
 
@@ -26,7 +26,7 @@ REQUEST_DELAY_SECONDS = 1.0
 STRIKE_DIVISOR = 100.0
 
 
-class AngelOneProvider(MarketDataProvider):
+class AngelOneClient:
     """Live LTP, RSI and option-chain OI from Angel One SmartAPI."""
 
     name = "angelone"
@@ -39,7 +39,7 @@ class AngelOneProvider(MarketDataProvider):
         totp_secret = os.getenv("ANGEL_TOTP_SECRET", "").strip()
 
         if not all([api_key, client_code, pin, totp_secret]):
-            raise ProviderCredentialsError(
+            raise CredentialsError(
                 "Angel One needs ANGEL_API_KEY, ANGEL_CLIENT_CODE, ANGEL_PIN and "
                 "ANGEL_TOTP_SECRET in .env. Create an app at smartapi.angelone.in."
             )
@@ -51,10 +51,16 @@ class AngelOneProvider(MarketDataProvider):
         session = self.client.generateSession(client_code, pin, pyotp.TOTP(totp_secret).now())
         if not session or not session.get("status"):
             message = (session or {}).get("message", "unknown error")
-            raise ProviderCredentialsError(f"Angel One login failed: {message}")
+            raise CredentialsError(f"Angel One login failed: {message}")
 
         self._equity_tokens: dict[str, str] | None = None
         self._option_rows: dict[str, list[dict]] | None = None
+
+    def __enter__(self) -> AngelOneClient:
+        return self
+
+    def __exit__(self, *args) -> None:
+        self.close()
 
     def close(self) -> None:
         try:

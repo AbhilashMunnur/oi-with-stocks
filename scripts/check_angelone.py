@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import load_config
-from src.data.base import ProviderCredentialsError
+from src.data.base import CredentialsError
 
 REQUIRED_VARS = ["ANGEL_API_KEY", "ANGEL_CLIENT_CODE", "ANGEL_PIN", "ANGEL_TOTP_SECRET"]
 
@@ -44,16 +44,16 @@ def main() -> None:
     if not check_env():
         sys.exit(1)
 
-    from src.data.angelone_client import AngelOneProvider
+    from src.data.angelone_client import AngelOneClient
 
     config = load_config(ROOT / "config.yaml")
 
     try:
-        provider = AngelOneProvider(
+        client = AngelOneClient(
             rsi_period=config.rsi.period,
             history_days=config.data.history_days,
         )
-    except ProviderCredentialsError as exc:
+    except CredentialsError as exc:
         print(f"\nLogin failed: {exc}")
         print("\nCommon causes: wrong PIN, a stale TOTP secret, or the API key not")
         print("yet activated on smartapi.angelone.in.")
@@ -62,16 +62,16 @@ def main() -> None:
     print("Logged in to Angel One")
 
     print(f"\nChecking live data for {symbol}...")
-    oi = provider.get_oi_snapshot(symbol)
+    oi = client.get_oi_snapshot(symbol)
     if not oi:
         print(f"Could not fetch the option chain for {symbol}.")
-        provider.close()
+        client.close()
         sys.exit(1)
 
-    price = provider.get_price_snapshot(symbol, ltp=oi.ltp or None)
+    price = client.get_price_snapshot(symbol, ltp=oi.ltp or None)
     if not price:
         print(f"Could not fetch price or RSI for {symbol}.")
-        provider.close()
+        client.close()
         sys.exit(1)
 
     rsi_text = f"{price.rsi:.1f}" if price.rsi is not None else "unavailable"
@@ -84,7 +84,7 @@ def main() -> None:
     print(f"  Max Put OI      Rs {oi.max_put_oi_strike:,.0f}  ({oi.max_put_oi:,} contracts)")
     print("\nReady to scan: python main.py --once")
 
-    provider.close()
+    client.close()
 
 
 if __name__ == "__main__":

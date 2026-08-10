@@ -26,9 +26,7 @@ class OIConfig:
 
 @dataclass
 class DataConfig:
-    provider: str
     history_days: int
-    option_chain_delay_seconds: float = 3.0
 
 
 @dataclass
