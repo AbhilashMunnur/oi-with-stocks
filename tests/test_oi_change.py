@@ -46,10 +46,20 @@ def test_change_pcr_is_none_without_data():
     assert snapshot().change_pcr is None
 
 
-def test_buildup_describes_each_side():
-    assert snapshot(call_change=1, put_change=-1).buildup == "call writing, put unwinding"
-    assert snapshot(call_change=-1, put_change=1).buildup == "call unwinding, put writing"
+def test_alert_reports_each_leg_separately():
+    """A call alert must not fold put OI into the number it shows."""
+    from src.config import SignalType
+    from src.data.models import PriceSnapshot
+    from src.oi_analyzer import evaluate_stock
 
+    oi = snapshot(call_change=560_500, put_change=-475_500)
+    oi.max_call_oi_strike = 1330  # within 2% of the 1327 spot
+    alert = evaluate_stock(PriceSnapshot("RELIANCE", 1327.0, 74.0), oi, 70, 35, 2.0)
 
-def test_buildup_reports_missing_data():
-    assert snapshot().buildup == "OI change unavailable"
+    assert alert is not None
+    assert alert.signal is SignalType.CALL_OI
+    assert alert.oi_change == 560_500
+    assert alert.call_oi_change == 560_500
+    assert alert.put_oi_change == -475_500
+    assert "Call ΔOI +1,121 contracts" in alert.message
+    assert "Put ΔOI -951 contracts" in alert.message

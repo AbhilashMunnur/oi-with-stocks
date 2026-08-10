@@ -86,14 +86,14 @@ def main() -> None:
     print(f"  Expiry          {oi.expiry}  (lot size {oi.lot_size})")
     print(
         f"  Max Call OI     Rs {oi.max_call_oi_strike:,.0f}  "
-        f"({format_oi(oi, oi.max_call_oi)}, {format_oi_change(oi, oi.call_oi_change)})"
+        f"({format_oi(oi, oi.max_call_oi)}, ΔOI {format_oi_change(oi, oi.call_oi_change)})"
     )
     print(
         f"  Max Put OI      Rs {oi.max_put_oi_strike:,.0f}  "
-        f"({format_oi(oi, oi.max_put_oi)}, {format_oi_change(oi, oi.put_oi_change)})"
+        f"({format_oi(oi, oi.max_put_oi)}, ΔOI {format_oi_change(oi, oi.put_oi_change)})"
     )
     pcr = oi.change_pcr
-    print(f"  Change PCR      {f'{pcr:.2f}' if pcr is not None else 'n/a'}  ({oi.buildup})")
+    print(f"  Change PCR      {f'{pcr:.2f}' if pcr is not None else 'n/a (a leg is unwinding)'}")
     print("\nReady to scan: python main.py --once")
 
     client.close()

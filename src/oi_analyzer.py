@@ -18,8 +18,9 @@ class ScanAlert:
     expiry: str
     message: str
     oi_change: int | None = None
+    call_oi_change: int | None = None
+    put_oi_change: int | None = None
     change_pcr: float | None = None
-    buildup: str = ""
     lot_size: int = 0
 
     def in_contracts(self, shares: int | None) -> int | None:
@@ -50,11 +51,11 @@ def format_oi(oi: OISnapshot, open_interest: int) -> str:
 
 
 def format_oi_change(oi: OISnapshot, change: int | None) -> str:
+    """Signed OI change, labelled so it is clear which leg it belongs to."""
     if change is None:
-        return "ΔOI n/a"
+        return "n/a"
     lots = oi.contracts(change)
-    value = f"{lots:+,} contracts" if lots is not None else f"{change:+,} shares"
-    return f"ΔOI {value}"
+    return f"{lots:+,} contracts" if lots is not None else f"{change:+,} shares"
 
 
 def matched_signal(
@@ -111,8 +112,11 @@ def evaluate_stock(
     distance = distance_to_strike_pct(ltp, strike)
     pcr = oi.change_pcr
 
+    # Name both legs; "ΔOI" alone reads as though puts might be included.
     detail = (
-        f"OI: {format_oi(oi, value)}, {format_oi_change(oi, change)}, "
+        f"OI: {format_oi(oi, value)}, "
+        f"Call ΔOI {format_oi_change(oi, oi.call_oi_change)}, "
+        f"Put ΔOI {format_oi_change(oi, oi.put_oi_change)}, "
         f"distance: {distance:.2f}%"
     )
     if pcr is not None:
@@ -128,8 +132,9 @@ def evaluate_stock(
         distance_pct=distance,
         expiry=oi.expiry,
         oi_change=change,
+        call_oi_change=oi.call_oi_change,
+        put_oi_change=oi.put_oi_change,
         change_pcr=pcr,
-        buildup=oi.buildup,
         lot_size=oi.lot_size,
         message=(
             f"{price.symbol}: {comparison} and price ₹{ltp:.2f} is near max {label} "

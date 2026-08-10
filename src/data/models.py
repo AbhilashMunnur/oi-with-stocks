@@ -45,14 +45,3 @@ class OISnapshot:
         if call_change <= 0 or put_change <= 0:
             return None
         return put_change / call_change
-
-    @property
-    def buildup(self) -> str:
-        """Plain description of what the two peak strikes are doing."""
-        call_change, put_change = self.call_oi_change, self.put_oi_change
-        if call_change is None or put_change is None:
-            return "OI change unavailable"
-
-        call_word = "writing" if call_change > 0 else "unwinding"
-        put_word = "writing" if put_change > 0 else "unwinding"
-        return f"call {call_word}, put {put_word}"

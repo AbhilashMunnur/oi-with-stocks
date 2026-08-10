@@ -118,13 +118,13 @@ OI + RSI alerts — 10 Aug 2026 15:45
 
 CALL OI (overbought, near max Call OI)
 • TITAN: RSI 74.6 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
-    ΔOI +2,934 contracts | ΔPCR 1.02 | call writing, put writing
+    Call ΔOI +2,934 | Put ΔOI +2,992 | ΔPCR 1.02  (contracts)
 • HAL: RSI 75.8 | ₹4,928.00 vs strike ₹5,000 (1.44% away)
-    ΔOI +162 contracts | ΔPCR 0.28 | call writing, put writing
+    Call ΔOI +162 | Put ΔOI +46 | ΔPCR 0.28  (contracts)
 
 PUT OI (oversold, near max Put OI)
 • LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
-    ΔOI -73 contracts | call unwinding, put unwinding
+    Call ΔOI -410 | Put ΔOI -73  (contracts)
 ```
 
 Telegram is enabled in `config.yaml` but only used when both values are present,
@@ -185,15 +185,17 @@ Typical timings for the full 208-stock universe:
 Alerts also carry how open interest moved since the previous session's close, at
 the two peak strikes:
 
-- **ΔOI** — today's OI at that strike minus its previous closing OI. Positive means
-  fresh positions are being written there, negative means the strike is unwinding.
+- **Call ΔOI** — change in *call* OI at the max Call strike, versus its previous
+  close. Positive means fresh calls are being written there, negative means the
+  strike is unwinding. **Put ΔOI** is the same for puts at the max Put strike.
+  Each figure covers one leg at one strike; they are never summed together.
 - **Change PCR** — ΔPut OI at the max Put strike divided by ΔCall OI at the max Call
   strike. Above 1 means puts are building faster than calls.
 
 The ratio is deliberately **only shown when both sides are adding** positions. If
 either side is unwinding, the division flips sign and stops meaning anything, so
-the scanner reports the raw changes and a plain description like `call writing,
-put unwinding` instead of a misleading number.
+the scanner shows the two signed changes and omits the ratio rather than printing
+a misleading number.
 
 Angel One's quote feed has no change-in-OI field, so this comes from its historical
 OI endpoint, costing two extra requests per alerting stock. Those requests are only
