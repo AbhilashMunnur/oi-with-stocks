@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from src.config import NotificationConfig, SignalType
 from src.oi_analyzer import ScanAlert
 
-TELEGRAM_API = "https://api.telegram.org/bot{token}/sendMessage"
+TELEGRAM_API = "https://api.telegram.org/bot{token}/{method}"
 
 
 class Notifier:
@@ -84,24 +84,72 @@ class Notifier:
         lines.append(f"\nExpiry: {alerts[0].expiry}")
         return "\n".join(lines)
 
-    def send_message(self, text: str) -> int:
+    def _telegram_url(self, method: str) -> str:
+        return TELEGRAM_API.format(token=self.bot_token, method=method)
+
+    def _chat_error(self, chat_id: str, exc: requests.RequestException) -> None:
+        detail = ""
+        if exc.response is not None:
+            try:
+                detail = f": {exc.response.json().get('description', '')}"
+            except ValueError:
+                detail = f": {exc.response.text[:120]}"
+        print(f"  could not reach chat {chat_id}{detail}")
+
+    def send_message(self, text: str, *, parse_mode: str | None = None) -> int:
         """Send to every recipient. One bad chat ID must not silence the rest."""
         delivered = 0
 
         for chat_id in self.chat_ids:
+            payload: dict = {
+                "chat_id": chat_id,
+                "text": text,
+                "disable_web_page_preview": True,
+            }
+            if parse_mode:
+                payload["parse_mode"] = parse_mode
+
             try:
                 response = requests.post(
-                    TELEGRAM_API.format(token=self.bot_token),
-                    json={"chat_id": chat_id, "text": text},
+                    self._telegram_url("sendMessage"),
+                    json=payload,
                     timeout=20,
                 )
                 response.raise_for_status()
                 delivered += 1
             except requests.RequestException as exc:
-                detail = ""
-                if exc.response is not None:
-                    detail = f": {exc.response.json().get('description', '')}"
-                print(f"  could not reach chat {chat_id}{detail}")
+                self._chat_error(chat_id, exc)
+
+        return delivered
+
+    def send_photo(
+        self,
+        image: bytes,
+        caption: str = "",
+        *,
+        parse_mode: str | None = None,
+    ) -> int:
+        """Send a PNG dashboard image to every recipient."""
+        delivered = 0
+
+        for chat_id in self.chat_ids:
+            data: dict = {"chat_id": chat_id}
+            if caption:
+                data["caption"] = caption[:1024]
+            if parse_mode:
+                data["parse_mode"] = parse_mode
+
+            try:
+                response = requests.post(
+                    self._telegram_url("sendPhoto"),
+                    data=data,
+                    files={"photo": ("positions.png", image, "image/png")},
+                    timeout=40,
+                )
+                response.raise_for_status()
+                delivered += 1
+            except requests.RequestException as exc:
+                self._chat_error(chat_id, exc)
 
         return delivered
 

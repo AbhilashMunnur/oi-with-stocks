@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
@@ -349,49 +349,37 @@ class PaperBook:
         prices: dict[str, float],
         events: list[TradeEvent] | None = None,
     ) -> str:
-        """Position-level book update for Telegram."""
+        """HTML caption for the positions image (parse_mode=HTML)."""
+        from src.paper_trading.dashboard import format_pnl_dashboard
+
         self._roll_day()
-        stamp = datetime.now().strftime("%d %b %Y %H:%M")
-        lines = [f"Paper book — {stamp}"]
+        return format_pnl_dashboard(
+            capital=self.config.capital,
+            free_capital=self.free_capital,
+            realised_pnl=self.realised_pnl,
+            day_realised_pnl=self.day_realised_pnl,
+            closed_count=self.closed_count,
+            positions=self.positions,
+            prices=prices,
+            events=events,
+        )
 
-        if events:
-            lines.append("")
-            lines.append("This scan")
-            for event in events:
-                pnl = f"  ₹{event.pnl:+,.0f}" if event.pnl else ""
-                lines.append(f"• [{event.kind}] {event.symbol}: {event.detail}{pnl}")
+    def telegram_dashboard_image(
+        self,
+        prices: dict[str, float],
+        events: list[TradeEvent] | None = None,
+    ) -> bytes:
+        """Angel One–style positions board as a PNG for Telegram."""
+        from src.paper_trading.dashboard import render_positions_image
 
-        open_positions = [p for p in self.positions if p.is_open]
-        if open_positions:
-            lines.append("")
-            lines.append(f"Open positions ({len(open_positions)})")
-            for position in sorted(open_positions, key=lambda p: p.symbol):
-                price = prices.get(position.symbol)
-                if price is None:
-                    lines.append(
-                        f"• {position.symbol} {position.direction} "
-                        f"{position.lots_open}/{position.lots_total} lots @ "
-                        f"₹{position.entry_price:,.2f} | LTP n/a"
-                    )
-                    continue
-
-                move = position.move_pct(price)
-                upnl = position.unrealised(price)
-                lines.append(
-                    f"• {position.symbol} {position.direction} "
-                    f"{position.lots_open}/{position.lots_total} lots @ "
-                    f"₹{position.entry_price:,.2f} | LTP ₹{price:,.2f} "
-                    f"({move:+.2f}%) | P&L ₹{upnl:+,.0f}"
-                )
-
-        open_pnl = self.unrealised(prices)
-        day = self.day_realised_pnl + open_pnl
-        lines += [
-            "",
-            f"Day realised   ₹{self.day_realised_pnl:+,.0f}",
-            f"Open unrealised ₹{open_pnl:+,.0f}",
-            f"Day P&L        ₹{day:+,.0f}",
-            f"Lifetime realised ₹{self.realised_pnl:+,.0f} ({self.closed_count} closed)",
-            f"Free capital   ₹{self.free_capital:,.0f}",
-        ]
-        return "\n".join(lines)
+        self._roll_day()
+        return render_positions_image(
+            capital=self.config.capital,
+            free_capital=self.free_capital,
+            realised_pnl=self.realised_pnl,
+            day_realised_pnl=self.day_realised_pnl,
+            closed_count=self.closed_count,
+            positions=self.positions,
+            prices=prices,
+            events=events,
+        )

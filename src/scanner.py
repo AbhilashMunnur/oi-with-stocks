@@ -186,10 +186,13 @@ class OIRsiScanner:
         # Send a book snapshot whenever something changed or positions are open,
         # so Telegram always has live per-position and day P&L during the session.
         if self.notifier.telegram_ready and (events or self.book.positions):
-            report = self.book.telegram_report(prices, events)
-            delivered = self.notifier.send_message(report)
+            image = self.book.telegram_dashboard_image(prices, events)
+            caption = self.book.telegram_report(prices, events)
+            delivered = self.notifier.send_photo(
+                image, caption=caption, parse_mode="HTML"
+            )
             print(
-                f"Sent paper book to Telegram "
+                f"Sent positions dashboard to Telegram "
                 f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
             )
 

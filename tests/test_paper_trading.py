@@ -238,8 +238,6 @@ def test_telegram_report_lists_each_open_position_and_day_pnl(config):
         events=[],
     )
 
-    assert "Open positions (2)" in report
-    assert "TITAN SHORT" in report
-    assert "HAL LONG" in report
-    assert "Day P&L" in report
-    assert "P&L ₹" in report
+    assert "Paper positions" in report
+    assert "Day P&amp;L" in report
+    assert "Equity" in report
