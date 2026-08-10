@@ -60,25 +60,26 @@ def main() -> None:
         print("yet activated on smartapi.angelone.in.")
         sys.exit(1)
 
-    print("Logged in to Angel One")
+    print(f"Logged in to Angel One ({len(client.fno_symbols())} F&O stocks available)")
 
     print(f"\nChecking live data for {symbol}...")
-    oi = client.get_oi_snapshot(symbol)
+    ltp = client.get_ltps([symbol]).get(symbol)
+    if not ltp:
+        print(f"Could not fetch a live price for {symbol}.")
+        client.close()
+        sys.exit(1)
+
+    rsi = client.get_rsi(symbol, ltp)
+    oi = client.get_oi_snapshot(symbol, ltp=ltp)
     if not oi:
         print(f"Could not fetch the option chain for {symbol}.")
         client.close()
         sys.exit(1)
 
-    price = client.get_price_snapshot(symbol, ltp=oi.ltp or None)
-    if not price:
-        print(f"Could not fetch price or RSI for {symbol}.")
-        client.close()
-        sys.exit(1)
-
-    rsi_text = f"{price.rsi:.1f}" if price.rsi is not None else "unavailable"
+    rsi_text = f"{rsi:.1f}" if rsi is not None else "unavailable"
     print("\nAll checks passed:")
     print(f"  Symbol          {oi.symbol}")
-    print(f"  Live LTP        Rs {price.ltp:,.2f}")
+    print(f"  Live LTP        Rs {ltp:,.2f}")
     print(f"  RSI({config.rsi.period})         {rsi_text}")
     print(f"  Expiry          {oi.expiry}  (lot size {oi.lot_size})")
     print(f"  Max Call OI     Rs {oi.max_call_oi_strike:,.0f}  ({format_oi(oi, oi.max_call_oi)})")

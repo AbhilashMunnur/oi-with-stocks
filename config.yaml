@@ -12,18 +12,12 @@ oi:
 data:
   history_days: 120       # Daily candles pulled for the RSI calculation
 
-# Stocks to scan (NSE F&O symbols without .NS suffix)
-watchlist:
-  - RELIANCE
-  - TCS
-  - INFY
-  - HDFCBANK
-  - ICICIBANK
-  - SBIN
-  - TATASTEEL
-  - TMPV          # Tata Motors Passenger Vehicles (post-demerger F&O symbol)
-  - WIPRO
-  - ITC
+# Stocks to scan: "all" covers every NSE stock with listed options,
+# or replace it with an explicit list of symbols, e.g.
+#   watchlist:
+#     - RELIANCE
+#     - HDFCBANK
+watchlist: all
 
 # Scanner schedule (24h format, IST assumed)
 schedule:

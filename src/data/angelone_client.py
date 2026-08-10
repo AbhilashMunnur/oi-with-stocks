@@ -5,6 +5,7 @@ import logging
 import os
 import time
 from datetime import date, datetime, timedelta
+from pathlib import Path
 
 import logzero
 import pandas as pd
@@ -15,20 +16,39 @@ from SmartApi import SmartConnect
 # The SDK logs connection pool chatter at info level on every call.
 logzero.loglevel(logging.WARNING)
 
-from src.data.base import CredentialsError, download_cached
-from src.data.models import OISnapshot, PriceSnapshot
+from src.data.base import CACHE_DIR, CredentialsError, download_cached
+from src.data.models import OISnapshot
 from src.indicators import calculate_rsi
 
 SCRIP_MASTER_URL = (
     "https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json"
 )
 
-# Angel One quotes accept at most 50 tokens per request and roughly one request per second.
+# Quotes accept 50 tokens per request at 1 request/second.
 MAX_TOKENS_PER_REQUEST = 50
-REQUEST_DELAY_SECONDS = 1.0
+QUOTE_INTERVAL_SECONDS = 1.05
+
+# Candles allow 3 requests/second, capped at 180/minute.
+CANDLE_INTERVAL_SECONDS = 0.35
+
+RETRY_BACKOFF_SECONDS = (2, 5, 10)
 
 # Strikes in the instrument master are quoted in paise.
 STRIKE_DIVISOR = 100.0
+
+
+class Throttle:
+    """Spaces out calls to one endpoint to stay inside its rate limit."""
+
+    def __init__(self, min_interval_seconds: float):
+        self.min_interval_seconds = min_interval_seconds
+        self._last_call = 0.0
+
+    def wait(self) -> None:
+        elapsed = time.monotonic() - self._last_call
+        if elapsed < self.min_interval_seconds:
+            time.sleep(self.min_interval_seconds - elapsed)
+        self._last_call = time.monotonic()
 
 
 class AngelOneClient:
@@ -51,6 +71,7 @@ class AngelOneClient:
 
         self.rsi_period = rsi_period
         self.history_days = history_days
+        self.client_code = client_code
         self.client = SmartConnect(api_key=api_key)
 
         session = self.client.generateSession(client_code, pin, pyotp.TOTP(totp_secret).now())
@@ -58,8 +79,12 @@ class AngelOneClient:
             message = (session or {}).get("message", "unknown error")
             raise CredentialsError(f"Angel One login failed: {message}")
 
+        self._quote_throttle = Throttle(QUOTE_INTERVAL_SECONDS)
+        self._candle_throttle = Throttle(CANDLE_INTERVAL_SECONDS)
+
         self._equity_tokens: dict[str, str] | None = None
         self._option_rows: dict[str, list[dict]] | None = None
+        self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
 
     def __enter__(self) -> AngelOneClient:
         return self
@@ -68,10 +93,15 @@ class AngelOneClient:
         self.close()
 
     def close(self) -> None:
+        self._save_closes_cache()
         try:
-            self.client.terminateSession(os.getenv("ANGEL_CLIENT_CODE", "").strip())
+            self.client.terminateSession(self.client_code)
         except Exception:
             pass
+
+    # ------------------------------------------------------------------ #
+    # Instruments
+    # ------------------------------------------------------------------ #
 
     def _load_instruments(self) -> None:
         if self._equity_tokens is not None:
@@ -95,6 +125,21 @@ class AngelOneClient:
         self._equity_tokens = equities
         self._option_rows = options
 
+    def fno_symbols(self) -> list[str]:
+        """Every NSE stock with listed options, that also has a tradable equity token."""
+        self._load_instruments()
+        return sorted(
+            symbol
+            for symbol in (self._option_rows or {})
+            if symbol in (self._equity_tokens or {})
+        )
+
+    def lot_size(self, symbol: str) -> int:
+        nearest = self._nearest_expiry_rows(symbol)
+        if not nearest:
+            return 0
+        return int(float(nearest[1][0].get("lotsize") or 0))
+
     def _nearest_expiry_rows(self, symbol: str) -> tuple[str, list[dict]] | None:
         self._load_instruments()
         contracts = (self._option_rows or {}).get(symbol.upper())
@@ -117,29 +162,180 @@ class AngelOneClient:
         nearest = min(by_expiry)
         return nearest.strftime("%Y-%m-%d"), by_expiry[nearest]
 
-    def _fetch_open_interest(self, tokens: list[str]) -> dict[str, int]:
-        """Fetch OI for NFO tokens in batches, keyed by symbol token."""
-        open_interest: dict[str, int] = {}
+    # ------------------------------------------------------------------ #
+    # Requests
+    # ------------------------------------------------------------------ #
 
-        for start in range(0, len(tokens), MAX_TOKENS_PER_REQUEST):
-            batch = tokens[start : start + MAX_TOKENS_PER_REQUEST]
-            response = self.client.getMarketData("FULL", {"NFO": batch})
-            time.sleep(REQUEST_DELAY_SECONDS)
+    def _call(self, throttle: Throttle, func, *args):
+        """Call an endpoint, backing off when the server reports a rate limit."""
+        last_error: Exception | None = None
+
+        for attempt, backoff in enumerate((0, *RETRY_BACKOFF_SECONDS)):
+            if backoff:
+                time.sleep(backoff)
+
+            throttle.wait()
+            try:
+                response = func(*args)
+            except Exception as exc:
+                last_error = exc
+                if "access rate" not in str(exc).lower() and attempt >= 1:
+                    raise
+                continue
+
+            if isinstance(response, dict) and not response.get("status"):
+                message = str(response.get("message", ""))
+                if "access rate" in message.lower() or "rate" in message.lower():
+                    last_error = RuntimeError(message)
+                    continue
+            return response
+
+        if last_error:
+            raise last_error
+        return None
+
+    def get_ltps(self, symbols: list[str]) -> dict[str, float]:
+        """Fetch last traded prices for many symbols, 50 per request."""
+        self._load_instruments()
+        tokens = {
+            token: symbol
+            for symbol in symbols
+            if (token := (self._equity_tokens or {}).get(symbol.upper()))
+        }
+
+        prices: dict[str, float] = {}
+        token_list = list(tokens)
+
+        for start in range(0, len(token_list), MAX_TOKENS_PER_REQUEST):
+            batch = token_list[start : start + MAX_TOKENS_PER_REQUEST]
+            try:
+                response = self._call(
+                    self._quote_throttle, self.client.getMarketData, "LTP", {"NSE": batch}
+                )
+            except Exception as exc:
+                print(f"  quote batch failed: {exc}")
+                continue
 
             if not response or not response.get("status"):
                 continue
 
             for quote in (response.get("data") or {}).get("fetched") or []:
-                token = str(quote.get("symbolToken"))
-                open_interest[token] = int(quote.get("opnInterest") or 0)
+                symbol = tokens.get(str(quote.get("symbolToken")))
+                price = quote.get("ltp")
+                if symbol and price:
+                    prices[symbol] = float(price)
+
+        return prices
+
+    # ------------------------------------------------------------------ #
+    # Candles and RSI
+    # ------------------------------------------------------------------ #
+
+    def _closes_cache_path(self) -> Path:
+        return CACHE_DIR / f"daily_closes_{date.today():%Y-%m-%d}.json"
+
+    def _load_closes_cache(self) -> dict[str, list[tuple[str, float]]]:
+        if self._closes_cache is not None:
+            return self._closes_cache
+
+        path = self._closes_cache_path()
+        if path.exists():
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            self._closes_cache = {k: [(d, float(c)) for d, c in v] for k, v in raw.items()}
+        else:
+            self._closes_cache = {}
+        return self._closes_cache
+
+    def _save_closes_cache(self) -> None:
+        if not self._closes_cache:
+            return
+        CACHE_DIR.mkdir(exist_ok=True)
+        self._closes_cache_path().write_text(
+            json.dumps(self._closes_cache), encoding="utf-8"
+        )
+
+    def daily_closes(self, symbol: str) -> list[tuple[str, float]]:
+        """Daily (date, close) pairs, fetched once per day and cached on disk."""
+        symbol = symbol.upper()
+        cache = self._load_closes_cache()
+        if symbol in cache:
+            return cache[symbol]
+
+        self._load_instruments()
+        token = (self._equity_tokens or {}).get(symbol)
+        if not token:
+            return []
+
+        now = datetime.now()
+        try:
+            response = self._call(
+                self._candle_throttle,
+                self.client.getCandleData,
+                {
+                    "exchange": "NSE",
+                    "symboltoken": token,
+                    "interval": "ONE_DAY",
+                    "fromdate": (now - timedelta(days=self.history_days)).strftime(
+                        "%Y-%m-%d %H:%M"
+                    ),
+                    "todate": now.strftime("%Y-%m-%d %H:%M"),
+                },
+            )
+        except Exception as exc:
+            print(f"  {symbol}: candles unavailable ({exc})")
+            return []
+
+        candles = (response or {}).get("data") or []
+        series = [(str(row[0])[:10], float(row[4])) for row in candles if len(row) >= 5]
+        cache[symbol] = series
+        return series
+
+    def get_rsi(self, symbol: str, ltp: float) -> float | None:
+        """RSI from cached daily closes, with today's close set to the live price."""
+        series = self.daily_closes(symbol)
+        if not series:
+            return None
+
+        closes = [close for _, close in series]
+        today = f"{date.today():%Y-%m-%d}"
+
+        # Only overwrite the final close when it is today's still-forming candle,
+        # otherwise the live price would replace the previous session's close.
+        if series[-1][0] == today:
+            closes[-1] = ltp
+        else:
+            closes.append(ltp)
+
+        return calculate_rsi(pd.Series(closes, dtype=float), period=self.rsi_period)
+
+    # ------------------------------------------------------------------ #
+    # Open interest
+    # ------------------------------------------------------------------ #
+
+    def _fetch_open_interest(self, tokens: list[str]) -> dict[str, int]:
+        open_interest: dict[str, int] = {}
+
+        for start in range(0, len(tokens), MAX_TOKENS_PER_REQUEST):
+            batch = tokens[start : start + MAX_TOKENS_PER_REQUEST]
+            response = self._call(
+                self._quote_throttle, self.client.getMarketData, "FULL", {"NFO": batch}
+            )
+
+            if not response or not response.get("status"):
+                continue
+
+            for quote in (response.get("data") or {}).get("fetched") or []:
+                open_interest[str(quote.get("symbolToken"))] = int(
+                    quote.get("opnInterest") or 0
+                )
 
         return open_interest
 
-    def get_oi_snapshot(self, symbol: str) -> OISnapshot | None:
+    def get_oi_snapshot(self, symbol: str, ltp: float = 0.0) -> OISnapshot | None:
         symbol = symbol.upper()
         nearest = self._nearest_expiry_rows(symbol)
         if not nearest:
-            print(f"  {symbol}: skipped (no stock options listed on Angel One)")
+            print(f"  {symbol}: no stock options listed")
             return None
 
         expiry, contracts = nearest
@@ -148,11 +344,11 @@ class AngelOneClient:
         try:
             open_interest = self._fetch_open_interest(list(by_token))
         except Exception as exc:
-            print(f"  {symbol}: skipped (Angel One quotes failed - {exc})")
+            print(f"  {symbol}: option quotes failed ({exc})")
             return None
 
         if not open_interest:
-            print(f"  {symbol}: skipped (no OI returned)")
+            print(f"  {symbol}: no open interest returned")
             return None
 
         max_call_oi = max_put_oi = -1
@@ -177,9 +373,6 @@ class AngelOneClient:
         if max_call_oi < 0 or max_put_oi < 0:
             return None
 
-        ltp = self._live_ltp(symbol) or 0.0
-        lot_size = int(float(contracts[0].get("lotsize") or 0))
-
         return OISnapshot(
             symbol=symbol,
             ltp=ltp,
@@ -188,66 +381,5 @@ class AngelOneClient:
             max_put_oi_strike=max_put_strike,
             max_put_oi=max_put_oi,
             expiry=expiry,
-            lot_size=lot_size,
+            lot_size=int(float(contracts[0].get("lotsize") or 0)),
         )
-
-    def _live_ltp(self, symbol: str) -> float | None:
-        self._load_instruments()
-        token = (self._equity_tokens or {}).get(symbol.upper())
-        if not token:
-            return None
-
-        response = self.client.getMarketData("LTP", {"NSE": [token]})
-        time.sleep(REQUEST_DELAY_SECONDS)
-
-        if not response or not response.get("status"):
-            return None
-
-        fetched = (response.get("data") or {}).get("fetched") or []
-        return float(fetched[0]["ltp"]) if fetched else None
-
-    def get_price_snapshot(self, symbol: str, ltp: float | None = None) -> PriceSnapshot | None:
-        symbol = symbol.upper()
-        self._load_instruments()
-        token = (self._equity_tokens or {}).get(symbol)
-        if not token:
-            print(f"  {symbol}: skipped (symbol not found on Angel One)")
-            return None
-
-        if not ltp:
-            try:
-                ltp = self._live_ltp(symbol)
-            except Exception as exc:
-                print(f"  {symbol}: skipped (Angel One LTP failed - {exc})")
-                return None
-
-        if not ltp:
-            print(f"  {symbol}: skipped (no live price)")
-            return None
-
-        now = datetime.now()
-        try:
-            response = self.client.getCandleData(
-                {
-                    "exchange": "NSE",
-                    "symboltoken": token,
-                    "interval": "ONE_DAY",
-                    "fromdate": (now - timedelta(days=self.history_days)).strftime("%Y-%m-%d %H:%M"),
-                    "todate": now.strftime("%Y-%m-%d %H:%M"),
-                }
-            )
-            time.sleep(REQUEST_DELAY_SECONDS)
-        except Exception as exc:
-            print(f"  {symbol}: skipped (Angel One candles failed - {exc})")
-            return None
-
-        candles = (response or {}).get("data") or []
-        if not candles:
-            print(f"  {symbol}: skipped (no historical candles)")
-            return None
-
-        series = pd.Series([float(candle[4]) for candle in candles], dtype=float)
-        series.iloc[-1] = ltp
-        rsi = calculate_rsi(series, period=self.rsi_period)
-
-        return PriceSnapshot(symbol=symbol, ltp=float(ltp), rsi=rsi)

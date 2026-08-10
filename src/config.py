@@ -48,7 +48,8 @@ class AppConfig:
     rsi: RSIConfig
     oi: OIConfig
     data: DataConfig
-    watchlist: list[str]
+    # Either an explicit list of symbols or the string "all" for every F&O stock.
+    watchlist: list[str] | str
     schedule: ScheduleConfig
     notifications: NotificationConfig
 
@@ -58,11 +59,13 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
     with config_path.open(encoding="utf-8") as handle:
         raw = yaml.safe_load(handle)
 
+    watchlist = raw["watchlist"]
+
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
         oi=OIConfig(**raw["oi"]),
         data=DataConfig(**raw["data"]),
-        watchlist=list(raw["watchlist"]),
+        watchlist=watchlist if isinstance(watchlist, str) else list(watchlist),
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
     )

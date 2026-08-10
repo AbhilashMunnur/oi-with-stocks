@@ -4,6 +4,7 @@ from datetime import datetime, time as dt_time
 
 from src.config import AppConfig
 from src.data.angelone_client import AngelOneClient
+from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, evaluate_stock
 
@@ -36,14 +37,41 @@ class OIRsiScanner:
         end = self._parse_hhmm(self.config.schedule.market_end)
         return start <= now.time() <= end
 
-    def scan_symbol(self, symbol: str) -> ScanAlert | None:
-        oi = self.client.get_oi_snapshot(symbol)
-        if not oi:
-            return None
+    def symbols(self) -> list[str]:
+        """The configured watchlist, or every F&O stock when set to 'all'."""
+        watchlist = self.config.watchlist
+        if isinstance(watchlist, str) and watchlist.strip().lower() == "all":
+            return self.client.fno_symbols()
+        return [symbol.upper() for symbol in watchlist]
 
-        # The OI lookup already fetched a live underlying price, so reuse it.
-        price = self.client.get_price_snapshot(symbol, ltp=oi.ltp or None)
-        if not price:
+    def _rsi_candidates(self, symbols: list[str]) -> list[PriceSnapshot]:
+        """Stocks whose RSI is stretched enough to be worth an option-chain lookup."""
+        prices = self.client.get_ltps(symbols)
+        missing = [s for s in symbols if s not in prices]
+        if missing:
+            print(f"  no live price for {len(missing)} symbol(s): {', '.join(missing[:5])}")
+
+        candidates: list[PriceSnapshot] = []
+        for index, symbol in enumerate(symbols, 1):
+            ltp = prices.get(symbol)
+            if not ltp:
+                continue
+
+            rsi = self.client.get_rsi(symbol, ltp)
+            if rsi is None:
+                continue
+
+            if rsi >= self.config.rsi.call_threshold or rsi <= self.config.rsi.put_threshold:
+                candidates.append(PriceSnapshot(symbol=symbol, ltp=ltp, rsi=rsi))
+
+            if index % 25 == 0:
+                print(f"  screened {index}/{len(symbols)} symbols...")
+
+        return candidates
+
+    def _check_candidate(self, price: PriceSnapshot) -> ScanAlert | None:
+        oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
+        if not oi:
             return None
 
         alert = evaluate_stock(
@@ -57,26 +85,33 @@ class OIRsiScanner:
         if alert:
             return alert
 
-        rsi_text = f"{price.rsi:.1f}" if price.rsi is not None else "n/a"
         print(
-            f"  {symbol}: no signal | RSI={rsi_text} | LTP=₹{price.ltp:.2f} | "
-            f"max Call OI @ ₹{oi.max_call_oi_strike:.0f} | max Put OI @ ₹{oi.max_put_oi_strike:.0f}"
+            f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
+            f"is not near max Call OI ₹{oi.max_call_oi_strike:.0f} "
+            f"or max Put OI ₹{oi.max_put_oi_strike:.0f}"
         )
         return None
 
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"\nScan started at {started} using live Angel One data")
-        alerts: list[ScanAlert] = []
+        symbols = self.symbols()
+        print(f"\nScan started at {started} over {len(symbols)} stocks (live Angel One data)")
 
-        for symbol in self.config.watchlist:
-            alert = self.scan_symbol(symbol)
+        candidates = self._rsi_candidates(symbols)
+        print(
+            f"\n{len(candidates)} stock(s) passed the RSI filter "
+            f"(>= {self.config.rsi.call_threshold} or <= {self.config.rsi.put_threshold})"
+        )
+
+        alerts: list[ScanAlert] = []
+        for price in candidates:
+            alert = self._check_candidate(price)
             if alert:
                 alerts.append(alert)
 
         if alerts:
             self.notifier.notify(alerts)
         else:
-            print("No alerts this scan.")
+            print("\nNo alerts this scan.")
 
         return alerts

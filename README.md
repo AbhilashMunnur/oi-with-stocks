@@ -63,12 +63,16 @@ Edit `config.yaml`:
 | `rsi.put_threshold` | 35 | RSI must be at or below this for a Put OI alert |
 | `oi.proximity_pct` | 2.0 | Price must be within this % of the max OI strike |
 | `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
-| `watchlist` | 10 stocks | NSE F&O symbols to scan |
+| `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
 | `schedule.interval_minutes` | 15 | How often to scan during market hours |
+
+The F&O universe (208 stocks as of writing) and every lot size are read from Angel
+One's instrument master rather than hardcoded, so contract changes and new listings
+are picked up automatically when the daily cache refreshes.
 
 ## Usage
 
-**Single scan of the whole watchlist:**
+**Single scan of every F&O stock:**
 ```bash
 python main.py --once
 ```
@@ -97,25 +101,38 @@ python main.py
 ## How it works
 
 ```
-For each stock in watchlist:
-  ├── Option chain (nearest expiry) → max Call OI strike, max Put OI strike, spot LTP
-  ├── Daily candles + live LTP      → 14-period RSI, refreshed intraday
-  └── Check:
-        RSI >= 70 and price near max Call OI strike → CALL OI ALERT
-        RSI <= 35 and price near max Put OI strike → PUT OI ALERT
+1. Fetch live LTP for every stock      (batched 50 per request)
+2. Compute RSI from cached daily closes + live LTP
+3. Keep only stocks with RSI >= 70 or <= 35
+4. For those candidates only, fetch the option chain
+5. Alert when price sits near the max Call OI (high RSI)
+   or max Put OI (low RSI) strike
 ```
 
-Angel One has no single option-chain endpoint, so the chain is rebuilt from the
-instrument master: contracts for the nearest expiry are looked up locally, then
-their open interest is fetched in batches of 50 quotes.
+Step 3 is what makes a full scan practical. Angel One's option chain has to be
+rebuilt per stock from the instrument master, costing several requests each, so
+fetching it for all 208 stocks would take around 17 minutes. Screening on RSI first
+narrows it to a handful of candidates and cuts a full scan to about a minute.
 
-The last daily close is replaced with the live LTP before computing RSI, so the
-indicator updates through the trading session instead of freezing at yesterday's close.
+Daily closes are fetched once per day and cached in `.cache/`, so only the first
+run of the day pays for candles. RSI then uses the live LTP as today's close, which
+keeps the indicator moving through the session instead of freezing at yesterday's
+close.
+
+Typical timings for the full 208-stock universe:
+
+| Run | Time |
+|-----|------|
+| First scan of the day (fetches candles) | ~2m 20s |
+| Later scans (candle cache warm) | ~1m |
 
 ## Notes
 
 - Only the **nearest expiry** is used for the OI comparison
-- Quotes are batched 50 tokens at a time with a 1 request/second pause
-- The instrument master is cached in `.cache/` and refreshed once a day
+- Angel One reports OI in shares; the scanner divides by lot size so the numbers
+  match the contract counts shown on a trading terminal
+- Quotes are batched 50 at a time at 1 request/second; candles run at 3/second,
+  both within Angel One's documented limits, with backoff on rate-limit errors
+- The instrument master and daily closes are cached in `.cache/` and refreshed daily
 - Alerts have a cooldown (default 60 min) to avoid repeats
 - Run `python main.py --once` outside market hours and you will get last traded values
