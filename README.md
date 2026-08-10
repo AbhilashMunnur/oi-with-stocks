@@ -45,6 +45,18 @@ cp .env.example .env
 
 Login happens automatically on every run using the TOTP secret, so there is no daily step.
 
+`ANGEL_TOTP_SECRET` is the text string shown next to the 2FA QR code, not the
+6-digit code that rotates every 30 seconds.
+
+Confirm everything works before relying on alerts:
+
+```bash
+python scripts/check_angelone.py            # defaults to RELIANCE
+python scripts/check_angelone.py HDFCBANK
+```
+
+It verifies login, live LTP, RSI and the option chain, then prints what it found.
+
 From 1 Apr 2026 Angel One requires a registered static IP, but only for **order
 execution**. This scanner is read-only and places no orders, so it is unaffected.
 
@@ -52,13 +64,14 @@ execution**. This scanner is read-only and places no orders, so it is unaffected
 
 1. Subscribe to **DhanHQ Data APIs** (₹499 + taxes/month) — the free Trading API tier
    does not include the live feed, historical candles or option chain
-2. Open [web.dhan.co](https://web.dhan.co) → **DhanHQ Trading APIs** → generate an access token
-3. Fill in `.env`:
+2. Install the SDK, which is not part of `requirements.txt`: `pip install dhanhq`
+3. Open [web.dhan.co](https://web.dhan.co) → **DhanHQ Trading APIs** → generate an access token
+4. Fill in `.env`:
    ```
    DHAN_CLIENT_ID=your_client_id
    DHAN_ACCESS_TOKEN=your_access_token
    ```
-4. Set `provider: dhan` in `config.yaml`
+5. Set `provider: dhan` in `config.yaml`
 
 The token is valid for 30 days, so there is no daily login step.
 

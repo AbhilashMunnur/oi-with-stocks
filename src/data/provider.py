@@ -12,7 +12,14 @@ def create_provider(config: AppConfig) -> MarketDataProvider:
     provider = config.data.provider.strip().lower()
 
     if provider in DHAN_ALIASES:
-        from src.data.dhan_client import DhanProvider
+        try:
+            from src.data.dhan_client import DhanProvider
+        except ImportError as exc:
+            raise ProviderError(
+                "The Dhan SDK is not installed. Run 'pip install dhanhq'. "
+                "Note that Dhan's market data needs the paid DhanHQ Data API plan; "
+                "Angel One serves the same data for free."
+            ) from exc
 
         return DhanProvider(
             rsi_period=config.rsi.period,
