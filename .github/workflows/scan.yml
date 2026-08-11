@@ -1,22 +1,20 @@
 name: OI + RSI scan
 
-# GitHub cron runs in UTC; IST is UTC+5:30.
-# These fire every 30 minutes from 09:15 to 15:45 IST on weekdays.
+# GitHub cron is UTC and often late/skipped. Fire every 30 minutes across the
+# IST session window; the job exits immediately outside 09:15–15:45 IST.
 on:
   schedule:
-    - cron: "45 3 * * 1-5"      # 09:15 IST
-    - cron: "15,45 4-9 * * 1-5" # 09:45 - 15:15 IST
-    - cron: "15 10 * * 1-5"     # 15:45 IST
+    - cron: "0,30 3-10 * * 1-5"   # 08:30–16:00 IST, every 30 minutes
   workflow_dispatch:            # lets you trigger a scan by hand
 
 concurrency:
   group: oi-rsi-scan
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 12
     permissions:
       contents: write   # the paper trading ledger is committed back
     env:
@@ -51,7 +49,25 @@ jobs:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
 
+      - name: Market hours check
+        id: market
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import datetime, time
+          from zoneinfo import ZoneInfo
+
+          now = datetime.now(ZoneInfo("Asia/Kolkata"))
+          start, end = time(9, 15), time(15, 45)
+          open_ = now.weekday() < 5 and start <= now.time() <= end
+          print(f"IST {now:%Y-%m-%d %H:%M}  market_open={open_}")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"open={'true' if open_ else 'false'}\n")
+          PY
+
       - name: Run scan
+        if: steps.market.outputs.open == 'true'
+        timeout-minutes: 8
         run: python -u main.py --once
 
       # Runners are wiped after each job, so the open positions and realised P&L
