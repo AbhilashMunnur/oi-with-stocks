@@ -2,11 +2,17 @@ from __future__ import annotations
 
 from datetime import datetime, time as dt_time
 
-from src.config import AppConfig
+from src.config import AppConfig, SignalType
 from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
-from src.oi_analyzer import ScanAlert, evaluate_stock, matched_signal
+from src.oi_analyzer import (
+    ScanAlert,
+    call_oi_flow_rejection,
+    evaluate_stock,
+    matched_signal,
+    put_oi_flow_rejection,
+)
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
 
@@ -102,19 +108,38 @@ class OIRsiScanner:
             rsi_put_threshold=self.config.rsi.put_threshold,
             proximity_pct=self.config.oi.proximity_pct,
         )
+        flow = dict(
+            require_call_writing=self.config.oi.require_call_writing,
+            max_change_pcr=self.config.oi.max_change_pcr,
+            require_put_writing=self.config.oi.require_put_writing,
+            min_change_pcr=self.config.oi.min_change_pcr,
+        )
 
         # OI history costs two extra requests, so only price it in once the
-        # stock has actually qualified.
-        if matched_signal(price, oi, **thresholds) is not None:
-            self.client.add_oi_changes(oi)
-            return evaluate_stock(price=price, oi=oi, **thresholds)
+        # stock has actually qualified on RSI + strike proximity.
+        signal = matched_signal(price, oi, **thresholds)
+        if signal is None:
+            print(
+                f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
+                f"is not near max Call OI ₹{oi.max_call_oi_strike:.0f} "
+                f"or max Put OI ₹{oi.max_put_oi_strike:.0f}"
+            )
+            return None
 
-        print(
-            f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
-            f"is not near max Call OI ₹{oi.max_call_oi_strike:.0f} "
-            f"or max Put OI ₹{oi.max_put_oi_strike:.0f}"
-        )
-        return None
+        self.client.add_oi_changes(oi)
+
+        if signal is SignalType.CALL_OI:
+            rejected = call_oi_flow_rejection(oi, **flow)
+            if rejected:
+                print(f"  {price.symbol}: CALL_OI skipped — {rejected}")
+                return None
+        else:
+            rejected = put_oi_flow_rejection(oi, **flow)
+            if rejected:
+                print(f"  {price.symbol}: PUT_OI skipped — {rejected}")
+                return None
+
+        return evaluate_stock(price=price, oi=oi, **thresholds, **flow)
 
     def _apply_futures_expiry(self, alerts: list[ScanAlert]) -> None:
         """Point paper entries at the configured futures month (default: 3rd)."""

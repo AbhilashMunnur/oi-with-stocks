@@ -54,6 +54,7 @@ def test_alert_reports_each_leg_separately():
 
     oi = snapshot(call_change=560_500, put_change=-475_500)
     oi.max_call_oi_strike = 1330  # within 2% of the 1327 spot
+    # Put unwinding → no change PCR; call writing still supports the short.
     alert = evaluate_stock(PriceSnapshot("RELIANCE", 1327.0, 74.0), oi, 70, 35, 2.0)
 
     assert alert is not None

@@ -22,6 +22,14 @@ class RSIConfig:
 @dataclass
 class OIConfig:
     proximity_pct: float
+    # CALL shorts: require writing at the max Call OI strike (Call ΔOI > 0).
+    require_call_writing: bool = True
+    # Skip CALL short when put writing / call writing exceeds this (ΔPCR).
+    max_change_pcr: float = 1.0
+    # PUT longs: require writing at the max Put OI strike (Put ΔOI > 0).
+    require_put_writing: bool = True
+    # Skip PUT long when put writing / call writing is below this (ΔPCR).
+    min_change_pcr: float = 1.0
 
 
 @dataclass

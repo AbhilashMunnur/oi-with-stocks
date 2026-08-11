@@ -64,3 +64,33 @@ def should_run_slot(
         return False, f"slot {slot:%H:%M} IST already completed", slot
 
     return True, f"due for slot {slot:%H:%M} IST", slot
+
+
+def iter_slots_for_day(day: datetime) -> list[datetime]:
+    """All 09:30–15:30 IST half-hour slots for the calendar day of `day`."""
+    day = now_ist(day)
+    start = day.replace(hour=9, minute=30, second=0, microsecond=0)
+    slots: list[datetime] = []
+    cursor = start
+    while cursor.time() <= LAST_SLOT:
+        slots.append(cursor)
+        if cursor.minute == 0:
+            cursor = cursor.replace(minute=30)
+        else:
+            cursor = cursor.replace(hour=cursor.hour + 1, minute=0)
+    return slots
+
+
+def seconds_until_next_slot(now: datetime | None = None) -> int | None:
+    """Seconds until the next scan slot starts today, or None if none left.
+
+    Used by GitHub Actions to self-chain half-hour runs when cron goes quiet.
+    """
+    current = now_ist(now)
+    if current.weekday() >= 5:
+        return None
+
+    for slot in iter_slots_for_day(current):
+        if slot > current:
+            return max(1, int((slot - current).total_seconds()))
+    return None

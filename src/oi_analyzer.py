@@ -65,7 +65,11 @@ def matched_signal(
     rsi_put_threshold: float,
     proximity_pct: float,
 ) -> SignalType | None:
-    """Which alert, if any, this stock qualifies for. No API calls."""
+    """Which alert, if any, this stock qualifies for on RSI + strike proximity.
+
+    OI-flow filters (call writing / change PCR) are applied separately once
+    session ΔOI has been loaded onto `oi`.
+    """
     if price.rsi is None:
         return None
 
@@ -84,16 +88,103 @@ def matched_signal(
     return None
 
 
+def call_oi_flow_rejection(
+    oi: OISnapshot,
+    *,
+    require_call_writing: bool = True,
+    max_change_pcr: float = 1.0,
+    **_: object,
+) -> str | None:
+    """Why a CALL_OI short should be skipped, or None if flow supports the short.
+
+    - When require_call_writing: Call ΔOI at the max Call OI strike must be known
+      and > 0 (writing, not unwind/flat).
+    - When both legs are writing, Put ΔOI / Call ΔOI must not exceed max_change_pcr
+      (put writing must not dominate call writing).
+    """
+    if require_call_writing:
+        if oi.call_oi_change is None:
+            return "Call ΔOI unavailable (need call writing to short)"
+
+        if oi.call_oi_change <= 0:
+            return (
+                f"Call ΔOI {oi.call_oi_change:+,} shares "
+                "(call unwinding/flat — skip short)"
+            )
+
+    pcr = oi.change_pcr
+    if pcr is not None and pcr > max_change_pcr:
+        return (
+            f"ΔPCR {pcr:.2f} > {max_change_pcr:g} "
+            "(put writing dominates call writing — skip short)"
+        )
+
+    return None
+
+
+def put_oi_flow_rejection(
+    oi: OISnapshot,
+    *,
+    require_put_writing: bool = True,
+    min_change_pcr: float = 1.0,
+    **_: object,
+) -> str | None:
+    """Why a PUT_OI long should be skipped, or None if flow supports the long.
+
+    Mirror of call_oi_flow_rejection:
+    - When require_put_writing: Put ΔOI at the max Put OI strike must be known
+      and > 0 (writing, not unwind/flat).
+    - When both legs are writing, Put ΔOI / Call ΔOI must be at least min_change_pcr
+      (call writing must not dominate put writing).
+    """
+    if require_put_writing:
+        if oi.put_oi_change is None:
+            return "Put ΔOI unavailable (need put writing to long)"
+
+        if oi.put_oi_change <= 0:
+            return (
+                f"Put ΔOI {oi.put_oi_change:+,} shares "
+                "(put unwinding/flat — skip long)"
+            )
+
+    pcr = oi.change_pcr
+    if pcr is not None and pcr < min_change_pcr:
+        return (
+            f"ΔPCR {pcr:.2f} < {min_change_pcr:g} "
+            "(call writing dominates put writing — skip long)"
+        )
+
+    return None
+
+
 def evaluate_stock(
     price: PriceSnapshot,
     oi: OISnapshot,
     rsi_call_threshold: float,
     rsi_put_threshold: float,
     proximity_pct: float,
+    *,
+    require_call_writing: bool = True,
+    max_change_pcr: float = 1.0,
+    require_put_writing: bool = True,
+    min_change_pcr: float = 1.0,
 ) -> ScanAlert | None:
     signal = matched_signal(price, oi, rsi_call_threshold, rsi_put_threshold, proximity_pct)
     if signal is None:
         return None
+
+    flow = dict(
+        require_call_writing=require_call_writing,
+        max_change_pcr=max_change_pcr,
+        require_put_writing=require_put_writing,
+        min_change_pcr=min_change_pcr,
+    )
+    if signal is SignalType.CALL_OI:
+        if call_oi_flow_rejection(oi, **flow):
+            return None
+    else:
+        if put_oi_flow_rejection(oi, **flow):
+            return None
 
     ltp = price.ltp if price.ltp > 0 else oi.ltp
     rsi = price.rsi

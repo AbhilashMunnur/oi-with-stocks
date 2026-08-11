@@ -1,26 +1,37 @@
 name: OI + RSI scan
 
-# GitHub's schedule event is often late or skipped entirely. Poll every 5 minutes
-# during the IST session; --slot-guard still runs each 09:30 / 10:00 / … / 15:30
-# slot only once. Prefer also setting up scripts/setup_external_cron.md.
+# GitHub's schedule event is often late or skipped (platform limitation).
+# Mitigations stacked here:
+# 1) Poll every 5 minutes + exact :00/:30 crons during the IST session
+# 2) Never cancel an in-flight scan (slot guard skips duplicates instead)
+# 3) Early slot guard before pip install so skip-runs finish in seconds
+# 4) Optional self-chain via SCAN_DISPATCH_TOKEN (see scripts/setup_scan_cron.sh)
+# 5) repository_dispatch for external cron-job.org backup
 on:
   schedule:
-    - cron: "*/5 4-9 * * 1-5"    # 09:30–15:25 IST, every 5 minutes
-    - cron: "0,5,10,15 10 * * 1-5"  # through 15:45 IST
-  workflow_dispatch:                   # manual run from the Actions tab
-  repository_dispatch:                 # optional external cron (cron-job.org)
+    # Dense polls — catch late runners for the current half-hour slot
+    - cron: "*/5 4-9 * * 1-5"
+    - cron: "0,5,10,15 10 * * 1-5"
+    # Exact half-hour backups (09:30–15:30 IST)
+    - cron: "0,30 4-9 * * 1-5"
+    - cron: "0 10 * * 1-5"
+  workflow_dispatch:
+  repository_dispatch:
     types: [oi-scan]
 
 concurrency:
   group: oi-rsi-scan
-  cancel-in-progress: true
+  # IMPORTANT: do not cancel running scans. A new 5-minute poll used to kill
+  # the previous job mid-scan, which looked like "missed" Telegram alerts.
+  cancel-in-progress: false
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Allow waiting until the next half-hour slot when self-chaining.
+    timeout-minutes: 55
     permissions:
-      contents: write   # paper ledger + slot marker committed back
+      contents: write
     env:
       TZ: Asia/Kolkata
       ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
@@ -34,24 +45,55 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Stdlib only — run before pip so skipped polls cost almost nothing.
+      - name: Slot guard
+        id: slot
+        run: |
+          python3 - <<'PY'
+          import os
+          from src.scan_slots import should_run_slot, seconds_until_next_slot
+
+          event = os.environ.get("GITHUB_EVENT_NAME", "")
+          # Manual "Run workflow" always scans; schedules / external pings use the lock.
+          force = event == "workflow_dispatch"
+          run, reason, slot = should_run_slot(force=force)
+          print(reason)
+          if slot is not None:
+              print(f"slot={slot.isoformat()}")
+
+          # Whether a later slot still exists today (recomputed again before sleep).
+          chain = seconds_until_next_slot() is not None
+          print(f"chain={chain}")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"run={'true' if run else 'false'}\n")
+              handle.write(f"chain={'true' if chain else 'false'}\n")
+          PY
+
       - uses: actions/setup-python@v5
+        if: steps.slot.outputs.run == 'true'
         with:
           python-version: "3.12"
           cache: pip
 
-      - run: pip install -r requirements.txt
+      - name: Install dependencies
+        if: steps.slot.outputs.run == 'true'
+        run: pip install -r requirements.txt
 
       - name: Cache key for today
+        if: steps.slot.outputs.run == 'true'
         id: today
         run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
 
       - name: Restore market data cache
+        if: steps.slot.outputs.run == 'true'
         uses: actions/cache@v4
         with:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
 
       - name: Cache status
+        if: steps.slot.outputs.run == 'true'
         run: |
           mkdir -p .cache
           TODAY="daily_closes_$(date +%F).json"
@@ -65,30 +107,13 @@ jobs:
           fi
           ls -lah .cache | head -20
 
-      - name: Slot guard
-        id: slot
-        run: |
-          python - <<'PY'
-          import os
-          from src.scan_slots import should_run_slot
-
-          # Manual "Run workflow" always scans; scheduled runs use the 30-min slot lock.
-          force = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-          run, reason, slot = should_run_slot(force=force)
-          print(reason)
-          if slot is not None:
-              print(f"slot={slot.isoformat()}")
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
-              handle.write(f"run={'true' if run else 'false'}\n")
-          PY
-
       - name: Run scan
         if: steps.slot.outputs.run == 'true'
         timeout-minutes: 25
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger
-        if: always()
+        if: always() && steps.slot.outputs.run == 'true'
         run: |
           if [ -z "$(git status --porcelain data)" ]; then
             echo "Ledger unchanged."
@@ -106,3 +131,40 @@ jobs:
           done
           echo "Could not push the ledger after 3 attempts."
           exit 1
+
+      # Once the session is kicked off, keep half-hour slots alive even when
+      # GitHub's schedule goes quiet. Needs repo secret SCAN_DISPATCH_TOKEN
+      # (PAT with public_repo scope). Setup: scripts/setup_scan_cron.sh
+      - name: Chain next half-hour slot
+        if: always() && steps.slot.outputs.chain == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "SCAN_DISPATCH_TOKEN not set — chain disabled."
+            echo "Run: scripts/setup_scan_cron.sh"
+            exit 0
+          fi
+
+          WAIT_SECONDS=$(python3 - <<'PY'
+          from src.scan_slots import seconds_until_next_slot
+          wait = seconds_until_next_slot()
+          print(0 if wait is None else int(wait))
+          PY
+          )
+
+          if [ "$WAIT_SECONDS" -le 0 ]; then
+            echo "No further IST slots today — chain stop."
+            exit 0
+          fi
+
+          # Stay inside the 55-minute job timeout with margin for the next scan.
+          if [ "$WAIT_SECONDS" -gt 2400 ]; then
+            WAIT_SECONDS=2400
+          fi
+
+          echo "Waiting ${WAIT_SECONDS}s for the next IST slot, then dispatching oi-scan..."
+          sleep "$WAIT_SECONDS"
+          gh api --method POST "repos/${{ github.repository }}/dispatches" \
+            -f event_type='oi-scan'
+          echo "Dispatched oi-scan for the next slot."

@@ -1,7 +1,13 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from src.scan_slots import active_slot, should_run_slot, write_last_slot
+from src.scan_slots import (
+    active_slot,
+    iter_slots_for_day,
+    seconds_until_next_slot,
+    should_run_slot,
+    write_last_slot,
+)
 
 IST = ZoneInfo("Asia/Kolkata")
 
@@ -42,3 +48,22 @@ def test_slot_guard_runs_when_due(tmp_path):
     assert run is True
     assert slot.strftime("%H:%M") == "10:00"
     assert "due" in reason
+
+
+def test_day_has_thirteen_half_hour_slots():
+    day = datetime(2026, 8, 11, 12, 0, tzinfo=IST)
+    slots = iter_slots_for_day(day)
+    assert len(slots) == 13
+    assert slots[0].strftime("%H:%M") == "09:30"
+    assert slots[-1].strftime("%H:%M") == "15:30"
+
+
+def test_seconds_until_next_slot_after_a_scan():
+    now = datetime(2026, 8, 11, 14, 2, tzinfo=IST)
+    wait = seconds_until_next_slot(now)
+    assert wait == 28 * 60
+
+
+def test_seconds_until_next_slot_none_after_last():
+    now = datetime(2026, 8, 11, 15, 35, tzinfo=IST)
+    assert seconds_until_next_slot(now) is None
