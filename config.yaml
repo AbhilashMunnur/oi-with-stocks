@@ -37,7 +37,7 @@ notifications:
 # overbought, long at max Put OI when oversold.
 paper_trading:
   enabled: true
-  capital: 5000000          # ₹50 lakh
+  capital: 20000000         # ₹2 crore
   lots_per_trade: 2
   first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
   second_target_pct: 15.0   # Close the remaining lot at 15%
