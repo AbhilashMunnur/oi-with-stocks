@@ -372,6 +372,26 @@ class AngelOneClient:
         self._closes_cache_path().write_text(
             json.dumps(self._closes_cache), encoding="utf-8"
         )
+        # Keep a committed seed so GitHub runners start warm and skip candle API.
+        seed = Path("data") / "daily_closes_seed.json"
+        seed.parent.mkdir(parents=True, exist_ok=True)
+        seed.write_text(json.dumps(self._closes_cache), encoding="utf-8")
+
+    def seed_closes_cache_from_repo(self) -> int:
+        """Load data/daily_closes_seed.json into today's cache when cold."""
+        seed = Path("data") / "daily_closes_seed.json"
+        today_path = self._closes_cache_path()
+        if today_path.exists():
+            return len(self._load_closes_cache())
+        if not seed.exists():
+            return 0
+
+        CACHE_DIR.mkdir(exist_ok=True)
+        today_path.write_text(seed.read_text(encoding="utf-8"), encoding="utf-8")
+        self._closes_cache = None
+        loaded = self._load_closes_cache()
+        print(f"  Seeded daily-close cache with {len(loaded)} symbols from repo.")
+        return len(loaded)
 
     def daily_closes(self, symbol: str) -> list[tuple[str, float]]:
         """Daily (date, close) pairs, fetched once per day and cached on disk."""

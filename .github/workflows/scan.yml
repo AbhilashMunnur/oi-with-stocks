@@ -53,11 +53,17 @@ jobs:
 
       - name: Cache status
         run: |
-          if [ -d .cache ]; then
-            echo "Cache files:"; ls -lah .cache | head -20
+          mkdir -p .cache
+          TODAY="daily_closes_$(date +%F).json"
+          if [ -f ".cache/$TODAY" ]; then
+            echo "Using Actions cache: .cache/$TODAY"
+          elif [ -f data/daily_closes_seed.json ]; then
+            cp data/daily_closes_seed.json ".cache/$TODAY"
+            echo "Seeded .cache/$TODAY from data/daily_closes_seed.json"
           else
-            echo "No .cache directory — cold start (slower)."
+            echo "No candle cache available — cold start."
           fi
+          ls -lah .cache | head -20
 
       - name: Slot guard
         id: slot

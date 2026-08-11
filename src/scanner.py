@@ -203,6 +203,10 @@ class OIRsiScanner:
         symbols = self.symbols()
         print(f"\nScan started at {started} over {len(symbols)} stocks (live Angel One data)")
 
+        # Prefer the committed seed so hosted runners do not refetch 208 candle
+        # series and blow the Angel One rate limit.
+        self.client.seed_closes_cache_from_repo()
+
         prices = self.client.get_ltps(symbols)
         rsi_values: dict[str, float] = {}
         candidates = self._rsi_candidates(symbols, prices, rsi_values)
