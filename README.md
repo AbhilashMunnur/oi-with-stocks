@@ -149,10 +149,12 @@ chat ID instead — then people can be added or removed without touching the con
 
 ## Running without your own machine
 
-`.github/workflows/scan.yml` runs the scan on GitHub's servers every 30 minutes
-from 09:30 to 15:30 IST on weekdays (every 30 minutes). For a more reliable
-local schedule on this Mac, run `./scripts/install_local_scheduler.sh`.
-It is free for public repositories.
+Scans run on **GitHub Actions** — your Mac does not need to stay on.
+
+Schedule: **09:30 → 15:30 IST**, one scan per 30‑minute slot on weekdays.
+GitHub’s cron can be late or skip a tick, so the workflow **polls every 15
+minutes** and a slot guard runs each half-hour slot exactly once (a missed
+09:30 tick is picked up at 09:45, and so on).
 
 1. Set up Telegram first — a hosted run has no terminal to print to
 2. Push the credentials in `.env` up as repository secrets:
@@ -161,14 +163,13 @@ It is free for public repositories.
    ```
    Re-run it whenever you rotate a credential. To do it by hand instead, add
    `ANGEL_API_KEY`, `ANGEL_CLIENT_CODE`, `ANGEL_PIN`, `ANGEL_TOTP_SECRET`,
-   `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` under
-   **Settings → Secrets and variables → Actions**
+   `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` and `GOOGLE_SERVICE_ACCOUNT_JSON`
+   under **Settings → Secrets and variables → Actions**
 3. Open the **Actions** tab, pick **OI + RSI scan**, and use **Run workflow** to
    trigger a scan by hand and confirm the alert reaches your phone
 
-GitHub schedules are best effort, so a scan can start 5–20 minutes later than
-listed during busy periods. Exchange holidays are not detected either, so a
-holiday scan will report the previous session's values.
+Exchange holidays are not detected, so a holiday scan may report the previous
+session’s values.
 
 ## How it works
 

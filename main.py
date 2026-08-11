@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 from datetime import datetime
@@ -15,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from src.config import load_config
 from src.data.base import MarketDataError
+from src.scan_slots import should_run_slot, write_last_slot
 from src.scanner import OIRsiScanner
 
 
@@ -60,6 +62,15 @@ def main() -> None:
         help="Run a single scan and exit",
     )
     parser.add_argument(
+        "--slot-guard",
+        action="store_true",
+        help=(
+            "Only run if the current 30-minute IST slot (from 09:30) has not "
+            "completed yet. Used by GitHub Actions so late/retry crons catch up "
+            "without double-scanning."
+        ),
+    )
+    parser.add_argument(
         "--symbol",
         help="Scan only one symbol (overrides watchlist)",
     )
@@ -69,6 +80,16 @@ def main() -> None:
 
     if args.symbol:
         config.watchlist = [args.symbol.upper()]
+
+    if args.slot_guard:
+        # Manual "Run workflow" always scans; scheduled polls only run unpaid slots.
+        force = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+        run, reason, slot = should_run_slot(force=force)
+        print(f"Slot guard: {reason}")
+        if not run:
+            return
+    else:
+        slot = None
 
     try:
         scanner = OIRsiScanner(config)
@@ -80,6 +101,9 @@ def main() -> None:
         with scanner:
             if args.once:
                 scanner.run_once()
+                if args.slot_guard and slot is not None:
+                    write_last_slot(slot)
+                    print(f"Marked scan slot {slot:%Y-%m-%d %H:%M} IST complete.")
             else:
                 run_scheduled(scanner)
     except KeyboardInterrupt:

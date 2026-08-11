@@ -1,12 +1,13 @@
 name: OI + RSI scan
 
-# GitHub cron is UTC and can be late. Target: 09:30 IST, then every 30 minutes
-# through 15:30 IST. The job no-ops outside 09:30–15:45 IST.
+# GitHub's schedule event is often late or skipped. Poll every 15 minutes during
+# the IST session; --slot-guard ensures each 09:30 / 10:00 / … / 15:30 slot runs
+# exactly once, and a missed tick is picked up by the next poll.
 on:
   schedule:
-    - cron: "0,30 4-9 * * 1-5"   # 09:30–15:00 IST
-    - cron: "0 10 * * 1-5"       # 15:30 IST
-  workflow_dispatch:            # lets you trigger a scan by hand
+    - cron: "0,15,30,45 4-9 * * 1-5"   # 09:30–15:15 IST every 15 minutes
+    - cron: "0,15 10 * * 1-5"          # 15:30 and 15:45 IST
+  workflow_dispatch:                   # manual run from the Actions tab
 
 concurrency:
   group: oi-rsi-scan
@@ -17,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     permissions:
-      contents: write   # the paper trading ledger is committed back
+      contents: write   # paper ledger + slot marker committed back
     env:
       TZ: Asia/Kolkata
       ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
@@ -42,37 +43,34 @@ jobs:
         id: today
         run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
 
-      # Daily closes and the instrument master only change once a day, so
-      # sharing them across runs keeps each scan near a minute instead of two.
       - name: Restore market data cache
         uses: actions/cache@v4
         with:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
 
-      - name: Market hours check
-        id: market
+      - name: Slot guard
+        id: slot
         run: |
           python - <<'PY'
           import os
-          from datetime import datetime, time
-          from zoneinfo import ZoneInfo
+          from src.scan_slots import should_run_slot
 
-          now = datetime.now(ZoneInfo("Asia/Kolkata"))
-          start, end = time(9, 30), time(15, 45)
-          open_ = now.weekday() < 5 and start <= now.time() <= end
-          print(f"IST {now:%Y-%m-%d %H:%M}  market_open={open_}")
+          # Manual "Run workflow" always scans; scheduled runs use the 30-min slot lock.
+          force = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+          run, reason, slot = should_run_slot(force=force)
+          print(reason)
+          if slot is not None:
+              print(f"slot={slot.isoformat()}")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
-              handle.write(f"open={'true' if open_ else 'false'}\n")
+              handle.write(f"run={'true' if run else 'false'}\n")
           PY
 
       - name: Run scan
-        if: steps.market.outputs.open == 'true'
+        if: steps.slot.outputs.run == 'true'
         timeout-minutes: 8
-        run: python -u main.py --once
+        run: python -u main.py --once --slot-guard
 
-      # Runners are wiped after each job, so the open positions and realised P&L
-      # have to be committed or every scan would start from a blank book.
       - name: Save paper trading ledger
         if: always()
         run: |
@@ -86,7 +84,6 @@ jobs:
           git add data
           git commit -m "Update paper trading ledger [skip ci]"
 
-          # Another scan may have pushed since checkout; rebase and retry.
           for attempt in 1 2 3; do
             if git push; then exit 0; fi
             git pull --rebase --autostash origin main || true
