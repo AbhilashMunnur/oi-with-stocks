@@ -1,12 +1,12 @@
 name: OI + RSI scan
 
-# GitHub's schedule event is often late or skipped. Poll every 15 minutes during
-# the IST session; --slot-guard ensures each 09:30 / 10:00 / … / 15:30 slot runs
-# exactly once, and a missed tick is picked up by the next poll.
+# GitHub's schedule event is often late or skipped entirely. Poll every 5 minutes
+# during the IST session; --slot-guard still runs each 09:30 / 10:00 / … / 15:30
+# slot only once. Prefer also setting up scripts/setup_external_cron.md.
 on:
   schedule:
-    - cron: "0,15,30,45 4-9 * * 1-5"   # 09:30–15:15 IST every 15 minutes
-    - cron: "0,15 10 * * 1-5"          # 15:30 and 15:45 IST
+    - cron: "*/5 4-9 * * 1-5"    # 09:30–15:25 IST, every 5 minutes
+    - cron: "0,5,10,15 10 * * 1-5"  # through 15:45 IST
   workflow_dispatch:                   # manual run from the Actions tab
   repository_dispatch:                 # optional external cron (cron-job.org)
     types: [oi-scan]
