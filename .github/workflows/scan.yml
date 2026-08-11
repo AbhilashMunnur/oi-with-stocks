@@ -8,6 +8,8 @@ on:
     - cron: "0,15,30,45 4-9 * * 1-5"   # 09:30–15:15 IST every 15 minutes
     - cron: "0,15 10 * * 1-5"          # 15:30 and 15:45 IST
   workflow_dispatch:                   # manual run from the Actions tab
+  repository_dispatch:                 # optional external cron (cron-job.org)
+    types: [oi-scan]
 
 concurrency:
   group: oi-rsi-scan
@@ -16,7 +18,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 30
     permissions:
       contents: write   # paper ledger + slot marker committed back
     env:
@@ -49,6 +51,14 @@ jobs:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
 
+      - name: Cache status
+        run: |
+          if [ -d .cache ]; then
+            echo "Cache files:"; ls -lah .cache | head -20
+          else
+            echo "No .cache directory — cold start (slower)."
+          fi
+
       - name: Slot guard
         id: slot
         run: |
@@ -68,7 +78,7 @@ jobs:
 
       - name: Run scan
         if: steps.slot.outputs.run == 'true'
-        timeout-minutes: 8
+        timeout-minutes: 25
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger

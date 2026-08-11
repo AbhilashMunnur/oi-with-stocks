@@ -33,10 +33,12 @@ SCRIP_MASTER_URL = (
 MAX_TOKENS_PER_REQUEST = 50
 QUOTE_INTERVAL_SECONDS = 1.05
 
-# Candles allow 3 requests/second, capped at 180/minute.
-CANDLE_INTERVAL_SECONDS = 0.35
+# Angel's published candle limit is higher, but hosted runners hit AB1021
+# quickly if we push it — stay near 1 request/second and back off hard.
+CANDLE_INTERVAL_SECONDS = 1.1
 
 RETRY_BACKOFF_SECONDS = (2, 5, 10)
+RATE_LIMIT_BACKOFF_SECONDS = (20, 45, 90)
 
 # Angel One error codes that mean the session must be re-established.
 AUTH_ERROR_CODES = {"AG8001", "AG8002", "AG8003", "AB1010", "AB1011", "AB8050", "AB8051"}
@@ -258,18 +260,27 @@ class AngelOneClient:
     def _call(self, throttle: Throttle, method_name: str, *args):
         """Call an endpoint, retrying past rate limits and expired sessions."""
         last_error: Exception | None = None
+        rate_hits = 0
+        max_attempts = 1 + len(RETRY_BACKOFF_SECONDS) + len(RATE_LIMIT_BACKOFF_SECONDS)
 
-        for attempt, backoff in enumerate((0, *RETRY_BACKOFF_SECONDS)):
-            if backoff:
-                time.sleep(backoff)
-
+        for attempt in range(max_attempts):
             throttle.wait()
             try:
                 response = getattr(self.client, method_name)(*args)
             except Exception as exc:
                 last_error = exc
-                if "access rate" not in str(exc).lower() and attempt >= 1:
+                text = str(exc).lower()
+                if "access rate" in text or "too many" in text:
+                    delay = RATE_LIMIT_BACKOFF_SECONDS[
+                        min(rate_hits, len(RATE_LIMIT_BACKOFF_SECONDS) - 1)
+                    ]
+                    rate_hits += 1
+                    print(f"  rate limited on {method_name}; sleeping {delay}s")
+                    time.sleep(delay)
+                    continue
+                if attempt >= 2:
                     raise
+                time.sleep(RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)])
                 continue
 
             if isinstance(response, dict) and not response.get("status"):
@@ -282,9 +293,18 @@ class AngelOneClient:
                     last_error = RuntimeError(message or code)
                     continue
 
-                if "rate" in message.lower():
-                    last_error = RuntimeError(message)
+                if "rate" in message.lower() or code == "AB1021":
+                    delay = RATE_LIMIT_BACKOFF_SECONDS[
+                        min(rate_hits, len(RATE_LIMIT_BACKOFF_SECONDS) - 1)
+                    ]
+                    rate_hits += 1
+                    print(f"  rate limited on {method_name}; sleeping {delay}s")
+                    time.sleep(delay)
+                    last_error = RuntimeError(message or code)
                     continue
+
+                # Non-rate API error — return it for the caller to handle.
+                return response
 
             return response
 
@@ -387,6 +407,9 @@ class AngelOneClient:
         candles = (response or {}).get("data") or []
         series = [(str(row[0])[:10], float(row[4])) for row in candles if len(row) >= 5]
         cache[symbol] = series
+        # Flush often so a timed-out GitHub job still leaves a usable cache.
+        if len(cache) % 10 == 0:
+            self._save_closes_cache()
         return series
 
     def get_rsi(self, symbol: str, ltp: float) -> float | None:

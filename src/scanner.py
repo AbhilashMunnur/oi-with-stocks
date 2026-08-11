@@ -87,7 +87,9 @@ class OIRsiScanner:
 
             if index % 25 == 0:
                 print(f"  screened {index}/{len(symbols)} symbols...")
+                self.client._save_closes_cache()
 
+        self.client._save_closes_cache()
         return candidates
 
     def _check_candidate(self, price: PriceSnapshot) -> ScanAlert | None:

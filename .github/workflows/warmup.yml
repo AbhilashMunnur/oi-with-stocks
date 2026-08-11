@@ -1,0 +1,46 @@
+name: Warm market-data cache
+
+# Prefetch daily candles before the session so the 09:30 scan does not burn
+# the Angel One rate limit on a cold cache.
+on:
+  schedule:
+    - cron: "0 3 * * 1-5"    # 08:30 IST weekdays
+  workflow_dispatch:
+
+concurrency:
+  group: oi-rsi-warmup
+  cancel-in-progress: true
+
+jobs:
+  warmup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TZ: Asia/Kolkata
+      ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
+      ANGEL_CLIENT_CODE: ${{ secrets.ANGEL_CLIENT_CODE }}
+      ANGEL_PIN: ${{ secrets.ANGEL_PIN }}
+      ANGEL_TOTP_SECRET: ${{ secrets.ANGEL_TOTP_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Cache key for today
+        id: today
+        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore market data cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: market-data-${{ steps.today.outputs.date }}
+
+      - name: Warm candle cache
+        run: python -u scripts/warmup_cache.py
