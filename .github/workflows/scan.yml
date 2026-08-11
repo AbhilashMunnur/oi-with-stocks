@@ -1,10 +1,11 @@
 name: OI + RSI scan
 
-# GitHub cron is UTC and often late/skipped. Fire every 30 minutes across the
-# IST session window; the job exits immediately outside 09:15–15:45 IST.
+# GitHub cron is UTC and can be late. Target: 09:30 IST, then every 30 minutes
+# through 15:30 IST. The job no-ops outside 09:30–15:45 IST.
 on:
   schedule:
-    - cron: "0,30 3-10 * * 1-5"   # 08:30–16:00 IST, every 30 minutes
+    - cron: "0,30 4-9 * * 1-5"   # 09:30–15:00 IST
+    - cron: "0 10 * * 1-5"       # 15:30 IST
   workflow_dispatch:            # lets you trigger a scan by hand
 
 concurrency:
@@ -58,7 +59,7 @@ jobs:
           from zoneinfo import ZoneInfo
 
           now = datetime.now(ZoneInfo("Asia/Kolkata"))
-          start, end = time(9, 15), time(15, 45)
+          start, end = time(9, 30), time(15, 45)
           open_ = now.weekday() < 5 and start <= now.time() <= end
           print(f"IST {now:%Y-%m-%d %H:%M}  market_open={open_}")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:

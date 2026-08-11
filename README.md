@@ -83,7 +83,7 @@ python main.py --once
 python main.py --once --symbol RELIANCE
 ```
 
-**Scheduled mode (scans every 30 min, 09:15–15:45 on weekdays):**
+**Scheduled mode (scans every 30 min, 09:30–15:45 on weekdays):**
 ```bash
 python main.py
 ```
@@ -150,7 +150,8 @@ chat ID instead — then people can be added or removed without touching the con
 ## Running without your own machine
 
 `.github/workflows/scan.yml` runs the scan on GitHub's servers every 30 minutes
-from 09:15 to 15:45 IST on weekdays, so nothing needs to stay open at home.
+from 09:30 to 15:30 IST on weekdays (every 30 minutes). For a more reliable
+local schedule on this Mac, run `./scripts/install_local_scheduler.sh`.
 It is free for public repositories.
 
 1. Set up Telegram first — a hosted run has no terminal to print to

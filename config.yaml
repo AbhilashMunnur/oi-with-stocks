@@ -22,7 +22,7 @@ watchlist: all
 # Scanner schedule (24h format, IST assumed). Weekdays only.
 schedule:
   interval_minutes: 30
-  market_start: "09:15"
+  market_start: "09:30"
   market_end: "15:45"
 
 # Notification settings
