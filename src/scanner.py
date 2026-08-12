@@ -15,6 +15,7 @@ from src.oi_analyzer import (
 )
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
+from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends
 
 
 class OIRsiScanner:
@@ -141,6 +142,48 @@ class OIRsiScanner:
 
         return evaluate_stock(price=price, oi=oi, **thresholds, **flow)
 
+    def _check_supertrend_candidate(
+        self,
+        symbol: str,
+        ltp: float,
+        st_value: float,
+        side: str,
+        already_alerted: set[str],
+    ) -> ScanAlert | None:
+        """OI confirmation at the Supertrend strike for a near-ST name."""
+        if symbol in already_alerted:
+            return None
+
+        st_cfg = self.config.supertrend
+        distance = abs(ltp - st_value) / st_value * 100
+        if distance > st_cfg.proximity_pct:
+            return None
+        if side == "below" and ltp >= st_value:
+            return None
+        if side == "above" and ltp <= st_value:
+            return None
+
+        oi = self.client.get_oi_at_price(symbol, target_price=st_value, ltp=ltp)
+        if not oi:
+            return None
+        self.client.add_oi_changes(oi)
+
+        alert = evaluate_supertrend_oi(
+            symbol=symbol,
+            ltp=ltp,
+            supertrend=st_value,
+            side=side,
+            oi=oi,
+            st_config=st_cfg,
+            oi_config=self.config.oi,
+        )
+        if alert is None:
+            print(
+                f"  {symbol}: near ST ₹{st_value:,.2f} ({side}, {distance:.2f}%) "
+                "but ΔOI flow does not confirm"
+            )
+        return alert
+
     def _apply_futures_expiry(self, alerts: list[ScanAlert]) -> None:
         """Point paper entries at the configured futures month (default: 3rd)."""
         month = self.config.paper_trading.futures_month
@@ -245,6 +288,43 @@ class OIRsiScanner:
             alert = self._check_candidate(price)
             if alert:
                 alerts.append(alert)
+
+        if self.config.supertrend.enabled:
+            alerted = {a.symbol for a in alerts}
+            st_cfg = self.config.supertrend
+            print(
+                f"\nSupertrend scan ({st_cfg.atr_period}, {st_cfg.multiplier}) — "
+                f"proximity {st_cfg.proximity_pct}%"
+            )
+            st_map = fetch_supertrends(
+                symbols,
+                prices,
+                atr_period=st_cfg.atr_period,
+                multiplier=st_cfg.multiplier,
+            )
+            near = []
+            for symbol, (st_value, side) in st_map.items():
+                ltp = prices.get(symbol)
+                if not ltp:
+                    continue
+                distance = abs(ltp - st_value) / st_value * 100
+                if distance <= st_cfg.proximity_pct:
+                    if side == "below" and ltp < st_value:
+                        near.append((symbol, ltp, st_value, side, distance))
+                    elif side == "above" and ltp > st_value:
+                        near.append((symbol, ltp, st_value, side, distance))
+
+            print(f"  {len(near)} name(s) within {st_cfg.proximity_pct}% of Supertrend")
+            st_hits = 0
+            for symbol, ltp, st_value, side, _distance in near:
+                alert = self._check_supertrend_candidate(
+                    symbol, ltp, st_value, side, alerted
+                )
+                if alert:
+                    alerts.append(alert)
+                    alerted.add(symbol)
+                    st_hits += 1
+            print(f"  {st_hits} Supertrend + OI alert(s)")
 
         if alerts:
             self.notifier.notify(alerts)

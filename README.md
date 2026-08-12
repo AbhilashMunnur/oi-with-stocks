@@ -3,7 +3,10 @@
 Scans NSE F&O stocks on **live Angel One data** and alerts when:
 
 1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike**
-2. **Put OI alert** — RSI is **at or below 35** and price is **near the highest Put OI strike**
+2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike**
+3. **Supertrend + OI** — daily Supertrend **(48, 4.5)**; price within **0.5%** of the ST line
+   from below/above with confirming Call/Put ΔOI at the ST strike → short/long
+   3rd-month futures (2 lots)
 
 Live prices, RSI and option-chain OI all come from Angel One SmartAPI, which is free
 with an Angel One account — no data subscription, historical data included.

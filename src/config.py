@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 
@@ -10,6 +10,8 @@ import yaml
 class SignalType(str, Enum):
     CALL_OI = "CALL_OI"
     PUT_OI = "PUT_OI"
+    ST_BEARISH = "ST_BEARISH"  # Below Supertrend, bearish OI at ST strike → short
+    ST_BULLISH = "ST_BULLISH"  # Above Supertrend, bullish OI at ST strike → long
 
 
 @dataclass
@@ -17,6 +19,15 @@ class RSIConfig:
     period: int
     call_threshold: float
     put_threshold: float
+
+
+@dataclass
+class SupertrendConfig:
+    enabled: bool = True
+    atr_period: int = 48
+    multiplier: float = 4.5
+    # Price must be within this % of the Supertrend line (0–0.5% by default).
+    proximity_pct: float = 0.5
 
 
 @dataclass
@@ -81,6 +92,7 @@ class AppConfig:
     schedule: ScheduleConfig
     notifications: NotificationConfig
     paper_trading: PaperTradingConfig
+    supertrend: SupertrendConfig = field(default_factory=SupertrendConfig)
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -89,6 +101,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         raw = yaml.safe_load(handle)
 
     watchlist = raw["watchlist"]
+    st_raw = raw.get("supertrend") or {}
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -98,4 +111,5 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
         paper_trading=PaperTradingConfig(**raw["paper_trading"]),
+        supertrend=SupertrendConfig(**st_raw),
     )

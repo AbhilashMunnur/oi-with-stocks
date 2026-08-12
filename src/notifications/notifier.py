@@ -43,16 +43,24 @@ class Notifier:
         self._recent[self._cooldown_key(alert)] = datetime.now()
 
     def _send_console(self, alert: ScanAlert) -> None:
-        tag = "CALL OI ALERT" if alert.signal is SignalType.CALL_OI else "PUT OI ALERT"
+        labels = {
+            SignalType.CALL_OI: "CALL OI ALERT",
+            SignalType.PUT_OI: "PUT OI ALERT",
+            SignalType.ST_BEARISH: "ST BEARISH ALERT",
+            SignalType.ST_BULLISH: "ST BULLISH ALERT",
+        }
+        tag = labels.get(alert.signal, "ALERT")
         print(f"\n[{tag}] {alert.message}")
 
     def _digest(self, alerts: list[ScanAlert]) -> str:
         """One message per scan reads better on a phone than one per stock."""
-        lines = [f"OI + RSI alerts — {datetime.now():%d %b %Y %H:%M}"]
+        lines = [f"OI + RSI / Supertrend alerts — {datetime.now():%d %b %Y %H:%M}"]
 
         for signal, heading in (
             (SignalType.CALL_OI, "CALL OI (overbought, near max Call OI)"),
             (SignalType.PUT_OI, "PUT OI (oversold, near max Put OI)"),
+            (SignalType.ST_BEARISH, "SUPERTREND BEARISH (below ST, bearish ΔOI)"),
+            (SignalType.ST_BULLISH, "SUPERTREND BULLISH (above ST, bullish ΔOI)"),
         ):
             group = [a for a in alerts if a.signal is signal]
             if not group:
@@ -60,10 +68,16 @@ class Notifier:
 
             lines.append(f"\n{heading}")
             for alert in sorted(group, key=lambda a: a.distance_pct):
-                lines.append(
-                    f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
-                    f"vs strike ₹{alert.oi_strike:,.0f} ({alert.distance_pct:.2f}% away)"
-                )
+                if alert.supertrend is not None:
+                    lines.append(
+                        f"• {alert.symbol}: ₹{alert.ltp:,.2f} vs ST ₹{alert.supertrend:,.2f} "
+                        f"({alert.distance_pct:.2f}% away) | strike ₹{alert.oi_strike:,.0f}"
+                    )
+                else:
+                    lines.append(
+                        f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
+                        f"vs strike ₹{alert.oi_strike:,.0f} ({alert.distance_pct:.2f}% away)"
+                    )
 
                 detail = []
                 for name, change in (

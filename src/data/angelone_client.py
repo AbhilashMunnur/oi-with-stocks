@@ -529,6 +529,95 @@ class AngelOneClient:
             max_put_token=max_put_token,
         )
 
+    def get_oi_at_price(self, symbol: str, target_price: float, ltp: float = 0.0) -> OISnapshot | None:
+        """OI for the call and put whose strike is nearest to `target_price`.
+
+        Used by the Supertrend strategy: target_price is the Supertrend level.
+        The returned snapshot stores that strike on both max_call/max_put fields
+        so add_oi_changes() and the existing alert plumbing still work.
+        """
+        symbol = symbol.upper()
+        if target_price <= 0:
+            return None
+
+        nearest = self._nearest_expiry_rows(symbol)
+        if not nearest:
+            return None
+
+        expiry, contracts = nearest
+        by_token = {str(row["token"]): row for row in contracts}
+
+        try:
+            open_interest = self._fetch_open_interest(list(by_token))
+        except Exception as exc:
+            print(f"  {symbol}: option quotes failed ({exc})")
+            return None
+
+        best_call = best_put = None  # (distance, strike, oi, token)
+
+        for token, oi in open_interest.items():
+            row = by_token.get(token)
+            if not row:
+                continue
+            strike = float(row.get("strike") or 0) / STRIKE_DIVISOR
+            if strike <= 0:
+                continue
+            distance = abs(strike - target_price)
+            symbol_name = str(row.get("symbol", ""))
+            if symbol_name.endswith("CE"):
+                if best_call is None or distance < best_call[0]:
+                    best_call = (distance, strike, oi, token)
+            elif symbol_name.endswith("PE"):
+                if best_put is None or distance < best_put[0]:
+                    best_put = (distance, strike, oi, token)
+
+        if best_call is None or best_put is None:
+            return None
+
+        # Prefer a shared strike when CE/PE both exist at the same level near ST.
+        call_strike, put_strike = best_call[1], best_put[1]
+        if call_strike != put_strike:
+            # Re-pick the put/call at the strike closest to ST that has both legs
+            # when possible; otherwise keep each leg's nearest strike.
+            strikes: dict[float, dict[str, tuple[int, str]]] = {}
+            for token, oi in open_interest.items():
+                row = by_token.get(token)
+                if not row:
+                    continue
+                strike = float(row.get("strike") or 0) / STRIKE_DIVISOR
+                if strike <= 0:
+                    continue
+                leg = "CE" if str(row.get("symbol", "")).endswith("CE") else (
+                    "PE" if str(row.get("symbol", "")).endswith("PE") else ""
+                )
+                if not leg:
+                    continue
+                strikes.setdefault(strike, {})[leg] = (oi, token)
+
+            both = [
+                (abs(strike - target_price), strike, legs)
+                for strike, legs in strikes.items()
+                if "CE" in legs and "PE" in legs
+            ]
+            if both:
+                both.sort(key=lambda item: item[0])
+                _, strike, legs = both[0]
+                best_call = (0.0, strike, legs["CE"][0], legs["CE"][1])
+                best_put = (0.0, strike, legs["PE"][0], legs["PE"][1])
+
+        return OISnapshot(
+            symbol=symbol,
+            ltp=ltp,
+            max_call_oi_strike=best_call[1],
+            max_call_oi=best_call[2],
+            max_put_oi_strike=best_put[1],
+            max_put_oi=best_put[2],
+            expiry=expiry,
+            lot_size=int(float(contracts[0].get("lotsize") or 0)),
+            max_call_token=best_call[3],
+            max_put_token=best_put[3],
+        )
+
     def _previous_session_oi(self, token: str) -> int | None:
         """Open interest at the previous session's close for one contract."""
         now = datetime.now()

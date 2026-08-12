@@ -22,6 +22,7 @@ class ScanAlert:
     put_oi_change: int | None = None
     change_pcr: float | None = None
     lot_size: int = 0
+    supertrend: float | None = None
 
     def in_contracts(self, shares: int | None) -> int | None:
         """Angel One reports OI in shares; traders read it in contracts."""

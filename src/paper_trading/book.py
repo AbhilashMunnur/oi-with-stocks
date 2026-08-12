@@ -265,8 +265,10 @@ class PaperBook:
     # ------------------------------------------------------------------ #
 
     def _direction_for(self, alert: ScanAlert) -> Direction:
-        # Reversal strategy: sell into call resistance, buy at put support.
-        return Direction.SHORT if alert.signal is SignalType.CALL_OI else Direction.LONG
+        # RSI Call OI / ST bearish → short; RSI Put OI / ST bullish → long.
+        if alert.signal in (SignalType.CALL_OI, SignalType.ST_BEARISH):
+            return Direction.SHORT
+        return Direction.LONG
 
     def open_from_alerts(self, alerts: list[ScanAlert]) -> list[TradeEvent]:
         events: list[TradeEvent] = []
@@ -313,7 +315,7 @@ class PaperBook:
                     kind="entry",
                     detail=(
                         f"{direction.value} {lots} lot(s) x {alert.lot_size} @ "
-                        f"₹{alert.ltp:,.2f} (RSI {alert.rsi:.1f}, strike ₹{alert.oi_strike:,.0f}, "
+                        f"₹{alert.ltp:,.2f} ({alert.signal.value}, strike ₹{alert.oi_strike:,.0f}, "
                         f"fut {alert.expiry})"
                     ),
                 )

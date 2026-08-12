@@ -14,6 +14,15 @@ oi:
   require_put_writing: true
   min_change_pcr: 1.0
 
+# Supertrend + OI at the Supertrend strike (intraday F&O scan).
+# Price below ST and within proximity → bearish ΔOI → short 3rd-month futures.
+# Price above ST and within proximity → bullish ΔOI → long 3rd-month futures.
+supertrend:
+  enabled: true
+  atr_period: 48
+  multiplier: 4.5
+  proximity_pct: 0.5
+
 # Live data from Angel One SmartAPI
 data:
   history_days: 120       # Daily candles pulled for the RSI calculation
