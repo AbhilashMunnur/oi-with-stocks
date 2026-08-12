@@ -27,6 +27,7 @@ class OIRsiScanner:
         )
         self.notifier = Notifier(config.notifications)
         self.book = None
+        self.st_book = None
         if config.paper_trading.enabled:
             paper = config.paper_trading
             journal = TradeJournal(
@@ -35,6 +36,15 @@ class OIRsiScanner:
                 worksheet=paper.google_worksheet,
             )
             self.book = PaperBook(paper, journal=journal)
+
+        st_paper = config.supertrend_paper_trading
+        if st_paper and st_paper.enabled:
+            st_journal = TradeJournal(
+                csv_path=st_paper.journal_csv,
+                sheet_id=st_paper.google_sheet_id,
+                worksheet=st_paper.google_worksheet,
+            )
+            self.st_book = PaperBook(st_paper, journal=st_journal)
 
     def close(self) -> None:
         self.client.close()
@@ -200,14 +210,15 @@ class OIRsiScanner:
             if lot > 0:
                 alert.lot_size = lot
 
-    def _align_open_futures_expiry(self) -> None:
+    def _align_open_futures_expiry(self, book: PaperBook | None = None) -> None:
         """Roll open paper positions onto the configured futures month."""
-        if not self.book:
+        target = book if book is not None else self.book
+        if not target:
             return
 
-        month = self.config.paper_trading.futures_month
+        month = target.config.futures_month
         changed = 0
-        for position in self.book.positions:
+        for position in target.positions:
             if not position.is_open:
                 continue
             contract = self.client.futures_contract(position.symbol, month_index=month)
@@ -219,7 +230,48 @@ class OIRsiScanner:
                 changed += 1
 
         if changed:
-            print(f"Aligned {changed} open paper position(s) to month-{month} futures expiry.")
+            print(
+                f"Aligned {changed} {target.config.name} position(s) "
+                f"to month-{month} futures expiry."
+            )
+
+    def _run_one_paper_book(
+        self,
+        book: PaperBook,
+        alerts: list[ScanAlert],
+        prices: dict[str, float],
+        rsi_values: dict[str, float],
+    ) -> None:
+        self._align_open_futures_expiry(book)
+        self._apply_futures_expiry(alerts)
+
+        events = book.update(prices, rsi_values=rsi_values)
+        events += book.open_from_alerts(alerts)
+        book.save()
+
+        logged = book.flush_journal()
+        if logged:
+            print(f"\nLogged {logged} {book.config.name} closed trade(s) to the journal.")
+
+        if events:
+            print(f"\n{book.config.name} paper trading")
+            for event in events:
+                pnl = f"  P&L ₹{event.pnl:+,.0f}" if event.pnl else ""
+                print(f"  [{event.kind}] {event.symbol}: {event.detail}{pnl}")
+
+        print()
+        print(book.summary(prices))
+
+        if self.notifier.telegram_ready and (events or book.positions):
+            image = book.telegram_dashboard_image(prices, events)
+            caption = book.telegram_report(prices, events)
+            delivered = self.notifier.send_photo(
+                image, caption=caption, parse_mode="HTML"
+            )
+            print(
+                f"Sent {book.config.name} dashboard to Telegram "
+                f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
+            )
 
     def _run_paper_trading(
         self,
@@ -227,44 +279,19 @@ class OIRsiScanner:
         prices: dict[str, float],
         rsi_values: dict[str, float],
     ) -> None:
-        if not self.book:
-            return
+        rsi_alerts = [
+            a for a in alerts if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
+        ]
+        st_alerts = [
+            a
+            for a in alerts
+            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
+        ]
 
-        # Paper futures always use the configured month (default: 3rd / far month).
-        # OI alerts still describe the nearest options expiry used for the signal.
-        self._align_open_futures_expiry()
-        self._apply_futures_expiry(alerts)
-
-        # Exits are settled before entries so freed margin can fund new trades.
-        events = self.book.update(prices, rsi_values=rsi_values)
-        events += self.book.open_from_alerts(alerts)
-        self.book.save()
-
-        logged = self.book.flush_journal()
-        if logged:
-            print(f"\nLogged {logged} closed trade(s) to the journal.")
-
-        if events:
-            print("\nPaper trading")
-            for event in events:
-                pnl = f"  P&L ₹{event.pnl:+,.0f}" if event.pnl else ""
-                print(f"  [{event.kind}] {event.symbol}: {event.detail}{pnl}")
-
-        print()
-        print(self.book.summary(prices))
-
-        # Send a book snapshot whenever something changed or positions are open,
-        # so Telegram always has live per-position and day P&L during the session.
-        if self.notifier.telegram_ready and (events or self.book.positions):
-            image = self.book.telegram_dashboard_image(prices, events)
-            caption = self.book.telegram_report(prices, events)
-            delivered = self.notifier.send_photo(
-                image, caption=caption, parse_mode="HTML"
-            )
-            print(
-                f"Sent positions dashboard to Telegram "
-                f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
-            )
+        if self.book:
+            self._run_one_paper_book(self.book, rsi_alerts, prices, rsi_values)
+        if self.st_book:
+            self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
 
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -290,7 +317,6 @@ class OIRsiScanner:
                 alerts.append(alert)
 
         if self.config.supertrend.enabled:
-            alerted = {a.symbol for a in alerts}
             st_cfg = self.config.supertrend
             print(
                 f"\nSupertrend scan ({st_cfg.atr_period}, {st_cfg.multiplier}) — "
@@ -316,13 +342,14 @@ class OIRsiScanner:
 
             print(f"  {len(near)} name(s) within {st_cfg.proximity_pct}% of Supertrend")
             st_hits = 0
+            st_alerted: set[str] = set()
             for symbol, ltp, st_value, side, _distance in near:
                 alert = self._check_supertrend_candidate(
-                    symbol, ltp, st_value, side, alerted
+                    symbol, ltp, st_value, side, st_alerted
                 )
                 if alert:
                     alerts.append(alert)
-                    alerted.add(symbol)
+                    st_alerted.add(symbol)
                     st_hits += 1
             print(f"  {st_hits} Supertrend + OI alert(s)")
 

@@ -48,10 +48,10 @@ notifications:
                           # qualifies is re-alerted once per scan. Raise it to
                           # hear about each stock less often.
 
-# Paper trading: reversal on the signal, i.e. short into max Call OI when
-# overbought, long at max Put OI when oversold.
+# Paper trading (RSI + max OI only) — separate book from Supertrend.
 paper_trading:
   enabled: true
+  name: "RSI+OI"
   capital: 20000000         # ₹2 crore
   lots_per_trade: 2
   first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
@@ -67,3 +67,20 @@ paper_trading:
   # in GOOGLE_SERVICE_ACCOUNT_JSON and the sheet shared with its email.
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "Paper trades"
+
+# Paper trading for Supertrend + OI only — own capital, ledger, and journal.
+supertrend_paper_trading:
+  enabled: true
+  name: "Supertrend"
+  capital: 20000000
+  lots_per_trade: 2
+  first_target_pct: 6.0
+  second_target_pct: 11.0
+  stop_loss_pct: 4.0
+  second_lot_stop_pct: 1.0
+  margin_pct: 20.0
+  futures_month: 3
+  ledger_path: data/supertrend_paper_book.json
+  journal_csv: data/supertrend_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "ST Paper trades"

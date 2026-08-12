@@ -35,7 +35,7 @@ def test_dashboard_caption_keeps_day_pnl_up_front():
         now=datetime(2026, 8, 10, 15, 30),
     )
 
-    assert "Paper positions" in text
+    assert "Paper" in text
     assert "Day P&amp;L" in text
     assert "Book" in text
 

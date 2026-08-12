@@ -80,6 +80,8 @@ class PaperTradingConfig:
     # After the first lot is booked at first_target_pct, the remaining lot's
     # stop tightens to this % adverse from the original entry price.
     second_lot_stop_pct: float = 1.0
+    # Label on Telegram dashboards so RSI and Supertrend books stay distinct.
+    name: str = "Paper"
 
 
 @dataclass
@@ -93,6 +95,8 @@ class AppConfig:
     notifications: NotificationConfig
     paper_trading: PaperTradingConfig
     supertrend: SupertrendConfig = field(default_factory=SupertrendConfig)
+    # Separate capital / ledger / journal from the RSI+OI paper book.
+    supertrend_paper_trading: PaperTradingConfig | None = None
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -102,6 +106,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
 
     watchlist = raw["watchlist"]
     st_raw = raw.get("supertrend") or {}
+    st_paper_raw = raw.get("supertrend_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -112,4 +117,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         notifications=NotificationConfig(**raw["notifications"]),
         paper_trading=PaperTradingConfig(**raw["paper_trading"]),
         supertrend=SupertrendConfig(**st_raw),
+        supertrend_paper_trading=(
+            PaperTradingConfig(**st_paper_raw) if st_paper_raw else None
+        ),
     )

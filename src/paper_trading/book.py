@@ -374,6 +374,7 @@ class PaperBook:
             positions=self.positions,
             prices=prices,
             events=events,
+            book_name=self.config.name,
         )
 
     def telegram_dashboard_image(
@@ -394,4 +395,5 @@ class PaperBook:
             positions=self.positions,
             prices=prices,
             events=events,
+            book_name=self.config.name,
         )
