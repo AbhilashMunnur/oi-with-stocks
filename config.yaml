@@ -66,7 +66,7 @@ paper_trading:
   # Optional: mirror closed trades into a Google Sheet. Needs a service account
   # in GOOGLE_SERVICE_ACCOUNT_JSON and the sheet shared with its email.
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
-  google_worksheet: "Paper trades"
+  google_worksheet: "RSI Paper trades"
 
 # Paper trading for Supertrend + OI only — own capital, ledger, and journal.
 supertrend_paper_trading:
@@ -83,4 +83,4 @@ supertrend_paper_trading:
   ledger_path: data/supertrend_paper_book.json
   journal_csv: data/supertrend_paper_trades.csv
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
-  google_worksheet: "ST Paper trades"
+  google_worksheet: "Supertrend Paper trades"
