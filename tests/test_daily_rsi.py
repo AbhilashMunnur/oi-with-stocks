@@ -11,9 +11,13 @@ def test_format_digest_lists_hits_lowest_rsi_first():
         RsiHit("BBB", 31.5, 20.0, "2026-08-11"),
     ]
     text = format_rsi_digest(
-        hits, threshold=32, market_label="India Nifty-200", currency_symbol="₹"
+        hits,
+        threshold=32,
+        market_label="India Nifty-200",
+        currency_symbol="₹",
+        timeframe_label="weekly",
     )
-    assert "RSI ≤ 32" in text
+    assert "Weekly RSI ≤ 32" in text
     assert "₹" in text
     assert text.index("AAA") < text.index("BBB")
 
@@ -26,12 +30,12 @@ def test_format_digest_when_empty():
 def test_scan_oversold_filters_with_injected_closes(monkeypatch):
     dates = pd.bdate_range(end=datetime(2026, 8, 11), periods=40)
 
-    def fake_fetch(symbols, history_days, yahoo_suffix=""):
+    def fake_fetch(symbols, history_days, yahoo_suffix="", interval="1d"):
         over = pd.Series([100 - i for i in range(len(dates))], index=dates, dtype=float)
         skip = pd.Series([100.0] * len(dates), index=dates, dtype=float)
         return {"OVER": over, "SKIP": skip}
 
-    monkeypatch.setattr("src.daily_rsi.scanner.fetch_daily_closes", fake_fetch)
+    monkeypatch.setattr("src.daily_rsi.scanner.fetch_closes", fake_fetch)
 
     hits = scan_oversold(
         ["OVER", "SKIP"],

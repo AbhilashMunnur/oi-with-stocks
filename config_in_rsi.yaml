@@ -1,4 +1,5 @@
-# India Nifty-200 daily RSI alerts (after NSE cash close, once per weekday).
+# India Nifty-200 RSI alerts after NSE cash close (once per weekday).
+# Sends daily RSI and weekly RSI digests (both RSI ≤ threshold).
 # Separate from the intraday OI + RSI scanner.
 in_rsi:
   enabled: true
@@ -9,3 +10,4 @@ in_rsi:
   yahoo_suffix: ".NS"
   market_label: "India Nifty-200"
   currency_symbol: "₹"
+  weekly_enabled: true

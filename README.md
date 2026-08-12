@@ -117,7 +117,8 @@ Hosted via `.github/workflows/us_rsi_scan.yml` at **21:30 UTC** weekdays
 
 ## India Nifty RSI alerts (daily)
 
-Same style for **Nifty-200**: once after NSE cash close, **RSI ≤ 32** only.
+Same style for **Nifty-200**: once after NSE cash close, **daily RSI ≤ 32** and
+**weekly RSI ≤ 32** (two Telegram messages).
 
 ```bash
 python in_rsi_main.py

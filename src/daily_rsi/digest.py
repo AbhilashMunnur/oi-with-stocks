@@ -11,12 +11,13 @@ def format_rsi_digest(
     threshold: float,
     market_label: str,
     currency_symbol: str = "$",
+    timeframe_label: str = "daily",
 ) -> str:
-    """One Telegram-friendly message for a daily oversold scan."""
+    """One Telegram-friendly message for a post-close oversold scan."""
     stamp = datetime.now().strftime("%d %b %Y %H:%M")
     lines = [
         f"{market_label} RSI alerts — {stamp}",
-        f"RSI ≤ {threshold:g} after cash close",
+        f"{timeframe_label.capitalize()} RSI ≤ {threshold:g} after cash close",
     ]
 
     if not hits:

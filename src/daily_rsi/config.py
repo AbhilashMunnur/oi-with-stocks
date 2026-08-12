@@ -17,6 +17,8 @@ class DailyRsiConfig:
     yahoo_suffix: str = ""
     market_label: str = "Market"
     currency_symbol: str = "$"
+    # Also scan weekly RSI on the same post-close run (India Nifty alerts).
+    weekly_enabled: bool = False
 
 
 def load_daily_rsi_config(path: str | Path, section: str) -> DailyRsiConfig:

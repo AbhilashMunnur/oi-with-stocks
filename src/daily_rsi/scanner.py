@@ -14,7 +14,7 @@ class RsiHit:
     symbol: str
     rsi: float
     close: float
-    as_of: str  # YYYY-MM-DD of the last daily bar
+    as_of: str  # YYYY-MM-DD of the last bar
 
 
 def apply_split_adjustment(close: pd.Series, splits: pd.Series) -> pd.Series:
@@ -56,21 +56,30 @@ def _splits_for(yahoo_symbol: str) -> pd.Series:
     return splits
 
 
-def fetch_daily_closes(
+def _yahoo_period(history_days: int, interval: str) -> str:
+    if interval == "1wk":
+        # 14 weekly bars need ~4 months minimum; keep 2y for stable Wilder RSI.
+        return "2y"
+    return "6mo" if history_days <= 130 else "1y"
+
+
+def fetch_closes(
     symbols: list[str],
     history_days: int,
     *,
     yahoo_suffix: str = "",
+    interval: str = "1d",
 ) -> dict[str, pd.Series]:
-    """Download daily closes and split-adjust them for RSI.
+    """Download closes and split-adjust them for RSI.
 
     `symbols` are bare tickers (e.g. RELIANCE). Pass yahoo_suffix='.NS' for NSE.
+    `interval` is a yfinance interval ('1d' or '1wk').
     Returned dict is keyed by the bare ticker.
     """
     if not symbols:
         return {}
 
-    period = "6mo" if history_days <= 130 else "1y"
+    period = _yahoo_period(history_days, interval)
     closes: dict[str, pd.Series] = {}
     yahoo_of = {symbol: f"{symbol}{yahoo_suffix}" for symbol in symbols}
     bare_of = {yahoo: bare for bare, yahoo in yahoo_of.items()}
@@ -82,6 +91,7 @@ def fetch_daily_closes(
         data = yf.download(
             batch,
             period=period,
+            interval=interval,
             group_by="ticker",
             threads=True,
             progress=False,
@@ -115,6 +125,16 @@ def fetch_daily_closes(
     return closes
 
 
+# Backward-compatible name used by older callers/tests.
+def fetch_daily_closes(
+    symbols: list[str],
+    history_days: int,
+    *,
+    yahoo_suffix: str = "",
+) -> dict[str, pd.Series]:
+    return fetch_closes(symbols, history_days, yahoo_suffix=yahoo_suffix, interval="1d")
+
+
 def scan_oversold(
     symbols: list[str],
     *,
@@ -122,10 +142,14 @@ def scan_oversold(
     rsi_threshold: float,
     history_days: int,
     yahoo_suffix: str = "",
+    interval: str = "1d",
 ) -> list[RsiHit]:
-    """Return symbols whose latest daily RSI is at or below the threshold."""
-    closes_by_symbol = fetch_daily_closes(
-        symbols, history_days, yahoo_suffix=yahoo_suffix
+    """Return symbols whose latest RSI is at or below the threshold."""
+    closes_by_symbol = fetch_closes(
+        symbols,
+        history_days,
+        yahoo_suffix=yahoo_suffix,
+        interval=interval,
     )
     hits: list[RsiHit] = []
 
