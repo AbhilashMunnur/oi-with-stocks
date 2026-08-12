@@ -104,7 +104,7 @@ tail -f scanner.log
 
 ## US Nasdaq RSI alerts (daily)
 
-Separate once-a-day scan of the top **150 Nasdaq** names. After US cash close it
+Separate once-a-day scan of **Nasdaq-100** names. After US cash close it
 alerts only when **RSI ≤ 32** (no OI filter, no paper trades). Same Telegram bot.
 
 ```bash
@@ -113,7 +113,7 @@ python us_rsi_main.py
 
 Hosted via `.github/workflows/us_rsi_scan.yml` at **21:30 UTC** weekdays
 (5:30pm EDT / 4:30pm EST). Config: `config_us_rsi.yaml`, universe:
-`data/nasdaq_top150.txt`.
+`data/nasdaq100.txt`.
 
 ## Telegram notifications
 

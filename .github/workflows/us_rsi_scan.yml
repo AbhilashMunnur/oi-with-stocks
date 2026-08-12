@@ -2,6 +2,7 @@ name: US Nasdaq RSI scan
 
 # Once per weekday after US cash equity close (4:00pm ET).
 # 21:30 UTC = 5:30pm EDT / 4:30pm EST — closes are settled on Yahoo.
+# Universe: Nasdaq-100 (data/nasdaq100.txt), RSI ≤ threshold only.
 on:
   schedule:
     - cron: "30 21 * * 1-5"
