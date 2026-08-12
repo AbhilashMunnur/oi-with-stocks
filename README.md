@@ -117,14 +117,14 @@ Hosted via `.github/workflows/us_rsi_scan.yml` at **21:30 UTC** weekdays
 
 ## India Nifty RSI alerts (daily)
 
-Same style for **Nifty-100**: once after NSE cash close, **RSI ≤ 32** only.
+Same style for **Nifty-200**: once after NSE cash close, **RSI ≤ 32** only.
 
 ```bash
 python in_rsi_main.py
 ```
 
 Hosted via `.github/workflows/in_rsi_scan.yml` at **10:30 UTC** weekdays
-(**4:00pm IST**). Config: `config_in_rsi.yaml`, universe: `data/nifty100.txt`.
+(**4:00pm IST**). Config: `config_in_rsi.yaml`, universe: `data/nifty200.txt`.
 
 ## Telegram notifications
 

@@ -1,11 +1,11 @@
-# India Nifty-100 daily RSI alerts (after NSE cash close, once per weekday).
+# India Nifty-200 daily RSI alerts (after NSE cash close, once per weekday).
 # Separate from the intraday OI + RSI scanner.
 in_rsi:
   enabled: true
   rsi_period: 14
   rsi_threshold: 32
   history_days: 120
-  watchlist_path: data/nifty100.txt
+  watchlist_path: data/nifty200.txt
   yahoo_suffix: ".NS"
-  market_label: "India Nifty-100"
+  market_label: "India Nifty-200"
   currency_symbol: "₹"

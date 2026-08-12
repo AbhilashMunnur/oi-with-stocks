@@ -2,7 +2,7 @@ name: India Nifty RSI scan
 
 # Once per weekday after NSE cash close (15:30 IST).
 # 10:30 UTC = 16:00 IST — gives Yahoo/NSE closes time to settle.
-# Universe: Nifty-100 (data/nifty100.txt), RSI ≤ threshold only.
+# Universe: Nifty-200 (data/nifty200.txt), RSI ≤ threshold only.
 on:
   schedule:
     - cron: "30 10 * * 1-5"
