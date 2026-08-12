@@ -2,7 +2,7 @@
 rsi:
   period: 14
   call_threshold: 70      # Notify when RSI is at or above this
-  put_threshold: 35       # Notify when RSI is at or below this
+  put_threshold: 32       # Notify when RSI is at or below this
 
 # How close price must be to the max OI strike (percentage)
 oi:
