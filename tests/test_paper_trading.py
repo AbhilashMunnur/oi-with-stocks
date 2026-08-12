@@ -14,7 +14,7 @@ def config(tmp_path):
         capital=5_000_000,
         lots_per_trade=2,
         first_target_pct=6.0,
-        second_target_pct=15.0,
+        second_target_pct=11.0,
         stop_loss_pct=3.0,
         margin_pct=20.0,
         ledger_path=str(tmp_path / "book.json"),
@@ -80,7 +80,7 @@ def test_second_target_closes_the_rest(config):
     book.open_from_alerts([alert()])
 
     book.update({"TITAN": 4700.0})
-    events = book.update({"TITAN": 4250.0})
+    events = book.update({"TITAN": 4450.0})
 
     assert not book.positions
     assert events[-1].kind == "second_target"
@@ -88,7 +88,7 @@ def test_second_target_closes_the_rest(config):
 
 
 def test_a_jump_past_both_targets_still_books_the_first_lot_at_6_percent(config):
-    """Price must have travelled through 6% to reach 15%."""
+    """Price must have travelled through 6% to reach 11%."""
     book = PaperBook(config)
     book.open_from_alerts([alert()])
 
@@ -97,8 +97,8 @@ def test_a_jump_past_both_targets_still_books_the_first_lot_at_6_percent(config)
     assert [e.kind for e in events] == ["first_target", "second_target"]
     first, second = book.closed_count, book.realised_pnl
     assert first == 1
-    # 1 lot at 6% plus 1 lot at 15%, both at their trigger levels.
-    assert second == pytest.approx((300.0 + 750.0) * 175)
+    # 1 lot at 6% plus 1 lot at 11%, both at their trigger levels.
+    assert second == pytest.approx((300.0 + 550.0) * 175)
 
 
 def test_price_landing_exactly_on_the_target_still_triggers(config):
