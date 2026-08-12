@@ -3,7 +3,9 @@
 us_rsi:
   enabled: true
   rsi_period: 14
-  rsi_threshold: 32          # Alert when RSI is at or below this
+  rsi_threshold: 32
   history_days: 120
   watchlist_path: data/nasdaq100.txt
-  # GitHub Actions runs after the US cash close (see us_rsi_scan.yml).
+  yahoo_suffix: ""
+  market_label: "US Nasdaq-100"
+  currency_symbol: "$"

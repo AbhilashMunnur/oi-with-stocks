@@ -1,0 +1,35 @@
+name: India Nifty RSI scan
+
+# Once per weekday after NSE cash close (15:30 IST).
+# 10:30 UTC = 16:00 IST — gives Yahoo/NSE closes time to settle.
+# Universe: Nifty-100 (data/nifty100.txt), RSI ≤ threshold only.
+on:
+  schedule:
+    - cron: "30 10 * * 1-5"
+  workflow_dispatch:
+
+concurrency:
+  group: india-nifty-rsi-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: Asia/Kolkata
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run India RSI scan
+        run: python -u in_rsi_main.py

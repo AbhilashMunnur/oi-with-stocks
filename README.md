@@ -112,8 +112,19 @@ python us_rsi_main.py
 ```
 
 Hosted via `.github/workflows/us_rsi_scan.yml` at **21:30 UTC** weekdays
-(5:30pm EDT / 4:30pm EST). Config: `config_us_rsi.yaml`, universe:
+(≈ **3:00am IST** next day). Config: `config_us_rsi.yaml`, universe:
 `data/nasdaq100.txt`.
+
+## India Nifty RSI alerts (daily)
+
+Same style for **Nifty-100**: once after NSE cash close, **RSI ≤ 32** only.
+
+```bash
+python in_rsi_main.py
+```
+
+Hosted via `.github/workflows/in_rsi_scan.yml` at **10:30 UTC** weekdays
+(**4:00pm IST**). Config: `config_in_rsi.yaml`, universe: `data/nifty100.txt`.
 
 ## Telegram notifications
 

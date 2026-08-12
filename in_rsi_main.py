@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Once-daily US Nasdaq RSI oversold alerts (after cash close)."""
+"""Once-daily India Nifty-100 RSI oversold alerts (after NSE cash close)."""
 from __future__ import annotations
 
 import argparse
@@ -11,30 +11,34 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import NotificationConfig
-from src.daily_rsi import format_rsi_digest, load_watchlist, scan_oversold
+from src.daily_rsi import (
+    format_rsi_digest,
+    load_daily_rsi_config,
+    load_watchlist,
+    scan_oversold,
+)
 from src.notifications.notifier import Notifier
-from src.us_rsi import load_us_rsi_config
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Scan Nasdaq-100 names for RSI at or below the threshold."
+        description="Scan Nifty-100 names for RSI at or below the threshold."
     )
     parser.add_argument(
         "--config",
-        default="config_us_rsi.yaml",
-        help="Path to US RSI config (default: config_us_rsi.yaml)",
+        default="config_in_rsi.yaml",
+        help="Path to India RSI config (default: config_in_rsi.yaml)",
     )
     args = parser.parse_args()
 
-    config = load_us_rsi_config(args.config)
+    config = load_daily_rsi_config(args.config, "in_rsi")
     if not config.enabled:
-        print("us_rsi.enabled is false — exiting.")
+        print("in_rsi.enabled is false — exiting.")
         return
 
     symbols = load_watchlist(config.watchlist_path)
     print(
-        f"Scanning {len(symbols)} Nasdaq-100 names for RSI ≤ {config.rsi_threshold:g} "
+        f"Scanning {len(symbols)} Nifty-100 names for RSI ≤ {config.rsi_threshold:g} "
         f"(period {config.rsi_period})..."
     )
 
@@ -58,7 +62,7 @@ def main() -> None:
     )
     if notifier.telegram_ready:
         delivered = notifier.send_message(digest)
-        print(f"Sent US RSI digest to Telegram ({delivered}/{len(notifier.chat_ids)}).")
+        print(f"Sent India RSI digest to Telegram ({delivered}/{len(notifier.chat_ids)}).")
     else:
         print("Telegram not configured (TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID).")
 
