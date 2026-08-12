@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Once-daily India Nifty-100 RSI oversold alerts (after NSE cash close)."""
+"""Once-daily India Nifty-200 RSI oversold alerts (after NSE cash close)."""
 from __future__ import annotations
 
 import argparse
@@ -22,7 +22,7 @@ from src.notifications.notifier import Notifier
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Scan Nifty-100 names for RSI at or below the threshold."
+        description="Scan Nifty-200 names for RSI at or below the threshold."
     )
     parser.add_argument(
         "--config",
@@ -38,7 +38,7 @@ def main() -> None:
 
     symbols = load_watchlist(config.watchlist_path)
     print(
-        f"Scanning {len(symbols)} Nifty-100 names for RSI ≤ {config.rsi_threshold:g} "
+        f"Scanning {len(symbols)} Nifty-200 names for RSI ≤ {config.rsi_threshold:g} "
         f"(period {config.rsi_period})..."
     )
 

@@ -11,7 +11,7 @@ def test_format_digest_lists_hits_lowest_rsi_first():
         RsiHit("BBB", 31.5, 20.0, "2026-08-11"),
     ]
     text = format_rsi_digest(
-        hits, threshold=32, market_label="India Nifty-100", currency_symbol="₹"
+        hits, threshold=32, market_label="India Nifty-200", currency_symbol="₹"
     )
     assert "RSI ≤ 32" in text
     assert "₹" in text
