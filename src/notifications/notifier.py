@@ -52,16 +52,11 @@ class Notifier:
         tag = labels.get(alert.signal, "ALERT")
         print(f"\n[{tag}] {alert.message}")
 
-    def _digest(self, alerts: list[ScanAlert]) -> str:
-        """One message per scan reads better on a phone than one per stock."""
-        lines = [f"OI + RSI / Supertrend alerts — {datetime.now():%d %b %Y %H:%M}"]
+    def _digest(self, alerts: list[ScanAlert], *, title: str, sections: list[tuple]) -> str:
+        """One message per strategy reads better than mixing RSI and Supertrend."""
+        lines = [f"{title} — {datetime.now():%d %b %Y %H:%M}"]
 
-        for signal, heading in (
-            (SignalType.CALL_OI, "CALL OI (overbought, near max Call OI)"),
-            (SignalType.PUT_OI, "PUT OI (oversold, near max Put OI)"),
-            (SignalType.ST_BEARISH, "SUPERTREND BEARISH (below ST, bearish ΔOI)"),
-            (SignalType.ST_BULLISH, "SUPERTREND BULLISH (above ST, bullish ΔOI)"),
-        ):
+        for signal, heading in sections:
             group = [a for a in alerts if a.signal is signal]
             if not group:
                 continue
@@ -97,6 +92,26 @@ class Notifier:
 
         lines.append(f"\nExpiry: {alerts[0].expiry}")
         return "\n".join(lines)
+
+    def _rsi_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="RSI + OI alerts",
+            sections=[
+                (SignalType.CALL_OI, "CALL OI (overbought, near max Call OI)"),
+                (SignalType.PUT_OI, "PUT OI (oversold, near max Put OI)"),
+            ],
+        )
+
+    def _supertrend_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="Supertrend + OI alerts",
+            sections=[
+                (SignalType.ST_BEARISH, "BEARISH (below ST, bearish ΔOI)"),
+                (SignalType.ST_BULLISH, "BULLISH (above ST, bullish ΔOI)"),
+            ],
+        )
 
     def _telegram_url(self, method: str) -> str:
         return TELEGRAM_API.format(token=self.bot_token, method=method)
@@ -176,11 +191,30 @@ class Notifier:
             for alert in fresh:
                 self._send_console(alert)
 
+        rsi_alerts = [
+            a for a in fresh if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
+        ]
+        st_alerts = [
+            a
+            for a in fresh
+            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
+        ]
+
         if self.config.telegram:
             if self.telegram_ready:
-                delivered = self.send_message(self._digest(fresh))
-                recipients = f"{delivered}/{len(self.chat_ids)} recipient(s)"
-                print(f"\nSent {len(fresh)} alert(s) to Telegram ({recipients}).")
+                recipients = f"{len(self.chat_ids)} recipient(s)"
+                if rsi_alerts:
+                    delivered = self.send_message(self._rsi_digest(rsi_alerts))
+                    print(
+                        f"\nSent {len(rsi_alerts)} RSI+OI alert(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
+                if st_alerts:
+                    delivered = self.send_message(self._supertrend_digest(st_alerts))
+                    print(
+                        f"\nSent {len(st_alerts)} Supertrend alert(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
             elif not self._warned_missing:
                 print("\nTelegram enabled but TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID are missing.")
                 self._warned_missing = True
