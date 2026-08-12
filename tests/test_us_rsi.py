@@ -3,7 +3,7 @@ from datetime import datetime
 import pandas as pd
 
 from src.us_rsi.digest import format_us_rsi_digest
-from src.us_rsi.scanner import UsRsiHit, scan_oversold
+from src.us_rsi.scanner import UsRsiHit, apply_split_adjustment, scan_oversold
 
 
 def test_format_digest_lists_hits_lowest_rsi_first():
@@ -45,3 +45,17 @@ def test_scan_oversold_filters_with_injected_closes(monkeypatch):
     )
     assert [h.symbol for h in hits] == ["OVER"]
     assert hits[0].rsi <= 32
+
+
+def test_split_adjustment_removes_fake_crash():
+    """MNST-style 2-for-1: raw close halves; adjusted series stays continuous."""
+    idx = pd.to_datetime(["2026-08-06", "2026-08-07", "2026-08-12"])
+    close = pd.Series([94.16, 90.36, 45.18], index=idx, dtype=float)
+    splits = pd.Series([2.0], index=pd.to_datetime(["2026-08-11"]))
+
+    adjusted = apply_split_adjustment(close, splits)
+    # Pre-split bars are halved; post-split bar unchanged.
+    assert adjusted.loc[pd.Timestamp("2026-08-07")] == 45.18
+    assert adjusted.loc[pd.Timestamp("2026-08-12")] == 45.18
+    # No ~50% cliff into the latest bar.
+    assert abs(adjusted.pct_change().iloc[-1]) < 0.01
