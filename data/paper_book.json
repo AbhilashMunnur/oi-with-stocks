@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-12",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-12 11:01:59",
+  "updated_at": "2026-08-12 11:32:07",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -270,6 +270,20 @@
       "rsi_at_entry": 77.24194393596278,
       "strike": 420.0,
       "margin_blocked": 313575.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "FORTIS",
+      "direction": "LONG",
+      "entry_price": 885.5,
+      "entry_time": "2026-08-12 11:32:07",
+      "lot_size": 775,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 32.89235373282435,
+      "strike": 880.0,
+      "margin_blocked": 274505.0,
       "closed_legs": []
     }
   ]
