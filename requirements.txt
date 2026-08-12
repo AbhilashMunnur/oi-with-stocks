@@ -5,6 +5,7 @@ python-dotenv>=1.0.0
 PyYAML>=6.0.0
 schedule>=1.2.0
 Pillow>=10.0.0
+yfinance>=0.2.40
 
 # Angel One SmartAPI
 smartapi-python>=1.5.5

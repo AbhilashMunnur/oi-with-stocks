@@ -60,7 +60,7 @@ Edit `config.yaml`:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
-| `rsi.put_threshold` | 35 | RSI must be at or below this for a Put OI alert |
+| `rsi.put_threshold` | 32 | RSI must be at or below this for a Put OI alert |
 | `oi.proximity_pct` | 1.0 | Price must be within this % of the max OI strike |
 | `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
@@ -101,6 +101,19 @@ To keep it alive after closing the terminal:
 nohup python -u main.py > scanner.log 2>&1 &
 tail -f scanner.log
 ```
+
+## US Nasdaq RSI alerts (daily)
+
+Separate once-a-day scan of the top **150 Nasdaq** names. After US cash close it
+alerts only when **RSI ≤ 32** (no OI filter, no paper trades). Same Telegram bot.
+
+```bash
+python us_rsi_main.py
+```
+
+Hosted via `.github/workflows/us_rsi_scan.yml` at **21:30 UTC** weekdays
+(5:30pm EDT / 4:30pm EST). Config: `config_us_rsi.yaml`, universe:
+`data/nasdaq_top150.txt`.
 
 ## Telegram notifications
 

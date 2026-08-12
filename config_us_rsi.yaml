@@ -1,0 +1,9 @@
+# US Nasdaq daily RSI alerts (post cash close, once per weekday).
+# Separate from the NSE OI + RSI intraday scanner.
+us_rsi:
+  enabled: true
+  rsi_period: 14
+  rsi_threshold: 32          # Alert when RSI is at or below this
+  history_days: 120
+  watchlist_path: data/nasdaq_top150.txt
+  # GitHub Actions runs after the US cash close (see us_rsi_scan.yml).
