@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-13",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-13 14:32:00",
+  "updated_at": "2026-08-13 15:02:01",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -18,6 +18,20 @@
       "rsi_at_entry": 0.0,
       "strike": 1760.0,
       "margin_blocked": 244804.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "HDFCAMC",
+      "direction": "LONG",
+      "entry_price": 2480.8,
+      "entry_time": "2026-08-13 15:02:01",
+      "lot_size": 300,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 2450.0,
+      "margin_blocked": 297696.0,
       "closed_legs": []
     }
   ]
