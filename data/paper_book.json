@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-13",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-13 12:32:16",
+  "updated_at": "2026-08-13 13:02:06",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -340,6 +340,20 @@
       "rsi_at_entry": 25.066410514938,
       "strike": 920.0,
       "margin_blocked": 185120.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "ASTRAL",
+      "direction": "SHORT",
+      "entry_price": 1591.8,
+      "entry_time": "2026-08-13 13:02:06",
+      "lot_size": 425,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 72.35931097380461,
+      "strike": 1600.0,
+      "margin_blocked": 270606.0,
       "closed_legs": []
     }
   ]

@@ -4,6 +4,21 @@
   "closed_count": 0,
   "day_date": "2026-08-13",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-13 12:32:19",
-  "positions": []
+  "updated_at": "2026-08-13 13:02:10",
+  "positions": [
+    {
+      "symbol": "POLICYBZR",
+      "direction": "SHORT",
+      "entry_price": 1748.6,
+      "entry_time": "2026-08-13 13:02:10",
+      "lot_size": 350,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 1760.0,
+      "margin_blocked": 244804.0,
+      "closed_legs": []
+    }
+  ]
 }
