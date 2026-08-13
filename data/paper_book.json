@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-13",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-13 11:32:10",
+  "updated_at": "2026-08-13 12:02:11",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -326,6 +326,20 @@
       "rsi_at_entry": 76.25556630949508,
       "strike": 4600.0,
       "margin_blocked": 276840.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "GODREJCP",
+      "direction": "LONG",
+      "entry_price": 925.6,
+      "entry_time": "2026-08-13 12:02:11",
+      "lot_size": 500,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 25.066410514938,
+      "strike": 920.0,
+      "margin_blocked": 185120.0,
       "closed_legs": []
     }
   ]
