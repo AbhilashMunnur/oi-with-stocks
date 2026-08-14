@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-14",
   "day_realised_pnl": 91393.5,
-  "updated_at": "2026-08-14 12:33:22",
+  "updated_at": "2026-08-14 13:02:16",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -440,6 +440,20 @@
       "rsi_at_entry": 31.027812795173332,
       "strike": 2500.0,
       "margin_blocked": 174440.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "HAVELLS",
+      "direction": "SHORT",
+      "entry_price": 1302.1,
+      "entry_time": "2026-08-14 13:02:16",
+      "lot_size": 500,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 71.13763592977051,
+      "strike": 1300.0,
+      "margin_blocked": 260420.0,
       "closed_legs": []
     }
   ]
