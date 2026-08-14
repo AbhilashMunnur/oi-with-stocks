@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-14",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-14 14:32:16",
+  "updated_at": "2026-08-14 15:02:22",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -60,6 +60,20 @@
       "rsi_at_entry": 0.0,
       "strike": 2600.0,
       "margin_blocked": 232938.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "GMRAIRPORT",
+      "direction": "LONG",
+      "entry_price": 101.97,
+      "entry_time": "2026-08-14 15:02:22",
+      "lot_size": 6975,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 102.0,
+      "margin_blocked": 284496.3,
       "closed_legs": []
     }
   ]
