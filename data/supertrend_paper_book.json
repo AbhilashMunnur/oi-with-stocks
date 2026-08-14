@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-14",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-14 13:02:20",
+  "updated_at": "2026-08-14 13:32:28",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -46,6 +46,20 @@
       "rsi_at_entry": 0.0,
       "strike": 335.0,
       "margin_blocked": 211554.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "MAZDOCK",
+      "direction": "SHORT",
+      "entry_price": 2588.2,
+      "entry_time": "2026-08-14 13:32:28",
+      "lot_size": 225,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 2600.0,
+      "margin_blocked": 232938.0,
       "closed_legs": []
     }
   ]
