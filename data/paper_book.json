@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-14",
   "day_realised_pnl": 91393.5,
-  "updated_at": "2026-08-14 11:32:11",
+  "updated_at": "2026-08-14 12:02:15",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -426,6 +426,20 @@
       "rsi_at_entry": 71.0778511800354,
       "strike": 20000.0,
       "margin_blocked": 401960.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "PIIND",
+      "direction": "LONG",
+      "entry_price": 2492.0,
+      "entry_time": "2026-08-14 12:02:15",
+      "lot_size": 175,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 31.027812795173332,
+      "strike": 2500.0,
+      "margin_blocked": 174440.0,
       "closed_legs": []
     }
   ]
