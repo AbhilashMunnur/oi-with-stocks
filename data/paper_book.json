@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-17",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-17 10:02:38",
+  "updated_at": "2026-08-17 10:31:52",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -468,6 +468,20 @@
       "rsi_at_entry": 30.62535403592699,
       "strike": 2260.0,
       "margin_blocked": 380578.99999999994,
+      "closed_legs": []
+    },
+    {
+      "symbol": "COALINDIA",
+      "direction": "LONG",
+      "entry_price": 406.95,
+      "entry_time": "2026-08-17 10:31:52",
+      "lot_size": 1350,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 30.93531936823159,
+      "strike": 410.0,
+      "margin_blocked": 219753.0,
       "closed_legs": []
     }
   ]
