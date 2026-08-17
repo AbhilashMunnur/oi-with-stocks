@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 12545.5,
+  "realised_pnl": 40769.5,
   "closed_count": 1,
   "day_date": "2026-08-17",
-  "day_realised_pnl": -78848.0,
-  "updated_at": "2026-08-17 14:31:39",
+  "day_realised_pnl": -50624.0,
+  "updated_at": "2026-08-17 15:01:44",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -82,13 +82,21 @@
       "entry_price": 73.5,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 6400,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-29",
       "rsi_at_entry": 33.17540571383519,
       "strike": 75.0,
-      "margin_blocked": 188160.0,
-      "closed_legs": []
+      "margin_blocked": 94080.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 77.91,
+          "exit_time": "2026-08-17 15:01:44",
+          "reason": "first_target",
+          "pnl": 28224.0
+        }
+      ]
     },
     {
       "symbol": "JUBLFOOD",
