@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-17",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-17 12:02:08",
+  "updated_at": "2026-08-17 12:31:54",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -102,6 +102,20 @@
       "rsi_at_entry": 0.0,
       "strike": 24500.0,
       "margin_blocked": 246300.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "SUPREMEIND",
+      "direction": "SHORT",
+      "entry_price": 3600.2,
+      "entry_time": "2026-08-17 12:31:54",
+      "lot_size": 175,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 3600.0,
+      "margin_blocked": 252014.0,
       "closed_legs": []
     }
   ]
