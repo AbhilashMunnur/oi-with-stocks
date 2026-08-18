@@ -308,6 +308,10 @@ Set `google_sheet_id` and `google_worksheet` in `config.yaml`, then:
 Without those credentials the CSV is still written; only the mirroring is skipped.
 A Sheets failure never blocks the local record.
 
+The RSI+OI book also appends a row to **RSI Portfolio Summary** after every
+completed half-hour scan. It records date, time, open-position count, blocked
+capital, total P&L, cumulative realised P&L, and current unrealised P&L.
+
 ### What the simulation assumes
 
 These matter when comparing against what real fills would have produced:

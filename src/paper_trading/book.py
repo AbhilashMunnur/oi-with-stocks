@@ -6,7 +6,7 @@ from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
 from src.oi_analyzer import ScanAlert
-from src.paper_trading.journal import TradeJournal, build_row
+from src.paper_trading.journal import TradeJournal, build_row, build_summary_row
 from src.paper_trading.models import (
     ClosedLeg,
     Direction,
@@ -338,6 +338,16 @@ class PaperBook:
         """Exits booked today plus current mark-to-market on open lots."""
         self._roll_day()
         return self.day_realised_pnl + self.unrealised(prices)
+
+    def portfolio_summary_row(self, prices: dict[str, float]) -> dict:
+        """Current RSI+OI book state for the half-hour Google Sheets log."""
+        open_pnl = self.unrealised(prices)
+        return build_summary_row(
+            positions=len([position for position in self.positions if position.is_open]),
+            capital_used=self.margin_blocked,
+            realised_pnl=self.realised_pnl,
+            unrealised_pnl=open_pnl,
+        )
 
     def summary(self, prices: dict[str, float]) -> str:
         open_pnl = self.unrealised(prices)

@@ -77,6 +77,7 @@ class PaperTradingConfig:
     journal_csv: str
     google_sheet_id: str = ""
     google_worksheet: str = ""
+    google_summary_worksheet: str = ""
     # 1 = current month futures, 3 = far month (e.g. August → October).
     futures_month: int = 3
     # After the first lot is booked at first_target_pct, the remaining lot's

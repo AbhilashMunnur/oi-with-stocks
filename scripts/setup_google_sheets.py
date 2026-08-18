@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ensure Google Sheets tabs exist for RSI and Supertrend paper journals.
+"""Ensure Google Sheets tabs exist for paper journals and RSI portfolio snapshots.
 
 1. Create a service account in Google Cloud and download its JSON key
 2. Share the spreadsheet with the service account email as Editor
@@ -80,10 +80,17 @@ def main() -> None:
             csv_path=ROOT / "data" / f"_sheets_probe_{label.replace('+', '_')}.csv",
             sheet_id=paper.google_sheet_id,
             worksheet=paper.google_worksheet,
+            summary_worksheet=paper.google_summary_worksheet,
         )
         try:
             journal._append_sheet([_probe_row(label)])
             print("  OK — tab ready (PROBE row written; delete it if you like).\n")
+            if paper.google_summary_worksheet:
+                journal.ensure_summary_sheet()
+                print(
+                    "  Portfolio summary: "
+                    f"{paper.google_summary_worksheet} — ready.\n"
+                )
         except Exception as exc:
             print(f"  FAILED: {exc}\n")
             sys.exit(1)

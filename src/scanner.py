@@ -35,6 +35,7 @@ class OIRsiScanner:
                 csv_path=paper.journal_csv,
                 sheet_id=paper.google_sheet_id,
                 worksheet=paper.google_worksheet,
+                summary_worksheet=paper.google_summary_worksheet,
             )
             self.book = PaperBook(paper, journal=journal)
 
@@ -44,6 +45,7 @@ class OIRsiScanner:
                 csv_path=st_paper.journal_csv,
                 sheet_id=st_paper.google_sheet_id,
                 worksheet=st_paper.google_worksheet,
+                summary_worksheet=st_paper.google_summary_worksheet,
             )
             self.st_book = PaperBook(st_paper, journal=st_journal)
 
@@ -263,6 +265,9 @@ class OIRsiScanner:
         logged = book.flush_journal()
         if logged:
             print(f"\nLogged {logged} {book.config.name} closed trade(s) to the journal.")
+
+        if book.journal:
+            book.journal.append_summary(book.portfolio_summary_row(prices))
 
         if events:
             print(f"\n{book.config.name} paper trading")

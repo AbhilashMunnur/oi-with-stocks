@@ -67,6 +67,7 @@ paper_trading:
   # in GOOGLE_SERVICE_ACCOUNT_JSON and the sheet shared with its email.
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "RSI Paper trades"
+  google_summary_worksheet: "RSI Portfolio Summary"
 
 # Paper trading for Supertrend + OI only — own capital, ledger, and journal.
 supertrend_paper_trading:

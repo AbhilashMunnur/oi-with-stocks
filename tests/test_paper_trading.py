@@ -61,6 +61,19 @@ def test_short_profits_when_price_falls(config):
     assert book.positions[0].move_pct(4700.0) == pytest.approx(6.0)
 
 
+def test_portfolio_summary_reports_open_positions_margin_and_pnl(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+
+    row = book.portfolio_summary_row({"TITAN": 4900.0})
+
+    assert row["Total number of positions taken"] == 1
+    assert row["Capital used in positions"] == 350_000
+    assert row["Profit or loss"] == 35_000
+    assert row["Total realised profit or loss"] == 0
+    assert row["Unrealised profit or loss"] == 35_000
+
+
 def test_first_target_closes_one_lot_at_the_trigger_price(config):
     book = PaperBook(config)
     book.open_from_alerts([alert()])

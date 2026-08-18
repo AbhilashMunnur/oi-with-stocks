@@ -25,6 +25,16 @@ COLUMNS = [
     "Exit reason",
 ]
 
+SUMMARY_COLUMNS = [
+    "Date",
+    "Time",
+    "Total number of positions taken",
+    "Capital used in positions",
+    "Profit or loss",
+    "Total realised profit or loss",
+    "Unrealised profit or loss",
+]
+
 DATE_FORMAT = "%d-%b-%y"
 
 
@@ -72,13 +82,40 @@ def build_row(
     }
 
 
+def build_summary_row(
+    *,
+    positions: int,
+    capital_used: float,
+    realised_pnl: float,
+    unrealised_pnl: float,
+    recorded_at: datetime | None = None,
+) -> dict:
+    recorded_at = recorded_at or datetime.now()
+    return {
+        "Date": recorded_at.strftime(DATE_FORMAT),
+        "Time": recorded_at.strftime("%H:%M"),
+        "Total number of positions taken": positions,
+        "Capital used in positions": round(capital_used),
+        "Profit or loss": round(realised_pnl + unrealised_pnl),
+        "Total realised profit or loss": round(realised_pnl),
+        "Unrealised profit or loss": round(unrealised_pnl),
+    }
+
+
 class TradeJournal:
     """Appends closed trades to CSV, and mirrors them to Google Sheets if configured."""
 
-    def __init__(self, csv_path: str | Path, sheet_id: str = "", worksheet: str = ""):
+    def __init__(
+        self,
+        csv_path: str | Path,
+        sheet_id: str = "",
+        worksheet: str = "",
+        summary_worksheet: str = "",
+    ):
         self.csv_path = Path(csv_path)
         self.sheet_id = sheet_id
         self.worksheet = worksheet or "Paper trades"
+        self.summary_worksheet = summary_worksheet
 
     def append(self, rows: list[dict]) -> None:
         if not rows:
@@ -124,19 +161,52 @@ class TradeJournal:
 
         client = gspread.authorize(self._credentials())
         spreadsheet = client.open_by_key(self.sheet_id)
+        sheet = self._ensure_worksheet(spreadsheet, self.worksheet, COLUMNS)
+        sheet.append_rows([[row[column] for column in COLUMNS] for row in rows])
+        print(f"  Logged {len(rows)} trade(s) to Google Sheets → '{self.worksheet}'.")
+
+    @staticmethod
+    def _ensure_worksheet(spreadsheet, name: str, columns: list[str]):
+        import gspread
 
         try:
-            sheet = spreadsheet.worksheet(self.worksheet)
+            sheet = spreadsheet.worksheet(name)
         except gspread.WorksheetNotFound:
-            sheet = spreadsheet.add_worksheet(self.worksheet, rows=2000, cols=len(COLUMNS))
+            sheet = spreadsheet.add_worksheet(name, rows=2000, cols=len(columns))
 
         existing = sheet.get_all_values()
         if not existing:
-            sheet.append_row(COLUMNS)
-        elif existing[0] != COLUMNS:
-            # Don't overwrite the historical Nifty sheet; ensure our tab has headers.
-            if existing[0][:3] != COLUMNS[:3]:
-                sheet.insert_row(COLUMNS, 1)
+            sheet.append_row(columns)
+        elif existing[0] != columns and existing[0][:3] != columns[:3]:
+            sheet.insert_row(columns, 1)
+        return sheet
 
-        sheet.append_rows([[row[column] for column in COLUMNS] for row in rows])
-        print(f"  Logged {len(rows)} trade(s) to Google Sheets → '{self.worksheet}'.")
+    def ensure_summary_sheet(self) -> None:
+        if not self.sheet_id or not self.summary_worksheet:
+            return
+        import gspread
+
+        client = gspread.authorize(self._credentials())
+        spreadsheet = client.open_by_key(self.sheet_id)
+        self._ensure_worksheet(spreadsheet, self.summary_worksheet, SUMMARY_COLUMNS)
+
+    def append_summary(self, row: dict) -> None:
+        """Append one RSI+OI portfolio snapshot after a completed scan."""
+        if not self.sheet_id or not self.summary_worksheet:
+            return
+        try:
+            import gspread
+
+            client = gspread.authorize(self._credentials())
+            spreadsheet = client.open_by_key(self.sheet_id)
+            sheet = self._ensure_worksheet(
+                spreadsheet, self.summary_worksheet, SUMMARY_COLUMNS
+            )
+            sheet.append_row([row[column] for column in SUMMARY_COLUMNS])
+            print(
+                "  Logged RSI+OI portfolio snapshot to Google Sheets → "
+                f"'{self.summary_worksheet}'."
+            )
+        except Exception as exc:
+            # Portfolio reporting must never stop scanning or paper trading.
+            print(f"  Google Sheet portfolio summary not updated: {exc}")

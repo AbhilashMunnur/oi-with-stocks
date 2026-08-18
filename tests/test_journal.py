@@ -3,8 +3,10 @@ from datetime import datetime
 
 from src.paper_trading.journal import (
     COLUMNS,
+    SUMMARY_COLUMNS,
     TradeJournal,
     build_row,
+    build_summary_row,
     capital_needed,
     trading_days_between,
 )
@@ -108,3 +110,22 @@ def test_google_sheet_failure_does_not_lose_the_csv_record(tmp_path):
 
     with path.open(encoding="utf-8") as handle:
         assert len(list(csv.reader(handle))) == 2
+
+
+def test_summary_row_contains_half_hour_portfolio_totals():
+    row = build_summary_row(
+        positions=3,
+        capital_used=1_234_567.4,
+        realised_pnl=50_000.2,
+        unrealised_pnl=-10_000.6,
+        recorded_at=datetime(2026, 8, 18, 14, 30),
+    )
+
+    assert list(row) == SUMMARY_COLUMNS
+    assert row["Date"] == "18-Aug-26"
+    assert row["Time"] == "14:30"
+    assert row["Total number of positions taken"] == 3
+    assert row["Capital used in positions"] == 1_234_567
+    assert row["Profit or loss"] == 40_000
+    assert row["Total realised profit or loss"] == 50_000
+    assert row["Unrealised profit or loss"] == -10_001
