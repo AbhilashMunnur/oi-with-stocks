@@ -36,12 +36,12 @@ class OIConfig:
     # CALL shorts: require Call ΔOI > 0 at the max Call OI strike
     # (Put ΔOI is also measured at that same strike).
     require_call_writing: bool = True
-    # Skip CALL short when put writing / call writing exceeds this (ΔPCR).
-    max_change_pcr: float = 1.0
+    # CALL shorts require put writing / call writing below this (ΔPCR).
+    max_change_pcr: float = 0.75
     # PUT longs: require Put ΔOI > 0 at the max Put OI strike
     # (Call ΔOI is also measured at that same strike).
     require_put_writing: bool = True
-    # Skip PUT long when put writing / call writing is below this (ΔPCR).
+    # PUT longs require put writing / call writing above this (ΔPCR).
     min_change_pcr: float = 1.0
 
 

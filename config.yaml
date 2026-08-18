@@ -7,10 +7,10 @@ rsi:
 # How close price must be to the max OI strike (percentage)
 oi:
   proximity_pct: 1.0      # e.g. 1% means price within 1% of the strike
-  # CALL shorts: need call writing; put writing must not dominate (ΔPCR ≤ max).
+  # CALL shorts: require ΔPCR < 0.75.
   require_call_writing: true
-  max_change_pcr: 1.0
-  # PUT longs: need put writing; call writing must not dominate (ΔPCR ≥ min).
+  max_change_pcr: 0.75
+  # PUT longs: require ΔPCR > 1.0.
   require_put_writing: true
   min_change_pcr: 1.0
 

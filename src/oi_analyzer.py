@@ -140,15 +140,15 @@ def call_oi_flow_rejection(
     oi: OISnapshot,
     *,
     require_call_writing: bool = True,
-    max_change_pcr: float = 1.0,
+    max_change_pcr: float = 0.75,
     **_: object,
 ) -> str | None:
     """Why a CALL_OI short should be skipped, or None if flow supports the short.
 
     - When require_call_writing: Call ΔOI at the reference (max Call OI) strike
       must be known and > 0 (writing, not unwind/flat).
-    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must not
-      exceed max_change_pcr (put writing must not dominate call writing).
+    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must be
+      strictly below max_change_pcr.
     """
     if require_call_writing:
         if oi.call_oi_change is None:
@@ -161,10 +161,10 @@ def call_oi_flow_rejection(
             )
 
     pcr = oi.change_pcr
-    if pcr is not None and pcr > max_change_pcr:
+    if pcr is not None and pcr >= max_change_pcr:
         return (
-            f"ΔPCR {pcr:.2f} > {max_change_pcr:g} "
-            "(put writing dominates call writing — skip short)"
+            f"ΔPCR {pcr:.2f} >= {max_change_pcr:g} "
+            "(short requires a lower ΔPCR)"
         )
 
     return None
@@ -183,7 +183,7 @@ def put_oi_flow_rejection(
     - When require_put_writing: Put ΔOI at the reference (max Put OI) strike
       must be known and > 0 (writing, not unwind/flat).
     - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must be
-      at least min_change_pcr (call writing must not dominate put writing).
+      strictly above min_change_pcr.
     """
     if require_put_writing:
         if oi.put_oi_change is None:
@@ -196,10 +196,10 @@ def put_oi_flow_rejection(
             )
 
     pcr = oi.change_pcr
-    if pcr is not None and pcr < min_change_pcr:
+    if pcr is not None and pcr <= min_change_pcr:
         return (
-            f"ΔPCR {pcr:.2f} < {min_change_pcr:g} "
-            "(call writing dominates put writing — skip long)"
+            f"ΔPCR {pcr:.2f} <= {min_change_pcr:g} "
+            "(long requires a higher ΔPCR)"
         )
 
     return None
@@ -213,7 +213,7 @@ def evaluate_stock(
     proximity_pct: float,
     *,
     require_call_writing: bool = True,
-    max_change_pcr: float = 1.0,
+    max_change_pcr: float = 0.75,
     require_put_writing: bool = True,
     min_change_pcr: float = 1.0,
 ) -> ScanAlert | None:

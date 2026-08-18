@@ -240,6 +240,8 @@ Alerts also carry how open interest moved since the previous session's close, at
   summed together.
 - **Change PCR** — Put ΔOI / Call ΔOI at that shared strike. Above 1 means puts
   are building faster than calls there.
+- **Entry filter** — shorts require **ΔPCR < 0.75**; longs require
+  **ΔPCR > 1.00**.
 
 The ratio is deliberately **only shown when both sides are adding** positions. If
 either side is unwinding, the division flips sign and stops meaning anything, so

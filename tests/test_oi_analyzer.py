@@ -141,6 +141,14 @@ def test_call_short_allowed_when_call_writing_leads():
     assert evaluate_stock(price, oi, 70, 35, 2.0) is not None
 
 
+def test_call_short_requires_change_pcr_strictly_below_point_75():
+    at_limit = _call_oi(call_oi_change=200, put_oi_change=150)
+    above_limit = _call_oi(call_oi_change=200, put_oi_change=160)
+
+    assert call_oi_flow_rejection(at_limit, max_change_pcr=0.75) is not None
+    assert call_oi_flow_rejection(above_limit, max_change_pcr=0.75) is not None
+
+
 def test_call_short_allowed_when_puts_unwind_but_calls_write():
     price = PriceSnapshot(symbol="RELIANCE", ltp=1320, rsi=72.0)
     oi = _call_oi(call_oi_change=200, put_oi_change=-50)
@@ -203,6 +211,12 @@ def test_put_long_allowed_when_put_writing_leads():
     )
 
     assert evaluate_stock(price, oi, 70, 35, 2.0) is not None
+
+
+def test_put_long_requires_change_pcr_strictly_above_one():
+    oi = _call_oi(call_oi_change=200, put_oi_change=200)
+
+    assert put_oi_flow_rejection(oi, min_change_pcr=1.0) is not None
 
 
 def test_put_long_allowed_when_calls_unwind_but_puts_write():
