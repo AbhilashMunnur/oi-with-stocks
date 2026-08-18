@@ -4,7 +4,7 @@
   "closed_count": 2,
   "day_date": "2026-08-18",
   "day_realised_pnl": -56560.0,
-  "updated_at": "2026-08-18 13:31:40",
+  "updated_at": "2026-08-18 14:01:26",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -518,6 +518,20 @@
       "rsi_at_entry": 31.359843009207694,
       "strike": 101.0,
       "margin_blocked": 282375.9,
+      "closed_legs": []
+    },
+    {
+      "symbol": "BOSCHLTD",
+      "direction": "SHORT",
+      "entry_price": 48650.0,
+      "entry_time": "2026-08-18 14:01:26",
+      "lot_size": 25,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 81.15927532619531,
+      "strike": 49000.0,
+      "margin_blocked": 486500.0,
       "closed_legs": []
     }
   ]
