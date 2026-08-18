@@ -4,7 +4,7 @@
   "closed_count": 1,
   "day_date": "2026-08-18",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-18 10:01:36",
+  "updated_at": "2026-08-18 10:32:12",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -504,6 +504,20 @@
       "rsi_at_entry": 29.48005734827298,
       "strike": 1900.0,
       "margin_blocked": 209759.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "BSE",
+      "direction": "LONG",
+      "entry_price": 3267.2,
+      "entry_time": "2026-08-18 10:32:12",
+      "lot_size": 200,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 31.393331116027227,
+      "strike": 3300.0,
+      "margin_blocked": 261376.0,
       "closed_legs": []
     }
   ]
