@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 40769.5,
-  "closed_count": 1,
+  "realised_pnl": -15790.5,
+  "closed_count": 2,
   "day_date": "2026-08-18",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-18 11:02:02",
+  "day_realised_pnl": -56560.0,
+  "updated_at": "2026-08-18 11:31:46",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -18,20 +18,6 @@
       "rsi_at_entry": 33.79209162363962,
       "strike": 1700.0,
       "margin_blocked": 319390.0,
-      "closed_legs": []
-    },
-    {
-      "symbol": "APLAPOLLO",
-      "direction": "SHORT",
-      "entry_price": 2020.0,
-      "entry_time": "2026-08-10 22:57:32",
-      "lot_size": 350,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-29",
-      "rsi_at_entry": 70.65136022483092,
-      "strike": 2000.0,
-      "margin_blocked": 282800.0,
       "closed_legs": []
     },
     {
