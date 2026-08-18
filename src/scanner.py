@@ -334,7 +334,6 @@ class OIRsiScanner:
                 f"proximity {st_cfg.proximity_pct}%"
             )
             st_map = fetch_supertrends(
-                self.client,
                 symbols,
                 prices,
                 atr_period=st_cfg.atr_period,

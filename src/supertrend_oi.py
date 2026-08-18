@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from datetime import date
-
 import pandas as pd
+import yfinance as yf
 
 from src.config import OIConfig, SignalType, SupertrendConfig
-from src.data.angelone_client import AngelOneClient
 from src.data.models import OISnapshot
 from src.indicators import calculate_supertrend
 from src.oi_analyzer import (
@@ -18,56 +16,81 @@ from src.oi_analyzer import (
 )
 
 
+def _ohlc_from_download(data: pd.DataFrame, yahoo: str) -> tuple[pd.Series, pd.Series, pd.Series] | None:
+    if data is None or data.empty:
+        return None
+    try:
+        if isinstance(data.columns, pd.MultiIndex):
+            close = data[yahoo]["Close"] if yahoo in data.columns.get_level_values(0) else None
+            if close is None:
+                return None
+            high = data[yahoo]["High"]
+            low = data[yahoo]["Low"]
+        else:
+            close, high, low = data["Close"], data["High"], data["Low"]
+    except (KeyError, TypeError):
+        return None
+
+    close = close.dropna().astype(float)
+    if close.empty:
+        return None
+    high = high.reindex(close.index).astype(float)
+    low = low.reindex(close.index).astype(float)
+    return high, low, close
+
+
 def fetch_supertrends(
-    client: AngelOneClient,
     symbols: list[str],
     prices: dict[str, float],
     *,
     atr_period: int,
     multiplier: float,
 ) -> dict[str, tuple[float, str]]:
-    """Daily Supertrend from Angel One OHLC (same candle feed as RSI)."""
+    """Daily Supertrend for many NSE symbols via one batched Yahoo download."""
     if not symbols:
         return {}
 
+    yahoo_of = {symbol.upper(): f"{symbol.upper()}.NS" for symbol in symbols}
+    bare_of = {yahoo: bare for bare, yahoo in yahoo_of.items()}
     results: dict[str, tuple[float, str]] = {}
-    today = f"{date.today():%Y-%m-%d}"
 
-    for index, symbol in enumerate(symbols, 1):
-        rows = client.daily_ohlc(symbol)
-        if len(rows) < atr_period + 2:
+    batch_size = 50
+    yahoo_list = list(yahoo_of.values())
+    for start in range(0, len(yahoo_list), batch_size):
+        batch = yahoo_list[start : start + batch_size]
+        data = yf.download(
+            batch,
+            period="2y",
+            interval="1d",
+            group_by="ticker",
+            threads=True,
+            progress=False,
+            auto_adjust=False,
+        )
+        if data is None or data.empty:
             continue
 
-        dates = [d for d, _h, _l, _c in rows]
-        high = pd.Series([h for _d, h, _l, _c in rows], dtype=float)
-        low = pd.Series([low_v for _d, _h, low_v, _c in rows], dtype=float)
-        close = pd.Series([c for _d, _h, _l, c in rows], dtype=float)
-
-        ltp = prices.get(symbol)
-        if ltp:
-            if dates[-1] == today:
+        for yahoo in batch:
+            ohlc = _ohlc_from_download(data, yahoo)
+            if ohlc is None:
+                continue
+            high, low, close = ohlc
+            bare = bare_of[yahoo]
+            ltp = prices.get(bare)
+            if ltp:
+                close = close.copy()
+                high = high.copy()
+                low = low.copy()
                 close.iloc[-1] = ltp
                 high.iloc[-1] = max(float(high.iloc[-1]), ltp)
                 low.iloc[-1] = min(float(low.iloc[-1]), ltp)
-            else:
-                # Still-forming session not in candle history yet.
-                high = pd.concat([high, pd.Series([ltp], dtype=float)], ignore_index=True)
-                low = pd.concat([low, pd.Series([ltp], dtype=float)], ignore_index=True)
-                close = pd.concat([close, pd.Series([ltp], dtype=float)], ignore_index=True)
 
-        st_value, side = calculate_supertrend(
-            high, low, close, period=atr_period, multiplier=multiplier
-        )
-        if st_value is not None and side is not None:
-            results[symbol] = (st_value, side)
+            st_value, side = calculate_supertrend(
+                high, low, close, period=atr_period, multiplier=multiplier
+            )
+            if st_value is not None and side is not None:
+                results[bare] = (st_value, side)
 
-        if index % 25 == 0:
-            print(f"  Supertrend OHLC {index}/{len(symbols)}...")
-            client._save_ohlc_cache()
-            client._save_closes_cache()
-
-    client._save_ohlc_cache()
-    client._save_closes_cache()
     return results
 
 
