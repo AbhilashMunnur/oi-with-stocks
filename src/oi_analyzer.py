@@ -31,6 +31,53 @@ class ScanAlert:
         return int(shares / self.lot_size)
 
 
+def align_snapshot_to_reference_strike(
+    oi: OISnapshot,
+    reference: str,
+) -> bool:
+    """Point CE and PE tokens (and current OI) at one shared reference strike.
+
+    - ``"call"`` → max Call OI strike (RSI overbought shorts)
+    - ``"put"``  → max Put OI strike (RSI oversold longs)
+
+    Both Call ΔOI and Put ΔOI are then computed at that same strike.
+    Returns False if the primary leg (CE for call, PE for put) is missing.
+    """
+    if reference == "call":
+        strike = oi.max_call_oi_strike
+        if strike <= 0:
+            return False
+        legs = oi.legs_by_strike.get(strike) or {}
+        if "CE" not in legs:
+            return False
+        oi.max_call_oi, oi.max_call_token = legs["CE"]
+        if "PE" in legs:
+            oi.max_put_oi, oi.max_put_token = legs["PE"]
+        else:
+            oi.max_put_token = ""
+            oi.put_oi_change = None
+        oi.max_put_oi_strike = strike
+        return True
+
+    if reference == "put":
+        strike = oi.max_put_oi_strike
+        if strike <= 0:
+            return False
+        legs = oi.legs_by_strike.get(strike) or {}
+        if "PE" not in legs:
+            return False
+        oi.max_put_oi, oi.max_put_token = legs["PE"]
+        if "CE" in legs:
+            oi.max_call_oi, oi.max_call_token = legs["CE"]
+        else:
+            oi.max_call_token = ""
+            oi.call_oi_change = None
+        oi.max_call_oi_strike = strike
+        return True
+
+    return False
+
+
 def is_near_strike(price: float, strike: float, proximity_pct: float) -> bool:
     if strike <= 0:
         return False
@@ -98,10 +145,10 @@ def call_oi_flow_rejection(
 ) -> str | None:
     """Why a CALL_OI short should be skipped, or None if flow supports the short.
 
-    - When require_call_writing: Call ΔOI at the max Call OI strike must be known
-      and > 0 (writing, not unwind/flat).
-    - When both legs are writing, Put ΔOI / Call ΔOI must not exceed max_change_pcr
-      (put writing must not dominate call writing).
+    - When require_call_writing: Call ΔOI at the reference (max Call OI) strike
+      must be known and > 0 (writing, not unwind/flat).
+    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must not
+      exceed max_change_pcr (put writing must not dominate call writing).
     """
     if require_call_writing:
         if oi.call_oi_change is None:
@@ -133,10 +180,10 @@ def put_oi_flow_rejection(
     """Why a PUT_OI long should be skipped, or None if flow supports the long.
 
     Mirror of call_oi_flow_rejection:
-    - When require_put_writing: Put ΔOI at the max Put OI strike must be known
-      and > 0 (writing, not unwind/flat).
-    - When both legs are writing, Put ΔOI / Call ΔOI must be at least min_change_pcr
-      (call writing must not dominate put writing).
+    - When require_put_writing: Put ΔOI at the reference (max Put OI) strike
+      must be known and > 0 (writing, not unwind/flat).
+    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must be
+      at least min_change_pcr (call writing must not dominate put writing).
     """
     if require_put_writing:
         if oi.put_oi_change is None:

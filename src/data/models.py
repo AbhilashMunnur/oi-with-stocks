@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -26,6 +26,11 @@ class OISnapshot:
     # Change against the previous session's close, filled in on demand.
     call_oi_change: int | None = None
     put_oi_change: int | None = None
+    # strike -> {"CE"|"PE": (oi_shares, token)} from the last chain fetch.
+    # Used to bind both ΔOI legs to one reference strike for RSI signals.
+    legs_by_strike: dict[float, dict[str, tuple[int, str]]] = field(
+        default_factory=dict, compare=False, repr=False
+    )
 
     def contracts(self, open_interest: int) -> int | None:
         if self.lot_size <= 0:
@@ -34,7 +39,7 @@ class OISnapshot:
 
     @property
     def change_pcr(self) -> float | None:
-        """Put/call ratio of OI *change* at the two peak strikes.
+        """Put/call ratio of OI *change* at the shared reference strike.
 
         Only meaningful while both sides are adding positions; if either is
         unwinding the ratio flips sign and stops describing anything useful.

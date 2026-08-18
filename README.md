@@ -4,11 +4,11 @@ Scans NSE F&O stocks on **live Angel One data** and alerts when:
 
 1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike**
 2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike**
-3. **Supertrend + OI** — daily Supertrend **(48, 4.5)**; price within **0.5%** of the ST line
+3. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
    from below/above with confirming Call/Put ΔOI at the ST strike → short/long
    3rd-month futures (2 lots)
 
-Live prices, RSI and option-chain OI all come from Angel One SmartAPI, which is free
+Live prices, RSI, Supertrend OHLC and option-chain OI all come from Angel One SmartAPI, which is free
 with an Angel One account — no data subscription, historical data included.
 
 ## Setup
@@ -65,7 +65,7 @@ Edit `config.yaml`:
 | `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
 | `rsi.put_threshold` | 32 | RSI must be at or below this for a Put OI alert |
 | `oi.proximity_pct` | 1.0 | Price must be within this % of the max OI strike |
-| `data.history_days` | 120 | Daily candles pulled for the RSI calculation |
+| `data.history_days` | 400 | Daily candles for RSI + Supertrend |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
 | `schedule.interval_minutes` | 30 | How often to scan during market hours |
 | `notifications.cooldown_minutes` | 30 | Minimum gap before repeating the same alert |
@@ -230,14 +230,16 @@ Typical timings for the full 208-stock universe:
 ## Open interest change and the change PCR
 
 Alerts also carry how open interest moved since the previous session's close, at
-the two peak strikes:
+**one shared reference strike**:
 
-- **Call ΔOI** — change in *call* OI at the max Call strike, versus its previous
-  close. Positive means fresh calls are being written there, negative means the
-  strike is unwinding. **Put ΔOI** is the same for puts at the max Put strike.
-  Each figure covers one leg at one strike; they are never summed together.
-- **Change PCR** — ΔPut OI at the max Put strike divided by ΔCall OI at the max Call
-  strike. Above 1 means puts are building faster than calls.
+- **RSI ≥ 70 (CALL)** — reference = max Call OI strike. Both **Call ΔOI** and
+  **Put ΔOI** are measured on the CE and PE at that same strike.
+- **RSI ≤ 32 (PUT)** — reference = max Put OI strike. Both legs again at that
+  same strike.
+- Positive ΔOI means writing; negative means unwinding. The two legs are never
+  summed together.
+- **Change PCR** — Put ΔOI / Call ΔOI at that shared strike. Above 1 means puts
+  are building faster than calls there.
 
 The ratio is deliberately **only shown when both sides are adding** positions. If
 either side is unwinding, the division flips sign and stops meaning anything, so

@@ -1,6 +1,11 @@
 from src.config import SignalType
 from src.data.models import OISnapshot, PriceSnapshot
-from src.oi_analyzer import call_oi_flow_rejection, evaluate_stock, put_oi_flow_rejection
+from src.oi_analyzer import (
+    align_snapshot_to_reference_strike,
+    call_oi_flow_rejection,
+    evaluate_stock,
+    put_oi_flow_rejection,
+)
 
 
 def _call_oi(**kwargs) -> OISnapshot:
@@ -216,3 +221,53 @@ def test_put_long_allowed_when_calls_unwind_but_puts_write():
 
     assert oi.change_pcr is None
     assert evaluate_stock(price, oi, 70, 35, 2.0) is not None
+
+
+def test_align_call_reference_binds_both_legs_at_max_call_strike():
+    oi = OISnapshot(
+        symbol="X",
+        ltp=100,
+        max_call_oi_strike=100.5,
+        max_call_oi=10_000,
+        max_put_oi_strike=95.0,
+        max_put_oi=20_000,
+        expiry="2026-08-25",
+        max_call_token="CE-MAX",
+        max_put_token="PE-MAX",
+        legs_by_strike={
+            100.5: {"CE": (10_000, "CE-100.5"), "PE": (3_000, "PE-100.5")},
+            95.0: {"CE": (1_000, "CE-95"), "PE": (20_000, "PE-95")},
+        },
+    )
+
+    assert align_snapshot_to_reference_strike(oi, "call") is True
+    assert oi.max_call_token == "CE-100.5"
+    assert oi.max_put_token == "PE-100.5"
+    assert oi.max_call_oi == 10_000
+    assert oi.max_put_oi == 3_000
+    assert oi.max_put_oi_strike == 100.5
+
+
+def test_align_put_reference_binds_both_legs_at_max_put_strike():
+    oi = OISnapshot(
+        symbol="X",
+        ltp=100,
+        max_call_oi_strike=100.5,
+        max_call_oi=10_000,
+        max_put_oi_strike=95.0,
+        max_put_oi=20_000,
+        expiry="2026-08-25",
+        max_call_token="CE-MAX",
+        max_put_token="PE-MAX",
+        legs_by_strike={
+            100.5: {"CE": (10_000, "CE-100.5"), "PE": (3_000, "PE-100.5")},
+            95.0: {"CE": (1_500, "CE-95"), "PE": (20_000, "PE-95")},
+        },
+    )
+
+    assert align_snapshot_to_reference_strike(oi, "put") is True
+    assert oi.max_call_token == "CE-95"
+    assert oi.max_put_token == "PE-95"
+    assert oi.max_call_oi == 1_500
+    assert oi.max_put_oi == 20_000
+    assert oi.max_call_oi_strike == 95.0

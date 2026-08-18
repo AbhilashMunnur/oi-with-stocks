@@ -93,6 +93,8 @@ class AngelOneClient:
         self._option_rows: dict[str, list[dict]] | None = None
         self._futures_rows: dict[str, list[dict]] | None = None
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
+        # date, high, low, close — shared with Supertrend (same Angel candles as RSI).
+        self._ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
         self._cache_date: date | None = None
 
         self.login()
@@ -119,10 +121,12 @@ class AngelOneClient:
         if self._cache_date is not None:
             print(f"New trading day ({today}); refreshing instruments and session.")
             self._save_closes_cache()
+            self._save_ohlc_cache()
             self._equity_tokens = None
             self._option_rows = None
             self._futures_rows = None
             self._closes_cache = None
+            self._ohlc_cache = None
             if getattr(self, "_session_date", None) != today:
                 self.login()
 
@@ -136,6 +140,7 @@ class AngelOneClient:
 
     def close(self) -> None:
         self._save_closes_cache()
+        self._save_ohlc_cache()
         try:
             self.client.terminateSession(self.client_code)
         except Exception:
@@ -352,6 +357,9 @@ class AngelOneClient:
     def _closes_cache_path(self) -> Path:
         return CACHE_DIR / f"daily_closes_{date.today():%Y-%m-%d}.json"
 
+    def _ohlc_cache_path(self) -> Path:
+        return CACHE_DIR / f"daily_ohlc_{date.today():%Y-%m-%d}.json"
+
     def _load_closes_cache(self) -> dict[str, list[tuple[str, float]]]:
         self._refresh_for_new_day()
         if self._closes_cache is not None:
@@ -365,6 +373,22 @@ class AngelOneClient:
             self._closes_cache = {}
         return self._closes_cache
 
+    def _load_ohlc_cache(self) -> dict[str, list[tuple[str, float, float, float]]]:
+        self._refresh_for_new_day()
+        if self._ohlc_cache is not None:
+            return self._ohlc_cache
+
+        path = self._ohlc_cache_path()
+        if path.exists():
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            self._ohlc_cache = {
+                k: [(d, float(h), float(l), float(c)) for d, h, l, c in v]
+                for k, v in raw.items()
+            }
+        else:
+            self._ohlc_cache = {}
+        return self._ohlc_cache
+
     def _save_closes_cache(self) -> None:
         if not self._closes_cache:
             return
@@ -376,6 +400,14 @@ class AngelOneClient:
         seed = Path("data") / "daily_closes_seed.json"
         seed.parent.mkdir(parents=True, exist_ok=True)
         seed.write_text(json.dumps(self._closes_cache), encoding="utf-8")
+
+    def _save_ohlc_cache(self) -> None:
+        if not self._ohlc_cache:
+            return
+        CACHE_DIR.mkdir(exist_ok=True)
+        self._ohlc_cache_path().write_text(
+            json.dumps(self._ohlc_cache), encoding="utf-8"
+        )
 
     def seed_closes_cache_from_repo(self) -> int:
         """Load data/daily_closes_seed.json into today's cache when cold."""
@@ -393,13 +425,26 @@ class AngelOneClient:
         print(f"  Seeded daily-close cache with {len(loaded)} symbols from repo.")
         return len(loaded)
 
-    def daily_closes(self, symbol: str) -> list[tuple[str, float]]:
-        """Daily (date, close) pairs, fetched once per day and cached on disk."""
-        symbol = symbol.upper()
-        cache = self._load_closes_cache()
-        if symbol in cache:
-            return cache[symbol]
+    def _ingest_candles(
+        self, symbol: str, candles: list
+    ) -> list[tuple[str, float, float, float]]:
+        """Parse Angel candle rows into OHLC and mirror closes for RSI."""
+        ohlc: list[tuple[str, float, float, float]] = []
+        for row in candles:
+            if len(row) < 5:
+                continue
+            # Angel format: [timestamp, open, high, low, close, volume]
+            ohlc.append(
+                (str(row[0])[:10], float(row[2]), float(row[3]), float(row[4]))
+            )
 
+        ohlc_cache = self._load_ohlc_cache()
+        closes_cache = self._load_closes_cache()
+        ohlc_cache[symbol] = ohlc
+        closes_cache[symbol] = [(d, c) for d, _h, _l, c in ohlc]
+        return ohlc
+
+    def _request_candles(self, symbol: str) -> list:
         self._load_instruments()
         token = (self._equity_tokens or {}).get(symbol)
         if not token:
@@ -424,13 +469,47 @@ class AngelOneClient:
             print(f"  {symbol}: candles unavailable ({exc})")
             return []
 
-        candles = (response or {}).get("data") or []
-        series = [(str(row[0])[:10], float(row[4])) for row in candles if len(row) >= 5]
-        cache[symbol] = series
+        return (response or {}).get("data") or []
+
+    def daily_ohlc(self, symbol: str) -> list[tuple[str, float, float, float]]:
+        """Daily (date, high, low, close) from Angel One, cached once per day."""
+        symbol = symbol.upper()
+        cache = self._load_ohlc_cache()
+        if symbol in cache:
+            return cache[symbol]
+
+        candles = self._request_candles(symbol)
+        if not candles:
+            cache[symbol] = []
+            return []
+
+        series = self._ingest_candles(symbol, candles)
+        if len(cache) % 10 == 0:
+            self._save_ohlc_cache()
+            self._save_closes_cache()
+        return series
+
+    def daily_closes(self, symbol: str) -> list[tuple[str, float]]:
+        """Daily (date, close) pairs, fetched once per day and cached on disk."""
+        symbol = symbol.upper()
+        ohlc_cache = self._load_ohlc_cache()
+        if symbol in ohlc_cache:
+            return [(d, c) for d, _h, _l, c in ohlc_cache[symbol]]
+
+        cache = self._load_closes_cache()
+        if symbol in cache:
+            return cache[symbol]
+
+        candles = self._request_candles(symbol)
+        if not candles:
+            return []
+
+        ohlc = self._ingest_candles(symbol, candles)
         # Flush often so a timed-out GitHub job still leaves a usable cache.
         if len(cache) % 10 == 0:
             self._save_closes_cache()
-        return series
+            self._save_ohlc_cache()
+        return [(d, c) for d, _h, _l, c in ohlc]
 
     def get_rsi(self, symbol: str, ltp: float) -> float | None:
         """RSI from cached daily closes, with today's close set to the live price."""
@@ -496,6 +575,7 @@ class AngelOneClient:
         max_call_oi = max_put_oi = -1
         max_call_strike = max_put_strike = 0.0
         max_call_token = max_put_token = ""
+        legs_by_strike: dict[float, dict[str, tuple[int, str]]] = {}
 
         for token, oi in open_interest.items():
             row = by_token.get(token)
@@ -506,10 +586,13 @@ class AngelOneClient:
             if strike <= 0:
                 continue
 
-            if str(row.get("symbol", "")).endswith("CE"):
+            symbol_name = str(row.get("symbol", ""))
+            if symbol_name.endswith("CE"):
+                legs_by_strike.setdefault(strike, {})["CE"] = (oi, token)
                 if oi > max_call_oi:
                     max_call_oi, max_call_strike, max_call_token = oi, strike, token
-            elif str(row.get("symbol", "")).endswith("PE"):
+            elif symbol_name.endswith("PE"):
+                legs_by_strike.setdefault(strike, {})["PE"] = (oi, token)
                 if oi > max_put_oi:
                     max_put_oi, max_put_strike, max_put_token = oi, strike, token
 
@@ -527,6 +610,7 @@ class AngelOneClient:
             lot_size=int(float(contracts[0].get("lotsize") or 0)),
             max_call_token=max_call_token,
             max_put_token=max_put_token,
+            legs_by_strike=legs_by_strike,
         )
 
     def get_oi_at_price(self, symbol: str, target_price: float, ltp: float = 0.0) -> OISnapshot | None:
@@ -646,7 +730,12 @@ class AngelOneClient:
         return prior[-1] if prior else None
 
     def add_oi_changes(self, snapshot: OISnapshot) -> OISnapshot:
-        """Fill in OI change at the peak call and put strikes, versus yesterday."""
+        """Fill in CE/PE OI change at the tokens already on the snapshot.
+
+        For RSI signals, call align_snapshot_to_reference_strike() first so both
+        tokens point at the same reference strike (max Call or max Put OI).
+        Supertrend snapshots already share one strike from get_oi_at_price().
+        """
         if snapshot.max_call_token:
             previous = self._previous_session_oi(snapshot.max_call_token)
             if previous is not None:

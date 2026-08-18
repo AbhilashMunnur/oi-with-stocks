@@ -24,7 +24,7 @@ class RSIConfig:
 @dataclass
 class SupertrendConfig:
     enabled: bool = True
-    atr_period: int = 48
+    atr_period: int = 20
     multiplier: float = 4.5
     # Price must be within this % of the Supertrend line (0–0.5% by default).
     proximity_pct: float = 0.5
@@ -33,11 +33,13 @@ class SupertrendConfig:
 @dataclass
 class OIConfig:
     proximity_pct: float
-    # CALL shorts: require writing at the max Call OI strike (Call ΔOI > 0).
+    # CALL shorts: require Call ΔOI > 0 at the max Call OI strike
+    # (Put ΔOI is also measured at that same strike).
     require_call_writing: bool = True
     # Skip CALL short when put writing / call writing exceeds this (ΔPCR).
     max_change_pcr: float = 1.0
-    # PUT longs: require writing at the max Put OI strike (Put ΔOI > 0).
+    # PUT longs: require Put ΔOI > 0 at the max Put OI strike
+    # (Call ΔOI is also measured at that same strike).
     require_put_writing: bool = True
     # Skip PUT long when put writing / call writing is below this (ΔPCR).
     min_change_pcr: float = 1.0

@@ -8,6 +8,7 @@ from src.data.models import PriceSnapshot
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import (
     ScanAlert,
+    align_snapshot_to_reference_strike,
     call_oi_flow_rejection,
     evaluate_stock,
     matched_signal,
@@ -134,6 +135,16 @@ class OIRsiScanner:
                 f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
                 f"is not near max Call OI ₹{oi.max_call_oi_strike:.0f} "
                 f"or max Put OI ₹{oi.max_put_oi_strike:.0f}"
+            )
+            return None
+
+        # Both CE and PE ΔOI at the same reference strike:
+        # CALL → max Call OI strike; PUT → max Put OI strike.
+        reference = "call" if signal is SignalType.CALL_OI else "put"
+        if not align_snapshot_to_reference_strike(oi, reference):
+            print(
+                f"  {price.symbol}: {signal.value} skipped — "
+                f"CE/PE missing at reference strike"
             )
             return None
 
@@ -323,6 +334,7 @@ class OIRsiScanner:
                 f"proximity {st_cfg.proximity_pct}%"
             )
             st_map = fetch_supertrends(
+                self.client,
                 symbols,
                 prices,
                 atr_period=st_cfg.atr_period,

@@ -19,13 +19,13 @@ oi:
 # Price above ST and within proximity → bullish ΔOI → long 3rd-month futures.
 supertrend:
   enabled: true
-  atr_period: 48
+  atr_period: 20
   multiplier: 4.5
   proximity_pct: 0.5
 
 # Live data from Angel One SmartAPI
 data:
-  history_days: 120       # Daily candles pulled for the RSI calculation
+  history_days: 400       # Daily candles for RSI + Supertrend (Angel One)
 
 # Stocks to scan: "all" covers every NSE stock with listed options,
 # or replace it with an explicit list of symbols, e.g.
