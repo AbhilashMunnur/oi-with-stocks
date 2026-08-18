@@ -4,7 +4,7 @@
   "closed_count": 1,
   "day_date": "2026-08-18",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-18 10:32:12",
+  "updated_at": "2026-08-18 11:02:02",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -518,6 +518,20 @@
       "rsi_at_entry": 31.393331116027227,
       "strike": 3300.0,
       "margin_blocked": 261376.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "GMRAIRPORT",
+      "direction": "LONG",
+      "entry_price": 101.21,
+      "entry_time": "2026-08-18 11:02:02",
+      "lot_size": 6975,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 31.359843009207694,
+      "strike": 101.0,
+      "margin_blocked": 282375.9,
       "closed_legs": []
     }
   ]
