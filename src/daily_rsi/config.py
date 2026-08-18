@@ -17,8 +17,14 @@ class DailyRsiConfig:
     yahoo_suffix: str = ""
     market_label: str = "Market"
     currency_symbol: str = "$"
-    # Also scan weekly RSI on the same post-close run (India Nifty alerts).
+    # Also scan weekly RSI on the same post-close run.
     weekly_enabled: bool = False
+    # Defaults to rsi_threshold when omitted (India uses 32 for both).
+    weekly_rsi_threshold: float | None = None
+
+    @property
+    def weekly_threshold(self) -> float:
+        return self.rsi_threshold if self.weekly_rsi_threshold is None else self.weekly_rsi_threshold
 
 
 def load_daily_rsi_config(path: str | Path, section: str) -> DailyRsiConfig:

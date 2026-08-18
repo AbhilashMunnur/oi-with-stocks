@@ -105,10 +105,13 @@ nohup python -u main.py > scanner.log 2>&1 &
 tail -f scanner.log
 ```
 
-## US Nasdaq RSI alerts (daily)
+## US Nasdaq RSI alerts (daily + weekly)
 
 Separate once-a-day scan of **Nasdaq-100** names. After US cash close it
-alerts only when **RSI ≤ 32** (no OI filter, no paper trades). Same Telegram bot.
+sends two Telegram messages (no OI filter, no paper trades):
+
+- **Daily RSI ≤ 32**
+- **Weekly RSI ≤ 35**
 
 ```bash
 python us_rsi_main.py

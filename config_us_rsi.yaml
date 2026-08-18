@@ -1,9 +1,12 @@
-# US Nasdaq-100 daily RSI alerts (post cash close, once per weekday).
+# US Nasdaq-100 RSI alerts (post cash close, once per weekday).
+# Daily RSI ≤ 32 and weekly RSI ≤ 35; two Telegram messages.
 # Separate from the NSE OI + RSI intraday scanner.
 us_rsi:
   enabled: true
   rsi_period: 14
   rsi_threshold: 32
+  weekly_enabled: true
+  weekly_rsi_threshold: 35
   history_days: 120
   watchlist_path: data/nasdaq100.txt
   yahoo_suffix: ""

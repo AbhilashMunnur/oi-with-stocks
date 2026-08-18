@@ -2,7 +2,8 @@ name: US Nasdaq RSI scan
 
 # Once per weekday after US cash equity close (4:00pm ET).
 # 21:30 UTC = 5:30pm EDT / 4:30pm EST — closes are settled on Yahoo.
-# Universe: Nasdaq-100 (data/nasdaq100.txt), RSI ≤ threshold only.
+# Universe: Nasdaq-100 (data/nasdaq100.txt).
+# Sends daily RSI ≤ 32 and weekly RSI ≤ 35.
 on:
   schedule:
     - cron: "30 21 * * 1-5"
@@ -31,5 +32,5 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Run US RSI scan
+      - name: Run US daily + weekly RSI scan
         run: python -u us_rsi_main.py
