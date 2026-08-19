@@ -2,9 +2,9 @@
   "capital": 20000000,
   "realised_pnl": -15790.5,
   "closed_count": 2,
-  "day_date": "2026-08-18",
-  "day_realised_pnl": -56560.0,
-  "updated_at": "2026-08-18 15:31:27",
+  "day_date": "2026-08-19",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-19 09:57:34",
   "positions": [
     {
       "symbol": "ADANIPORTS",
