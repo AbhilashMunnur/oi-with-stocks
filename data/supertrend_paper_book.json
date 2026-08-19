@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 0.0,
-  "closed_count": 0,
+  "realised_pnl": -43282.8,
+  "closed_count": 1,
   "day_date": "2026-08-19",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-19 10:31:49",
+  "day_realised_pnl": -43282.8,
+  "updated_at": "2026-08-19 11:01:47",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -74,20 +74,6 @@
       "rsi_at_entry": 0.0,
       "strike": 102.0,
       "margin_blocked": 284496.3,
-      "closed_legs": []
-    },
-    {
-      "symbol": "COLPAL",
-      "direction": "LONG",
-      "entry_price": 1967.4,
-      "entry_time": "2026-08-17 10:02:42",
-      "lot_size": 275,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-29",
-      "rsi_at_entry": 0.0,
-      "strike": 1960.0,
-      "margin_blocked": 216414.0,
       "closed_legs": []
     },
     {
