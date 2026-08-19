@@ -4,7 +4,7 @@
   "closed_count": 2,
   "day_date": "2026-08-19",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-19 15:03:03",
+  "updated_at": "2026-08-19 15:31:55",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -546,6 +546,20 @@
       "rsi_at_entry": 70.38254378807223,
       "strike": 1800.0,
       "margin_blocked": 250880.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "PAGEIND",
+      "direction": "LONG",
+      "entry_price": 35240.0,
+      "entry_time": "2026-08-19 15:31:55",
+      "lot_size": 20,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 27.233477130751297,
+      "strike": 35000.0,
+      "margin_blocked": 281920.0,
       "closed_legs": []
     }
   ]
