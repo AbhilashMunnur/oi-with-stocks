@@ -4,7 +4,7 @@
   "closed_count": 2,
   "day_date": "2026-08-19",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-19 13:01:31",
+  "updated_at": "2026-08-19 13:31:46",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -532,6 +532,20 @@
       "rsi_at_entry": 81.15927532619531,
       "strike": 49000.0,
       "margin_blocked": 486500.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "POLICYBZR",
+      "direction": "SHORT",
+      "entry_price": 1792.0,
+      "entry_time": "2026-08-19 13:31:46",
+      "lot_size": 350,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 70.38254378807223,
+      "strike": 1800.0,
+      "margin_blocked": 250880.0,
       "closed_legs": []
     }
   ]
