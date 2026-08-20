@@ -19,6 +19,7 @@ logzero.loglevel(logging.WARNING)
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
 from src.indicators import calculate_rsi
+from src.oi_analyzer import select_active_oi_walls
 from src.paper_trading.futures_expiry import (
     futures_symbol_year_month,
     is_standard_stock_future,
@@ -572,9 +573,6 @@ class AngelOneClient:
             print(f"  {symbol}: no open interest returned")
             return None
 
-        max_call_oi = max_put_oi = -1
-        max_call_strike = max_put_strike = 0.0
-        max_call_token = max_put_token = ""
         legs_by_strike: dict[float, dict[str, tuple[int, str]]] = {}
 
         for token, oi in open_interest.items():
@@ -589,27 +587,30 @@ class AngelOneClient:
             symbol_name = str(row.get("symbol", ""))
             if symbol_name.endswith("CE"):
                 legs_by_strike.setdefault(strike, {})["CE"] = (oi, token)
-                if oi > max_call_oi:
-                    max_call_oi, max_call_strike, max_call_token = oi, strike, token
             elif symbol_name.endswith("PE"):
                 legs_by_strike.setdefault(strike, {})["PE"] = (oi, token)
-                if oi > max_put_oi:
-                    max_put_oi, max_put_strike, max_put_token = oi, strike, token
 
-        if max_call_oi < 0 or max_put_oi < 0:
+        if not legs_by_strike:
             return None
+
+        call_wall, put_wall = select_active_oi_walls(legs_by_strike, ltp)
+        if call_wall is None and put_wall is None:
+            return None
+
+        call_strike, call_oi, call_token = call_wall or (0.0, 0, "")
+        put_strike, put_oi, put_token = put_wall or (0.0, 0, "")
 
         return OISnapshot(
             symbol=symbol,
             ltp=ltp,
-            max_call_oi_strike=max_call_strike,
-            max_call_oi=max_call_oi,
-            max_put_oi_strike=max_put_strike,
-            max_put_oi=max_put_oi,
+            max_call_oi_strike=call_strike,
+            max_call_oi=call_oi,
+            max_put_oi_strike=put_strike,
+            max_put_oi=put_oi,
             expiry=expiry,
             lot_size=int(float(contracts[0].get("lotsize") or 0)),
-            max_call_token=max_call_token,
-            max_put_token=max_put_token,
+            max_call_token=call_token,
+            max_put_token=put_token,
             legs_by_strike=legs_by_strike,
         )
 

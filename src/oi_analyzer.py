@@ -31,6 +31,42 @@ class ScanAlert:
         return int(shares / self.lot_size)
 
 
+def select_active_oi_walls(
+    legs_by_strike: dict[float, dict[str, tuple[int, str]]],
+    ltp: float,
+) -> tuple[tuple[float, int, str] | None, tuple[float, int, str] | None]:
+    """Highest Call OI at/above price (resistance) and Put OI at/below price (support).
+
+    Broken walls are ignored: Call OI below spot is not resistance, Put OI above
+    spot is not support. Returns ``(call_wall, put_wall)`` where each wall is
+    ``(strike, oi_shares, token)`` or None.
+    """
+    call_best: tuple[int, float, str] | None = None  # oi, strike, token
+    put_best: tuple[int, float, str] | None = None
+
+    for strike, legs in legs_by_strike.items():
+        if strike <= 0:
+            continue
+        call_ok = put_ok = True
+        if ltp > 0:
+            call_ok = strike >= ltp
+            put_ok = strike <= ltp
+
+        if call_ok and "CE" in legs:
+            oi_shares, token = legs["CE"]
+            if call_best is None or oi_shares > call_best[0]:
+                call_best = (oi_shares, strike, token)
+
+        if put_ok and "PE" in legs:
+            oi_shares, token = legs["PE"]
+            if put_best is None or oi_shares > put_best[0]:
+                put_best = (oi_shares, strike, token)
+
+    call_wall = (call_best[1], call_best[0], call_best[2]) if call_best else None
+    put_wall = (put_best[1], put_best[0], put_best[2]) if put_best else None
+    return call_wall, put_wall
+
+
 def align_snapshot_to_reference_strike(
     oi: OISnapshot,
     reference: str,

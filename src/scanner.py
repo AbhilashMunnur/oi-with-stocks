@@ -135,13 +135,13 @@ class OIRsiScanner:
         if signal is None:
             print(
                 f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
-                f"is not near max Call OI ₹{oi.max_call_oi_strike:.0f} "
-                f"or max Put OI ₹{oi.max_put_oi_strike:.0f}"
+                f"is not near active Call OI ₹{oi.max_call_oi_strike:.0f} "
+                f"or active Put OI ₹{oi.max_put_oi_strike:.0f}"
             )
             return None
 
         # Both CE and PE ΔOI at the same reference strike:
-        # CALL → max Call OI strike; PUT → max Put OI strike.
+        # CALL → active Call OI wall (strike ≥ spot); PUT → active Put OI wall (strike ≤ spot).
         reference = "call" if signal is SignalType.CALL_OI else "put"
         if not align_snapshot_to_reference_strike(oi, reference):
             print(

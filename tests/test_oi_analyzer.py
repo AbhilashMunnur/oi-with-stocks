@@ -285,3 +285,33 @@ def test_align_put_reference_binds_both_legs_at_max_put_strike():
     assert oi.max_call_oi == 1_500
     assert oi.max_put_oi == 20_000
     assert oi.max_call_oi_strike == 95.0
+
+
+def test_put_support_ignores_broken_put_wall_above_price():
+    from src.oi_analyzer import select_active_oi_walls
+
+    legs = {
+        26000.0: {"CE": (422, "CE-26000"), "PE": (311, "PE-26000")},
+        24000.0: {"CE": (145, "CE-24000"), "PE": (302, "PE-24000")},
+        27000.0: {"CE": (691, "CE-27000"), "PE": (50, "PE-27000")},
+        24500.0: {"CE": (583, "CE-24500"), "PE": (215, "PE-24500")},
+    }
+
+    call_wall, put_wall = select_active_oi_walls(legs, ltp=24300.0)
+
+    assert put_wall is not None and put_wall[0] == 24000.0
+    assert call_wall is not None and call_wall[0] == 27000.0
+
+
+def test_put_support_includes_strike_equal_to_spot():
+    from src.oi_analyzer import select_active_oi_walls
+
+    legs = {
+        24100.0: {"PE": (400, "PE-24100")},
+        24000.0: {"PE": (300, "PE-24000")},
+        26000.0: {"PE": (500, "PE-26000")},
+    }
+
+    _call_wall, put_wall = select_active_oi_walls(legs, ltp=24100.0)
+
+    assert put_wall is not None and put_wall[0] == 24100.0

@@ -2,8 +2,8 @@
 
 Scans NSE F&O stocks on **live Angel One data** and alerts when:
 
-1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike**
-2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike**
+1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike still at or above price** (resistance)
+2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike still at or below price** (support)
 3. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
    from below/above with confirming Call/Put ΔOI at the ST strike → short/long
    3rd-month futures (2 lots)
@@ -235,10 +235,11 @@ Typical timings for the full 208-stock universe:
 Alerts also carry how open interest moved since the previous session's close, at
 **one shared reference strike**:
 
-- **RSI ≥ 70 (CALL)** — reference = max Call OI strike. Both **Call ΔOI** and
-  **Put ΔOI** are measured on the CE and PE at that same strike.
-- **RSI ≤ 32 (PUT)** — reference = max Put OI strike. Both legs again at that
-  same strike.
+- **RSI ≥ 70 (CALL)** — reference = highest Call OI among strikes **≥ spot**.
+  Broken call walls below price are ignored. Both **Call ΔOI** and **Put ΔOI**
+  are measured on the CE and PE at that same strike.
+- **RSI ≤ 32 (PUT)** — reference = highest Put OI among strikes **≤ spot**.
+  Broken put walls above price are ignored. Both legs again at that same strike.
 - Positive ΔOI means writing; negative means unwinding. The two legs are never
   summed together.
 - **Change PCR** — Put ΔOI / Call ΔOI at that shared strike. Above 1 means puts
@@ -264,8 +265,8 @@ OI strikes are read as resistance and support.
 
 | Signal | Position |
 |--------|----------|
-| RSI ≥ 70 near max Call OI | **SHORT** 2 lots — selling into resistance |
-| RSI ≤ 35 near max Put OI | **LONG** 2 lots — buying at support |
+| RSI ≥ 70 near max Call OI still above price | **SHORT** 2 lots — selling into resistance |
+| RSI ≤ 32 near max Put OI still below price | **LONG** 2 lots — buying at support |
 
 Exits, checked on every scan:
 
