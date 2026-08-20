@@ -2,9 +2,9 @@
   "capital": 20000000,
   "realised_pnl": -43282.8,
   "closed_count": 1,
-  "day_date": "2026-08-19",
-  "day_realised_pnl": -43282.8,
-  "updated_at": "2026-08-19 15:32:00",
+  "day_date": "2026-08-20",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-20 09:56:23",
   "positions": [
     {
       "symbol": "POLICYBZR",
@@ -116,6 +116,20 @@
       "rsi_at_entry": 0.0,
       "strike": 4100.0,
       "margin_blocked": 285789.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "MOTILALOFS",
+      "direction": "SHORT",
+      "entry_price": 972.75,
+      "entry_time": "2026-08-20 09:56:23",
+      "lot_size": 775,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 0.0,
+      "strike": 980.0,
+      "margin_blocked": 301552.5,
       "closed_legs": []
     }
   ]
