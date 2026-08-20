@@ -9,14 +9,25 @@ from src.notifications.notifier import Notifier
 from src.oi_analyzer import (
     ScanAlert,
     align_snapshot_to_reference_strike,
+    apply_oi_wall,
     call_oi_flow_rejection,
+    choose_s1_entry_wall,
+    copy_oi_snapshot,
     evaluate_stock,
+    is_substantial_fallback_wall,
+    make_rsi_alert,
     matched_signal,
+    proximity_skip_reason,
     put_oi_flow_rejection,
+    resistance_is_broken,
+    rsi_watch_side,
+    select_active_oi_walls,
+    support_is_broken,
 )
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
-from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends
+from src.scan_slots import is_s1_wall_exit_slot
+from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
 
 class OIRsiScanner:
@@ -29,6 +40,7 @@ class OIRsiScanner:
         self.notifier = Notifier(config.notifications)
         self.book = None
         self.st_book = None
+        self.s1_book = None
         if config.paper_trading.enabled:
             paper = config.paper_trading
             journal = TradeJournal(
@@ -48,6 +60,16 @@ class OIRsiScanner:
                 summary_worksheet=st_paper.google_summary_worksheet,
             )
             self.st_book = PaperBook(st_paper, journal=st_journal)
+
+        s1_paper = config.rsi_s1_paper_trading
+        if s1_paper and s1_paper.enabled:
+            s1_journal = TradeJournal(
+                csv_path=s1_paper.journal_csv,
+                sheet_id=s1_paper.google_sheet_id,
+                worksheet=s1_paper.google_worksheet,
+                summary_worksheet=s1_paper.google_summary_worksheet,
+            )
+            self.s1_book = PaperBook(s1_paper, journal=s1_journal)
 
     def close(self) -> None:
         self.client.close()
@@ -112,58 +134,174 @@ class OIRsiScanner:
         self.client._save_closes_cache()
         return candidates
 
-    def _check_candidate(self, price: PriceSnapshot) -> ScanAlert | None:
-        oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
-        if not oi:
-            return None
-
-        thresholds = dict(
+    def _rsi_thresholds(self) -> dict:
+        return dict(
             rsi_call_threshold=self.config.rsi.call_threshold,
             rsi_put_threshold=self.config.rsi.put_threshold,
             proximity_pct=self.config.oi.proximity_pct,
         )
-        flow = dict(
+
+    def _oi_flow(self) -> dict:
+        return dict(
             require_call_writing=self.config.oi.require_call_writing,
             max_change_pcr=self.config.oi.max_change_pcr,
             require_put_writing=self.config.oi.require_put_writing,
             min_change_pcr=self.config.oi.min_change_pcr,
         )
 
-        # OI history costs two extra requests, so only price it in once the
-        # stock has actually qualified on RSI + strike proximity.
-        signal = matched_signal(price, oi, **thresholds)
-        if signal is None:
-            print(
-                f"  {price.symbol}: RSI {price.rsi:.1f} qualifies but price ₹{price.ltp:.2f} "
-                f"is not near active Call OI ₹{oi.max_call_oi_strike:.0f} "
-                f"or active Put OI ₹{oi.max_put_oi_strike:.0f}"
-            )
+    def _check_candidate(self, price: PriceSnapshot, oi=None) -> ScanAlert | None:
+        thresholds = self._rsi_thresholds()
+        flow = self._oi_flow()
+        side = rsi_watch_side(
+            price, thresholds["rsi_call_threshold"], thresholds["rsi_put_threshold"]
+        )
+        if side is None:
             return None
 
-        # Both CE and PE ΔOI at the same reference strike:
-        # CALL → active Call OI wall (strike ≥ spot); PUT → active Put OI wall (strike ≤ spot).
-        reference = "call" if signal is SignalType.CALL_OI else "put"
+        oi = oi or self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
+        if not oi:
+            return make_rsi_alert(price, None, side, skip_reason="OI unavailable")
+
+        # OI history costs two extra requests, so only price it in once the
+        # stock is actually near the wall.
+        too_far = proximity_skip_reason(price, oi, side, thresholds["proximity_pct"])
+        if too_far:
+            print(f"  {price.symbol}: RSI {price.rsi:.1f} — {too_far}")
+            return make_rsi_alert(price, oi, side, skip_reason=too_far)
+
+        reference = "call" if side is SignalType.CALL_OI else "put"
         if not align_snapshot_to_reference_strike(oi, reference):
-            print(
-                f"  {price.symbol}: {signal.value} skipped — "
-                f"CE/PE missing at reference strike"
-            )
-            return None
+            reason = "CE/PE missing at reference strike"
+            print(f"  {price.symbol}: {side.value} skipped — {reason}")
+            return make_rsi_alert(price, oi, side, skip_reason=reason)
 
         self.client.add_oi_changes(oi)
 
-        if signal is SignalType.CALL_OI:
+        if side is SignalType.CALL_OI:
             rejected = call_oi_flow_rejection(oi, **flow)
-            if rejected:
-                print(f"  {price.symbol}: CALL_OI skipped — {rejected}")
-                return None
         else:
             rejected = put_oi_flow_rejection(oi, **flow)
-            if rejected:
-                print(f"  {price.symbol}: PUT_OI skipped — {rejected}")
-                return None
+        if rejected:
+            print(f"  {price.symbol}: {side.value} skipped — {rejected}")
+            return make_rsi_alert(price, oi, side, skip_reason=rejected)
 
         return evaluate_stock(price=price, oi=oi, **thresholds, **flow)
+
+    def _s1_watch(
+        self,
+        price: PriceSnapshot,
+        oi,
+        side: SignalType,
+        skip_reason: str | None = None,
+    ) -> ScanAlert:
+        alert = make_rsi_alert(price, oi, side, skip_reason=skip_reason)
+        alert.signal = (
+            SignalType.CALL_OI_S1 if side is SignalType.CALL_OI else SignalType.PUT_OI_S1
+        )
+        return alert
+
+    def _check_scenario1_candidate(self, price: PriceSnapshot, oi) -> ScanAlert | None:
+        """RSI+OI entry on an uncrossed wall, with S1 broken-wall fallback.
+
+        Always returns a CALL/PUT S1 row for Telegram. skip_reason is set when
+        we do not take the trade. Never open on a peak strike price has already
+        crossed — even if writing continues.
+        """
+        thresholds = self._rsi_thresholds()
+        flow = self._oi_flow()
+        side = rsi_watch_side(
+            price, thresholds["rsi_call_threshold"], thresholds["rsi_put_threshold"]
+        )
+        if side is None:
+            return None
+
+        if not oi or not oi.legs_by_strike:
+            return self._s1_watch(price, None, side, "OI unavailable")
+
+        s1 = copy_oi_snapshot(oi)
+        min_pct = self.config.oi.s1_min_fallback_oi_pct
+        peak_call, peak_put = select_active_oi_walls(s1.legs_by_strike, ltp=0)
+        active_call, active_put = select_active_oi_walls(s1.legs_by_strike, price.ltp)
+
+        if side is SignalType.CALL_OI and active_call and not is_substantial_fallback_wall(
+            active_call, peak_call, min_pct
+        ):
+            peak = peak_call[0] if peak_call else 0
+            reason = (
+                f"fallback ₹{active_call[0]:.0f} too thin vs peak ₹{peak:.0f} "
+                f"(need ≥ {min_pct:g}% of peak OI)"
+            )
+            print(f"  {price.symbol}: S1 CALL skipped — {reason}")
+            return self._s1_watch(price, s1, side, reason)
+        if side is SignalType.PUT_OI and active_put and not is_substantial_fallback_wall(
+            active_put, peak_put, min_pct
+        ):
+            peak = peak_put[0] if peak_put else 0
+            reason = (
+                f"fallback ₹{active_put[0]:.0f} too thin vs peak ₹{peak:.0f} "
+                f"(need ≥ {min_pct:g}% of peak OI)"
+            )
+            print(f"  {price.symbol}: S1 PUT skipped — {reason}")
+            return self._s1_watch(price, s1, side, reason)
+
+        call_wall = choose_s1_entry_wall(
+            s1.legs_by_strike, price.ltp, "call", min_pct
+        )
+        put_wall = choose_s1_entry_wall(
+            s1.legs_by_strike, price.ltp, "put", min_pct
+        )
+        if call_wall:
+            apply_oi_wall(s1, call_wall, "call")
+        else:
+            s1.max_call_oi_strike = 0.0
+            s1.max_call_oi = 0
+            s1.max_call_token = ""
+        if put_wall:
+            apply_oi_wall(s1, put_wall, "put")
+        else:
+            s1.max_put_oi_strike = 0.0
+            s1.max_put_oi = 0
+            s1.max_put_token = ""
+
+        too_far = proximity_skip_reason(price, s1, side, thresholds["proximity_pct"])
+        if too_far:
+            print(f"  {price.symbol}: S1 — {too_far}")
+            return self._s1_watch(price, s1, side, too_far)
+
+        reference = "call" if side is SignalType.CALL_OI else "put"
+        if not align_snapshot_to_reference_strike(s1, reference):
+            reason = "CE/PE missing at reference strike"
+            print(f"  {price.symbol}: S1 skipped — {reason}")
+            return self._s1_watch(price, s1, side, reason)
+
+        self.client.add_oi_changes(s1)
+
+        if side is SignalType.CALL_OI:
+            rejected = call_oi_flow_rejection(s1, **flow)
+        else:
+            rejected = put_oi_flow_rejection(s1, **flow)
+        if rejected:
+            print(f"  {price.symbol}: S1 {side.value} skipped — {rejected}")
+            return self._s1_watch(price, s1, side, rejected)
+
+        if side is SignalType.CALL_OI and call_wall and peak_call and call_wall[0] != peak_call[0]:
+            print(
+                f"  {price.symbol}: S1 CALL using uncrossed ₹{call_wall[0]:.0f} "
+                f"(peak ₹{peak_call[0]:.0f} already through price)"
+            )
+        if side is SignalType.PUT_OI and put_wall and peak_put and put_wall[0] != peak_put[0]:
+            print(
+                f"  {price.symbol}: S1 PUT using uncrossed ₹{put_wall[0]:.0f} "
+                f"(peak ₹{peak_put[0]:.0f} already through price)"
+            )
+
+        alert = evaluate_stock(price=price, oi=s1, **thresholds, **flow)
+        if alert is None:
+            return self._s1_watch(price, s1, side, "did not qualify")
+        alert.signal = (
+            SignalType.CALL_OI_S1 if side is SignalType.CALL_OI else SignalType.PUT_OI_S1
+        )
+        return alert
 
     def _check_supertrend_candidate(
         self,
@@ -188,10 +326,36 @@ class OIRsiScanner:
 
         oi = self.client.get_oi_at_price(symbol, target_price=st_value, ltp=ltp)
         if not oi:
-            return None
+            reason = "OI unavailable"
+            print(f"  {symbol}: near ST ₹{st_value:,.2f} — {reason}")
+            return make_supertrend_watch(
+                symbol=symbol,
+                ltp=ltp,
+                supertrend=st_value,
+                side=side,
+                oi=None,
+                skip_reason=reason,
+            )
         self.client.add_oi_changes(oi)
 
-        alert = evaluate_supertrend_oi(
+        if side == "below":
+            rejected = call_oi_flow_rejection(oi, **self._oi_flow())
+        else:
+            rejected = put_oi_flow_rejection(oi, **self._oi_flow())
+        if rejected:
+            print(
+                f"  {symbol}: near ST ₹{st_value:,.2f} ({side}, {distance:.2f}%) — {rejected}"
+            )
+            return make_supertrend_watch(
+                symbol=symbol,
+                ltp=ltp,
+                supertrend=st_value,
+                side=side,
+                oi=oi,
+                skip_reason=rejected,
+            )
+
+        return evaluate_supertrend_oi(
             symbol=symbol,
             ltp=ltp,
             supertrend=st_value,
@@ -200,12 +364,6 @@ class OIRsiScanner:
             st_config=st_cfg,
             oi_config=self.config.oi,
         )
-        if alert is None:
-            print(
-                f"  {symbol}: near ST ₹{st_value:,.2f} ({side}, {distance:.2f}%) "
-                "but ΔOI flow does not confirm"
-            )
-        return alert
 
     def _apply_futures_expiry(self, alerts: list[ScanAlert]) -> None:
         """Point paper entries at the configured futures month (default: 3rd)."""
@@ -248,6 +406,55 @@ class OIRsiScanner:
                 f"to month-{month} futures expiry."
             )
 
+    def _exit_s1_broken_walls(
+        self,
+        book: PaperBook,
+        prices: dict[str, float],
+        rsi_values: dict[str, float],
+    ) -> list:
+        """Close at 15:15 IST only if the *entry* strike is broken.
+
+        A later peak Call/Put OI (e.g. short at 110, then max Call OI at 102
+        with price 103) is not a break of the position we took.
+        """
+        events = []
+        for position in list(book.positions):
+            if not position.is_open or position.strike <= 0:
+                continue
+            price = prices.get(position.symbol)
+            if not price:
+                continue
+
+            oi = self.client.get_oi_at_price(
+                position.symbol, target_price=position.strike, ltp=price
+            )
+            if not oi:
+                continue
+            self.client.add_oi_changes(oi)
+            oi.max_call_oi_strike = position.strike
+            oi.max_put_oi_strike = position.strike
+
+            if position.direction == "LONG":
+                broken = support_is_broken(oi, price)
+                label = "support"
+            else:
+                broken = resistance_is_broken(oi, price)
+                label = "resistance"
+
+            if not broken:
+                continue
+
+            lots = position.lots_open
+            event = book.close_on_broken_wall(
+                position, price, rsi_values.get(position.symbol)
+            )
+            events.append(event)
+            print(
+                f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
+                f"exiting {lots} lot {position.direction} @ ₹{price:,.2f}"
+            )
+        return events
+
     def _run_one_paper_book(
         self,
         book: PaperBook,
@@ -259,6 +466,8 @@ class OIRsiScanner:
         self._apply_futures_expiry(alerts)
 
         events = book.update(prices, rsi_values=rsi_values)
+        if book is self.s1_book and is_s1_wall_exit_slot():
+            events += self._exit_s1_broken_walls(book, prices, rsi_values)
         events += book.open_from_alerts(alerts)
         book.save()
 
@@ -296,16 +505,27 @@ class OIRsiScanner:
         rsi_values: dict[str, float],
     ) -> None:
         rsi_alerts = [
-            a for a in alerts if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
+            a
+            for a in alerts
+            if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI) and not a.skip_reason
         ]
         st_alerts = [
             a
             for a in alerts
             if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
+            and not a.skip_reason
         ]
 
         if self.book:
             self._run_one_paper_book(self.book, rsi_alerts, prices, rsi_values)
+        if self.s1_book:
+            s1_alerts = [
+                a
+                for a in alerts
+                if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
+                and not a.skip_reason
+            ]
+            self._run_one_paper_book(self.s1_book, s1_alerts, prices, rsi_values)
         if self.st_book:
             self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
 
@@ -328,9 +548,15 @@ class OIRsiScanner:
 
         alerts: list[ScanAlert] = []
         for price in candidates:
-            alert = self._check_candidate(price)
+            oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
+            s1_oi = copy_oi_snapshot(oi) if oi else None
+            alert = self._check_candidate(price, oi)
             if alert:
                 alerts.append(alert)
+            if self.s1_book:
+                s1_alert = self._check_scenario1_candidate(price, s1_oi)
+                if s1_alert:
+                    alerts.append(s1_alert)
 
         if self.config.supertrend.enabled:
             st_cfg = self.config.supertrend

@@ -181,6 +181,16 @@ class TradeJournal:
             sheet.insert_row(columns, 1)
         return sheet
 
+    def ensure_trade_sheet(self) -> None:
+        """Create the closed-trades tab with headers if it is missing."""
+        if not self.sheet_id:
+            return
+        import gspread
+
+        client = gspread.authorize(self._credentials())
+        spreadsheet = client.open_by_key(self.sheet_id)
+        self._ensure_worksheet(spreadsheet, self.worksheet, COLUMNS)
+
     def ensure_summary_sheet(self) -> None:
         if not self.sheet_id or not self.summary_worksheet:
             return
@@ -204,7 +214,7 @@ class TradeJournal:
             )
             sheet.append_row([row[column] for column in SUMMARY_COLUMNS])
             print(
-                "  Logged RSI+OI portfolio snapshot to Google Sheets → "
+                "  Logged portfolio snapshot to Google Sheets → "
                 f"'{self.summary_worksheet}'."
             )
         except Exception as exc:

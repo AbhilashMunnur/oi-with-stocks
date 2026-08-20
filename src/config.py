@@ -10,6 +10,8 @@ import yaml
 class SignalType(str, Enum):
     CALL_OI = "CALL_OI"
     PUT_OI = "PUT_OI"
+    CALL_OI_S1 = "CALL_OI_S1"
+    PUT_OI_S1 = "PUT_OI_S1"
     ST_BEARISH = "ST_BEARISH"  # Below Supertrend, bearish OI at ST strike → short
     ST_BULLISH = "ST_BULLISH"  # Above Supertrend, bullish OI at ST strike → long
 
@@ -43,6 +45,9 @@ class OIConfig:
     require_put_writing: bool = True
     # PUT longs require put writing / call writing above this (ΔPCR).
     min_change_pcr: float = 1.0
+    # S1 fallback (uncrossed wall after the peak is through price) must have
+    # at least this % of the peak wall's OI, or it is treated as too thin.
+    s1_min_fallback_oi_pct: float = 50.0
 
 
 @dataclass
@@ -80,11 +85,13 @@ class PaperTradingConfig:
     google_summary_worksheet: str = ""
     # 1 = current month futures, 3 = far month (e.g. August → October).
     futures_month: int = 3
-    # After the first lot is booked at first_target_pct, the remaining lot's
+    # After the first lot is booked at first_target_pct, remaining lots'
     # stop tightens to this % adverse from the original entry price.
     second_lot_stop_pct: float = 1.0
     # Label on Telegram dashboards so RSI and Supertrend books stay distinct.
     name: str = "Paper"
+    # Optional third scale-out (S1: 1 lot at 6%, 1 at 10%, rest at 14%).
+    third_target_pct: float | None = None
 
 
 @dataclass
@@ -100,6 +107,8 @@ class AppConfig:
     supertrend: SupertrendConfig = field(default_factory=SupertrendConfig)
     # Separate capital / ledger / journal from the RSI+OI paper book.
     supertrend_paper_trading: PaperTradingConfig | None = None
+    # RSI+OI with Scenario 1 wall filter (broken = unwind + opposite add).
+    rsi_s1_paper_trading: PaperTradingConfig | None = None
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -110,6 +119,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
     watchlist = raw["watchlist"]
     st_raw = raw.get("supertrend") or {}
     st_paper_raw = raw.get("supertrend_paper_trading")
+    s1_paper_raw = raw.get("rsi_s1_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -122,5 +132,8 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         supertrend=SupertrendConfig(**st_raw),
         supertrend_paper_trading=(
             PaperTradingConfig(**st_paper_raw) if st_paper_raw else None
+        ),
+        rsi_s1_paper_trading=(
+            PaperTradingConfig(**s1_paper_raw) if s1_paper_raw else None
         ),
     )

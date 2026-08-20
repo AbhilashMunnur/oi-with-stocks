@@ -4,7 +4,8 @@ Scans NSE F&O stocks on **live Angel One data** and alerts when:
 
 1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike still at or above price** (resistance)
 2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike still at or below price** (support)
-3. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
+3. **RSI + OI Scenario 1** — same RSI + uncrossed-wall **entries** as RSI+OI (never open on a peak price has already crossed, even if writing continues). If the peak is through price, the next uncrossed wall is used only when it is within 1%, writing/ΔPCR still qualify, and its OI is at least **50%** of the peak. After entry, remaining lots are closed from the **15:15 IST** scan only if the **entry** strike is broken (price through **and** unwind + opposite add). A later peak OI strike does not count. 3 lots at 6% / 10% / 14%. Own paper book.
+4. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
    from below/above with confirming Call/Put ΔOI at the ST strike → short/long
    3rd-month futures (2 lots)
 
@@ -142,20 +143,25 @@ python scripts/setup_telegram.py
 It asks for the bot token from [@BotFather](https://t.me/BotFather), finds your chat
 ID automatically, sends a test message and writes both values to `.env`.
 
-Each scan sends one grouped message rather than one per stock:
+Each scan sends **three** grouped messages (RSI+OI, RSI+OI S1, Supertrend). Every
+RSI ≥ 70 / ≤ 32 name is listed on the first two; Supertrend lists names within
+0.5% of the ST line. A `Not taking` line is added when that book does not trade:
 
 ```
-OI + RSI alerts — 10 Aug 2026 15:45
+RSI + OI alerts — 10 Aug 2026 15:45
 
-CALL OI (overbought, near max Call OI)
-• TITAN: RSI 74.6 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
-    Call ΔOI +2,934 | Put ΔOI +2,992 | ΔPCR 1.02  (contracts)
-• HAL: RSI 75.8 | ₹4,928.00 vs strike ₹5,000 (1.44% away)
-    Call ΔOI +162 | Put ΔOI +46 | ΔPCR 0.28  (contracts)
+CALL OI (RSI ≥ 70)
+• TITAN: RSI 74.3 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
+    Call ΔOI +111 | Put ΔOI −1  (contracts)
+• HDFCBANK: RSI 71.4 | ₹1,650.00 vs strike ₹1,720 (4.07% away)
+    Not taking — 4.07% from max Call OI (need ≤ 1%)
+• LTM: RSI 72.1 | ₹4,795.00 vs strike ₹4,800 (0.10% away)
+    Call ΔOI +0 | Put ΔOI +0  (contracts)
+    Not taking — Call ΔOI +0 shares (call unwinding/flat — skip short)
 
-PUT OI (oversold, near max Put OI)
+PUT OI (RSI ≤ 32)
 • LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
-    Call ΔOI -410 | Put ΔOI -73  (contracts)
+    Call ΔOI +200 | Put ΔOI +410 | ΔPCR 2.05  (contracts)
 ```
 
 Telegram is enabled in `config.yaml` but only used when both values are present,
@@ -275,11 +281,14 @@ Exits, checked on every scan:
 | 6% move in our favour | Close 1 lot |
 | 11% move in our favour | Close the remaining lot |
 | 4% move against us (before first target) | Close everything |
-| After 1st lot booked, 1% against entry | Close the remaining lot |
+| After 1st lot booked, 1% against entry | Close remaining lots |
 | Expiry reached | Close everything at market |
+| **S1 only:** 3 lots — 1 at **6%**, 1 at **10%**, 1 at **14%** | Scale out in the trade's favour |
+| **S1 only:** at **15:15 IST**, long if the **entry** Put strike is still broken, or short if the **entry** Call strike is still broken | Close remaining lots at market |
 
-Settings live under `paper_trading` in `config.yaml` — capital, lot count, both
-targets, the stop and the assumed margin.
+The original RSI+OI book does not use the wall-break exit. Supertrend has its own
+ledger. Settings live under `paper_trading` / `rsi_s1_paper_trading` /
+`supertrend_paper_trading` in `config.yaml`.
 
 ### The trade journal
 
@@ -313,8 +322,10 @@ Without those credentials the CSV is still written; only the mirroring is skippe
 A Sheets failure never blocks the local record.
 
 The RSI+OI book also appends a row to **RSI Portfolio Summary** after every
-completed half-hour scan. It records date, time, open-position count, blocked
-capital, total P&L, cumulative realised P&L, and current unrealised P&L.
+completed half-hour scan. The S1 book does the same on **RSI S1 Paper trades**
+and **RSI S1 Portfolio Summary** (same spreadsheet, separate tabs, same columns).
+Each snapshot records date, time, open-position count, blocked capital, total P&L,
+cumulative realised P&L, and current unrealised P&L.
 
 ### What the simulation assumes
 

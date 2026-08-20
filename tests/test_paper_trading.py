@@ -46,6 +46,17 @@ def test_call_signal_opens_a_short(config):
     assert position.lots_open == 2
 
 
+def test_skip_reason_watchlist_rows_do_not_open_paper_trades(config):
+    book = PaperBook(config)
+    watch = alert()
+    watch.skip_reason = "4.07% from max Call OI (need ≤ 1%)"
+
+    events = book.open_from_alerts([watch])
+
+    assert not book.positions
+    assert not events
+
+
 def test_put_signal_opens_a_long(config):
     book = PaperBook(config)
     book.open_from_alerts([alert(signal=SignalType.PUT_OI)])
@@ -144,6 +155,35 @@ def test_stop_loss_closes_everything(config):
     assert not book.positions
     assert events[0].kind == "stop_loss"
     assert book.realised_pnl == pytest.approx(-150.0 * 2 * 175)
+
+
+def test_broken_wall_closes_remaining_lots_at_market(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+    position = book.positions[0]
+
+    event = book.close_on_broken_wall(position, 5100.0, exit_rsi=60.0)
+
+    assert event.kind == "wall_broken"
+    assert not book.positions
+    assert book._pending_rows[0]["Exit reason"] == "wall_broken"
+
+
+def test_broken_wall_after_first_target_closes_the_remaining_lot(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+    book.update({"TITAN": 5000.0 * 0.94})
+    position = book.positions[0]
+    assert position.lots_open == 1
+
+    event = book.close_on_broken_wall(position, 5100.0)
+
+    assert event.kind == "wall_broken"
+    assert not book.positions
+    assert [row["Exit reason"] for row in book._pending_rows] == [
+        "first_target",
+        "wall_broken",
+    ]
 
 
 def test_one_percent_adverse_does_not_stop_before_first_target(config):
@@ -280,3 +320,56 @@ def test_telegram_report_lists_each_open_position_and_day_pnl(config):
     assert "Paper" in report
     assert "Day P&amp;L" in report
     assert "Book" in report
+
+
+def _s1_config(tmp_path):
+    return PaperTradingConfig(
+        enabled=True,
+        name="RSI+OI S1",
+        capital=5_000_000,
+        lots_per_trade=3,
+        first_target_pct=6.0,
+        second_target_pct=10.0,
+        third_target_pct=14.0,
+        stop_loss_pct=4.0,
+        margin_pct=20.0,
+        ledger_path=str(tmp_path / "s1.json"),
+        journal_csv=str(tmp_path / "s1.csv"),
+    )
+
+
+def test_s1_opens_three_lots(tmp_path):
+    book = PaperBook(_s1_config(tmp_path))
+    book.open_from_alerts([alert()])
+    assert book.positions[0].lots_open == 3
+
+
+def test_s1_scales_out_one_lot_at_each_target(tmp_path):
+    book = PaperBook(_s1_config(tmp_path))
+    book.open_from_alerts([alert()])
+
+    first = book.update({"TITAN": 4700.0})
+    assert [e.kind for e in first] == ["first_target"]
+    assert book.positions[0].lots_open == 2
+    assert book.positions[0].closed_legs[0].exit_price == pytest.approx(4700.0)
+
+    second = book.update({"TITAN": 4500.0})
+    assert [e.kind for e in second] == ["second_target"]
+    assert book.positions[0].lots_open == 1
+    assert book.positions[0].closed_legs[1].exit_price == pytest.approx(4500.0)
+
+    third = book.update({"TITAN": 4300.0})
+    assert [e.kind for e in third] == ["third_target"]
+    assert not book.positions
+    assert book._pending_rows[-1]["Exit reason"] == "third_target"
+
+
+def test_s1_jump_past_all_three_targets_books_each_leg_at_its_level(tmp_path):
+    book = PaperBook(_s1_config(tmp_path))
+    book.open_from_alerts([alert()])
+
+    events = book.update({"TITAN": 4000.0})
+
+    assert [e.kind for e in events] == ["first_target", "second_target", "third_target"]
+    assert book.realised_pnl == pytest.approx((300.0 + 500.0 + 700.0) * 175)
+

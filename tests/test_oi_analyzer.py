@@ -315,3 +315,121 @@ def test_put_support_includes_strike_equal_to_spot():
     _call_wall, put_wall = select_active_oi_walls(legs, ltp=24100.0)
 
     assert put_wall is not None and put_wall[0] == 24100.0
+
+
+def test_coforge_style_call_writing_is_not_a_broken_resistance():
+    from src.oi_analyzer import resistance_is_broken
+
+    oi = _call_oi(ltp=1810, max_call_oi_strike=1800, call_oi_change=111, put_oi_change=-1)
+    assert resistance_is_broken(oi) is False
+
+
+def test_call_unwind_without_price_cross_is_not_broken_resistance():
+    from src.oi_analyzer import resistance_is_broken
+
+    oi = _call_oi(ltp=1790, max_call_oi_strike=1800, call_oi_change=-50, put_oi_change=80)
+    assert resistance_is_broken(oi) is False
+
+
+def test_call_unwind_and_put_add_after_price_cross_is_broken_resistance():
+    from src.oi_analyzer import resistance_is_broken
+
+    oi = _call_oi(ltp=1810, max_call_oi_strike=1800, call_oi_change=-50, put_oi_change=80)
+    assert resistance_is_broken(oi) is True
+
+
+def test_rec_style_put_unwind_and_call_add_below_strike_is_broken_support():
+    from src.oi_analyzer import support_is_broken
+
+    oi = _call_oi(ltp=330, max_put_oi_strike=345, call_oi_change=200, put_oi_change=-50)
+    assert support_is_broken(oi) is True
+
+
+def test_put_unwind_without_price_cross_is_not_broken_support():
+    from src.oi_analyzer import support_is_broken
+
+    oi = _call_oi(ltp=350, max_put_oi_strike=345, call_oi_change=200, put_oi_change=-50)
+    assert support_is_broken(oi) is False
+
+
+def test_migrated_call_wall_is_not_a_break_of_the_entry_strike():
+    """Short entered vs Call 110. Price later 103 vs a new 102 Call wall is not a 110 break."""
+    from src.oi_analyzer import resistance_is_broken
+
+    entry = _call_oi(ltp=103, max_call_oi_strike=110, call_oi_change=-80, put_oi_change=60)
+    moved = _call_oi(ltp=103, max_call_oi_strike=102, call_oi_change=-80, put_oi_change=60)
+
+    assert resistance_is_broken(entry, 103) is False
+    assert resistance_is_broken(moved, 103) is True
+
+
+def test_s1_entry_uses_uncrossed_call_not_peak_already_through():
+    from src.oi_analyzer import choose_s1_entry_wall
+
+    legs = {
+        1800.0: {"CE": (800_000, "ce-1800")},
+        1900.0: {"CE": (500_000, "ce-1900")},
+    }
+
+    wall = choose_s1_entry_wall(legs, ltp=1810.0, side="call", min_fallback_oi_pct=50.0)
+
+    assert wall is not None and wall[0] == 1900.0
+
+
+def test_s1_entry_skips_thin_uncrossed_call_fallback():
+    from src.oi_analyzer import choose_s1_entry_wall
+
+    legs = {
+        1800.0: {"CE": (800_000, "ce-1800")},
+        1900.0: {"CE": (50_000, "ce-1900")},
+    }
+
+    wall = choose_s1_entry_wall(legs, ltp=1810.0, side="call", min_fallback_oi_pct=50.0)
+
+    assert wall is None
+
+
+def test_s1_entry_keeps_peak_call_when_price_has_not_crossed():
+    from src.oi_analyzer import choose_s1_entry_wall
+
+    legs = {
+        1800.0: {"CE": (800_000, "ce-1800")},
+        1900.0: {"CE": (500_000, "ce-1900")},
+    }
+
+    wall = choose_s1_entry_wall(legs, ltp=1790.0, side="call")
+
+    assert wall is not None and wall[0] == 1800.0
+
+
+def test_s1_entry_uses_uncrossed_put_not_peak_already_through():
+    from src.oi_analyzer import choose_s1_entry_wall
+
+    legs = {
+        345.0: {"PE": (800_000, "pe-345")},
+        340.0: {"PE": (500_000, "pe-340")},
+    }
+
+    wall = choose_s1_entry_wall(legs, ltp=342.0, side="put", min_fallback_oi_pct=50.0)
+
+    assert wall is not None and wall[0] == 340.0
+
+
+def test_proximity_skip_reason_when_more_than_one_percent_away():
+    from src.oi_analyzer import proximity_skip_reason
+
+    price = PriceSnapshot(symbol="HDFCBANK", ltp=1650.0, rsi=71.4)
+    oi = _call_oi(ltp=1650.0, max_call_oi_strike=1720.0)
+    reason = proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0)
+
+    assert reason is not None
+    assert "Call" in reason
+    assert "1%" in reason or "1.0" in reason
+
+
+def test_exactly_one_percent_away_still_counts_as_near():
+    from src.oi_analyzer import proximity_skip_reason
+
+    price = PriceSnapshot(symbol="JUBLFOOD", ltp=495.0, rsi=70.3)
+    oi = _call_oi(ltp=495.0, max_call_oi_strike=500.0)
+    assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0) is None

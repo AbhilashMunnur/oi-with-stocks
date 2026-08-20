@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import copy
 from dataclasses import dataclass
 
 from src.config import SignalType
@@ -23,6 +24,8 @@ class ScanAlert:
     change_pcr: float | None = None
     lot_size: int = 0
     supertrend: float | None = None
+    # Set when this row is for Telegram only — paper trading must ignore it.
+    skip_reason: str | None = None
 
     def in_contracts(self, shares: int | None) -> int | None:
         """Angel One reports OI in shares; traders read it in contracts."""
@@ -65,6 +68,90 @@ def select_active_oi_walls(
     call_wall = (call_best[1], call_best[0], call_best[2]) if call_best else None
     put_wall = (put_best[1], put_best[0], put_best[2]) if put_best else None
     return call_wall, put_wall
+
+
+def is_substantial_fallback_wall(
+    fallback: tuple[float, int, str] | None,
+    peak: tuple[float, int, str] | None,
+    min_pct: float = 50.0,
+) -> bool:
+    """True if `fallback` is the peak, or a real wall vs the peak's OI."""
+    if fallback is None:
+        return False
+    if peak is None or peak[1] <= 0 or fallback[0] == peak[0]:
+        return True
+    return (fallback[1] / peak[1]) * 100 >= min_pct
+
+
+def choose_s1_entry_wall(
+    legs_by_strike: dict[float, dict[str, tuple[int, str]]],
+    ltp: float,
+    side: str,
+    min_fallback_oi_pct: float = 50.0,
+) -> tuple[float, int, str] | None:
+    """S1 entry: highest uncrossed wall only.
+
+    A peak already through price is never the entry, even if writing continues.
+    If the uncrossed wall is not the peak, it must hold at least
+    ``min_fallback_oi_pct`` of the peak's OI.
+    """
+    peak_call, peak_put = select_active_oi_walls(legs_by_strike, ltp=0)
+    active_call, active_put = select_active_oi_walls(legs_by_strike, ltp)
+    if side == "call":
+        wall, peak = active_call, peak_call
+    else:
+        wall, peak = active_put, peak_put
+    if not is_substantial_fallback_wall(wall, peak, min_fallback_oi_pct):
+        return None
+    return wall
+
+
+def copy_oi_snapshot(oi: OISnapshot) -> OISnapshot:
+    """Shallow copy so Scenario 1 can retarget strikes without touching the RSI book."""
+    clone = copy(oi)
+    clone.call_oi_change = oi.call_oi_change
+    clone.put_oi_change = oi.put_oi_change
+    return clone
+
+
+def apply_oi_wall(oi: OISnapshot, wall: tuple[float, int, str], side: str) -> None:
+    strike, shares, token = wall
+    if side == "call":
+        oi.max_call_oi_strike = strike
+        oi.max_call_oi = shares
+        oi.max_call_token = token
+    else:
+        oi.max_put_oi_strike = strike
+        oi.max_put_oi = shares
+        oi.max_put_token = token
+    oi.call_oi_change = None
+    oi.put_oi_change = None
+
+
+def resistance_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
+    """Bearish setup: resistance is broken only if price has crossed above the
+    Call strike *and* calls unwind while puts are added there.
+    """
+    price = ltp if ltp is not None else oi.ltp
+    strike = oi.max_call_oi_strike
+    if strike <= 0 or price <= strike:
+        return False
+    if oi.call_oi_change is None or oi.put_oi_change is None:
+        return False
+    return oi.call_oi_change <= 0 and oi.put_oi_change > 0
+
+
+def support_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
+    """Bullish setup: support is broken only if price has crossed below the
+    Put strike *and* puts unwind while calls are added there.
+    """
+    price = ltp if ltp is not None else oi.ltp
+    strike = oi.max_put_oi_strike
+    if strike <= 0 or price >= strike:
+        return False
+    if oi.call_oi_change is None or oi.put_oi_change is None:
+        return False
+    return oi.put_oi_change <= 0 and oi.call_oi_change > 0
 
 
 def align_snapshot_to_reference_strike(
@@ -170,6 +257,92 @@ def matched_signal(
         return SignalType.PUT_OI
 
     return None
+
+
+def rsi_watch_side(
+    price: PriceSnapshot,
+    rsi_call_threshold: float,
+    rsi_put_threshold: float,
+) -> SignalType | None:
+    """CALL_OI if RSI is stretched high, PUT_OI if stretched low."""
+    if price.rsi is None:
+        return None
+    if price.rsi >= rsi_call_threshold:
+        return SignalType.CALL_OI
+    if price.rsi <= rsi_put_threshold:
+        return SignalType.PUT_OI
+    return None
+
+
+def proximity_skip_reason(
+    price: PriceSnapshot,
+    oi: OISnapshot,
+    signal: SignalType,
+    proximity_pct: float,
+) -> str | None:
+    """Why this name is not near its wall, or None if it is within proximity."""
+    strike = (
+        oi.max_call_oi_strike if signal is SignalType.CALL_OI else oi.max_put_oi_strike
+    )
+    label = "Call" if signal is SignalType.CALL_OI else "Put"
+    if strike <= 0:
+        side = "at/above" if signal is SignalType.CALL_OI else "at/below"
+        return f"no {label} OI wall {side} price"
+    ltp = price.ltp if price.ltp > 0 else oi.ltp
+    if is_near_strike(ltp, strike, proximity_pct):
+        return None
+    distance = distance_to_strike_pct(ltp, strike)
+    return f"{distance:.2f}% from max {label} OI (need ≤ {proximity_pct:g}%)"
+
+
+def make_rsi_alert(
+    price: PriceSnapshot,
+    oi: OISnapshot | None,
+    signal: SignalType,
+    skip_reason: str | None = None,
+) -> ScanAlert:
+    """Watchlist row for an RSI-stretched name (taken or skipped)."""
+    ltp = price.ltp
+    strike = 0.0
+    value = 0
+    expiry = ""
+    lot_size = 0
+    call_change = put_change = pcr = None
+    if oi:
+        if ltp <= 0:
+            ltp = oi.ltp
+        strike = (
+            oi.max_call_oi_strike if signal is SignalType.CALL_OI else oi.max_put_oi_strike
+        )
+        value = oi.max_call_oi if signal is SignalType.CALL_OI else oi.max_put_oi
+        expiry = oi.expiry
+        lot_size = oi.lot_size
+        call_change = oi.call_oi_change
+        put_change = oi.put_oi_change
+        pcr = oi.change_pcr
+    distance = distance_to_strike_pct(ltp, strike) if strike > 0 else 0.0
+    label = "Call" if signal is SignalType.CALL_OI else "Put"
+    status = f"not taking ({skip_reason})" if skip_reason else "taking position"
+    return ScanAlert(
+        symbol=price.symbol,
+        signal=signal,
+        ltp=ltp,
+        rsi=price.rsi or 0.0,
+        oi_strike=strike,
+        oi_value=value,
+        distance_pct=distance,
+        expiry=expiry,
+        oi_change=call_change if signal is SignalType.CALL_OI else put_change,
+        call_oi_change=call_change,
+        put_oi_change=put_change,
+        change_pcr=pcr,
+        lot_size=lot_size,
+        skip_reason=skip_reason,
+        message=(
+            f"{price.symbol}: RSI {price.rsi:.1f} vs max {label} OI "
+            f"₹{strike:.0f} — {status}"
+        ),
+    )
 
 
 def call_oi_flow_rejection(

@@ -13,8 +13,10 @@ class Direction(str, Enum):
 class ExitReason(str, Enum):
     FIRST_TARGET = "first_target"
     SECOND_TARGET = "second_target"
+    THIRD_TARGET = "third_target"
     STOP_LOSS = "stop_loss"
     EXPIRY = "expiry"
+    WALL_BROKEN = "wall_broken"
 
 
 @dataclass

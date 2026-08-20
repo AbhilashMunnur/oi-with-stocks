@@ -10,6 +10,28 @@ from src.config import NotificationConfig, SignalType
 from src.oi_analyzer import ScanAlert
 
 TELEGRAM_API = "https://api.telegram.org/bot{token}/{method}"
+TELEGRAM_TEXT_LIMIT = 3900
+
+
+def _telegram_chunks(text: str, limit: int = TELEGRAM_TEXT_LIMIT) -> list[str]:
+    """Telegram caps messages at 4096 characters."""
+    if len(text) <= limit:
+        return [text]
+    chunks: list[str] = []
+    current: list[str] = []
+    size = 0
+    for line in text.split("\n"):
+        extra = len(line) + (1 if current else 0)
+        if current and size + extra > limit:
+            chunks.append("\n".join(current))
+            current = [line]
+            size = len(line)
+        else:
+            current.append(line)
+            size += extra
+    if current:
+        chunks.append("\n".join(current))
+    return chunks
 
 
 class Notifier:
@@ -46,6 +68,8 @@ class Notifier:
         labels = {
             SignalType.CALL_OI: "CALL OI ALERT",
             SignalType.PUT_OI: "PUT OI ALERT",
+            SignalType.CALL_OI_S1: "CALL OI S1 ALERT",
+            SignalType.PUT_OI_S1: "PUT OI S1 ALERT",
             SignalType.ST_BEARISH: "ST BEARISH ALERT",
             SignalType.ST_BULLISH: "ST BULLISH ALERT",
         }
@@ -62,16 +86,24 @@ class Notifier:
                 continue
 
             lines.append(f"\n{heading}")
-            for alert in sorted(group, key=lambda a: a.distance_pct):
+            group = sorted(
+                group,
+                key=lambda a: (bool(a.skip_reason), a.distance_pct, -(a.rsi or 0)),
+            )
+            for alert in group:
                 if alert.supertrend is not None:
                     lines.append(
                         f"• {alert.symbol}: ₹{alert.ltp:,.2f} vs ST ₹{alert.supertrend:,.2f} "
                         f"({alert.distance_pct:.2f}% away) | strike ₹{alert.oi_strike:,.0f}"
                     )
-                else:
+                elif alert.oi_strike > 0:
                     lines.append(
                         f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
                         f"vs strike ₹{alert.oi_strike:,.0f} ({alert.distance_pct:.2f}% away)"
+                    )
+                else:
+                    lines.append(
+                        f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f}"
                     )
 
                 detail = []
@@ -89,8 +121,12 @@ class Notifier:
                     detail.append(f"ΔPCR {alert.change_pcr:.2f}")
                 if detail:
                     lines.append(f"    {' | '.join(detail)}  (contracts)")
+                if alert.skip_reason:
+                    lines.append(f"    Not taking — {alert.skip_reason}")
 
-        lines.append(f"\nExpiry: {alerts[0].expiry}")
+        expiries = {a.expiry for a in alerts if a.expiry}
+        if len(expiries) == 1:
+            lines.append(f"\nExpiry: {next(iter(expiries))}")
         return "\n".join(lines)
 
     def _rsi_digest(self, alerts: list[ScanAlert]) -> str:
@@ -98,8 +134,18 @@ class Notifier:
             alerts,
             title="RSI + OI alerts",
             sections=[
-                (SignalType.CALL_OI, "CALL OI (overbought, near max Call OI)"),
-                (SignalType.PUT_OI, "PUT OI (oversold, near max Put OI)"),
+                (SignalType.CALL_OI, "CALL OI (RSI ≥ 70)"),
+                (SignalType.PUT_OI, "PUT OI (RSI ≤ 32)"),
+            ],
+        )
+
+    def _scenario1_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="RSI + OI Scenario 1 alerts",
+            sections=[
+                (SignalType.CALL_OI_S1, "CALL OI S1 (RSI ≥ 70)"),
+                (SignalType.PUT_OI_S1, "PUT OI S1 (RSI ≤ 32)"),
             ],
         )
 
@@ -128,26 +174,32 @@ class Notifier:
     def send_message(self, text: str, *, parse_mode: str | None = None) -> int:
         """Send to every recipient. One bad chat ID must not silence the rest."""
         delivered = 0
+        chunks = _telegram_chunks(text)
 
         for chat_id in self.chat_ids:
-            payload: dict = {
-                "chat_id": chat_id,
-                "text": text,
-                "disable_web_page_preview": True,
-            }
-            if parse_mode:
-                payload["parse_mode"] = parse_mode
+            ok = True
+            for chunk in chunks:
+                payload: dict = {
+                    "chat_id": chat_id,
+                    "text": chunk,
+                    "disable_web_page_preview": True,
+                }
+                if parse_mode:
+                    payload["parse_mode"] = parse_mode
 
-            try:
-                response = requests.post(
-                    self._telegram_url("sendMessage"),
-                    json=payload,
-                    timeout=20,
-                )
-                response.raise_for_status()
+                try:
+                    response = requests.post(
+                        self._telegram_url("sendMessage"),
+                        json=payload,
+                        timeout=20,
+                    )
+                    response.raise_for_status()
+                except requests.RequestException as exc:
+                    self._chat_error(chat_id, exc)
+                    ok = False
+                    break
+            if ok:
                 delivered += 1
-            except requests.RequestException as exc:
-                self._chat_error(chat_id, exc)
 
         return delivered
 
@@ -183,20 +235,22 @@ class Notifier:
         return delivered
 
     def notify(self, alerts: list[ScanAlert]) -> None:
-        fresh = [alert for alert in alerts if not self._is_on_cooldown(alert)]
-        if not fresh:
-            return
+        taking = [alert for alert in alerts if not alert.skip_reason]
+        fresh = [alert for alert in taking if not self._is_on_cooldown(alert)]
 
         if self.config.console:
             for alert in fresh:
                 self._send_console(alert)
 
         rsi_alerts = [
-            a for a in fresh if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
+            a for a in alerts if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
+        ]
+        s1_alerts = [
+            a for a in alerts if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
         ]
         st_alerts = [
             a
-            for a in fresh
+            for a in alerts
             if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
         ]
 
@@ -206,13 +260,19 @@ class Notifier:
                 if rsi_alerts:
                     delivered = self.send_message(self._rsi_digest(rsi_alerts))
                     print(
-                        f"\nSent {len(rsi_alerts)} RSI+OI alert(s) to Telegram "
+                        f"\nSent {len(rsi_alerts)} RSI+OI row(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
+                if s1_alerts:
+                    delivered = self.send_message(self._scenario1_digest(s1_alerts))
+                    print(
+                        f"\nSent {len(s1_alerts)} RSI+OI S1 row(s) to Telegram "
                         f"({delivered}/{recipients})."
                     )
                 if st_alerts:
                     delivered = self.send_message(self._supertrend_digest(st_alerts))
                     print(
-                        f"\nSent {len(st_alerts)} Supertrend alert(s) to Telegram "
+                        f"\nSent {len(st_alerts)} Supertrend row(s) to Telegram "
                         f"({delivered}/{recipients})."
                     )
             elif not self._warned_missing:

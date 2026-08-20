@@ -13,6 +13,9 @@ oi:
   # PUT longs: require ΔPCR > 1.0.
   require_put_writing: true
   min_change_pcr: 1.0
+  # S1: if the peak is already through price, the next uncrossed wall is used
+  # only when its OI is at least this % of the peak. Thin leftovers are skipped.
+  s1_min_fallback_oi_pct: 50.0
 
 # Supertrend + OI at the Supertrend strike (intraday F&O scan).
 # Price below ST and within proximity → bearish ΔOI → short 3rd-month futures.
@@ -68,6 +71,28 @@ paper_trading:
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "RSI Paper trades"
   google_summary_worksheet: "RSI Portfolio Summary"
+
+# RSI+OI Scenario 1: enter only on an uncrossed wall (never the peak if price
+# is already through it). After entry, remaining lots close from 15:15 IST only
+# if the *entry* strike is broken. 3 lots at 6% / 10% / 14%.
+# Own capital, ledger, journal, and Google Sheet tab.
+rsi_s1_paper_trading:
+  enabled: true
+  name: "RSI+OI S1"
+  capital: 20000000
+  lots_per_trade: 3
+  first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
+  second_target_pct: 10.0   # Close 1 lot after a 10% move in our favour
+  third_target_pct: 14.0    # Close the remaining lot at 14%
+  stop_loss_pct: 4.0        # 4% adverse (before first target)
+  second_lot_stop_pct: 1.0  # After 6%, SL on remaining lots = 1% from entry
+  margin_pct: 20.0
+  futures_month: 3
+  ledger_path: data/rsi_s1_paper_book.json
+  journal_csv: data/rsi_s1_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "RSI S1 Paper trades"
+  google_summary_worksheet: "RSI S1 Portfolio Summary"
 
 # Paper trading for Supertrend + OI only — own capital, ledger, and journal.
 supertrend_paper_trading:

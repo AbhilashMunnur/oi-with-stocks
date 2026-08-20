@@ -26,6 +26,28 @@ def test_config_loads_separate_supertrend_paper_book():
     assert "supertrend" in config.supertrend_paper_trading.ledger_path
 
 
+def test_config_loads_scenario1_paper_book():
+    config = load_config()
+    assert config.rsi_s1_paper_trading is not None
+    assert config.rsi_s1_paper_trading.name == "RSI+OI S1"
+    assert "rsi_s1" in config.rsi_s1_paper_trading.ledger_path
+    assert config.rsi_s1_paper_trading.ledger_path != config.paper_trading.ledger_path
+    assert config.rsi_s1_paper_trading.lots_per_trade == 3
+    assert config.rsi_s1_paper_trading.first_target_pct == 6.0
+    assert config.rsi_s1_paper_trading.second_target_pct == 10.0
+    assert config.rsi_s1_paper_trading.third_target_pct == 14.0
+    assert config.rsi_s1_paper_trading.google_worksheet == "RSI S1 Paper trades"
+    assert (
+        config.rsi_s1_paper_trading.google_summary_worksheet
+        == "RSI S1 Portfolio Summary"
+    )
+    assert config.paper_trading.google_worksheet == "RSI Paper trades"
+    assert config.paper_trading.google_summary_worksheet == "RSI Portfolio Summary"
+    assert config.paper_trading.lots_per_trade == 2
+    assert config.paper_trading.second_target_pct == 11.0
+    assert config.paper_trading.third_target_pct is None
+
+
 def test_rsi_and_supertrend_books_do_not_share_positions(tmp_path):
     rsi_cfg = PaperTradingConfig(
         enabled=True,

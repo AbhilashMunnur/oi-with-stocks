@@ -108,6 +108,45 @@ def near_supertrend_from_above(ltp: float, st: float, proximity_pct: float) -> b
     return distance_to_strike_pct(ltp, st) <= proximity_pct
 
 
+def make_supertrend_watch(
+    *,
+    symbol: str,
+    ltp: float,
+    supertrend: float,
+    side: str,
+    oi: OISnapshot | None,
+    skip_reason: str | None = None,
+) -> ScanAlert:
+    """Telegram row for a name near Supertrend (taken or skipped)."""
+    signal = SignalType.ST_BEARISH if side == "below" else SignalType.ST_BULLISH
+    distance = distance_to_strike_pct(ltp, supertrend) if supertrend else 0.0
+    strike = oi.max_call_oi_strike if oi else 0.0
+    value = oi.max_call_oi if oi else 0
+    return ScanAlert(
+        symbol=symbol,
+        signal=signal,
+        ltp=ltp,
+        rsi=0.0,
+        oi_strike=strike,
+        oi_value=value,
+        distance_pct=distance,
+        expiry=oi.expiry if oi else "",
+        oi_change=oi.call_oi_change if oi and signal is SignalType.ST_BEARISH else (
+            oi.put_oi_change if oi else None
+        ),
+        call_oi_change=oi.call_oi_change if oi else None,
+        put_oi_change=oi.put_oi_change if oi else None,
+        change_pcr=oi.change_pcr if oi else None,
+        lot_size=oi.lot_size if oi else 0,
+        supertrend=supertrend,
+        skip_reason=skip_reason,
+        message=(
+            f"{symbol}: ₹{ltp:,.2f} vs ST ₹{supertrend:,.2f} ({distance:.2f}% away)"
+            + (f" — not taking ({skip_reason})" if skip_reason else "")
+        ),
+    )
+
+
 def evaluate_supertrend_oi(
     *,
     symbol: str,

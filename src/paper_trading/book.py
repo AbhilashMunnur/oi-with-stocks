@@ -23,7 +23,7 @@ TRIGGER_TOLERANCE = 1e-9
 
 
 class PaperBook:
-    """A paper futures book: two lots per trade, scaled out at two targets.
+    """A paper futures book: scale out one lot at each target, last target takes the rest.
 
     The scanner only sees a price every 30 minutes, so targets and stops are
     booked at their exact trigger levels rather than the observed price. That
@@ -175,6 +175,16 @@ class PaperBook:
             return self.config.second_lot_stop_pct
         return self.config.stop_loss_pct
 
+    def _scale_targets(self) -> list[tuple[float, ExitReason]]:
+        """One lot per target; the last target closes whatever is still open."""
+        targets = [
+            (self.config.first_target_pct, ExitReason.FIRST_TARGET),
+            (self.config.second_target_pct, ExitReason.SECOND_TARGET),
+        ]
+        if self.config.third_target_pct is not None:
+            targets.append((self.config.third_target_pct, ExitReason.THIRD_TARGET))
+        return targets
+
     def _apply_exits(
         self, position: Position, price: float, today: date, rsi: float | None
     ) -> list[TradeEvent]:
@@ -193,33 +203,22 @@ class PaperBook:
             )
             return events
 
-        first_target = self.config.first_target_pct
-        second_target = self.config.second_target_pct
-
-        if (
-            move >= first_target - TRIGGER_TOLERANCE
-            and position.lots_open == position.lots_total
-        ):
+        targets = self._scale_targets()
+        for index, (pct, reason) in enumerate(targets):
+            if not position.is_open:
+                break
+            if move < pct - TRIGGER_TOLERANCE:
+                break
+            already_closed = position.lots_total - position.lots_open
+            if already_closed != index:
+                continue
+            lots = position.lots_open if index == len(targets) - 1 else 1
             events.append(
                 self._close_lots(
                     position,
-                    1,
-                    position.price_at_move(first_target),
-                    ExitReason.FIRST_TARGET,
-                    rsi,
-                )
-            )
-            # Remaining lot now uses second_lot_stop_pct from entry. The same
-            # snapshot is still at/above the first target, so it cannot also
-            # be through the tighter stop.
-
-        if move >= second_target - TRIGGER_TOLERANCE and position.is_open:
-            events.append(
-                self._close_lots(
-                    position,
-                    position.lots_open,
-                    position.price_at_move(second_target),
-                    ExitReason.SECOND_TARGET,
+                    lots,
+                    position.price_at_move(pct),
+                    reason,
                     rsi,
                 )
             )
@@ -253,6 +252,19 @@ class PaperBook:
         self.positions = [p for p in self.positions if p.is_open]
         return events
 
+    def close_on_broken_wall(
+        self,
+        position: Position,
+        price: float,
+        exit_rsi: float | None = None,
+    ) -> TradeEvent:
+        """Exit remaining lots after the entry support/resistance wall is broken."""
+        event = self._close_lots(
+            position, position.lots_open, price, ExitReason.WALL_BROKEN, exit_rsi
+        )
+        self.positions = [item for item in self.positions if item.is_open]
+        return event
+
     def flush_journal(self) -> int:
         """Write any closed trades out to the journal."""
         rows, self._pending_rows = self._pending_rows, []
@@ -266,7 +278,7 @@ class PaperBook:
 
     def _direction_for(self, alert: ScanAlert) -> Direction:
         # RSI Call OI / ST bearish → short; RSI Put OI / ST bullish → long.
-        if alert.signal in (SignalType.CALL_OI, SignalType.ST_BEARISH):
+        if alert.signal in (SignalType.CALL_OI, SignalType.ST_BEARISH, SignalType.CALL_OI_S1):
             return Direction.SHORT
         return Direction.LONG
 
@@ -276,6 +288,8 @@ class PaperBook:
 
         for alert in alerts:
             if alert.symbol in held:
+                continue
+            if alert.skip_reason:
                 continue
             if alert.lot_size <= 0 or alert.ltp <= 0:
                 continue
