@@ -1,0 +1,52 @@
+{
+  "capital": 20000000,
+  "realised_pnl": 0.0,
+  "closed_count": 0,
+  "day_date": "2026-08-21",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-21 10:31:28",
+  "positions": [
+    {
+      "symbol": "DIVISLAB",
+      "direction": "SHORT",
+      "entry_price": 8545.5,
+      "entry_time": "2026-08-21 10:31:28",
+      "lot_size": 100,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 71.67376673089547,
+      "strike": 8600.0,
+      "margin_blocked": 512730.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "HAL",
+      "direction": "SHORT",
+      "entry_price": 5068.4,
+      "entry_time": "2026-08-21 10:31:28",
+      "lot_size": 150,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 70.49255581352006,
+      "strike": 5100.0,
+      "margin_blocked": 456156.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "PFC",
+      "direction": "LONG",
+      "entry_price": 363.4,
+      "entry_time": "2026-08-21 10:31:28",
+      "lot_size": 1300,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 21.344420932335154,
+      "strike": 360.0,
+      "margin_blocked": 283451.99999999994,
+      "closed_legs": []
+    }
+  ]
+}

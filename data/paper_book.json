@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -84570.5,
-  "closed_count": 3,
-  "day_date": "2026-08-20",
-  "day_realised_pnl": -68780.0,
-  "updated_at": "2026-08-20 15:31:33",
+  "realised_pnl": -84463.4,
+  "closed_count": 4,
+  "day_date": "2026-08-21",
+  "day_realised_pnl": 107.1,
+  "updated_at": "2026-08-21 10:31:23",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -104,13 +104,21 @@
       "entry_price": 4795.0,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 150,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-29",
       "rsi_at_entry": 72.14597138542723,
       "strike": 4800.0,
-      "margin_blocked": 287700.0,
-      "closed_legs": []
+      "margin_blocked": 143850.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 4507.3,
+          "exit_time": "2026-08-21 10:31:23",
+          "reason": "first_target",
+          "pnl": 43155.0
+        }
+      ]
     },
     {
       "symbol": "MOTHERSON",
@@ -266,20 +274,6 @@
       "rsi_at_entry": 32.89235373282435,
       "strike": 880.0,
       "margin_blocked": 274505.0,
-      "closed_legs": []
-    },
-    {
-      "symbol": "RECLTD",
-      "direction": "LONG",
-      "entry_price": 341.65,
-      "entry_time": "2026-08-12 12:02:33",
-      "lot_size": 1575,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-29",
-      "rsi_at_entry": 34.873840936265864,
-      "strike": 345.0,
-      "margin_blocked": 215239.5,
       "closed_legs": []
     },
     {
@@ -560,6 +554,20 @@
       "rsi_at_entry": 72.120554323546,
       "strike": 1900.0,
       "margin_blocked": 358245.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "PFC",
+      "direction": "LONG",
+      "entry_price": 363.4,
+      "entry_time": "2026-08-21 10:31:23",
+      "lot_size": 1300,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 21.344420932335154,
+      "strike": 360.0,
+      "margin_blocked": 188967.99999999997,
       "closed_legs": []
     }
   ]
