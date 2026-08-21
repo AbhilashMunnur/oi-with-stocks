@@ -253,11 +253,10 @@ class PaperBook:
         return events
 
     def rebase_entries_to_futures(self, prices: dict[str, float]) -> list[TradeEvent]:
-        """Move cash-priced paper fills onto the 3rd-month future without a P&L jump.
+        """Move cash-priced paper fills onto the 3rd-month future.
 
-        Older ledgers stored equity LTP as the entry. The first futures quote
-        replaces that print so later mark-to-market follows the Oct (etc.)
-        contract the book is supposed to trade.
+        `prices` must be the futures print on the original entry date — not
+        today's LTP — so open P&L is restated instead of zeroed.
         """
         events: list[TradeEvent] = []
         for position in self.positions:
@@ -269,6 +268,9 @@ class PaperBook:
             old = position.entry_price
             position.entry_price = round(price, 2)
             position.priced_on = "futures"
+            position.margin_blocked = self._margin_for(
+                position.entry_price, position.lot_size, position.lots_open
+            )
             events.append(
                 TradeEvent(
                     symbol=position.symbol,

@@ -22,11 +22,7 @@ from src.data.models import OISnapshot
 from src.data.option_expiry import select_scan_oi_expiry
 from src.indicators import calculate_rsi
 from src.oi_analyzer import select_active_oi_walls
-from src.paper_trading.futures_expiry import (
-    futures_symbol_year_month,
-    is_standard_stock_future,
-    target_futures_year_month,
-)
+from src.paper_trading.futures_expiry import target_futures_year_month
 
 SCRIP_MASTER_URL = (
     "https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json"
@@ -113,6 +109,8 @@ class AngelOneClient:
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
         # date, high, low, close — shared with Supertrend (same Angel candles as RSI).
         self._ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
+        self._fut_daily_cache: dict[str, list[tuple[str, float]]] = {}
+        self._fut_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
         self._cache_date: date | None = None
 
         self.login()
@@ -249,8 +247,8 @@ class AngelOneClient:
 
         as_of = as_of or date.today()
         target_year, target_month = target_futures_year_month(as_of, month_index)
-        standard: list[dict] = []
-        fallback: list[dict] = []
+        nfo: list[dict] = []
+        bfo: list[dict] = []
 
         for row in rows:
             try:
@@ -259,17 +257,14 @@ class AngelOneClient:
                 continue
             if (expiry.year, expiry.month) != (target_year, target_month):
                 continue
-
-            symbol_name = str(row.get("symbol", "")).upper()
-            if (
-                is_standard_stock_future(symbol_name)
-                and futures_symbol_year_month(symbol_name) == (target_year, target_month)
-            ):
-                standard.append(row)
+            exchange = str(row.get("exch_seg") or "NFO").upper()
+            if exchange == "BFO":
+                bfo.append(row)
             else:
-                fallback.append(row)
+                nfo.append(row)
 
-        matches = standard or fallback
+        # NSE stock futures (NFO) are the book. BFO copies have LTP but no history.
+        matches = nfo or bfo
         if not matches:
             return None
 
@@ -328,6 +323,107 @@ class AngelOneClient:
                     if symbol and price:
                         prices[symbol] = float(price)
         return prices
+
+    def futures_daily_close(
+        self, symbol: str, on: date, month_index: int = 3
+    ) -> float | None:
+        """3rd-month futures daily close on or before `on` (entry-date restatement)."""
+        contract = self.futures_contract(symbol, month_index=month_index, as_of=on)
+        if not contract or not contract.token:
+            return None
+        key = f"{contract.exchange}:{contract.token}"
+        series = self._fut_daily_cache.get(key)
+        if series is None:
+            series = self._fetch_futures_daily(contract)
+            self._fut_daily_cache[key] = series
+        target = on.isoformat()
+        prior = [close for day, close in series if day <= target]
+        return prior[-1] if prior else None
+
+    def _fetch_futures_daily(self, contract: StockFuture) -> list[tuple[str, float]]:
+        now = datetime.now()
+        try:
+            response = self._call(
+                self._candle_throttle,
+                "getCandleData",
+                {
+                    "exchange": contract.exchange,
+                    "symboltoken": contract.token,
+                    "interval": "ONE_DAY",
+                    "fromdate": (now - timedelta(days=60)).strftime("%Y-%m-%d %H:%M"),
+                    "todate": now.strftime("%Y-%m-%d %H:%M"),
+                },
+            )
+        except Exception as exc:
+            print(f"  {contract.nfo_symbol}: fut candles unavailable ({exc})")
+            return []
+
+        rows: list[tuple[str, float]] = []
+        for row in (response or {}).get("data") or []:
+            if len(row) < 5:
+                continue
+            rows.append((str(row[0])[:10], float(row[4])))
+        return rows
+
+    def futures_price_at(
+        self, symbol: str, when: datetime, month_index: int = 3
+    ) -> float | None:
+        """3rd-month futures print at `when` (5-min bar in session, else daily close)."""
+        minutes = when.hour * 60 + when.minute
+        in_session = (9 * 60 + 15) <= minutes <= (15 * 60 + 30)
+        if in_session:
+            print_px = self._futures_intraday_at(symbol, when, month_index)
+            if print_px is not None:
+                return print_px
+        return self.futures_daily_close(symbol, when.date(), month_index)
+
+    def _futures_intraday_at(
+        self, symbol: str, when: datetime, month_index: int
+    ) -> float | None:
+        contract = self.futures_contract(
+            symbol, month_index=month_index, as_of=when.date()
+        )
+        if not contract or not contract.token:
+            return None
+        key = f"{contract.exchange}:{contract.token}:{when.date().isoformat()}"
+        series = self._fut_intraday_cache.get(key)
+        if series is None:
+            series = self._fetch_futures_intraday(contract, when.date())
+            self._fut_intraday_cache[key] = series
+        prior = [close for ts, close in series if ts <= when]
+        if prior:
+            return prior[-1]
+        return series[0][1] if series else None
+
+    def _fetch_futures_intraday(
+        self, contract: StockFuture, on: date
+    ) -> list[tuple[datetime, float]]:
+        try:
+            response = self._call(
+                self._candle_throttle,
+                "getCandleData",
+                {
+                    "exchange": contract.exchange,
+                    "symboltoken": contract.token,
+                    "interval": "FIVE_MINUTE",
+                    "fromdate": f"{on.isoformat()} 09:15",
+                    "todate": f"{on.isoformat()} 15:30",
+                },
+            )
+        except Exception as exc:
+            print(f"  {contract.nfo_symbol}: fut 5-min unavailable ({exc})")
+            return []
+
+        rows: list[tuple[datetime, float]] = []
+        for row in (response or {}).get("data") or []:
+            if len(row) < 5:
+                continue
+            try:
+                ts = datetime.strptime(str(row[0]).replace("T", " ")[:19], "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                continue
+            rows.append((ts, float(row[4])))
+        return rows
 
     def _contracts_near_price(
         self, contracts: list[dict], price: float, band_pct: float

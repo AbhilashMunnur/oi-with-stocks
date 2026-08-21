@@ -430,6 +430,31 @@ class OIRsiScanner:
             )
         return fut
 
+    def _restate_cash_entries(self, book: PaperBook) -> list:
+        """Rewrite cash fills to the 3rd-month future print at entry time."""
+        restated: dict[str, float] = {}
+        for position in book.positions:
+            if not position.is_open or position.priced_on == "futures":
+                continue
+            try:
+                when = datetime.strptime(position.entry_time[:19], "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                try:
+                    when = datetime.strptime(position.entry_time[:10], "%Y-%m-%d")
+                except ValueError:
+                    continue
+            close = self.client.futures_price_at(
+                position.symbol, when, book.config.futures_month
+            )
+            if close:
+                restated[position.symbol] = close
+            else:
+                print(
+                    f"  {position.symbol}: no month-{book.config.futures_month} "
+                    f"fut print at {position.entry_time}"
+                )
+        return book.rebase_entries_to_futures(restated)
+
     def _exit_s1_broken_walls(
         self,
         book: PaperBook,
@@ -492,7 +517,7 @@ class OIRsiScanner:
         self._apply_futures_expiry(alerts)
 
         fut_prices = self._futures_paper_prices(book, alerts)
-        events = book.rebase_entries_to_futures(fut_prices)
+        events = self._restate_cash_entries(book)
 
         paper_alerts: list[ScanAlert] = []
         for alert in alerts:
