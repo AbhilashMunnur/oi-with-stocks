@@ -25,7 +25,7 @@ def download_cached(url: str, filename: str, max_age_seconds: int = 86_400) -> P
         return target
 
     last_error: Exception | None = None
-    for attempt in range(1, 4):
+    for attempt in range(1, 6):
         tmp = target.with_suffix(target.suffix + ".tmp")
         try:
             with requests.get(url, timeout=120, stream=True) as response:
@@ -38,14 +38,14 @@ def download_cached(url: str, filename: str, max_age_seconds: int = 86_400) -> P
             return target
         except (requests.RequestException, OSError) as exc:
             last_error = exc
-            print(f"  download {filename} attempt {attempt}/3 failed: {exc}")
+            print(f"  download {filename} attempt {attempt}/5 failed: {exc}")
             time.sleep(2 * attempt)
         finally:
             if tmp.exists():
                 tmp.unlink(missing_ok=True)
 
-        if last_error and target.exists():
-            print(f"  download {filename} failed; reusing the cached copy")
-            return target
+    if target.exists():
+        print(f"  download {filename} failed; reusing the cached copy")
+        return target
 
     raise last_error or RuntimeError(f"download failed: {url}")

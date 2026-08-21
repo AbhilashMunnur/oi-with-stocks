@@ -35,8 +35,9 @@ def test_download_cached_reuses_stale_file_when_every_attempt_fails(tmp_path, mo
     os.utime(target, (stale, stale))
 
     broken = requests.exceptions.ChunkedEncodingError("IncompleteRead")
-    with patch("src.data.base.requests.get", side_effect=broken):
+    with patch("src.data.base.requests.get", side_effect=broken) as mocked:
         with patch("src.data.base.time.sleep"):
             path = download_cached("https://example.test/master", target.name)
 
+    assert mocked.call_count == 5
     assert path.read_bytes() == b'[{"symbol":"STALE-EQ"}]'

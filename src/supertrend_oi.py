@@ -61,15 +61,19 @@ def fetch_supertrends(
     yahoo_list = list(yahoo_of.values())
     for start in range(0, len(yahoo_list), batch_size):
         batch = yahoo_list[start : start + batch_size]
-        data = yf.download(
-            batch,
-            period="6mo",
-            interval="1d",
-            group_by="ticker",
-            threads=True,
-            progress=False,
-            auto_adjust=False,
-        )
+        try:
+            data = yf.download(
+                batch,
+                period="6mo",
+                interval="1d",
+                group_by="ticker",
+                threads=True,
+                progress=False,
+                auto_adjust=False,
+            )
+        except Exception as exc:
+            print(f"  Supertrend batch failed: {exc}")
+            continue
         if data is None or data.empty:
             continue
 

@@ -304,7 +304,7 @@ class AngelOneClient:
                         self._quote_throttle,
                         "getMarketData",
                         "LTP",
-                        {exchange: batch},
+                        {"NFO": batch},
                     )
                 except Exception as exc:
                     print(f"  {exchange} futures quote batch failed: {exc}")

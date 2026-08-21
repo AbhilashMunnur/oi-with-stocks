@@ -494,7 +494,13 @@ class OIRsiScanner:
             if not broken:
                 continue
 
-            fill = fut_prices.get(position.symbol) or price
+            fill = fut_prices.get(position.symbol)
+            if not fill:
+                print(
+                    f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
+                    "no NSE fut LTP, not exiting on cash"
+                )
+                continue
             lots = position.lots_open
             event = book.close_on_broken_wall(
                 position, fill, rsi_values.get(position.symbol)
@@ -557,22 +563,28 @@ class OIRsiScanner:
         print(book.summary(fut_prices))
 
         if self.notifier.telegram_ready and (events or book.positions):
-            image = book.telegram_dashboard_image(fut_prices, events)
-            caption = book.telegram_report(fut_prices, events)
-            delivered = self.notifier.send_photo(
-                image, caption=caption, parse_mode="HTML"
-            )
-            print(
-                f"Sent {book.config.name} dashboard to Telegram "
-                f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
-            )
+            try:
+                image = book.telegram_dashboard_image(fut_prices, events)
+                caption = book.telegram_report(fut_prices, events)
+                delivered = self.notifier.send_photo(
+                    image, caption=caption, parse_mode="HTML"
+                )
+                print(
+                    f"Sent {book.config.name} dashboard to Telegram "
+                    f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
+                )
+            except Exception as exc:
+                print(f"  {book.config.name} dashboard Telegram failed: {exc}")
 
     def _emit_telegram(self, batch: list[ScanAlert], label: str) -> None:
         if not batch:
             return
-        self.notifier.notify(batch)
-        if self.notifier.telegram_ready:
-            print(f"  {label} Telegram sent at {datetime.now():%H:%M:%S}")
+        try:
+            self.notifier.notify(batch)
+            if self.notifier.telegram_ready:
+                print(f"  {label} Telegram sent at {datetime.now():%H:%M:%S}")
+        except Exception as exc:
+            print(f"  {label} Telegram failed ({exc}); continuing scan")
 
     def _run_paper_trading(
         self,
@@ -654,12 +666,16 @@ class OIRsiScanner:
                 f"\nSupertrend scan ({st_cfg.atr_period}, {st_cfg.multiplier}) — "
                 f"proximity {st_cfg.proximity_pct}%"
             )
-            st_map = fetch_supertrends(
-                symbols,
-                prices,
-                atr_period=st_cfg.atr_period,
-                multiplier=st_cfg.multiplier,
-            )
+            try:
+                st_map = fetch_supertrends(
+                    symbols,
+                    prices,
+                    atr_period=st_cfg.atr_period,
+                    multiplier=st_cfg.multiplier,
+                )
+            except Exception as exc:
+                print(f"  Supertrend Yahoo download failed: {exc}")
+                st_map = {}
             near = []
             for symbol, (st_value, side) in st_map.items():
                 ltp = prices.get(symbol)

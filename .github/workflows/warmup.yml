@@ -41,6 +41,8 @@ jobs:
         with:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
+          restore-keys: |
+            market-data-
 
       - name: Warm candle cache
         run: python -u scripts/warmup_cache.py
