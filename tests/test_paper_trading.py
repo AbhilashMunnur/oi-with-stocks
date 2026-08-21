@@ -373,3 +373,18 @@ def test_s1_jump_past_all_three_targets_books_each_leg_at_its_level(tmp_path):
     assert [e.kind for e in events] == ["first_target", "second_target", "third_target"]
     assert book.realised_pnl == pytest.approx((300.0 + 500.0 + 700.0) * 175)
 
+
+def test_rebase_moves_cash_entry_onto_futures_without_inventing_pnl(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert(ltp=5000.0)])
+    book.positions[0].priced_on = "equity"
+    book.positions[0].entry_price = 5000.0
+
+    events = book.rebase_entries_to_futures({"TITAN": 5120.5})
+
+    assert [e.kind for e in events] == ["rebase"]
+    assert book.positions[0].entry_price == 5120.5
+    assert book.positions[0].priced_on == "futures"
+    assert book.positions[0].unrealised(5120.5) == 0
+    assert book.rebase_entries_to_futures({"TITAN": 5200.0}) == []
+

@@ -127,6 +127,7 @@ class Notifier:
         expiries = {a.expiry for a in alerts if a.expiry}
         if len(expiries) == 1:
             lines.append(f"\nExpiry: {next(iter(expiries))}")
+        lines.append("\nPaper book fills the 3rd-month future, not cash.")
         return "\n".join(lines)
 
     def _rsi_digest(self, alerts: list[ScanAlert]) -> str:

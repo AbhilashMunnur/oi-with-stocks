@@ -43,6 +43,7 @@ def test_rsi_digest_shows_why_a_name_is_not_taken():
     assert text.index("TITAN") < text.index("HDFCBANK")
     assert "Not taking — 4.07% from max Call OI (need ≤ 1%)" in text
     assert "Call ΔOI +111" in text
+    assert "3rd-month future" in text
 
 
 def test_s1_digest_shows_skip_reason():

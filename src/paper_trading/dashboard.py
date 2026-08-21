@@ -27,6 +27,17 @@ ROW_H = 58
 SUMMARY_H = 92
 
 
+def _fut_board_name(position: Position) -> str:
+    """DIVISLAB Oct FUT — the paper instrument, not the cash ticker."""
+    if position.expiry:
+        try:
+            month = datetime.strptime(position.expiry[:7], "%Y-%m")
+            return f"{position.symbol} {month:%b} FUT"
+        except ValueError:
+            pass
+    return f"{position.symbol} FUT"
+
+
 def _inr(amount: float, signed: bool = False) -> str:
     if signed:
         return f"₹{amount:+,.0f}"
@@ -106,7 +117,8 @@ def _position_rows(
     rows: list[tuple[float, str]] = []
     for position in positions:
         price = prices.get(position.symbol)
-        name = position.symbol[:10].ljust(10)
+        name = _fut_board_name(position)
+        name = (name[:14]).ljust(14)
         side = ("L" if position.direction == "LONG" else "S") + str(position.lots_open)
         side = side.ljust(3)
         if price is None:
@@ -294,7 +306,7 @@ def render_positions_image(
             tw = draw.textlength(badge, font=badge_font)
             draw.text((bx0 + (52 - tw) / 2, by0 + 4), badge, fill=badge_fg, font=badge_font)
 
-            symbol = _ellipsis(draw, position.symbol, row_font, 200)
+            symbol = _ellipsis(draw, _fut_board_name(position), row_font, 220)
             draw.text((PAD + 14, y + 10), symbol, fill=TEXT, font=row_font)
             qty = f"{position.lots_open} lot · x{position.lot_size}"
             draw.text((PAD + 14, y + 32), qty, fill=MUTED, font=row_small)

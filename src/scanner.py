@@ -376,7 +376,7 @@ class OIRsiScanner:
                     "paper entry will keep the options expiry"
                 )
                 continue
-            expiry, lot = contract
+            expiry, lot = contract.expiry, contract.lot_size
             alert.expiry = expiry
             if lot > 0:
                 alert.lot_size = lot
@@ -395,7 +395,7 @@ class OIRsiScanner:
             contract = self.client.futures_contract(position.symbol, month_index=month)
             if not contract:
                 continue
-            expiry, _lot = contract
+            expiry, _lot = contract.expiry, contract.lot_size
             if position.expiry != expiry:
                 position.expiry = expiry
                 changed += 1
@@ -406,10 +406,34 @@ class OIRsiScanner:
                 f"to month-{month} futures expiry."
             )
 
+    def _futures_paper_prices(
+        self,
+        book: PaperBook,
+        alerts: list[ScanAlert],
+    ) -> dict[str, float]:
+        """LTP of the book's futures month. Cash is never used to mark P&L."""
+        symbols = {position.symbol for position in book.positions if position.is_open}
+        symbols.update(alert.symbol for alert in alerts)
+        if not symbols:
+            return {}
+
+        fut = self.client.get_futures_ltps(
+            sorted(symbols), month_index=book.config.futures_month
+        )
+        missing = sorted(symbol for symbol in symbols if symbol not in fut)
+        if missing:
+            print(
+                f"  {book.config.name}: no month-{book.config.futures_month} "
+                f"fut LTP for {', '.join(missing[:8])}"
+                + ("…" if len(missing) > 8 else "")
+            )
+        return fut
+
     def _exit_s1_broken_walls(
         self,
         book: PaperBook,
-        prices: dict[str, float],
+        equity_prices: dict[str, float],
+        fut_prices: dict[str, float],
         rsi_values: dict[str, float],
     ) -> list:
         """Close at 15:15 IST only if the *entry* strike is broken.
@@ -421,7 +445,7 @@ class OIRsiScanner:
         for position in list(book.positions):
             if not position.is_open or position.strike <= 0:
                 continue
-            price = prices.get(position.symbol)
+            price = equity_prices.get(position.symbol)
             if not price:
                 continue
 
@@ -444,14 +468,15 @@ class OIRsiScanner:
             if not broken:
                 continue
 
+            fill = fut_prices.get(position.symbol) or price
             lots = position.lots_open
             event = book.close_on_broken_wall(
-                position, price, rsi_values.get(position.symbol)
+                position, fill, rsi_values.get(position.symbol)
             )
             events.append(event)
             print(
                 f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
-                f"exiting {lots} lot {position.direction} @ ₹{price:,.2f}"
+                f"exiting {lots} lot {position.direction} @ ₹{fill:,.2f} (fut)"
             )
         return events
 
@@ -465,9 +490,17 @@ class OIRsiScanner:
         self._align_open_futures_expiry(book)
         self._apply_futures_expiry(alerts)
 
-        events = book.update(prices, rsi_values=rsi_values)
+        fut_prices = self._futures_paper_prices(book, alerts)
+        events = book.rebase_entries_to_futures(fut_prices)
+        for alert in alerts:
+            if alert.symbol in fut_prices:
+                alert.ltp = fut_prices[alert.symbol]
+
+        events += book.update(fut_prices, rsi_values=rsi_values)
         if book is self.s1_book and is_s1_wall_exit_slot():
-            events += self._exit_s1_broken_walls(book, prices, rsi_values)
+            events += self._exit_s1_broken_walls(
+                book, prices, fut_prices, rsi_values
+            )
         events += book.open_from_alerts(alerts)
         book.save()
 
@@ -476,7 +509,7 @@ class OIRsiScanner:
             print(f"\nLogged {logged} {book.config.name} closed trade(s) to the journal.")
 
         if book.journal:
-            book.journal.append_summary(book.portfolio_summary_row(prices))
+            book.journal.append_summary(book.portfolio_summary_row(fut_prices))
 
         if events:
             print(f"\n{book.config.name} paper trading")
@@ -485,11 +518,11 @@ class OIRsiScanner:
                 print(f"  [{event.kind}] {event.symbol}: {event.detail}{pnl}")
 
         print()
-        print(book.summary(prices))
+        print(book.summary(fut_prices))
 
         if self.notifier.telegram_ready and (events or book.positions):
-            image = book.telegram_dashboard_image(prices, events)
-            caption = book.telegram_report(prices, events)
+            image = book.telegram_dashboard_image(fut_prices, events)
+            caption = book.telegram_report(fut_prices, events)
             delivered = self.notifier.send_photo(
                 image, caption=caption, parse_mode="HTML"
             )

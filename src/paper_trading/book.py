@@ -252,6 +252,35 @@ class PaperBook:
         self.positions = [p for p in self.positions if p.is_open]
         return events
 
+    def rebase_entries_to_futures(self, prices: dict[str, float]) -> list[TradeEvent]:
+        """Move cash-priced paper fills onto the 3rd-month future without a P&L jump.
+
+        Older ledgers stored equity LTP as the entry. The first futures quote
+        replaces that print so later mark-to-market follows the Oct (etc.)
+        contract the book is supposed to trade.
+        """
+        events: list[TradeEvent] = []
+        for position in self.positions:
+            if not position.is_open or position.priced_on == "futures":
+                continue
+            price = prices.get(position.symbol)
+            if not price:
+                continue
+            old = position.entry_price
+            position.entry_price = round(price, 2)
+            position.priced_on = "futures"
+            events.append(
+                TradeEvent(
+                    symbol=position.symbol,
+                    kind="rebase",
+                    detail=(
+                        f"{position.direction} entry ₹{old:,.2f} (cash) → "
+                        f"₹{position.entry_price:,.2f} (3rd-month fut)"
+                    ),
+                )
+            )
+        return events
+
     def close_on_broken_wall(
         self,
         position: Position,
@@ -319,6 +348,7 @@ class PaperBook:
                 rsi_at_entry=alert.rsi,
                 strike=alert.oi_strike,
                 margin_blocked=margin,
+                priced_on="futures",
             )
             self.positions.append(position)
             held.add(alert.symbol)

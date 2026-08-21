@@ -42,6 +42,8 @@ class Position:
     strike: float
     margin_blocked: float
     closed_legs: list[ClosedLeg] = field(default_factory=list)
+    # "equity" until the first 3rd-month fut quote; then "futures".
+    priced_on: str = "equity"
 
     def move_pct(self, price: float) -> float:
         """Percent moved in the trade's favour; negative means against it."""

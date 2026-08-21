@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import time
+from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -44,6 +45,17 @@ CANDLE_INTERVAL_SECONDS = 1.1
 
 RETRY_BACKOFF_SECONDS = (2, 5, 10)
 RATE_LIMIT_BACKOFF_SECONDS = (20, 45, 90)
+
+
+@dataclass(frozen=True)
+class StockFuture:
+    """One monthly stock-futures contract from Angel's instrument master."""
+
+    expiry: str
+    lot_size: int
+    token: str
+    nfo_symbol: str = ""
+    exchange: str = "NFO"
 
 # Angel One error codes that mean the session must be re-established.
 AUTH_ERROR_CODES = {"AG8001", "AG8002", "AG8003", "AB1010", "AB1011", "AB8050", "AB8051"}
@@ -200,11 +212,12 @@ class AngelOneClient:
 
     def futures_contract(
         self, symbol: str, month_index: int = 3, as_of: date | None = None
-    ) -> tuple[str, int] | None:
+    ) -> StockFuture | None:
         """Monthly stock future for the chosen month index.
 
-        Returns ``(expiry YYYY-MM-DD, lot_size)`` for the standard NSE symbol
-        in that month (e.g. month_index=3 in August → October).
+        Picks the standard NSE symbol in that month (e.g. month_index=3 in
+        August → October) and returns expiry, lot size, and the NFO token so
+        paper P&L can be marked on the future, not cash.
         """
         self._load_instruments()
         rows = (self._futures_rows or {}).get(symbol.upper())
@@ -213,8 +226,8 @@ class AngelOneClient:
 
         as_of = as_of or date.today()
         target_year, target_month = target_futures_year_month(as_of, month_index)
-        standard: list[tuple[date, int]] = []
-        fallback: list[tuple[date, int]] = []
+        standard: list[dict] = []
+        fallback: list[dict] = []
 
         for row in rows:
             try:
@@ -224,22 +237,74 @@ class AngelOneClient:
             if (expiry.year, expiry.month) != (target_year, target_month):
                 continue
 
-            lot = int(float(row.get("lotsize") or 0))
             symbol_name = str(row.get("symbol", "")).upper()
             if (
                 is_standard_stock_future(symbol_name)
                 and futures_symbol_year_month(symbol_name) == (target_year, target_month)
             ):
-                standard.append((expiry, lot))
+                standard.append(row)
             else:
-                fallback.append((expiry, lot))
+                fallback.append(row)
 
         matches = standard or fallback
         if not matches:
             return None
 
-        expiry, lot = max(matches, key=lambda item: item[0])
-        return expiry.strftime("%Y-%m-%d"), lot
+        def expiry_of(row: dict) -> date:
+            return datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+
+        row = max(matches, key=expiry_of)
+        exchange = str(row.get("exch_seg") or "NFO").upper()
+        if exchange not in {"NFO", "BFO"}:
+            exchange = "NFO"
+        return StockFuture(
+            expiry=expiry_of(row).strftime("%Y-%m-%d"),
+            lot_size=int(float(row.get("lotsize") or 0)),
+            token=str(row.get("token") or ""),
+            nfo_symbol=str(row.get("symbol") or ""),
+            exchange=exchange,
+        )
+
+    def get_futures_ltps(
+        self,
+        symbols: list[str],
+        month_index: int = 3,
+        as_of: date | None = None,
+    ) -> dict[str, float]:
+        """Last traded price of the configured monthly future, keyed by cash symbol."""
+        self._load_instruments()
+        by_exchange: dict[str, dict[str, str]] = {}
+        for symbol in symbols:
+            contract = self.futures_contract(
+                symbol, month_index=month_index, as_of=as_of
+            )
+            if not contract or not contract.token:
+                continue
+            by_exchange.setdefault(contract.exchange, {})[contract.token] = symbol.upper()
+
+        prices: dict[str, float] = {}
+        for exchange, tokens in by_exchange.items():
+            token_list = list(tokens)
+            for start in range(0, len(token_list), MAX_TOKENS_PER_REQUEST):
+                batch = token_list[start : start + MAX_TOKENS_PER_REQUEST]
+                try:
+                    response = self._call(
+                        self._quote_throttle,
+                        "getMarketData",
+                        "LTP",
+                        {exchange: batch},
+                    )
+                except Exception as exc:
+                    print(f"  {exchange} futures quote batch failed: {exc}")
+                    continue
+                if not response or not response.get("status"):
+                    continue
+                for quote in (response.get("data") or {}).get("fetched") or []:
+                    symbol = tokens.get(str(quote.get("symbolToken")))
+                    price = quote.get("ltp")
+                    if symbol and price:
+                        prices[symbol] = float(price)
+        return prices
 
     def _contracts_near_price(
         self, contracts: list[dict], price: float, band_pct: float
