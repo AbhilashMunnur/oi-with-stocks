@@ -5,6 +5,7 @@ from datetime import datetime, time as dt_time
 from src.config import AppConfig, SignalType
 from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
+from src.data.option_expiry import oi_scan_reason
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import (
     ScanAlert,
@@ -583,6 +584,7 @@ class OIRsiScanner:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         symbols = self.symbols()
         print(f"\nScan started at {started} over {len(symbols)} stocks (live Angel One data)")
+        print(f"  {oi_scan_reason()}")
 
         # Prefer the committed seed so hosted runners do not refetch 208 candle
         # series and blow the Angel One rate limit.

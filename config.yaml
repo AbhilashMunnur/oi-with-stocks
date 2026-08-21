@@ -15,7 +15,8 @@ oi:
   min_change_pcr: 1.0
   # S1: if the peak is already through price, the next uncrossed wall is used
   # only when its OI is at least this % of the peak. Thin leftovers are skipped.
-  s1_min_fallback_oi_pct: 50.0
+  # On Nifty expiry Tuesday and stock monthly expiry, OI rolls to next month
+  # so front-month unwind is not read as a signal.
 
 # Supertrend + OI at the Supertrend strike (intraday F&O scan).
 # Price below ST and within proximity → bearish ΔOI → short 3rd-month futures.

@@ -7,6 +7,7 @@ import requests
 from dotenv import load_dotenv
 
 from src.config import NotificationConfig, SignalType
+from src.data.option_expiry import oi_scan_reason
 from src.oi_analyzer import ScanAlert
 
 TELEGRAM_API = "https://api.telegram.org/bot{token}/{method}"
@@ -127,7 +128,8 @@ class Notifier:
         expiries = {a.expiry for a in alerts if a.expiry}
         if len(expiries) == 1:
             lines.append(f"\nExpiry: {next(iter(expiries))}")
-        lines.append("\nPaper book fills the 3rd-month future, not cash.")
+        lines.append(f"\nOI: {oi_scan_reason()}")
+        lines.append("Paper book fills the 3rd-month future, not cash.")
         return "\n".join(lines)
 
     def _rsi_digest(self, alerts: list[ScanAlert]) -> str:

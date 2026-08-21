@@ -19,7 +19,7 @@ logzero.loglevel(logging.WARNING)
 
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
-from src.data.option_expiry import select_current_month_oi_expiry
+from src.data.option_expiry import select_scan_oi_expiry
 from src.indicators import calculate_rsi
 from src.oi_analyzer import select_active_oi_walls
 from src.paper_trading.futures_expiry import (
@@ -222,7 +222,7 @@ class AngelOneClient:
             if expiry >= today:
                 by_expiry.setdefault(expiry, []).append(row)
 
-        chosen = select_current_month_oi_expiry(list(by_expiry), today)
+        chosen = select_scan_oi_expiry(list(by_expiry), today)
         if chosen is None:
             return None
         return chosen.strftime("%Y-%m-%d"), by_expiry[chosen]
