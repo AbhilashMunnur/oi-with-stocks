@@ -4,7 +4,7 @@
   "closed_count": 4,
   "day_date": "2026-08-21",
   "day_realised_pnl": 107.1,
-  "updated_at": "2026-08-21 10:31:23",
+  "updated_at": "2026-08-21 11:02:20",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -568,6 +568,20 @@
       "rsi_at_entry": 21.344420932335154,
       "strike": 360.0,
       "margin_blocked": 188967.99999999997,
+      "closed_legs": []
+    },
+    {
+      "symbol": "SHREECEM",
+      "direction": "LONG",
+      "entry_price": 24210.0,
+      "entry_time": "2026-08-21 11:02:20",
+      "lot_size": 25,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 30.90683854681869,
+      "strike": 24000.0,
+      "margin_blocked": 242100.0,
       "closed_legs": []
     }
   ]
