@@ -150,17 +150,49 @@ def test_futures_daily_close_uses_the_bar_on_or_before_entry_date():
     assert client.futures_daily_close("TITAN", date(2026, 8, 20), month_index=3) == 5050.0
 
 
-def test_futures_price_at_uses_last_5min_bar_in_session():
+def test_futures_price_at_uses_last_nfo_trade_in_session():
     from datetime import datetime
 
     from src.data.angelone_client import AngelOneClient
 
     client = AngelOneClient.__new__(AngelOneClient)
     client._fut_intraday_cache = {}
-    client._futures_intraday_at = lambda *args, **kwargs: 8623.5
-    client.futures_daily_close = lambda *args, **kwargs: 8600.0
+    client._eq_intraday_cache = {}
+
+    def last_trade(_symbol, when, _month):
+        if when.hour >= 16:
+            return (datetime(2026, 8, 10, 15, 29), 8600.0)
+        return (datetime(2026, 8, 21, 10, 31), 8623.5)
+
+    client._last_nfo_trade = last_trade
+    client.equity_price_at = lambda *args, **kwargs: 8545.5
+    client.futures_daily_close = lambda *args, **kwargs: 8590.0
     assert (
         client.futures_price_at("DIVISLAB", datetime(2026, 8, 21, 10, 31, 28), 3)
         == 8623.5
     )
     assert client.futures_price_at("DIVISLAB", datetime(2026, 8, 10, 22, 57, 32), 3) == 8600.0
+
+
+def test_stale_nfo_print_applies_cash_fut_basis():
+    from datetime import datetime
+
+    from src.data.angelone_client import AngelOneClient
+
+    client = AngelOneClient.__new__(AngelOneClient)
+    client._last_nfo_trade = lambda *args, **kwargs: (
+        datetime(2026, 8, 11, 12, 28),
+        1633.0,
+    )
+
+    def cash_at(_symbol, when):
+        if when.hour == 12:
+            return 1610.0
+        return 1608.0
+
+    client.equity_price_at = cash_at
+    # 13:13 scan, last Oct trade 12:28 → 1608 + (1633 - 1610) = 1631
+    assert (
+        client.futures_price_at("PAYTM", datetime(2026, 8, 11, 13, 13, 36), 3)
+        == 1631.0
+    )

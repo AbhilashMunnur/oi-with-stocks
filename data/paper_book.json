@@ -4,7 +4,7 @@
   "closed_count": 4,
   "day_date": "2026-08-21",
   "day_realised_pnl": 61773.6,
-  "updated_at": "2026-08-21 16:44:29",
+  "updated_at": "2026-08-21 17:03:35",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -24,7 +24,7 @@
     {
       "symbol": "BLUESTARCO",
       "direction": "LONG",
-      "entry_price": 1500.8,
+      "entry_price": 1502.0,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 325,
       "lots_open": 2,
@@ -32,7 +32,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 32.74919891539945,
       "strike": 1500.0,
-      "margin_blocked": 195104.0,
+      "margin_blocked": 195260.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -54,7 +54,7 @@
     {
       "symbol": "INOXWIND",
       "direction": "LONG",
-      "entry_price": 74.41,
+      "entry_price": 74.53,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 6400,
       "lots_open": 1,
@@ -62,7 +62,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 33.17540571383519,
       "strike": 75.0,
-      "margin_blocked": 95244.8,
+      "margin_blocked": 95398.4,
       "closed_legs": [
         {
           "lots": 1,
@@ -92,7 +92,7 @@
     {
       "symbol": "LICHSGFIN",
       "direction": "LONG",
-      "entry_price": 498.9,
+      "entry_price": 499.1,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 1000,
       "lots_open": 2,
@@ -100,14 +100,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 30.018291617734263,
       "strike": 500.0,
-      "margin_blocked": 199560.0,
+      "margin_blocked": 199640.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "LTM",
       "direction": "SHORT",
-      "entry_price": 4794.3,
+      "entry_price": 4793.5,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 150,
       "lots_open": 1,
@@ -115,7 +115,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 72.14597138542723,
       "strike": 4800.0,
-      "margin_blocked": 143829.0,
+      "margin_blocked": 143805.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -130,7 +130,7 @@
     {
       "symbol": "MOTHERSON",
       "direction": "SHORT",
-      "entry_price": 170.63,
+      "entry_price": 170.77,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 6150,
       "lots_open": 2,
@@ -138,7 +138,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 75.48397383538682,
       "strike": 170.0,
-      "margin_blocked": 419749.8,
+      "margin_blocked": 420094.2,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -160,7 +160,7 @@
     {
       "symbol": "TITAN",
       "direction": "SHORT",
-      "entry_price": 5164.6,
+      "entry_price": 5164.0,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 175,
       "lots_open": 2,
@@ -168,7 +168,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 74.60194044035913,
       "strike": 5100.0,
-      "margin_blocked": 361522.00000000006,
+      "margin_blocked": 361480.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -190,7 +190,7 @@
     {
       "symbol": "HINDALCO",
       "direction": "SHORT",
-      "entry_price": 1079.9,
+      "entry_price": 1081.35,
       "entry_time": "2026-08-11 10:35:44",
       "lot_size": 700,
       "lots_open": 2,
@@ -198,14 +198,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 70.17258499138475,
       "strike": 1060.0,
-      "margin_blocked": 302372.00000000006,
+      "margin_blocked": 302777.99999999994,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "HINDZINC",
       "direction": "SHORT",
-      "entry_price": 611.1,
+      "entry_price": 610.3,
       "entry_time": "2026-08-11 10:35:44",
       "lot_size": 1225,
       "lots_open": 1,
@@ -213,7 +213,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 70.6940625578262,
       "strike": 600.0,
-      "margin_blocked": 149719.5,
+      "margin_blocked": 149523.5,
       "closed_legs": [
         {
           "lots": 1,
@@ -228,7 +228,7 @@
     {
       "symbol": "DIVISLAB",
       "direction": "SHORT",
-      "entry_price": 8595.5,
+      "entry_price": 8586.5,
       "entry_time": "2026-08-11 13:13:36",
       "lot_size": 100,
       "lots_open": 2,
@@ -236,14 +236,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 76.43620521513301,
       "strike": 8500.0,
-      "margin_blocked": 343820.0,
+      "margin_blocked": 343460.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "PAYTM",
       "direction": "SHORT",
-      "entry_price": 1633.0,
+      "entry_price": 1631.7,
       "entry_time": "2026-08-11 13:13:36",
       "lot_size": 725,
       "lots_open": 2,
@@ -251,14 +251,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 83.96314854086404,
       "strike": 1600.0,
-      "margin_blocked": 473570.0,
+      "margin_blocked": 473193.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "NATIONALUM",
       "direction": "SHORT",
-      "entry_price": 422.1,
+      "entry_price": 423.0,
       "entry_time": "2026-08-12 10:55:06",
       "lot_size": 1875,
       "lots_open": 1,
@@ -266,7 +266,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 77.24194393596278,
       "strike": 420.0,
-      "margin_blocked": 158287.5,
+      "margin_blocked": 158625.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -281,7 +281,7 @@
     {
       "symbol": "FORTIS",
       "direction": "LONG",
-      "entry_price": 897.2,
+      "entry_price": 898.55,
       "entry_time": "2026-08-12 11:32:07",
       "lot_size": 775,
       "lots_open": 2,
@@ -289,14 +289,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 32.89235373282435,
       "strike": 880.0,
-      "margin_blocked": 278132.0,
+      "margin_blocked": 278550.5,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "PNB",
       "direction": "SHORT",
-      "entry_price": 120.06,
+      "entry_price": 120.0,
       "entry_time": "2026-08-12 15:32:07",
       "lot_size": 8000,
       "lots_open": 2,
@@ -304,14 +304,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 73.32882279101337,
       "strike": 120.0,
-      "margin_blocked": 384192.0,
+      "margin_blocked": 384000.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "RADICO",
       "direction": "SHORT",
-      "entry_price": 4644.4,
+      "entry_price": 4640.2,
       "entry_time": "2026-08-13 10:58:24",
       "lot_size": 150,
       "lots_open": 2,
@@ -319,14 +319,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 76.25556630949508,
       "strike": 4600.0,
-      "margin_blocked": 278664.0,
+      "margin_blocked": 278412.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "GODREJCP",
       "direction": "LONG",
-      "entry_price": 940.0,
+      "entry_price": 939.6,
       "entry_time": "2026-08-13 12:02:11",
       "lot_size": 500,
       "lots_open": 2,
@@ -334,14 +334,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 25.066410514938,
       "strike": 920.0,
-      "margin_blocked": 188000.0,
+      "margin_blocked": 187920.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "ASTRAL",
       "direction": "SHORT",
-      "entry_price": 1557.0,
+      "entry_price": 1555.9,
       "entry_time": "2026-08-13 13:02:06",
       "lot_size": 425,
       "lots_open": 2,
@@ -349,7 +349,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 72.35931097380461,
       "strike": 1600.0,
-      "margin_blocked": 264690.0,
+      "margin_blocked": 264503.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -371,7 +371,7 @@
     {
       "symbol": "LAURUSLABS",
       "direction": "SHORT",
-      "entry_price": 1824.1,
+      "entry_price": 1824.0,
       "entry_time": "2026-08-14 11:03:02",
       "lot_size": 850,
       "lots_open": 2,
@@ -379,14 +379,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 72.13808682635022,
       "strike": 1840.0,
-      "margin_blocked": 620194.0,
+      "margin_blocked": 620160.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "NBCC",
       "direction": "LONG",
-      "entry_price": 91.05,
+      "entry_price": 90.74,
       "entry_time": "2026-08-14 11:03:02",
       "lot_size": 6500,
       "lots_open": 2,
@@ -394,14 +394,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 31.935910291841083,
       "strike": 90.0,
-      "margin_blocked": 236730.0,
+      "margin_blocked": 235924.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "SOLARINDS",
       "direction": "SHORT",
-      "entry_price": 20466.0,
+      "entry_price": 20336.0,
       "entry_time": "2026-08-14 11:32:11",
       "lot_size": 50,
       "lots_open": 2,
@@ -409,14 +409,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 71.0778511800354,
       "strike": 20000.0,
-      "margin_blocked": 409320.0,
+      "margin_blocked": 406720.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "PIIND",
       "direction": "LONG",
-      "entry_price": 2445.7,
+      "entry_price": 2450.8,
       "entry_time": "2026-08-14 12:02:15",
       "lot_size": 175,
       "lots_open": 2,
@@ -424,14 +424,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 31.027812795173332,
       "strike": 2500.0,
-      "margin_blocked": 171198.99999999997,
+      "margin_blocked": 171556.00000000003,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "HAVELLS",
       "direction": "SHORT",
-      "entry_price": 1317.5,
+      "entry_price": 1318.0,
       "entry_time": "2026-08-14 13:02:16",
       "lot_size": 500,
       "lots_open": 2,
@@ -439,14 +439,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 71.13763592977051,
       "strike": 1300.0,
-      "margin_blocked": 263500.0,
+      "margin_blocked": 263600.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "LUPIN",
       "direction": "LONG",
-      "entry_price": 2271.0,
+      "entry_price": 2272.9,
       "entry_time": "2026-08-14 15:02:19",
       "lot_size": 425,
       "lots_open": 2,
@@ -454,14 +454,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 30.62535403592699,
       "strike": 2260.0,
-      "margin_blocked": 386070.0,
+      "margin_blocked": 386393.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "COALINDIA",
       "direction": "LONG",
-      "entry_price": 407.0,
+      "entry_price": 406.85,
       "entry_time": "2026-08-17 10:31:52",
       "lot_size": 1350,
       "lots_open": 2,
@@ -469,7 +469,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 30.93531936823159,
       "strike": 410.0,
-      "margin_blocked": 219780.0,
+      "margin_blocked": 219699.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -499,7 +499,7 @@
     {
       "symbol": "COLPAL",
       "direction": "LONG",
-      "entry_price": 1932.3,
+      "entry_price": 1926.1,
       "entry_time": "2026-08-18 09:55:21",
       "lot_size": 275,
       "lots_open": 2,
@@ -507,14 +507,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 29.48005734827298,
       "strike": 1900.0,
-      "margin_blocked": 212553.0,
+      "margin_blocked": 211871.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "BSE",
       "direction": "LONG",
-      "entry_price": 3301.9,
+      "entry_price": 3304.5,
       "entry_time": "2026-08-18 10:32:12",
       "lot_size": 200,
       "lots_open": 2,
@@ -522,14 +522,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 31.393331116027227,
       "strike": 3300.0,
-      "margin_blocked": 264152.0,
+      "margin_blocked": 264360.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "GMRAIRPORT",
       "direction": "LONG",
-      "entry_price": 102.5,
+      "entry_price": 102.41,
       "entry_time": "2026-08-18 11:02:02",
       "lot_size": 6975,
       "lots_open": 2,
@@ -537,14 +537,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 31.359843009207694,
       "strike": 101.0,
-      "margin_blocked": 285975.0,
+      "margin_blocked": 285723.9,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "BOSCHLTD",
       "direction": "SHORT",
-      "entry_price": 49195.0,
+      "entry_price": 49155.0,
       "entry_time": "2026-08-18 14:01:26",
       "lot_size": 25,
       "lots_open": 2,
@@ -552,14 +552,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 81.15927532619531,
       "strike": 49000.0,
-      "margin_blocked": 491950.0,
+      "margin_blocked": 491550.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "POLICYBZR",
       "direction": "SHORT",
-      "entry_price": 1808.4,
+      "entry_price": 1805.5,
       "entry_time": "2026-08-19 13:31:46",
       "lot_size": 350,
       "lots_open": 2,
@@ -567,14 +567,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 70.38254378807223,
       "strike": 1800.0,
-      "margin_blocked": 253176.0,
+      "margin_blocked": 252770.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "PAGEIND",
       "direction": "LONG",
-      "entry_price": 36060.0,
+      "entry_price": 35905.0,
       "entry_time": "2026-08-19 15:31:55",
       "lot_size": 20,
       "lots_open": 2,
@@ -582,14 +582,14 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 27.233477130751297,
       "strike": 35000.0,
-      "margin_blocked": 288480.0,
+      "margin_blocked": 287240.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
     {
       "symbol": "COFORGE",
       "direction": "SHORT",
-      "entry_price": 1900.1,
+      "entry_price": 1900.0,
       "entry_time": "2026-08-20 11:01:48",
       "lot_size": 475,
       "lots_open": 2,
@@ -597,7 +597,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 72.120554323546,
       "strike": 1900.0,
-      "margin_blocked": 361019.0,
+      "margin_blocked": 361000.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -619,7 +619,7 @@
     {
       "symbol": "SHREECEM",
       "direction": "LONG",
-      "entry_price": 24030.0,
+      "entry_price": 24100.0,
       "entry_time": "2026-08-21 11:02:20",
       "lot_size": 25,
       "lots_open": 2,
@@ -627,7 +627,7 @@
       "expiry": "2026-10-27",
       "rsi_at_entry": 30.90683854681869,
       "strike": 24000.0,
-      "margin_blocked": 240300.0,
+      "margin_blocked": 241000.0,
       "closed_legs": [],
       "priced_on": "futures"
     }

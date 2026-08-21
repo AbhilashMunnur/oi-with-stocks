@@ -111,6 +111,7 @@ class AngelOneClient:
         self._ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
         self._fut_daily_cache: dict[str, list[tuple[str, float]]] = {}
         self._fut_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
+        self._eq_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
         self._cache_date: date | None = None
 
         self.login()
@@ -361,18 +362,33 @@ class AngelOneClient:
     def futures_price_at(
         self, symbol: str, when: datetime, month_index: int = 3
     ) -> float | None:
-        """3rd-month futures print at `when` (5-min bar in session, else daily close)."""
+        """NSE 3rd-month futures print at `when`.
+
+        Uses the last NFO 1-minute trade at or before the stamp. If that
+        trade is more than two minutes stale in session, cash–fut basis from
+        that minute is applied to NSE cash at the stamp (far-month is thin).
+        After hours, last session trade of that day (not BSE).
+        """
+        trade = self._last_nfo_trade(symbol, when, month_index)
+        if trade is None:
+            return self.futures_daily_close(symbol, when.date(), month_index)
+
+        ts, fut_px = trade
         minutes = when.hour * 60 + when.minute
         in_session = (9 * 60 + 15) <= minutes <= (15 * 60 + 30)
-        if in_session:
-            print_px = self._futures_intraday_at(symbol, when, month_index)
-            if print_px is not None:
-                return print_px
-        return self.futures_daily_close(symbol, when.date(), month_index)
+        lag = (when - ts).total_seconds()
+        if (not in_session) or lag <= 120:
+            return fut_px
 
-    def _futures_intraday_at(
+        cash_now = self.equity_price_at(symbol, when)
+        cash_then = self.equity_price_at(symbol, ts)
+        if cash_now and cash_then:
+            return round(cash_now + (fut_px - cash_then), 2)
+        return fut_px
+
+    def _last_nfo_trade(
         self, symbol: str, when: datetime, month_index: int
-    ) -> float | None:
+    ) -> tuple[datetime, float] | None:
         contract = self.futures_contract(
             symbol, month_index=month_index, as_of=when.date()
         )
@@ -383,7 +399,34 @@ class AngelOneClient:
         if series is None:
             series = self._fetch_futures_intraday(contract, when.date())
             self._fut_intraday_cache[key] = series
-        prior = [close for ts, close in series if ts <= when]
+        prior = [(ts, px) for ts, px in series if ts <= when]
+        if prior:
+            return prior[-1]
+        return series[0] if series else None
+
+    def _futures_intraday_at(
+        self, symbol: str, when: datetime, month_index: int
+    ) -> float | None:
+        trade = self._last_nfo_trade(symbol, when, month_index)
+        return trade[1] if trade else None
+
+    def equity_price_at(self, symbol: str, when: datetime) -> float | None:
+        """NSE cash last 1-minute close at or before `when`."""
+        symbol = symbol.upper()
+        self._load_instruments()
+        eq_token = (self._equity_tokens or {}).get(symbol)
+        if not eq_token:
+            return None
+        key = f"NSE:{eq_token}:{when.date().isoformat()}"
+        series = self._eq_intraday_cache.get(key)
+        if series is None:
+            series = self._fetch_interval("NSE", eq_token, "ONE_MINUTE", when.date())
+            if not series:
+                series = self._fetch_interval(
+                    "NSE", eq_token, "FIVE_MINUTE", when.date()
+                )
+            self._eq_intraday_cache[key] = series
+        prior = [px for ts, px in series if ts <= when]
         if prior:
             return prior[-1]
         return series[0][1] if series else None
@@ -391,20 +434,32 @@ class AngelOneClient:
     def _fetch_futures_intraday(
         self, contract: StockFuture, on: date
     ) -> list[tuple[datetime, float]]:
+        rows = self._fetch_interval(
+            contract.exchange, contract.token, "ONE_MINUTE", on
+        )
+        if not rows:
+            rows = self._fetch_interval(
+                contract.exchange, contract.token, "FIVE_MINUTE", on
+            )
+        return rows
+
+    def _fetch_interval(
+        self, exchange: str, token: str, interval: str, on: date
+    ) -> list[tuple[datetime, float]]:
         try:
             response = self._call(
                 self._candle_throttle,
                 "getCandleData",
                 {
-                    "exchange": contract.exchange,
-                    "symboltoken": contract.token,
-                    "interval": "FIVE_MINUTE",
+                    "exchange": exchange,
+                    "symboltoken": token,
+                    "interval": interval,
                     "fromdate": f"{on.isoformat()} 09:15",
                     "todate": f"{on.isoformat()} 15:30",
                 },
             )
         except Exception as exc:
-            print(f"  {contract.nfo_symbol}: fut 5-min unavailable ({exc})")
+            print(f"  {exchange} {token} {interval} unavailable ({exc})")
             return []
 
         rows: list[tuple[datetime, float]] = []
@@ -412,7 +467,9 @@ class AngelOneClient:
             if len(row) < 5:
                 continue
             try:
-                ts = datetime.strptime(str(row[0]).replace("T", " ")[:19], "%Y-%m-%d %H:%M:%S")
+                ts = datetime.strptime(
+                    str(row[0]).replace("T", " ")[:19], "%Y-%m-%d %H:%M:%S"
+                )
             except ValueError:
                 continue
             rows.append((ts, float(row[4])))
