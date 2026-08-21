@@ -16,7 +16,7 @@ if str(ROOT) not in sys.path:
 
 from src.config import load_config
 from src.data.base import MarketDataError
-from src.scan_slots import should_run_slot, write_last_slot
+from src.scan_slots import now_ist, should_run_slot, write_last_slot
 from src.scanner import OIRsiScanner
 
 
@@ -100,6 +100,15 @@ def main() -> None:
     try:
         with scanner:
             if args.once:
+                if args.slot_guard and slot is not None:
+                    remaining = (slot - now_ist()).total_seconds()
+                    if remaining > 1:
+                        print(
+                            f"Warmup: sleeping {int(remaining)}s until "
+                            f"{slot:%H:%M} IST so Telegram can leave by "
+                            f"{slot.strftime('%H:%M')} + 5 minutes."
+                        )
+                        time.sleep(remaining)
                 scanner.run_once()
                 if args.slot_guard and slot is not None:
                     write_last_slot(slot)

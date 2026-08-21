@@ -5,10 +5,14 @@ name: OI + RSI scan
 # 1) Poll every 5 minutes + exact :00/:30 crons during the IST session
 # 2) Never cancel an in-flight scan (slot guard skips duplicates instead)
 # 3) Early slot guard before pip install so skip-runs finish in seconds
-# 4) Optional self-chain via SCAN_DISPATCH_TOKEN (see scripts/setup_scan_cron.sh)
-# 5) repository_dispatch for external cron-job.org backup
+# 4) Warmup 5 minutes before the slot so pip/login finish by :00/:30
+# 5) Chain wait lives in a separate job so it cannot block the next scan
+# 6) Optional self-chain via SCAN_DISPATCH_TOKEN (see scripts/setup_scan_cron.sh)
+# 7) repository_dispatch for external cron-job.org backup
 on:
   schedule:
+    # 09:25 IST warmup for the 09:30 open (03:55 UTC)
+    - cron: "55 3 * * 1-5"
     # Dense polls — catch late runners for the current half-hour slot
     - cron: "*/5 4-9 * * 1-5"
     - cron: "0,5,10,15 10 * * 1-5"
@@ -19,17 +23,16 @@ on:
   repository_dispatch:
     types: [oi-scan]
 
-concurrency:
-  group: oi-rsi-scan
-  # IMPORTANT: do not cancel running scans. A new 5-minute poll used to kill
-  # the previous job mid-scan, which looked like "missed" Telegram alerts.
-  cancel-in-progress: false
-
 jobs:
   scan:
     runs-on: ubuntu-latest
-    # Allow waiting until the next half-hour slot when self-chaining.
-    timeout-minutes: 55
+    timeout-minutes: 20
+    outputs:
+      chain: ${{ steps.slot.outputs.chain }}
+    concurrency:
+      group: oi-rsi-scan
+      # Do not cancel a running scan. Slot guard skips duplicates instead.
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
@@ -61,7 +64,6 @@ jobs:
           if slot is not None:
               print(f"slot={slot.isoformat()}")
 
-          # Whether a later slot still exists today (recomputed again before sleep).
           chain = seconds_until_next_slot() is not None
           print(f"chain={chain}")
 
@@ -91,6 +93,8 @@ jobs:
         with:
           path: .cache
           key: market-data-${{ steps.today.outputs.date }}
+          restore-keys: |
+            market-data-
 
       - name: Cache status
         if: steps.slot.outputs.run == 'true'
@@ -109,7 +113,7 @@ jobs:
 
       - name: Run scan
         if: steps.slot.outputs.run == 'true'
-        timeout-minutes: 25
+        timeout-minutes: 12
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger
@@ -132,11 +136,24 @@ jobs:
           echo "Could not push the ledger after 3 attempts."
           exit 1
 
-      # Once the session is kicked off, keep half-hour slots alive even when
-      # GitHub's schedule goes quiet. Needs repo secret SCAN_DISPATCH_TOKEN
-      # (PAT with public_repo scope). Setup: scripts/setup_scan_cron.sh
-      - name: Chain next half-hour slot
-        if: always() && steps.slot.outputs.chain == 'true'
+  # Sleeps until 5 minutes before the next slot, then dispatches. Separate
+  # concurrency group so this wait cannot queue (and delay) the next scan.
+  chain:
+    needs: scan
+    if: always() && needs.scan.result != 'cancelled' && needs.scan.outputs.chain == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    concurrency:
+      group: oi-rsi-chain
+      cancel-in-progress: true
+    permissions:
+      contents: read
+    env:
+      TZ: Asia/Kolkata
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dispatch next slot with warmup
         env:
           GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
         run: |
@@ -147,8 +164,8 @@ jobs:
           fi
 
           WAIT_SECONDS=$(python3 - <<'PY'
-          from src.scan_slots import seconds_until_next_slot
-          wait = seconds_until_next_slot()
+          from src.scan_slots import seconds_until_warmup_dispatch
+          wait = seconds_until_warmup_dispatch()
           print(0 if wait is None else int(wait))
           PY
           )
@@ -158,13 +175,8 @@ jobs:
             exit 0
           fi
 
-          # Stay inside the 55-minute job timeout with margin for the next scan.
-          if [ "$WAIT_SECONDS" -gt 2400 ]; then
-            WAIT_SECONDS=2400
-          fi
-
-          echo "Waiting ${WAIT_SECONDS}s for the next IST slot, then dispatching oi-scan..."
+          echo "Waiting ${WAIT_SECONDS}s, then dispatching warmup for the next IST slot..."
           sleep "$WAIT_SECONDS"
           gh api --method POST "repos/${{ github.repository }}/dispatches" \
             -f event_type='oi-scan'
-          echo "Dispatched oi-scan for the next slot."
+          echo "Dispatched oi-scan warmup for the next slot."

@@ -498,6 +498,12 @@ class OIRsiScanner:
                 f"({delivered}/{len(self.notifier.chat_ids)} recipient(s))."
             )
 
+    def _emit_telegram(self, batch: list[ScanAlert], label: str) -> None:
+        if not batch:
+            return
+        self.notifier.notify(batch)
+        print(f"  {label} Telegram sent at {datetime.now():%H:%M:%S}")
+
     def _run_paper_trading(
         self,
         alerts: list[ScanAlert],
@@ -558,6 +564,19 @@ class OIRsiScanner:
                 if s1_alert:
                     alerts.append(s1_alert)
 
+        rsi_batch = [
+            a
+            for a in alerts
+            if a.signal
+            in (
+                SignalType.CALL_OI,
+                SignalType.PUT_OI,
+                SignalType.CALL_OI_S1,
+                SignalType.PUT_OI_S1,
+            )
+        ]
+        self._emit_telegram(rsi_batch, "RSI+OI")
+
         if self.config.supertrend.enabled:
             st_cfg = self.config.supertrend
             print(
@@ -595,9 +614,14 @@ class OIRsiScanner:
                     st_hits += 1
             print(f"  {st_hits} Supertrend + OI alert(s)")
 
-        if alerts:
-            self.notifier.notify(alerts)
-        else:
+        st_batch = [
+            a
+            for a in alerts
+            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
+        ]
+        self._emit_telegram(st_batch, "Supertrend+OI")
+
+        if not alerts:
             print("\nNo alerts this scan.")
 
         self._run_paper_trading(alerts, prices, rsi_values)

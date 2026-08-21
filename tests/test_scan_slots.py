@@ -6,6 +6,7 @@ from src.scan_slots import (
     is_s1_wall_exit_slot,
     iter_slots_for_day,
     seconds_until_next_slot,
+    seconds_until_warmup_dispatch,
     should_run_slot,
     write_last_slot,
 )
@@ -96,6 +97,55 @@ def test_fifteen_slot_still_runs_after_three_oclock_completed(tmp_path):
 def test_seconds_until_next_slot_none_after_last():
     now = datetime(2026, 8, 11, 15, 35, tzinfo=IST)
     assert seconds_until_next_slot(now) is None
+
+
+def test_warmup_starts_five_minutes_before_the_next_slot(tmp_path):
+    marker = tmp_path / "last_scan_slot.txt"
+    write_last_slot(
+        active_slot(datetime(2026, 8, 11, 9, 35, tzinfo=IST)), marker
+    )
+    run, reason, slot = should_run_slot(
+        now=datetime(2026, 8, 11, 9, 56, tzinfo=IST), path=marker
+    )
+    assert run is True
+    assert slot.strftime("%H:%M") == "10:00"
+    assert "warmup" in reason
+
+
+def test_too_early_for_warmup_is_skipped(tmp_path):
+    marker = tmp_path / "last_scan_slot.txt"
+    write_last_slot(
+        active_slot(datetime(2026, 8, 11, 9, 35, tzinfo=IST)), marker
+    )
+    run, reason, _ = should_run_slot(
+        now=datetime(2026, 8, 11, 9, 50, tzinfo=IST), path=marker
+    )
+    assert run is False
+    assert "already completed" in reason
+
+
+def test_open_warmup_before_nine_thirty(tmp_path):
+    marker = tmp_path / "last_scan_slot.txt"
+    run, reason, slot = should_run_slot(
+        now=datetime(2026, 8, 11, 9, 26, tzinfo=IST), path=marker
+    )
+    assert run is True
+    assert slot.strftime("%H:%M") == "09:30"
+    assert "warmup" in reason
+
+
+def test_unpaid_current_slot_beats_next_warmup(tmp_path):
+    marker = tmp_path / "last_scan_slot.txt"
+    run, _, slot = should_run_slot(
+        now=datetime(2026, 8, 11, 9, 56, tzinfo=IST), path=marker
+    )
+    assert run is True
+    assert slot.strftime("%H:%M") == "09:30"
+
+
+def test_seconds_until_warmup_dispatch():
+    now = datetime(2026, 8, 11, 10, 4, tzinfo=IST)
+    assert seconds_until_warmup_dispatch(now) == 21 * 60
 
 
 def test_s1_wall_exit_starts_at_three_fifteen():

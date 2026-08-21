@@ -9,6 +9,9 @@ FIRST_SLOT = time(9, 30)
 LAST_SLOT = time(15, 30)
 S1_WALL_EXIT_SLOT = time(15, 15)
 DEFAULT_MARKER = Path("data/last_scan_slot.txt")
+# Start the GitHub job this many seconds before the slot so pip / login / the
+# scrip master are done by :00/:30. Telegram should then land within ~5 minutes.
+WARMUP_SECONDS = 5 * 60
 
 
 def now_ist(now: datetime | None = None) -> datetime:
@@ -57,6 +60,33 @@ def write_last_slot(slot: datetime, path: Path = DEFAULT_MARKER) -> None:
     path.write_text(slot.isoformat(), encoding="utf-8")
 
 
+def target_scan_slot(
+    *,
+    now: datetime | None = None,
+    path: Path = DEFAULT_MARKER,
+    warmup_seconds: int = WARMUP_SECONDS,
+) -> datetime | None:
+    """Unpaid slot this run should serve, including the next one during warmup.
+
+    An unpaid current slot always wins (a late 09:30 still runs at 09:56).
+    Otherwise, if the next slot is within `warmup_seconds`, return that so the
+    runner can install deps and log in before the clock hits the slot.
+    """
+    current = now_ist(now)
+    due = active_slot(current)
+    if due is not None and read_last_slot(path) != due.isoformat():
+        return due
+
+    for slot in iter_slots_for_day(current):
+        if slot <= current:
+            continue
+        if (slot - current).total_seconds() <= warmup_seconds:
+            if read_last_slot(path) != slot.isoformat():
+                return slot
+        break
+    return None
+
+
 def should_run_slot(
     *,
     force: bool = False,
@@ -67,14 +97,16 @@ def should_run_slot(
     if force:
         return True, "forced", active_slot(now)
 
-    slot = active_slot(now)
+    slot = target_scan_slot(now=now, path=path)
     if slot is None:
+        current = active_slot(now)
+        if current is not None and read_last_slot(path) == current.isoformat():
+            return False, f"slot {current:%H:%M} IST already completed", current
         return False, "outside 09:30–15:30 IST scan slots", None
 
-    marker = slot.isoformat()
-    if read_last_slot(path) == marker:
-        return False, f"slot {slot:%H:%M} IST already completed", slot
-
+    current = now_ist(now)
+    if slot > current:
+        return True, f"warmup for slot {slot:%H:%M} IST", slot
     return True, f"due for slot {slot:%H:%M} IST", slot
 
 
@@ -109,3 +141,14 @@ def seconds_until_next_slot(now: datetime | None = None) -> int | None:
         if slot > current:
             return max(1, int((slot - current).total_seconds()))
     return None
+
+
+def seconds_until_warmup_dispatch(
+    now: datetime | None = None,
+    warmup_seconds: int = WARMUP_SECONDS,
+) -> int | None:
+    """Seconds to wait before dispatching the next slot's warmup job."""
+    wait = seconds_until_next_slot(now)
+    if wait is None:
+        return None
+    return max(1, wait - warmup_seconds)

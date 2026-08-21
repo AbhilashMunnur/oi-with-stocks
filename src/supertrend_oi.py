@@ -46,7 +46,10 @@ def fetch_supertrends(
     atr_period: int,
     multiplier: float,
 ) -> dict[str, tuple[float, str]]:
-    """Daily Supertrend for many NSE symbols via one batched Yahoo download."""
+    """Daily Supertrend for many NSE symbols via one batched Yahoo download.
+
+    Six months is enough for ATR(20); two years was slowing the 5-minute alert window.
+    """
     if not symbols:
         return {}
 
@@ -60,7 +63,7 @@ def fetch_supertrends(
         batch = yahoo_list[start : start + batch_size]
         data = yf.download(
             batch,
-            period="2y",
+            period="6mo",
             interval="1d",
             group_by="ticker",
             threads=True,

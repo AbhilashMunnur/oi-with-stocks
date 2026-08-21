@@ -44,4 +44,8 @@ def download_cached(url: str, filename: str, max_age_seconds: int = 86_400) -> P
             if tmp.exists():
                 tmp.unlink(missing_ok=True)
 
+        if last_error and target.exists():
+            print(f"  download {filename} failed; reusing the cached copy")
+            return target
+
     raise last_error or RuntimeError(f"download failed: {url}")
