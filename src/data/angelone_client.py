@@ -186,8 +186,8 @@ class AngelOneClient:
                 equities[str(row["symbol"])[:-3].upper()] = str(row["token"])
             elif segment == "NFO" and row.get("instrumenttype") == "OPTSTK":
                 options.setdefault(str(row.get("name", "")).upper(), []).append(row)
-            # Monthly stock futures appear under NFO and/or BFO in Angel's master.
-            elif segment in {"NFO", "BFO"} and row.get("instrumenttype") == "FUTSTK":
+            # Paper fills/P&L: NSE stock futures only. Ignore BSE (BFO) copies.
+            elif segment == "NFO" and row.get("instrumenttype") == "FUTSTK":
                 futures.setdefault(str(row.get("name", "")).upper(), []).append(row)
 
         self._equity_tokens = equities
@@ -236,9 +236,8 @@ class AngelOneClient:
     ) -> StockFuture | None:
         """Monthly stock future for the chosen month index.
 
-        Picks the standard NSE symbol in that month (e.g. month_index=3 in
-        August → October) and returns expiry, lot size, and the NFO token so
-        paper P&L can be marked on the future, not cash.
+        Picks the NSE (NFO) contract in that month (e.g. month_index=3 in
+        August → October). BSE futures are never used.
         """
         self._load_instruments()
         rows = (self._futures_rows or {}).get(symbol.upper())
@@ -248,7 +247,6 @@ class AngelOneClient:
         as_of = as_of or date.today()
         target_year, target_month = target_futures_year_month(as_of, month_index)
         nfo: list[dict] = []
-        bfo: list[dict] = []
 
         for row in rows:
             try:
@@ -257,30 +255,23 @@ class AngelOneClient:
                 continue
             if (expiry.year, expiry.month) != (target_year, target_month):
                 continue
-            exchange = str(row.get("exch_seg") or "NFO").upper()
-            if exchange == "BFO":
-                bfo.append(row)
-            else:
-                nfo.append(row)
+            if str(row.get("exch_seg") or "NFO").upper() != "NFO":
+                continue
+            nfo.append(row)
 
-        # NSE stock futures (NFO) are the book. BFO copies have LTP but no history.
-        matches = nfo or bfo
-        if not matches:
+        if not nfo:
             return None
 
         def expiry_of(row: dict) -> date:
             return datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
 
-        row = max(matches, key=expiry_of)
-        exchange = str(row.get("exch_seg") or "NFO").upper()
-        if exchange not in {"NFO", "BFO"}:
-            exchange = "NFO"
+        row = max(nfo, key=expiry_of)
         return StockFuture(
             expiry=expiry_of(row).strftime("%Y-%m-%d"),
             lot_size=int(float(row.get("lotsize") or 0)),
             token=str(row.get("token") or ""),
             nfo_symbol=str(row.get("symbol") or ""),
-            exchange=exchange,
+            exchange="NFO",
         )
 
     def get_futures_ltps(
@@ -297,6 +288,8 @@ class AngelOneClient:
                 symbol, month_index=month_index, as_of=as_of
             )
             if not contract or not contract.token:
+                continue
+            if contract.exchange != "NFO":
                 continue
             by_exchange.setdefault(contract.exchange, {})[contract.token] = symbol.upper()
 

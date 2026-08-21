@@ -526,7 +526,7 @@ class OIRsiScanner:
             if alert.symbol not in fut_prices:
                 print(
                     f"  {alert.symbol}: not opening paper — "
-                    "no 3rd-month futures LTP (scan used NSE cash + current-month OI)"
+                    "no NSE 3rd-month futures LTP (scan used NSE cash + current-month OI)"
                 )
                 continue
             alert.ltp = fut_prices[alert.symbol]

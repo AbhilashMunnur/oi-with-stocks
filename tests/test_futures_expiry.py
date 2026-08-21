@@ -64,7 +64,6 @@ def test_futures_contract_falls_back_when_only_day_prefixed_symbols_exist():
     client._futures_rows = {
         "HAL": [
             {"symbol": "HAL27OCT26FUT", "expiry": "27OCT2026", "lotsize": "150", "token": "a", "exch_seg": "NFO"},
-            {"symbol": "HAL29OCT26FUT", "expiry": "29OCT2026", "lotsize": "150", "token": "b", "exch_seg": "NFO"},
         ]
     }
     client._refresh_for_new_day = lambda: None
@@ -72,9 +71,26 @@ def test_futures_contract_falls_back_when_only_day_prefixed_symbols_exist():
     contract = client.futures_contract("HAL", month_index=3, as_of=date(2026, 8, 10))
 
     assert contract is not None
-    assert contract.expiry == "2026-10-29"
+    assert contract.expiry == "2026-10-27"
     assert contract.lot_size == 150
-    assert contract.token == "b"
+    assert contract.token == "a"
+    assert contract.exchange == "NFO"
+
+
+def test_futures_contract_never_uses_bse_bfo():
+    from src.data.angelone_client import AngelOneClient
+
+    client = AngelOneClient.__new__(AngelOneClient)
+    client._equity_tokens = {"TITAN": "1"}
+    client._option_rows = {}
+    client._futures_rows = {
+        "TITAN": [
+            {"symbol": "TITAN26OCTFUT", "expiry": "29OCT2026", "lotsize": "175", "token": "oct", "exch_seg": "BFO"},
+        ]
+    }
+    client._refresh_for_new_day = lambda: None
+
+    assert client.futures_contract("TITAN", month_index=3, as_of=date(2026, 8, 10)) is None
 
 
 def test_get_futures_ltps_quotes_the_nfo_token():
@@ -86,8 +102,8 @@ def test_get_futures_ltps_quotes_the_nfo_token():
     client._futures_rows = {
         "TITAN": [
             {
-                "symbol": "TITAN26OCTFUT",
-                "expiry": "29OCT2026",
+                "symbol": "TITAN27OCT26FUT",
+                "expiry": "27OCT2026",
                 "lotsize": "175",
                 "token": "oct",
                 "exch_seg": "NFO",
