@@ -24,7 +24,24 @@ def download_cached(url: str, filename: str, max_age_seconds: int = 86_400) -> P
     if target.exists() and (time.time() - target.stat().st_mtime) < max_age_seconds:
         return target
 
-    response = requests.get(url, timeout=120)
-    response.raise_for_status()
-    target.write_bytes(response.content)
-    return target
+    last_error: Exception | None = None
+    for attempt in range(1, 4):
+        tmp = target.with_suffix(target.suffix + ".tmp")
+        try:
+            with requests.get(url, timeout=120, stream=True) as response:
+                response.raise_for_status()
+                with tmp.open("wb") as handle:
+                    for chunk in response.iter_content(chunk_size=256 * 1024):
+                        if chunk:
+                            handle.write(chunk)
+            tmp.replace(target)
+            return target
+        except (requests.RequestException, OSError) as exc:
+            last_error = exc
+            print(f"  download {filename} attempt {attempt}/3 failed: {exc}")
+            time.sleep(2 * attempt)
+        finally:
+            if tmp.exists():
+                tmp.unlink(missing_ok=True)
+
+    raise last_error or RuntimeError(f"download failed: {url}")
