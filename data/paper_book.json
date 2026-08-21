@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -84463.4,
+  "realised_pnl": -22796.9,
   "closed_count": 4,
   "day_date": "2026-08-21",
-  "day_realised_pnl": 107.1,
-  "updated_at": "2026-08-21 14:31:18",
+  "day_realised_pnl": 61773.6,
+  "updated_at": "2026-08-21 15:01:34",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -450,13 +450,21 @@
       "entry_price": 5873.0,
       "entry_time": "2026-08-17 15:31:37",
       "lot_size": 175,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-29",
       "rsi_at_entry": 73.20082391844007,
       "strike": 5900.0,
-      "margin_blocked": 411110.0,
-      "closed_legs": []
+      "margin_blocked": 205555.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 5520.62,
+          "exit_time": "2026-08-21 15:01:34",
+          "reason": "first_target",
+          "pnl": 61666.5
+        }
+      ]
     },
     {
       "symbol": "COLPAL",
