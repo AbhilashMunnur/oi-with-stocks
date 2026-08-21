@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-21",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-21 12:02:27",
+  "updated_at": "2026-08-21 12:32:30",
   "positions": [
     {
       "symbol": "DIVISLAB",
@@ -60,6 +60,20 @@
       "rsi_at_entry": 30.90683854681869,
       "strike": 24000.0,
       "margin_blocked": 363150.0,
+      "closed_legs": []
+    },
+    {
+      "symbol": "PAYTM",
+      "direction": "SHORT",
+      "entry_price": 1627.1,
+      "entry_time": "2026-08-21 12:32:30",
+      "lot_size": 725,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-29",
+      "rsi_at_entry": 71.81011816246365,
+      "strike": 1640.0,
+      "margin_blocked": 707788.5,
       "closed_legs": []
     }
   ]
