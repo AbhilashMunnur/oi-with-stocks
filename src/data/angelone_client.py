@@ -19,6 +19,7 @@ logzero.loglevel(logging.WARNING)
 
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
+from src.data.option_expiry import select_current_month_oi_expiry
 from src.indicators import calculate_rsi
 from src.oi_analyzer import select_active_oi_walls
 from src.paper_trading.futures_expiry import (
@@ -204,8 +205,30 @@ class AngelOneClient:
             if symbol in (self._equity_tokens or {})
         )
 
+    def _oi_expiry_rows(self, symbol: str) -> tuple[str, list[dict]] | None:
+        """Current-month monthly option chain (cash OI for the scan)."""
+        self._load_instruments()
+        contracts = (self._option_rows or {}).get(symbol.upper())
+        if not contracts:
+            return None
+
+        today = date.today()
+        by_expiry: dict[date, list[dict]] = {}
+        for row in contracts:
+            try:
+                expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+            except (KeyError, ValueError):
+                continue
+            if expiry >= today:
+                by_expiry.setdefault(expiry, []).append(row)
+
+        chosen = select_current_month_oi_expiry(list(by_expiry), today)
+        if chosen is None:
+            return None
+        return chosen.strftime("%Y-%m-%d"), by_expiry[chosen]
+
     def lot_size(self, symbol: str) -> int:
-        nearest = self._nearest_expiry_rows(symbol)
+        nearest = self._oi_expiry_rows(symbol)
         if not nearest:
             return 0
         return int(float(nearest[1][0].get("lotsize") or 0))
@@ -320,28 +343,6 @@ class AngelOneClient:
             if abs(strike - price) / price * 100 <= band_pct:
                 kept.append(row)
         return kept or contracts
-
-    def _nearest_expiry_rows(self, symbol: str) -> tuple[str, list[dict]] | None:
-        self._load_instruments()
-        contracts = (self._option_rows or {}).get(symbol.upper())
-        if not contracts:
-            return None
-
-        today = date.today()
-        by_expiry: dict[date, list[dict]] = {}
-        for row in contracts:
-            try:
-                expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
-            except (KeyError, ValueError):
-                continue
-            if expiry >= today:
-                by_expiry.setdefault(expiry, []).append(row)
-
-        if not by_expiry:
-            return None
-
-        nearest = min(by_expiry)
-        return nearest.strftime("%Y-%m-%d"), by_expiry[nearest]
 
     # ------------------------------------------------------------------ #
     # Requests
@@ -639,7 +640,7 @@ class AngelOneClient:
 
     def get_oi_snapshot(self, symbol: str, ltp: float = 0.0) -> OISnapshot | None:
         symbol = symbol.upper()
-        nearest = self._nearest_expiry_rows(symbol)
+        nearest = self._oi_expiry_rows(symbol)
         if not nearest:
             print(f"  {symbol}: no stock options listed")
             return None
@@ -710,7 +711,7 @@ class AngelOneClient:
         if target_price <= 0:
             return None
 
-        nearest = self._nearest_expiry_rows(symbol)
+        nearest = self._oi_expiry_rows(symbol)
         if not nearest:
             return None
 

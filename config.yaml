@@ -63,6 +63,7 @@ paper_trading:
   second_lot_stop_pct: 1.0  # After booking 1 lot at 6%, SL on the rest = 1% from entry
   margin_pct: 20.0          # Approximate futures margin as a % of notional
   # Paper futures month: 1 = current, 3 = far month (August → October).
+# Scan uses NSE cash + current-month option OI; fills are this futures month.
   futures_month: 3
   ledger_path: data/paper_book.json     # Open positions and running P&L
   journal_csv: data/paper_trades.csv    # One row per closed trade

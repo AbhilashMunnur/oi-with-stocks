@@ -492,16 +492,26 @@ class OIRsiScanner:
 
         fut_prices = self._futures_paper_prices(book, alerts)
         events = book.rebase_entries_to_futures(fut_prices)
+
+        paper_alerts: list[ScanAlert] = []
         for alert in alerts:
-            if alert.symbol in fut_prices:
-                alert.ltp = fut_prices[alert.symbol]
+            if alert.skip_reason:
+                continue
+            if alert.symbol not in fut_prices:
+                print(
+                    f"  {alert.symbol}: not opening paper — "
+                    "no 3rd-month futures LTP (scan used NSE cash + current-month OI)"
+                )
+                continue
+            alert.ltp = fut_prices[alert.symbol]
+            paper_alerts.append(alert)
 
         events += book.update(fut_prices, rsi_values=rsi_values)
         if book is self.s1_book and is_s1_wall_exit_slot():
             events += self._exit_s1_broken_walls(
                 book, prices, fut_prices, rsi_values
             )
-        events += book.open_from_alerts(alerts)
+        events += book.open_from_alerts(paper_alerts)
         book.save()
 
         logged = book.flush_journal()
