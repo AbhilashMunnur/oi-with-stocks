@@ -99,7 +99,20 @@ def test_seconds_until_next_slot_none_after_last():
     assert seconds_until_next_slot(now) is None
 
 
-def test_warmup_starts_five_minutes_before_the_next_slot(tmp_path):
+def test_ten_minute_warmup_starts_at_ten_fifty(tmp_path):
+    marker = tmp_path / "last_scan_slot.txt"
+    write_last_slot(
+        active_slot(datetime(2026, 8, 11, 10, 35, tzinfo=IST)), marker
+    )
+    run, reason, slot = should_run_slot(
+        now=datetime(2026, 8, 11, 10, 50, tzinfo=IST), path=marker
+    )
+    assert run is True
+    assert slot.strftime("%H:%M") == "11:00"
+    assert "warmup" in reason
+
+
+def test_warmup_inside_ten_minute_window(tmp_path):
     marker = tmp_path / "last_scan_slot.txt"
     write_last_slot(
         active_slot(datetime(2026, 8, 11, 9, 35, tzinfo=IST)), marker
@@ -118,7 +131,7 @@ def test_too_early_for_warmup_is_skipped(tmp_path):
         active_slot(datetime(2026, 8, 11, 9, 35, tzinfo=IST)), marker
     )
     run, reason, _ = should_run_slot(
-        now=datetime(2026, 8, 11, 9, 50, tzinfo=IST), path=marker
+        now=datetime(2026, 8, 11, 9, 45, tzinfo=IST), path=marker
     )
     assert run is False
     assert "already completed" in reason
@@ -145,7 +158,7 @@ def test_unpaid_current_slot_beats_next_warmup(tmp_path):
 
 def test_seconds_until_warmup_dispatch():
     now = datetime(2026, 8, 11, 10, 4, tzinfo=IST)
-    assert seconds_until_warmup_dispatch(now) == 21 * 60
+    assert seconds_until_warmup_dispatch(now) == 16 * 60
 
 
 def test_s1_wall_exit_starts_at_three_fifteen():

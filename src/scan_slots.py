@@ -11,7 +11,7 @@ S1_WALL_EXIT_SLOT = time(15, 15)
 DEFAULT_MARKER = Path("data/last_scan_slot.txt")
 # Start the GitHub job this many seconds before the slot so pip / login / the
 # scrip master are done by :00/:30. Telegram should then land within ~5 minutes.
-WARMUP_SECONDS = 5 * 60
+WARMUP_SECONDS = 10 * 60
 
 
 def now_ist(now: datetime | None = None) -> datetime:

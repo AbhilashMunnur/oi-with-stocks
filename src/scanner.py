@@ -502,7 +502,8 @@ class OIRsiScanner:
         if not batch:
             return
         self.notifier.notify(batch)
-        print(f"  {label} Telegram sent at {datetime.now():%H:%M:%S}")
+        if self.notifier.telegram_ready:
+            print(f"  {label} Telegram sent at {datetime.now():%H:%M:%S}")
 
     def _run_paper_trading(
         self,

@@ -5,14 +5,14 @@ name: OI + RSI scan
 # 1) Poll every 5 minutes + exact :00/:30 crons during the IST session
 # 2) Never cancel an in-flight scan (slot guard skips duplicates instead)
 # 3) Early slot guard before pip install so skip-runs finish in seconds
-# 4) Warmup 5 minutes before the slot so pip/login finish by :00/:30
+# 4) Warmup 10 minutes before the slot so pip/login finish by :00/:30
 # 5) Chain wait lives in a separate job so it cannot block the next scan
 # 6) Optional self-chain via SCAN_DISPATCH_TOKEN (see scripts/setup_scan_cron.sh)
 # 7) repository_dispatch for external cron-job.org backup
 on:
   schedule:
-    # 09:25 IST warmup for the 09:30 open (03:55 UTC)
-    - cron: "55 3 * * 1-5"
+    # 09:20 IST warmup for the 09:30 open (03:50 UTC)
+    - cron: "50,55 3 * * 1-5"
     # Dense polls — catch late runners for the current half-hour slot
     - cron: "*/5 4-9 * * 1-5"
     - cron: "0,5,10,15 10 * * 1-5"
@@ -136,7 +136,7 @@ jobs:
           echo "Could not push the ledger after 3 attempts."
           exit 1
 
-  # Sleeps until 5 minutes before the next slot, then dispatches. Separate
+  # Sleeps until 10 minutes before the next slot, then dispatches. Separate
   # concurrency group so this wait cannot queue (and delay) the next scan.
   chain:
     needs: scan

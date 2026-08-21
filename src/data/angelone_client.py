@@ -33,6 +33,10 @@ SCRIP_MASTER_URL = (
 # Quotes accept 50 tokens per request at 1 request/second.
 MAX_TOKENS_PER_REQUEST = 50
 QUOTE_INTERVAL_SECONDS = 1.05
+# Drop deep OTM strikes before quoting. Max OI walls we trade sit near spot;
+# skipping the far tails cuts several quote batches per name.
+OI_SNAPSHOT_BAND_PCT = 25.0
+OI_STRIKE_BAND_PCT = 8.0
 
 # Angel's published candle limit is higher, but hosted runners hit AB1021
 # quickly if we push it — stay near 1 request/second and back off hard.
@@ -236,6 +240,21 @@ class AngelOneClient:
 
         expiry, lot = max(matches, key=lambda item: item[0])
         return expiry.strftime("%Y-%m-%d"), lot
+
+    def _contracts_near_price(
+        self, contracts: list[dict], price: float, band_pct: float
+    ) -> list[dict]:
+        """Keep option rows whose strike is within `band_pct` of `price`."""
+        if price <= 0 or band_pct <= 0:
+            return contracts
+        kept: list[dict] = []
+        for row in contracts:
+            strike = float(row.get("strike") or 0) / STRIKE_DIVISOR
+            if strike <= 0:
+                continue
+            if abs(strike - price) / price * 100 <= band_pct:
+                kept.append(row)
+        return kept or contracts
 
     def _nearest_expiry_rows(self, symbol: str) -> tuple[str, list[dict]] | None:
         self._load_instruments()
@@ -561,6 +580,7 @@ class AngelOneClient:
             return None
 
         expiry, contracts = nearest
+        contracts = self._contracts_near_price(contracts, ltp, OI_SNAPSHOT_BAND_PCT)
         by_token = {str(row["token"]): row for row in contracts}
 
         try:
@@ -630,6 +650,7 @@ class AngelOneClient:
             return None
 
         expiry, contracts = nearest
+        contracts = self._contracts_near_price(contracts, target_price, OI_STRIKE_BAND_PCT)
         by_token = {str(row["token"]): row for row in contracts}
 
         try:
