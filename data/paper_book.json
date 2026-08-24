@@ -4,7 +4,7 @@
   "closed_count": 5,
   "day_date": "2026-08-24",
   "day_realised_pnl": -48270.0,
-  "updated_at": "2026-08-24 11:31:36",
+  "updated_at": "2026-08-24 12:01:18",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -628,6 +628,21 @@
       "rsi_at_entry": 70.79762719257812,
       "strike": 1020.0,
       "margin_blocked": 317610.5,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "MCX",
+      "direction": "SHORT",
+      "entry_price": 3301.5,
+      "entry_time": "2026-08-24 12:01:18",
+      "lot_size": 225,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 72.06850933510972,
+      "strike": 3300.0,
+      "margin_blocked": 297135.0,
       "closed_legs": [],
       "priced_on": "futures"
     }
