@@ -2,9 +2,9 @@
   "capital": 20000000,
   "realised_pnl": 0.0,
   "closed_count": 0,
-  "day_date": "2026-08-21",
+  "day_date": "2026-08-24",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-21 17:03:42",
+  "updated_at": "2026-08-24 09:40:02",
   "positions": [
     {
       "symbol": "DIVISLAB",
@@ -93,6 +93,36 @@
       "rsi_at_entry": 31.07627394982684,
       "strike": 990.0,
       "margin_blocked": 317331.0,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "COFORGE",
+      "direction": "SHORT",
+      "entry_price": 1903.0,
+      "entry_time": "2026-08-24 09:40:02",
+      "lot_size": 475,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 72.06107730034272,
+      "strike": 1900.0,
+      "margin_blocked": 542355.0,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "MOTILALOFS",
+      "direction": "SHORT",
+      "entry_price": 1024.55,
+      "entry_time": "2026-08-24 09:40:02",
+      "lot_size": 775,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.79762719257812,
+      "strike": 1020.0,
+      "margin_blocked": 476415.75,
       "closed_legs": [],
       "priced_on": "futures"
     }

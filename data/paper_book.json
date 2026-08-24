@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -22796.9,
-  "closed_count": 4,
-  "day_date": "2026-08-21",
-  "day_realised_pnl": 61773.6,
-  "updated_at": "2026-08-21 17:03:35",
+  "realised_pnl": -71066.9,
+  "closed_count": 5,
+  "day_date": "2026-08-24",
+  "day_realised_pnl": -48270.0,
+  "updated_at": "2026-08-24 09:39:54",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -72,21 +72,6 @@
           "pnl": 28224.0
         }
       ],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "JUBLFOOD",
-      "direction": "SHORT",
-      "entry_price": 482.7,
-      "entry_time": "2026-08-10 22:57:32",
-      "lot_size": 1250,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.40400255283872,
-      "strike": 500.0,
-      "margin_blocked": 241350.0,
-      "closed_legs": [],
       "priced_on": "futures"
     },
     {
@@ -628,6 +613,21 @@
       "rsi_at_entry": 30.90683854681869,
       "strike": 24000.0,
       "margin_blocked": 241000.0,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "MOTILALOFS",
+      "direction": "SHORT",
+      "entry_price": 1024.55,
+      "entry_time": "2026-08-24 09:39:54",
+      "lot_size": 775,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.79762719257812,
+      "strike": 1020.0,
+      "margin_blocked": 317610.5,
       "closed_legs": [],
       "priced_on": "futures"
     }
