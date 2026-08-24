@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -71066.9,
-  "closed_count": 5,
+  "realised_pnl": -78543.07,
+  "closed_count": 6,
   "day_date": "2026-08-24",
-  "day_realised_pnl": -48270.0,
-  "updated_at": "2026-08-24 12:31:22",
+  "day_realised_pnl": -55746.17,
+  "updated_at": "2026-08-24 13:01:06",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -185,29 +185,6 @@
       "strike": 1060.0,
       "margin_blocked": 302777.99999999994,
       "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "HINDZINC",
-      "direction": "SHORT",
-      "entry_price": 610.3,
-      "entry_time": "2026-08-11 10:35:44",
-      "lot_size": 1225,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.6940625578262,
-      "strike": 600.0,
-      "margin_blocked": 149523.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 567.29,
-          "exit_time": "2026-08-14 10:55:40",
-          "reason": "first_target",
-          "pnl": 44357.25
-        }
-      ],
       "priced_on": "futures"
     },
     {
