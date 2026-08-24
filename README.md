@@ -343,7 +343,7 @@ These matter when comparing against what real fills would have produced:
 
 ## Notes
 
-- Only the **nearest expiry** is used for the OI comparison
+- OI uses the **NSE last-Tuesday monthly** stock expiry (not weeklies, not BSE Thursday). On that Tuesday it rolls to next month.
 - Angel One reports OI in shares; the scanner divides by lot size so the numbers
   match the contract counts shown on a trading terminal
 - Quotes are batched 50 at a time at 1 request/second; candles run at 3/second,
