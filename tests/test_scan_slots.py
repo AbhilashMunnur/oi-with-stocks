@@ -58,8 +58,9 @@ def test_day_includes_three_fifteen_wall_exit_slot():
     stamps = [slot.strftime("%H:%M") for slot in slots]
     assert stamps[0] == "09:30"
     assert "15:15" in stamps
-    assert stamps[-1] == "15:30"
-    assert stamps[-2] == "15:15"
+    assert stamps[-1] == "15:45"
+    assert stamps[-2] == "15:30"
+    assert "15:15" in stamps
 
 
 def test_three_fifteen_is_its_own_slot():
@@ -95,8 +96,24 @@ def test_fifteen_slot_still_runs_after_three_oclock_completed(tmp_path):
 
 
 def test_seconds_until_next_slot_none_after_last():
-    now = datetime(2026, 8, 11, 15, 35, tzinfo=IST)
+    now = datetime(2026, 8, 11, 15, 50, tzinfo=IST)
     assert seconds_until_next_slot(now) is None
+
+
+def test_seconds_until_close_slot_after_three_thirty():
+    now = datetime(2026, 8, 11, 15, 32, tzinfo=IST)
+    assert seconds_until_next_slot(now) == 13 * 60
+
+
+def test_close_pnl_slot_is_three_forty_five():
+    from src.scan_slots import is_close_pnl_slot
+
+    assert active_slot(datetime(2026, 8, 11, 15, 40, tzinfo=IST)).strftime("%H:%M") == "15:30"
+    assert active_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST)).strftime("%H:%M") == "15:45"
+    assert active_slot(datetime(2026, 8, 11, 15, 50, tzinfo=IST)).strftime("%H:%M") == "15:45"
+    assert active_slot(datetime(2026, 8, 11, 16, 0, tzinfo=IST)) is None
+    assert is_close_pnl_slot(datetime(2026, 8, 11, 15, 30, tzinfo=IST)) is False
+    assert is_close_pnl_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST)) is True
 
 
 def test_ten_minute_warmup_starts_at_ten_fifty(tmp_path):

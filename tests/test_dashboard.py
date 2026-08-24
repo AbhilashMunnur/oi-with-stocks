@@ -40,6 +40,21 @@ def test_dashboard_caption_keeps_day_pnl_up_front():
     assert "Book" in text
 
 
+def test_closing_caption_is_labelled_closing_pnl():
+    text = format_pnl_dashboard(
+        capital=5_000_000,
+        free_capital=1_000_000,
+        realised_pnl=12_000,
+        day_realised_pnl=5_000,
+        closed_count=2,
+        positions=[_position()],
+        prices={"TITAN": 4900.0},
+        now=datetime(2026, 8, 25, 15, 45),
+        closing=True,
+    )
+    assert "Closing P&amp;L" in text
+
+
 def test_positions_image_is_a_valid_png():
     png = render_positions_image(
         capital=5_000_000,

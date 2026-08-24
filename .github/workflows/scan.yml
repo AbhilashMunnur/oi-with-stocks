@@ -15,10 +15,10 @@ on:
     - cron: "50,55 3 * * 1-5"
     # Dense polls — catch late runners for the current half-hour slot
     - cron: "*/5 4-9 * * 1-5"
-    - cron: "0,5,10,15 10 * * 1-5"
-    # Exact half-hour backups (09:30–15:30 IST)
+    - cron: "0,5,10,15,20,25 10 * * 1-5"
+    # Exact half-hour backups (09:30–15:30 IST) plus 15:45 close
     - cron: "0,30 4-9 * * 1-5"
-    - cron: "0 10 * * 1-5"
+    - cron: "0,15 10 * * 1-5"
   workflow_dispatch:
   repository_dispatch:
     types: [oi-scan]

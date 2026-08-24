@@ -27,7 +27,7 @@ from src.oi_analyzer import (
 )
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
-from src.scan_slots import is_s1_wall_exit_slot
+from src.scan_slots import is_close_pnl_slot, is_s1_wall_exit_slot
 from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
 
@@ -543,7 +543,10 @@ class OIRsiScanner:
             events += self._exit_s1_broken_walls(
                 book, prices, fut_prices, rsi_values
             )
-        events += book.open_from_alerts(paper_alerts)
+        if not is_close_pnl_slot():
+            events += book.open_from_alerts(paper_alerts)
+        else:
+            print(f"  {book.config.name}: 15:45 close — marking P&L, not opening new paper")
         book.save()
 
         logged = book.flush_journal()
@@ -562,10 +565,18 @@ class OIRsiScanner:
         print()
         print(book.summary(fut_prices))
 
-        if self.notifier.telegram_ready and (events or book.positions):
+        closing = is_close_pnl_slot()
+        send_dash = self.notifier.telegram_ready and (
+            events or book.positions or closing
+        )
+        if send_dash:
             try:
-                image = book.telegram_dashboard_image(fut_prices, events)
-                caption = book.telegram_report(fut_prices, events)
+                image = book.telegram_dashboard_image(
+                    fut_prices, events, closing=closing
+                )
+                caption = book.telegram_report(
+                    fut_prices, events, closing=closing
+                )
                 delivered = self.notifier.send_photo(
                     image, caption=caption, parse_mode="HTML"
                 )
@@ -658,7 +669,10 @@ class OIRsiScanner:
                 SignalType.PUT_OI_S1,
             )
         ]
-        self._emit_telegram(rsi_batch, "RSI+OI")
+        if is_close_pnl_slot():
+            print("  15:45 close — skipping RSI/ST signal Telegram; sending closing P&L")
+        else:
+            self._emit_telegram(rsi_batch, "RSI+OI")
 
         if self.config.supertrend.enabled:
             st_cfg = self.config.supertrend
@@ -706,7 +720,8 @@ class OIRsiScanner:
             for a in alerts
             if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
         ]
-        self._emit_telegram(st_batch, "Supertrend+OI")
+        if not is_close_pnl_slot():
+            self._emit_telegram(st_batch, "Supertrend+OI")
 
         if not alerts:
             print("\nNo alerts this scan.")

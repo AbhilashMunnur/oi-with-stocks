@@ -416,6 +416,8 @@ class PaperBook:
         self,
         prices: dict[str, float],
         events: list[TradeEvent] | None = None,
+        *,
+        closing: bool = False,
     ) -> str:
         """HTML caption for the positions image (parse_mode=HTML)."""
         from src.paper_trading.dashboard import format_pnl_dashboard
@@ -431,12 +433,15 @@ class PaperBook:
             prices=prices,
             events=events,
             book_name=self.config.name,
+            closing=closing,
         )
 
     def telegram_dashboard_image(
         self,
         prices: dict[str, float],
         events: list[TradeEvent] | None = None,
+        *,
+        closing: bool = False,
     ) -> bytes:
         """Angel One–style positions board as a PNG for Telegram."""
         from src.paper_trading.dashboard import render_positions_image
@@ -452,4 +457,5 @@ class PaperBook:
             prices=prices,
             events=events,
             book_name=self.config.name,
+            closing=closing,
         )

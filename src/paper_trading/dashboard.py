@@ -143,6 +143,7 @@ def format_pnl_dashboard(
     events: list[TradeEvent] | None = None,
     now: datetime | None = None,
     book_name: str = "Paper",
+    closing: bool = False,
 ) -> str:
     """Compact HTML caption companion for the image dashboard."""
     now = now or datetime.now()
@@ -154,8 +155,14 @@ def format_pnl_dashboard(
         prices=prices,
     )
     stamp = html.escape(now.strftime("%d %b %Y · %H:%M IST"))
+    title = html.escape(book_name)
+    headline = (
+        f"<b>{title}</b> · <i>Closing P&amp;L</i> · {stamp}"
+        if closing
+        else f"<b>{title}</b> · <i>{stamp}</i>"
+    )
     lines = [
-        f"<b>{html.escape(book_name)}</b> · <i>{stamp}</i>",
+        headline,
         f"Day P&amp;L <b>{html.escape(_inr(m['day_pnl'], signed=True))}</b>  ·  "
         f"Book {html.escape(_inr(m['equity']))} ({m['equity_pct']:+.2f}%)",
         f"Open {len(m['open_positions'])} fut  ·  Free {html.escape(_inr(free_capital))}  ·  "
@@ -196,6 +203,7 @@ def render_positions_image(
     events: list[TradeEvent] | None = None,
     now: datetime | None = None,
     book_name: str = "Paper",
+    closing: bool = False,
 ) -> bytes:
     """Render an Angel One–style positions board as a PNG."""
     from PIL import Image, ImageDraw
@@ -240,7 +248,8 @@ def render_positions_image(
     badge_font = _font(11, bold=True)
 
     y = PAD
-    draw.text((PAD, y), f"{book_name} positions", fill=TEXT, font=title_font)
+    heading = f"{book_name} closing P&L" if closing else f"{book_name} positions"
+    draw.text((PAD, y), heading, fill=TEXT, font=title_font)
     stamp = now.strftime("%d %b %Y · %H:%M IST")
     stamp_w = draw.textlength(stamp, font=small_font)
     draw.text((WIDTH - PAD - stamp_w, y + 10), stamp, fill=MUTED, font=small_font)
@@ -340,7 +349,11 @@ def render_positions_image(
     # Footer stripe
     y = height - 40
     draw.rectangle((0, y, WIDTH, height), fill=HEADER)
-    footer = f"{book_name} paper book  ·  3rd-month futures  ·  not live orders"
+    footer = (
+        f"{book_name}  ·  NSE Oct futures closing P&L  ·  not live orders"
+        if closing
+        else f"{book_name} paper book  ·  3rd-month futures  ·  not live orders"
+    )
     fw = draw.textlength(footer, font=small_font)
     draw.text(((WIDTH - fw) / 2, y + 12), footer, fill=MUTED, font=small_font)
 

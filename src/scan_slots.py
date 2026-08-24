@@ -8,6 +8,9 @@ IST = ZoneInfo("Asia/Kolkata")
 FIRST_SLOT = time(9, 30)
 LAST_SLOT = time(15, 30)
 S1_WALL_EXIT_SLOT = time(15, 15)
+# F&O close is 15:40 IST; 15:45 marks books to the closing print.
+CLOSE_PNL_SLOT = time(15, 45)
+SESSION_END = time(16, 0)
 DEFAULT_MARKER = Path("data/last_scan_slot.txt")
 # Start the GitHub job this many seconds before the slot so pip / login / the
 # scrip master are done by :00/:30. Telegram should then land within ~5 minutes.
@@ -23,16 +26,21 @@ def now_ist(now: datetime | None = None) -> datetime:
 
 
 def active_slot(now: datetime | None = None) -> datetime | None:
-    """Current scan slot in IST, or None outside 09:30–15:30.
+    """Current scan slot in IST, or None outside 09:30–15:45.
 
-    Half-hour slots plus 15:15 (S1 wall-break). A late cron still belongs to
-    the slot that has already started — at 09:45 that is 09:30; at 15:20, 15:15.
+    Half-hour slots, 15:15 (S1 wall-break), and 15:45 (closing P&L after
+    F&O ends at 15:40). A late cron still belongs to the slot that has
+    already started — at 09:45 that is 09:30; at 15:50, 15:45.
     """
     current = now_ist(now)
     if current.weekday() >= 5:
         return None
 
-    if S1_WALL_EXIT_SLOT <= current.time() < LAST_SLOT:
+    clock = current.time()
+    if CLOSE_PNL_SLOT <= clock < SESSION_END:
+        return current.replace(hour=15, minute=45, second=0, microsecond=0)
+
+    if S1_WALL_EXIT_SLOT <= clock < LAST_SLOT:
         return current.replace(hour=15, minute=15, second=0, microsecond=0)
 
     minute = 0 if current.minute < 30 else 30
@@ -43,10 +51,16 @@ def active_slot(now: datetime | None = None) -> datetime | None:
 
 
 def is_s1_wall_exit_slot(now: datetime | None = None) -> bool:
-    """True from the 15:15 IST scan onward (15:30 is a backup if 15:15 was missed)."""
+    """True from the 15:15 IST scan onward (15:30/15:45 are backups if 15:15 was missed)."""
     current = now_ist(now)
     slot = active_slot(now)
     return slot is not None and current.time() >= S1_WALL_EXIT_SLOT
+
+
+def is_close_pnl_slot(now: datetime | None = None) -> bool:
+    """True for the 15:45 IST closing P&L mark after F&O 15:40."""
+    slot = active_slot(now)
+    return slot is not None and slot.time() == CLOSE_PNL_SLOT
 
 
 def read_last_slot(path: Path = DEFAULT_MARKER) -> str:
@@ -102,7 +116,7 @@ def should_run_slot(
         current = active_slot(now)
         if current is not None and read_last_slot(path) == current.isoformat():
             return False, f"slot {current:%H:%M} IST already completed", current
-        return False, "outside 09:30–15:30 IST scan slots", None
+        return False, "outside 09:30–15:45 IST scan slots", None
 
     current = now_ist(now)
     if slot > current:
@@ -111,7 +125,7 @@ def should_run_slot(
 
 
 def iter_slots_for_day(day: datetime) -> list[datetime]:
-    """Half-hour slots 09:30–15:30 IST, plus 15:15 for the S1 wall-break check."""
+    """Half-hour slots 09:30–15:30 IST, plus 15:15 wall-break and 15:45 close."""
     day = now_ist(day)
     start = day.replace(hour=9, minute=30, second=0, microsecond=0)
     slots: list[datetime] = []
@@ -123,7 +137,9 @@ def iter_slots_for_day(day: datetime) -> list[datetime]:
         else:
             cursor = cursor.replace(hour=cursor.hour + 1, minute=0)
     wall_exit = day.replace(hour=15, minute=15, second=0, microsecond=0)
+    close_pnl = day.replace(hour=15, minute=45, second=0, microsecond=0)
     slots.append(wall_exit)
+    slots.append(close_pnl)
     slots.sort()
     return slots
 
