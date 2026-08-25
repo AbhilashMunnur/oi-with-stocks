@@ -4,7 +4,7 @@
   "closed_count": 0,
   "day_date": "2026-08-25",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-25 11:01:10",
+  "updated_at": "2026-08-25 11:31:20",
   "positions": [
     {
       "symbol": "DIVISLAB",
@@ -183,6 +183,21 @@
       "rsi_at_entry": 70.24161163271403,
       "strike": 170.0,
       "margin_blocked": 625418.1,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "IDEA",
+      "direction": "SHORT",
+      "entry_price": 15.14,
+      "entry_time": "2026-08-25 11:31:20",
+      "lot_size": 71475,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.64684037629279,
+      "strike": 15.0,
+      "margin_blocked": 649278.9,
       "closed_legs": [],
       "priced_on": "futures"
     }
