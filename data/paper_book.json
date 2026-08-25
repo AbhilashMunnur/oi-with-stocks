@@ -4,7 +4,7 @@
   "closed_count": 8,
   "day_date": "2026-08-25",
   "day_realised_pnl": -99408.52,
-  "updated_at": "2026-08-25 13:01:20",
+  "updated_at": "2026-08-25 13:31:05",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -612,6 +612,21 @@
       "rsi_at_entry": 70.64684037629279,
       "strike": 15.0,
       "margin_blocked": 432852.6,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "PAYTM",
+      "direction": "SHORT",
+      "entry_price": 1705.0,
+      "entry_time": "2026-08-25 13:31:05",
+      "lot_size": 725,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 75.05993967663554,
+      "strike": 1700.0,
+      "margin_blocked": 494450.0,
       "closed_legs": [],
       "priced_on": "futures"
     }
