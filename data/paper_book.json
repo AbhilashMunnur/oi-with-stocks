@@ -4,7 +4,7 @@
   "closed_count": 6,
   "day_date": "2026-08-25",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-25 10:31:16",
+  "updated_at": "2026-08-25 11:01:03",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -620,6 +620,21 @@
       "rsi_at_entry": 72.06850933510972,
       "strike": 3300.0,
       "margin_blocked": 297135.0,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "DABUR",
+      "direction": "LONG",
+      "entry_price": 398.4,
+      "entry_time": "2026-08-25 11:01:03",
+      "lot_size": 1250,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 28.51039994246983,
+      "strike": 390.0,
+      "margin_blocked": 199200.0,
       "closed_legs": [],
       "priced_on": "futures"
     }
