@@ -2,9 +2,9 @@
   "capital": 20000000,
   "realised_pnl": 0.0,
   "closed_count": 0,
-  "day_date": "2026-08-24",
+  "day_date": "2026-08-25",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-24 15:31:35",
+  "updated_at": "2026-08-25 09:56:27",
   "positions": [
     {
       "symbol": "DIVISLAB",
