@@ -1,0 +1,2 @@
+Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
+PAYTM,Sell,21-Aug-26,1645.4,71.8,25-Aug-26,1711.22,75.6,2,238583*3,-143150,stop_loss
