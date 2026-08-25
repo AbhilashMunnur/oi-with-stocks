@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -78543.07,
-  "closed_count": 6,
+  "realised_pnl": -83312.99,
+  "closed_count": 7,
   "day_date": "2026-08-25",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-25 11:31:13",
+  "day_realised_pnl": -4769.92,
+  "updated_at": "2026-08-25 12:01:12",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -49,29 +49,6 @@
       "strike": 5000.0,
       "margin_blocked": 300198.0,
       "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "INOXWIND",
-      "direction": "LONG",
-      "entry_price": 74.53,
-      "entry_time": "2026-08-10 22:57:32",
-      "lot_size": 6400,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 33.17540571383519,
-      "strike": 75.0,
-      "margin_blocked": 95398.4,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 77.91,
-          "exit_time": "2026-08-17 15:01:44",
-          "reason": "first_target",
-          "pnl": 28224.0
-        }
-      ],
       "priced_on": "futures"
     },
     {

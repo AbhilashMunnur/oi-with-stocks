@@ -1,2 +1,3 @@
 Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
 COLPAL,Buy,17-Aug-26,1967.4,0.0,19-Aug-26,1888.7,27.1,2,108207*2,-43283,stop_loss
+HDFCAMC,Buy,13-Aug-26,2522.1,0.0,25-Aug-26,2673.43,59.0,8,151326*1,45398,first_target
