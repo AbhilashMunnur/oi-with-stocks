@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -143149.8,
-  "closed_count": 1,
+  "realised_pnl": -313508.55,
+  "closed_count": 4,
   "day_date": "2026-08-26",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-26 15:01:04",
+  "day_realised_pnl": -170358.75,
+  "updated_at": "2026-08-26 15:16:51",
   "blocked_reentry": [],
   "positions": [
     {
@@ -88,38 +88,6 @@
       "s2_invalid_pending": ""
     },
     {
-      "symbol": "MOTILALOFS",
-      "direction": "SHORT",
-      "entry_price": 1024.55,
-      "entry_time": "2026-08-24 09:40:02",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.79762719257812,
-      "strike": 1020.0,
-      "margin_blocked": 476415.75,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "POLICYBZR",
-      "direction": "SHORT",
-      "entry_price": 1818.6,
-      "entry_time": "2026-08-24 10:01:25",
-      "lot_size": 350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.75892630276233,
-      "strike": 1800.0,
-      "margin_blocked": 381906.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
       "symbol": "LUPIN",
       "direction": "LONG",
       "entry_price": 2215.0,
@@ -131,22 +99,6 @@
       "rsi_at_entry": 27.57948169999686,
       "strike": 2160.0,
       "margin_blocked": 564825.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "MCX",
-      "direction": "SHORT",
-      "entry_price": 3301.5,
-      "entry_time": "2026-08-24 12:01:24",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 72.06850933510972,
-      "strike": 3300.0,
-      "margin_blocked": 445702.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
