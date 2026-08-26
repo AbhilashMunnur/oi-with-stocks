@@ -1,10 +1,25 @@
 from __future__ import annotations
 
 from copy import copy
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from src.config import SignalType
 from src.data.models import OISnapshot, PriceSnapshot
+
+
+def no_short_skip_reason(
+    symbol: str,
+    blocked: list[str] | set[str] | tuple[str, ...],
+    *,
+    is_short: bool,
+) -> str | None:
+    """Laboratory names are longs-only. Pharma is not blocked here."""
+    if not is_short or not blocked:
+        return None
+    blocked_set = {name.upper() for name in blocked}
+    if symbol.upper() in blocked_set:
+        return "laboratory — longs only"
+    return None
 
 
 @dataclass
@@ -106,11 +121,68 @@ def choose_s1_entry_wall(
     return wall
 
 
+def strikes_around_wall(
+    legs_by_strike: dict[float, dict[str, tuple[int, str]]],
+    wall: float,
+    n_below: int = 1,
+    n_above: int = 1,
+) -> list[float]:
+    """Listed strikes: ``n_below`` below the wall, the wall, ``n_above`` above.
+
+    Uses the option chain's actual strike list, not a rupee step. If the wall
+    is not listed, the nearest listed strike is used as the centre.
+    """
+    strikes = sorted(strike for strike in legs_by_strike if strike > 0)
+    if not strikes or wall <= 0:
+        return []
+    if wall not in strikes:
+        wall = min(strikes, key=lambda strike: abs(strike - wall))
+    index = strikes.index(wall)
+    lo = max(0, index - n_below)
+    hi = min(len(strikes), index + n_above + 1)
+    return strikes[lo:hi]
+
+
+def s2_size_skip_reason(
+    oi: OISnapshot,
+    signal: SignalType,
+    *,
+    min_wall_contracts: int,
+    min_write_contracts: int,
+) -> str | None:
+    """Skip S2 when the wall is too thin to justify a tight stop."""
+    if signal is SignalType.CALL_OI:
+        standing, writing = oi.max_call_oi, oi.call_oi_change
+        label = "Call"
+    else:
+        standing, writing = oi.max_put_oi, oi.put_oi_change
+        label = "Put"
+    lot = oi.lot_size
+    if lot <= 0:
+        return None
+    wall_lots = standing / lot
+    if wall_lots < min_wall_contracts:
+        return (
+            f"{label} wall {wall_lots:,.0f} lots < {min_wall_contracts} "
+            "(too thin for S2)"
+        )
+    if writing is not None:
+        write_lots = writing / lot
+        if write_lots < min_write_contracts:
+            return (
+                f"{label} writing {write_lots:,.0f} lots < {min_write_contracts} "
+                "(too little writing for S2)"
+            )
+    return None
+
+
 def copy_oi_snapshot(oi: OISnapshot) -> OISnapshot:
     """Shallow copy so Scenario 1 can retarget strikes without touching the RSI book."""
     clone = copy(oi)
     clone.call_oi_change = oi.call_oi_change
     clone.put_oi_change = oi.put_oi_change
+    clone.band_call_oi_change = oi.band_call_oi_change
+    clone.band_put_oi_change = oi.band_put_oi_change
     return clone
 
 
@@ -126,6 +198,8 @@ def apply_oi_wall(oi: OISnapshot, wall: tuple[float, int, str], side: str) -> No
         oi.max_put_token = token
     oi.call_oi_change = None
     oi.put_oi_change = None
+    oi.band_call_oi_change = None
+    oi.band_put_oi_change = None
 
 
 def resistance_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
@@ -152,6 +226,100 @@ def support_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
     if oi.call_oi_change is None or oi.put_oi_change is None:
         return False
     return oi.put_oi_change <= 0 and oi.call_oi_change > 0
+
+
+def s2_invalidation_reason(
+    direction: str,
+    strike: float,
+    cash_ltp: float,
+    *,
+    call_oi_change: int | None,
+    put_oi_change: int | None,
+) -> str | None:
+    """One scan of S2 OI failure: cash through the entry strike *or*
+    writing gone at that strike. Callers must confirm on a second scan
+    via ``s2_confirm_invalidation`` before exiting. The 3% futures stop
+    is a separate single-scan backup.
+
+    ``strike_through`` wins if both are true. Missing ΔOI does not fire
+    ``writing_gone`` (no data ≠ covering).
+    """
+    if strike <= 0 or cash_ltp <= 0:
+        return None
+    side = direction.upper()
+    if side == "SHORT":
+        if cash_ltp > strike:
+            return "strike_through"
+        if call_oi_change is not None and call_oi_change <= 0:
+            return "writing_gone"
+        return None
+    if side == "LONG":
+        if cash_ltp < strike:
+            return "strike_through"
+        if put_oi_change is not None and put_oi_change <= 0:
+            return "writing_gone"
+        return None
+    return None
+
+
+def s2_wall_still_valid(
+    direction: str,
+    strike: float,
+    cash_ltp: float,
+    *,
+    call_oi_change: int | None,
+    put_oi_change: int | None,
+) -> bool:
+    """True only when this scan can see the wall holding: cash not through
+    the strike *and* writers still adding on the entry side. Missing ΔOI
+    is not a valid wall (and is not an exit).
+    """
+    if s2_invalidation_reason(
+        direction,
+        strike,
+        cash_ltp,
+        call_oi_change=call_oi_change,
+        put_oi_change=put_oi_change,
+    ):
+        return False
+    side = direction.upper()
+    if side == "SHORT":
+        return call_oi_change is not None and call_oi_change > 0
+    if side == "LONG":
+        return put_oi_change is not None and put_oi_change > 0
+    return False
+
+
+def s2_confirm_invalidation(
+    pending: str,
+    why: str | None,
+    *,
+    wall_valid: bool,
+) -> tuple[str, bool]:
+    """Require two consecutive invalid scans before an OI exit.
+
+    Returns ``(new_pending_reason, should_exit)``. A clearly valid wall
+    clears the first flag. Missing data leaves the flag as-is so a gap
+    does not count as either confirmation or a reset.
+    """
+    if why:
+        if pending:
+            return why, True
+        return why, False
+    if wall_valid:
+        return "", False
+    return pending or "", False
+
+
+def retag_s1_alert_as_s2(alert: ScanAlert) -> ScanAlert:
+    """Same uncrossed-wall setup as S1, tagged for the S2 paper book."""
+    mapping = {
+        SignalType.CALL_OI_S1: SignalType.CALL_OI_S2,
+        SignalType.PUT_OI_S1: SignalType.PUT_OI_S2,
+    }
+    signal = mapping.get(alert.signal, alert.signal)
+    message = alert.message.replace(" S1", " S2") if alert.message else alert.message
+    return replace(alert, signal=signal, message=message)
 
 
 def align_snapshot_to_reference_strike(
@@ -350,14 +518,15 @@ def call_oi_flow_rejection(
     *,
     require_call_writing: bool = True,
     max_change_pcr: float = 0.75,
+    require_change_pcr: bool = False,
     **_: object,
 ) -> str | None:
     """Why a CALL_OI short should be skipped, or None if flow supports the short.
 
     - When require_call_writing: Call ΔOI at the reference (max Call OI) strike
       must be known and > 0 (writing, not unwind/flat).
-    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must be
-      strictly below max_change_pcr.
+    - When both legs are writing (wall, or the S2 PCR band if set), Put ΔOI /
+      Call ΔOI must be strictly below max_change_pcr.
     """
     if require_call_writing:
         if oi.call_oi_change is None:
@@ -370,9 +539,12 @@ def call_oi_flow_rejection(
             )
 
     pcr = oi.change_pcr
+    pcr_name = "band ΔPCR" if oi.band_call_oi_change is not None else "ΔPCR"
+    if require_change_pcr and pcr is None:
+        return f"{pcr_name} unavailable (need both sides writing in the band)"
     if pcr is not None and pcr >= max_change_pcr:
         return (
-            f"ΔPCR {pcr:.2f} >= {max_change_pcr:g} "
+            f"{pcr_name} {pcr:.2f} >= {max_change_pcr:g} "
             "(short requires a lower ΔPCR)"
         )
 
@@ -384,6 +556,7 @@ def put_oi_flow_rejection(
     *,
     require_put_writing: bool = True,
     min_change_pcr: float = 1.0,
+    require_change_pcr: bool = False,
     **_: object,
 ) -> str | None:
     """Why a PUT_OI long should be skipped, or None if flow supports the long.
@@ -391,8 +564,8 @@ def put_oi_flow_rejection(
     Mirror of call_oi_flow_rejection:
     - When require_put_writing: Put ΔOI at the reference (max Put OI) strike
       must be known and > 0 (writing, not unwind/flat).
-    - When both legs are writing at that same strike, Put ΔOI / Call ΔOI must be
-      strictly above min_change_pcr.
+    - When both legs are writing (wall, or the S2 PCR band if set), Put ΔOI /
+      Call ΔOI must be strictly above min_change_pcr.
     """
     if require_put_writing:
         if oi.put_oi_change is None:
@@ -405,9 +578,12 @@ def put_oi_flow_rejection(
             )
 
     pcr = oi.change_pcr
+    pcr_name = "band ΔPCR" if oi.band_put_oi_change is not None else "ΔPCR"
+    if require_change_pcr and pcr is None:
+        return f"{pcr_name} unavailable (need both sides writing in the band)"
     if pcr is not None and pcr <= min_change_pcr:
         return (
-            f"ΔPCR {pcr:.2f} <= {min_change_pcr:g} "
+            f"{pcr_name} {pcr:.2f} <= {min_change_pcr:g} "
             "(long requires a higher ΔPCR)"
         )
 
@@ -425,6 +601,7 @@ def evaluate_stock(
     max_change_pcr: float = 0.75,
     require_put_writing: bool = True,
     min_change_pcr: float = 1.0,
+    require_change_pcr: bool = False,
 ) -> ScanAlert | None:
     signal = matched_signal(price, oi, rsi_call_threshold, rsi_put_threshold, proximity_pct)
     if signal is None:
@@ -435,6 +612,7 @@ def evaluate_stock(
         max_change_pcr=max_change_pcr,
         require_put_writing=require_put_writing,
         min_change_pcr=min_change_pcr,
+        require_change_pcr=require_change_pcr,
     )
     if signal is SignalType.CALL_OI:
         if call_oi_flow_rejection(oi, **flow):

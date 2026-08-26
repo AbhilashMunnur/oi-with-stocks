@@ -71,6 +71,8 @@ class Notifier:
             SignalType.PUT_OI: "PUT OI ALERT",
             SignalType.CALL_OI_S1: "CALL OI S1 ALERT",
             SignalType.PUT_OI_S1: "PUT OI S1 ALERT",
+            SignalType.CALL_OI_S2: "CALL OI S2 ALERT",
+            SignalType.PUT_OI_S2: "PUT OI S2 ALERT",
             SignalType.ST_BEARISH: "ST BEARISH ALERT",
             SignalType.ST_BULLISH: "ST BULLISH ALERT",
         }
@@ -138,7 +140,7 @@ class Notifier:
             title="RSI + OI alerts",
             sections=[
                 (SignalType.CALL_OI, "CALL OI (RSI ≥ 70)"),
-                (SignalType.PUT_OI, "PUT OI (RSI ≤ 32)"),
+                (SignalType.PUT_OI, "PUT OI (RSI ≤ 31)"),
             ],
         )
 
@@ -148,7 +150,17 @@ class Notifier:
             title="RSI + OI Scenario 1 alerts",
             sections=[
                 (SignalType.CALL_OI_S1, "CALL OI S1 (RSI ≥ 70)"),
-                (SignalType.PUT_OI_S1, "PUT OI S1 (RSI ≤ 32)"),
+                (SignalType.PUT_OI_S1, "PUT OI S1 (RSI ≤ 31)"),
+            ],
+        )
+
+    def _scenario2_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="RSI + OI Scenario 2 alerts",
+            sections=[
+                (SignalType.CALL_OI_S2, "CALL OI S2 (RSI ≥ 70)"),
+                (SignalType.PUT_OI_S2, "PUT OI S2 (RSI ≤ 31)"),
             ],
         )
 
@@ -251,6 +263,9 @@ class Notifier:
         s1_alerts = [
             a for a in alerts if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
         ]
+        s2_alerts = [
+            a for a in alerts if a.signal in (SignalType.CALL_OI_S2, SignalType.PUT_OI_S2)
+        ]
         st_alerts = [
             a
             for a in alerts
@@ -270,6 +285,12 @@ class Notifier:
                     delivered = self.send_message(self._scenario1_digest(s1_alerts))
                     print(
                         f"\nSent {len(s1_alerts)} RSI+OI S1 row(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
+                if s2_alerts:
+                    delivered = self.send_message(self._scenario2_digest(s2_alerts))
+                    print(
+                        f"\nSent {len(s2_alerts)} RSI+OI S2 row(s) to Telegram "
                         f"({delivered}/{recipients})."
                     )
                 if st_alerts:

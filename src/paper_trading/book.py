@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
-from src.oi_analyzer import ScanAlert
+from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading.journal import TradeJournal, build_row, build_summary_row
 from src.paper_trading.models import (
     ClosedLeg,
@@ -36,15 +36,18 @@ class PaperBook:
         config: PaperTradingConfig,
         path: str | Path | None = None,
         journal: TradeJournal | None = None,
+        no_short_symbols: list[str] | None = None,
     ):
         self.config = config
         self.path = Path(path or config.ledger_path)
         self.journal = journal
+        self.no_short_symbols = {s.upper() for s in (no_short_symbols or [])}
         self.positions: list[Position] = []
         self.realised_pnl: float = 0.0
         self.closed_count: int = 0
         self.day_date: str = str(date.today())
         self.day_realised_pnl: float = 0.0
+        self.blocked_reentry: set[str] = set()
         self._pending_rows: list[dict] = []
         self._load()
 
@@ -58,6 +61,7 @@ class PaperBook:
         if self.day_date != today_s:
             self.day_date = today_s
             self.day_realised_pnl = 0.0
+            self.blocked_reentry = set()
 
     def _load(self) -> None:
         if not self.path.exists():
@@ -69,6 +73,9 @@ class PaperBook:
         self.closed_count = int(raw.get("closed_count", 0))
         self.day_date = str(raw.get("day_date") or date.today())
         self.day_realised_pnl = float(raw.get("day_realised_pnl", 0.0))
+        self.blocked_reentry = {
+            str(symbol) for symbol in raw.get("blocked_reentry") or []
+        }
         self._roll_day()
 
     def save(self) -> None:
@@ -81,6 +88,7 @@ class PaperBook:
             "day_date": self.day_date,
             "day_realised_pnl": round(self.day_realised_pnl, 2),
             "updated_at": now_stamp(),
+            "blocked_reentry": sorted(self.blocked_reentry),
             "positions": [p.to_dict() for p in self.positions],
         }
         self.path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -158,6 +166,13 @@ class PaperBook:
         if not position.is_open:
             self.closed_count += 1
             position.margin_blocked = 0.0
+            if self.config.block_same_day_reentry and reason in (
+                ExitReason.STOP_LOSS,
+                ExitReason.STRIKE_THROUGH,
+                ExitReason.WRITING_GONE,
+                ExitReason.WALL_BROKEN,
+            ):
+                self.blocked_reentry.add(position.symbol)
 
         return TradeEvent(
             symbol=position.symbol,
@@ -283,6 +298,20 @@ class PaperBook:
             )
         return events
 
+    def close_remaining(
+        self,
+        position: Position,
+        price: float,
+        reason: ExitReason,
+        exit_rsi: float | None = None,
+    ) -> TradeEvent:
+        """Exit remaining lots at the given futures price for a named reason."""
+        event = self._close_lots(
+            position, position.lots_open, price, reason, exit_rsi
+        )
+        self.positions = [item for item in self.positions if item.is_open]
+        return event
+
     def close_on_broken_wall(
         self,
         position: Position,
@@ -290,11 +319,9 @@ class PaperBook:
         exit_rsi: float | None = None,
     ) -> TradeEvent:
         """Exit remaining lots after the entry support/resistance wall is broken."""
-        event = self._close_lots(
-            position, position.lots_open, price, ExitReason.WALL_BROKEN, exit_rsi
+        return self.close_remaining(
+            position, price, ExitReason.WALL_BROKEN, exit_rsi
         )
-        self.positions = [item for item in self.positions if item.is_open]
-        return event
 
     def flush_journal(self) -> int:
         """Write any closed trades out to the journal."""
@@ -309,7 +336,12 @@ class PaperBook:
 
     def _direction_for(self, alert: ScanAlert) -> Direction:
         # RSI Call OI / ST bearish → short; RSI Put OI / ST bullish → long.
-        if alert.signal in (SignalType.CALL_OI, SignalType.ST_BEARISH, SignalType.CALL_OI_S1):
+        if alert.signal in (
+            SignalType.CALL_OI,
+            SignalType.ST_BEARISH,
+            SignalType.CALL_OI_S1,
+            SignalType.CALL_OI_S2,
+        ):
             return Direction.SHORT
         return Direction.LONG
 
@@ -320,9 +352,33 @@ class PaperBook:
         for alert in alerts:
             if alert.symbol in held:
                 continue
+            if (
+                self.config.block_same_day_reentry
+                and alert.symbol in self.blocked_reentry
+            ):
+                events.append(
+                    TradeEvent(
+                        symbol=alert.symbol,
+                        kind="skipped",
+                        detail="already stopped/invalidated today — no S2 re-entry",
+                    )
+                )
+                continue
             if alert.skip_reason:
                 continue
             if alert.lot_size <= 0 or alert.ltp <= 0:
+                continue
+
+            direction = self._direction_for(alert)
+            blocked = no_short_skip_reason(
+                alert.symbol,
+                self.no_short_symbols,
+                is_short=direction is Direction.SHORT,
+            )
+            if blocked:
+                events.append(
+                    TradeEvent(symbol=alert.symbol, kind="skipped", detail=blocked)
+                )
                 continue
 
             lots = self.config.lots_per_trade
@@ -337,7 +393,6 @@ class PaperBook:
                 )
                 continue
 
-            direction = self._direction_for(alert)
             position = Position(
                 symbol=alert.symbol,
                 direction=direction.value,

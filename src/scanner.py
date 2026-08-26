@@ -5,7 +5,7 @@ from datetime import datetime, time as dt_time
 from src.config import AppConfig, SignalType
 from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
-from src.data.option_expiry import oi_scan_reason
+from src.data.option_expiry import expiry_entry_skip_reason, oi_scan_reason
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import (
     ScanAlert,
@@ -18,15 +18,22 @@ from src.oi_analyzer import (
     is_substantial_fallback_wall,
     make_rsi_alert,
     matched_signal,
+    no_short_skip_reason,
     proximity_skip_reason,
     put_oi_flow_rejection,
     resistance_is_broken,
+    retag_s1_alert_as_s2,
     rsi_watch_side,
+    s2_confirm_invalidation,
+    s2_invalidation_reason,
+    s2_wall_still_valid,
     select_active_oi_walls,
+    s2_size_skip_reason,
     support_is_broken,
 )
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
+from src.paper_trading.models import ExitReason
 from src.scan_slots import is_close_pnl_slot, is_s1_wall_exit_slot
 from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
@@ -42,6 +49,7 @@ class OIRsiScanner:
         self.book = None
         self.st_book = None
         self.s1_book = None
+        self.s2_book = None
         if config.paper_trading.enabled:
             paper = config.paper_trading
             journal = TradeJournal(
@@ -50,7 +58,9 @@ class OIRsiScanner:
                 worksheet=paper.google_worksheet,
                 summary_worksheet=paper.google_summary_worksheet,
             )
-            self.book = PaperBook(paper, journal=journal)
+            self.book = PaperBook(
+                paper, journal=journal, no_short_symbols=config.no_short_symbols
+            )
 
         st_paper = config.supertrend_paper_trading
         if st_paper and st_paper.enabled:
@@ -60,7 +70,9 @@ class OIRsiScanner:
                 worksheet=st_paper.google_worksheet,
                 summary_worksheet=st_paper.google_summary_worksheet,
             )
-            self.st_book = PaperBook(st_paper, journal=st_journal)
+            self.st_book = PaperBook(
+                st_paper, journal=st_journal, no_short_symbols=config.no_short_symbols
+            )
 
         s1_paper = config.rsi_s1_paper_trading
         if s1_paper and s1_paper.enabled:
@@ -70,7 +82,21 @@ class OIRsiScanner:
                 worksheet=s1_paper.google_worksheet,
                 summary_worksheet=s1_paper.google_summary_worksheet,
             )
-            self.s1_book = PaperBook(s1_paper, journal=s1_journal)
+            self.s1_book = PaperBook(
+                s1_paper, journal=s1_journal, no_short_symbols=config.no_short_symbols
+            )
+
+        s2_paper = config.rsi_s2_paper_trading
+        if s2_paper and s2_paper.enabled:
+            s2_journal = TradeJournal(
+                csv_path=s2_paper.journal_csv,
+                sheet_id=s2_paper.google_sheet_id,
+                worksheet=s2_paper.google_worksheet,
+                summary_worksheet=s2_paper.google_summary_worksheet,
+            )
+            self.s2_book = PaperBook(
+                s2_paper, journal=s2_journal, no_short_symbols=config.no_short_symbols
+            )
 
     def close(self) -> None:
         self.client.close()
@@ -159,6 +185,21 @@ class OIRsiScanner:
         if side is None:
             return None
 
+        blocked = no_short_skip_reason(
+            price.symbol,
+            self.config.no_short_symbols,
+            is_short=side is SignalType.CALL_OI,
+        )
+        if blocked:
+            print(f"  {price.symbol}: {side.value} skipped — {blocked}")
+            return make_rsi_alert(price, oi, side, skip_reason=blocked)
+
+        if self.config.oi.skip_monthly_expiry:
+            expiry_skip = expiry_entry_skip_reason()
+            if expiry_skip:
+                print(f"  {price.symbol}: {side.value} skipped — {expiry_skip}")
+                return make_rsi_alert(price, oi, side, skip_reason=expiry_skip)
+
         oi = oi or self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
         if not oi:
             return make_rsi_alert(price, None, side, skip_reason="OI unavailable")
@@ -201,7 +242,16 @@ class OIRsiScanner:
         )
         return alert
 
-    def _check_scenario1_candidate(self, price: PriceSnapshot, oi) -> ScanAlert | None:
+    def _check_scenario1_candidate(
+        self,
+        price: PriceSnapshot,
+        oi,
+        *,
+        proximity_pct: float | None = None,
+        pcr_band_strikes: int | None = None,
+        log_tag: str = "S1",
+        s2_mode: bool = False,
+    ) -> ScanAlert | None:
         """RSI+OI entry on an uncrossed wall, with S1 broken-wall fallback.
 
         Always returns a CALL/PUT S1 row for Telegram. skip_reason is set when
@@ -209,12 +259,28 @@ class OIRsiScanner:
         crossed — even if writing continues.
         """
         thresholds = self._rsi_thresholds()
+        if proximity_pct is not None:
+            thresholds["proximity_pct"] = proximity_pct
         flow = self._oi_flow()
         side = rsi_watch_side(
             price, thresholds["rsi_call_threshold"], thresholds["rsi_put_threshold"]
         )
         if side is None:
             return None
+
+        blocked = no_short_skip_reason(
+            price.symbol,
+            self.config.no_short_symbols,
+            is_short=side is SignalType.CALL_OI,
+        )
+        if blocked:
+            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {blocked}")
+            return self._s1_watch(price, oi, side, blocked)
+
+        if self.config.oi.skip_monthly_expiry:
+            expiry_skip = expiry_entry_skip_reason()
+            if expiry_skip:
+                return self._s1_watch(price, oi, side, expiry_skip)
 
         if not oi or not oi.legs_by_strike:
             return self._s1_watch(price, None, side, "OI unavailable")
@@ -232,7 +298,7 @@ class OIRsiScanner:
                 f"fallback ₹{active_call[0]:.0f} too thin vs peak ₹{peak:.0f} "
                 f"(need ≥ {min_pct:g}% of peak OI)"
             )
-            print(f"  {price.symbol}: S1 CALL skipped — {reason}")
+            print(f"  {price.symbol}: {log_tag} CALL skipped — {reason}")
             return self._s1_watch(price, s1, side, reason)
         if side is SignalType.PUT_OI and active_put and not is_substantial_fallback_wall(
             active_put, peak_put, min_pct
@@ -242,7 +308,7 @@ class OIRsiScanner:
                 f"fallback ₹{active_put[0]:.0f} too thin vs peak ₹{peak:.0f} "
                 f"(need ≥ {min_pct:g}% of peak OI)"
             )
-            print(f"  {price.symbol}: S1 PUT skipped — {reason}")
+            print(f"  {price.symbol}: {log_tag} PUT skipped — {reason}")
             return self._s1_watch(price, s1, side, reason)
 
         call_wall = choose_s1_entry_wall(
@@ -266,33 +332,54 @@ class OIRsiScanner:
 
         too_far = proximity_skip_reason(price, s1, side, thresholds["proximity_pct"])
         if too_far:
-            print(f"  {price.symbol}: S1 — {too_far}")
+            print(f"  {price.symbol}: {log_tag} — {too_far}")
             return self._s1_watch(price, s1, side, too_far)
 
         reference = "call" if side is SignalType.CALL_OI else "put"
         if not align_snapshot_to_reference_strike(s1, reference):
             reason = "CE/PE missing at reference strike"
-            print(f"  {price.symbol}: S1 skipped — {reason}")
+            print(f"  {price.symbol}: {log_tag} skipped — {reason}")
             return self._s1_watch(price, s1, side, reason)
 
         self.client.add_oi_changes(s1)
+        if pcr_band_strikes:
+            wall = (
+                s1.max_call_oi_strike
+                if side is SignalType.CALL_OI
+                else s1.max_put_oi_strike
+            )
+            self.client.add_band_oi_changes(
+                s1, wall, n_below=pcr_band_strikes, n_above=pcr_band_strikes
+            )
+            flow = {**flow, "require_change_pcr": True}
 
         if side is SignalType.CALL_OI:
             rejected = call_oi_flow_rejection(s1, **flow)
         else:
             rejected = put_oi_flow_rejection(s1, **flow)
         if rejected:
-            print(f"  {price.symbol}: S1 {side.value} skipped — {rejected}")
+            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {rejected}")
             return self._s1_watch(price, s1, side, rejected)
+
+        if s2_mode:
+            size_skip = s2_size_skip_reason(
+                s1,
+                side,
+                min_wall_contracts=self.config.oi.s2_min_wall_contracts,
+                min_write_contracts=self.config.oi.s2_min_write_contracts,
+            )
+            if size_skip:
+                print(f"  {price.symbol}: {log_tag} skipped — {size_skip}")
+                return self._s1_watch(price, s1, side, size_skip)
 
         if side is SignalType.CALL_OI and call_wall and peak_call and call_wall[0] != peak_call[0]:
             print(
-                f"  {price.symbol}: S1 CALL using uncrossed ₹{call_wall[0]:.0f} "
+                f"  {price.symbol}: {log_tag} CALL using uncrossed ₹{call_wall[0]:.0f} "
                 f"(peak ₹{peak_call[0]:.0f} already through price)"
             )
         if side is SignalType.PUT_OI and put_wall and peak_put and put_wall[0] != peak_put[0]:
             print(
-                f"  {price.symbol}: S1 PUT using uncrossed ₹{put_wall[0]:.0f} "
+                f"  {price.symbol}: {log_tag} PUT using uncrossed ₹{put_wall[0]:.0f} "
                 f"(peak ₹{peak_put[0]:.0f} already through price)"
             )
 
@@ -324,6 +411,35 @@ class OIRsiScanner:
             return None
         if side == "above" and ltp <= st_value:
             return None
+
+        if self.config.oi.skip_monthly_expiry:
+            expiry_skip = expiry_entry_skip_reason()
+            if expiry_skip:
+                print(f"  {symbol}: ST skipped — {expiry_skip}")
+                return make_supertrend_watch(
+                    symbol=symbol,
+                    ltp=ltp,
+                    supertrend=st_value,
+                    side=side,
+                    oi=None,
+                    skip_reason=expiry_skip,
+                )
+
+        blocked = no_short_skip_reason(
+            symbol,
+            self.config.no_short_symbols,
+            is_short=side == "below",
+        )
+        if blocked:
+            print(f"  {symbol}: ST short skipped — {blocked}")
+            return make_supertrend_watch(
+                symbol=symbol,
+                ltp=ltp,
+                supertrend=st_value,
+                side=side,
+                oi=None,
+                skip_reason=blocked,
+            )
 
         oi = self.client.get_oi_at_price(symbol, target_price=st_value, ltp=ltp)
         if not oi:
@@ -512,6 +628,93 @@ class OIRsiScanner:
             )
         return events
 
+    def _exit_s2_invalid_strikes(
+        self,
+        book: PaperBook,
+        equity_prices: dict[str, float],
+        fut_prices: dict[str, float],
+        rsi_values: dict[str, float],
+    ) -> list:
+        """OI is the primary stop, confirmed on two consecutive scans:
+        cash through the entry strike or writing gone at that strike.
+        A single invalid print is stored on the position and ignored.
+        Fill is 3rd-month NSE futures, never cash. The 3% futures stop
+        in update() is a single-scan backup if the wall is still valid.
+        """
+        reasons = {
+            "strike_through": ExitReason.STRIKE_THROUGH,
+            "writing_gone": ExitReason.WRITING_GONE,
+        }
+        events = []
+        for position in list(book.positions):
+            if not position.is_open or position.strike <= 0:
+                continue
+            cash = equity_prices.get(position.symbol)
+            if not cash:
+                continue
+
+            oi = self.client.get_oi_at_price(
+                position.symbol, target_price=position.strike, ltp=cash
+            )
+            if oi:
+                self.client.add_oi_changes(oi)
+                call_d, put_d = oi.call_oi_change, oi.put_oi_change
+            else:
+                call_d = put_d = None
+
+            why = s2_invalidation_reason(
+                position.direction,
+                position.strike,
+                cash,
+                call_oi_change=call_d,
+                put_oi_change=put_d,
+            )
+            wall_valid = s2_wall_still_valid(
+                position.direction,
+                position.strike,
+                cash,
+                call_oi_change=call_d,
+                put_oi_change=put_d,
+            )
+            previous = position.s2_invalid_pending
+            position.s2_invalid_pending, confirmed = s2_confirm_invalidation(
+                previous, why, wall_valid=wall_valid
+            )
+            if not confirmed:
+                if why and not previous:
+                    print(
+                        f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
+                        "first scan, holding for confirm"
+                    )
+                elif not why and previous:
+                    print(
+                        f"  {position.symbol}: S2 wall valid again ₹{position.strike:.0f} — "
+                        f"cleared {previous}"
+                    )
+                continue
+
+            fill = fut_prices.get(position.symbol)
+            if not fill:
+                print(
+                    f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
+                    "confirmed, no NSE fut LTP, not exiting on cash"
+                )
+                continue
+            lots = position.lots_open
+            event = book.close_remaining(
+                position,
+                fill,
+                reasons[why],
+                rsi_values.get(position.symbol),
+            )
+            events.append(event)
+            print(
+                f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
+                f"confirmed, exiting {lots} lot {position.direction} "
+                f"@ ₹{fill:,.2f} (fut)"
+            )
+        return events
+
     def _run_one_paper_book(
         self,
         book: PaperBook,
@@ -538,6 +741,13 @@ class OIRsiScanner:
             alert.ltp = fut_prices[alert.symbol]
             paper_alerts.append(alert)
 
+        # S2: confirmed OI invalidation is the primary stop (two consecutive
+        # scans). Run it before the 3% futures cap so a dead wall is booked
+        # as strike_through / writing_gone, not stop_loss.
+        if book is self.s2_book:
+            events += self._exit_s2_invalid_strikes(
+                book, prices, fut_prices, rsi_values
+            )
         events += book.update(fut_prices, rsi_values=rsi_values)
         if book is self.s1_book and is_s1_wall_exit_slot():
             events += self._exit_s1_broken_walls(
@@ -625,6 +835,14 @@ class OIRsiScanner:
                 and not a.skip_reason
             ]
             self._run_one_paper_book(self.s1_book, s1_alerts, prices, rsi_values)
+        if self.s2_book:
+            s2_alerts = [
+                a
+                for a in alerts
+                if a.signal in (SignalType.CALL_OI_S2, SignalType.PUT_OI_S2)
+                and not a.skip_reason
+            ]
+            self._run_one_paper_book(self.s2_book, s2_alerts, prices, rsi_values)
         if self.st_book:
             self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
 
@@ -657,6 +875,17 @@ class OIRsiScanner:
                 s1_alert = self._check_scenario1_candidate(price, s1_oi)
                 if s1_alert:
                     alerts.append(s1_alert)
+            if self.s2_book:
+                s2_src = self._check_scenario1_candidate(
+                    price,
+                    copy_oi_snapshot(oi) if oi else None,
+                    proximity_pct=self.config.oi.s2_proximity_pct,
+                    pcr_band_strikes=self.config.oi.s2_pcr_strikes,
+                    log_tag="S2",
+                    s2_mode=True,
+                )
+                if s2_src:
+                    alerts.append(retag_s1_alert_as_s2(s2_src))
 
         rsi_batch = [
             a
@@ -667,6 +896,8 @@ class OIRsiScanner:
                 SignalType.PUT_OI,
                 SignalType.CALL_OI_S1,
                 SignalType.PUT_OI_S1,
+                SignalType.CALL_OI_S2,
+                SignalType.PUT_OI_S2,
             )
         ]
         if is_close_pnl_slot():

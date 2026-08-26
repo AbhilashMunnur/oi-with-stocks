@@ -68,6 +68,28 @@ def test_s1_digest_shows_skip_reason():
     assert "Not taking — 4.74% from max Call OI (need ≤ 1%)" in text
 
 
+def test_s2_digest_shows_skip_reason():
+    notifier = Notifier(
+        NotificationConfig(console=False, telegram=False, cooldown_minutes=30)
+    )
+    skipped = _alert(
+        symbol="IDEA",
+        signal=SignalType.CALL_OI_S2,
+        ltp=14.95,
+        rsi=70.7,
+        oi_strike=15.0,
+        distance_pct=0.33,
+        skip_reason="did not qualify",
+    )
+
+    text = notifier._scenario2_digest([skipped])
+
+    assert "CALL OI S2 (RSI ≥ 70)" in text
+    assert "IDEA" in text
+    assert "Not taking — did not qualify" in text
+
+
+
 def test_supertrend_digest_shows_skip_reason():
     notifier = Notifier(
         NotificationConfig(console=False, telegram=False, cooldown_minutes=30)

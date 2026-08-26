@@ -8,6 +8,17 @@ def test_august_2026_nse_monthly_is_last_tuesday():
     assert last_tuesday(2026, 9) == date(2026, 9, 29)
 
 
+def test_no_new_entries_on_stock_monthly_expiry():
+    from src.data.option_expiry import expiry_entry_skip_reason
+
+    assert (
+        expiry_entry_skip_reason(date(2026, 8, 25))
+        == "no new entries on stock monthly expiry"
+    )
+    assert expiry_entry_skip_reason(date(2026, 8, 24)) is None
+    assert expiry_entry_skip_reason(date(2026, 8, 26)) is None
+
+
 def test_current_month_oi_picks_last_tuesday_not_bse_thursday():
     chosen = select_current_month_oi_expiry(
         [

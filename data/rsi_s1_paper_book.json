@@ -7,21 +7,6 @@
   "updated_at": "2026-08-26 12:01:36",
   "positions": [
     {
-      "symbol": "DIVISLAB",
-      "direction": "SHORT",
-      "entry_price": 8650.0,
-      "entry_time": "2026-08-21 10:31:28",
-      "lot_size": 100,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 71.67376673089547,
-      "strike": 8600.0,
-      "margin_blocked": 519000.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
       "symbol": "HAL",
       "direction": "SHORT",
       "entry_price": 5121.9,
@@ -172,36 +157,6 @@
       "priced_on": "futures"
     },
     {
-      "symbol": "IDEA",
-      "direction": "SHORT",
-      "entry_price": 15.14,
-      "entry_time": "2026-08-25 11:31:20",
-      "lot_size": 71475,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.64684037629279,
-      "strike": 15.0,
-      "margin_blocked": 649278.9,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "PAYTM",
-      "direction": "SHORT",
-      "entry_price": 1714.9,
-      "entry_time": "2026-08-25 14:01:21",
-      "lot_size": 725,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 75.5915634065399,
-      "strike": 1700.0,
-      "margin_blocked": 745981.5,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
       "symbol": "JUBLFOOD",
       "direction": "SHORT",
       "entry_price": 509.0,
@@ -213,21 +168,6 @@
       "rsi_at_entry": 70.31075266455629,
       "strike": 520.0,
       "margin_blocked": 381750.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "LAURUSLABS",
-      "direction": "SHORT",
-      "entry_price": 1890.2,
-      "entry_time": "2026-08-26 10:31:20",
-      "lot_size": 850,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.2202967767549,
-      "strike": 1900.0,
-      "margin_blocked": 964002.0,
       "closed_legs": [],
       "priced_on": "futures"
     }

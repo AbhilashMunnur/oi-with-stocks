@@ -24,6 +24,23 @@ def _call_oi(**kwargs) -> OISnapshot:
     return OISnapshot(**base)
 
 
+def test_laboratory_short_is_blocked_pharma_is_not():
+    from src.oi_analyzer import no_short_skip_reason
+
+    labs = ["DIVISLAB", "LAURUSLABS"]
+    assert (
+        no_short_skip_reason("DIVISLAB", labs, is_short=True)
+        == "laboratory — longs only"
+    )
+    assert (
+        no_short_skip_reason("lauruslabs", labs, is_short=True)
+        == "laboratory — longs only"
+    )
+    assert no_short_skip_reason("DIVISLAB", labs, is_short=False) is None
+    assert no_short_skip_reason("LUPIN", labs, is_short=True) is None
+    assert no_short_skip_reason("SUNPHARMA", labs, is_short=True) is None
+
+
 def test_call_oi_alert_when_rsi_high_and_near_max_call_strike():
     price = PriceSnapshot(symbol="RELIANCE", ltp=1320, rsi=72.5)
     alert = evaluate_stock(
@@ -433,3 +450,273 @@ def test_exactly_one_percent_away_still_counts_as_near():
     price = PriceSnapshot(symbol="JUBLFOOD", ltp=495.0, rsi=70.3)
     oi = _call_oi(ltp=495.0, max_call_oi_strike=500.0)
     assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0) is None
+
+
+def test_s2_half_percent_proximity_rejects_what_s1_would_take():
+    from src.oi_analyzer import proximity_skip_reason
+
+    # 0.80% from 1700 — inside S1's 1%, outside S2's 0.5%.
+    price = PriceSnapshot(symbol="PAYTM", ltp=1713.6, rsi=75.8)
+    oi = _call_oi(ltp=1713.6, max_call_oi_strike=1700.0)
+    assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0) is None
+    reason = proximity_skip_reason(price, oi, SignalType.CALL_OI, 0.5)
+    assert reason is not None
+    assert "0.5%" in reason
+
+
+def test_s2_half_percent_proximity_still_takes_half_percent():
+    from src.oi_analyzer import proximity_skip_reason
+
+    price = PriceSnapshot(symbol="PAYTM", ltp=1708.5, rsi=75.8)
+    oi = _call_oi(ltp=1708.5, max_call_oi_strike=1700.0)
+    assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 0.5) is None
+
+
+def test_s2_short_exits_when_cash_is_through_the_call_strike():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "SHORT", 1700.0, 1710.0, call_oi_change=700, put_oi_change=200
+        )
+        == "strike_through"
+    )
+
+
+def test_s2_short_exits_when_calls_are_covering_even_below_strike():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "SHORT", 1700.0, 1690.0, call_oi_change=-50, put_oi_change=80
+        )
+        == "writing_gone"
+    )
+
+
+def test_s2_short_holds_when_still_below_strike_and_calls_writing():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "SHORT", 1700.0, 1698.0, call_oi_change=727, put_oi_change=261
+        )
+        is None
+    )
+
+
+def test_s2_long_exits_when_cash_is_through_the_put_strike():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "LONG", 2160.0, 2150.0, call_oi_change=2, put_oi_change=16
+        )
+        == "strike_through"
+    )
+
+
+def test_s2_long_exits_when_puts_are_covering():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "LONG", 2160.0, 2180.0, call_oi_change=10, put_oi_change=0
+        )
+        == "writing_gone"
+    )
+
+
+def test_s2_does_not_treat_missing_delta_oi_as_covering():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "SHORT", 1700.0, 1690.0, call_oi_change=None, put_oi_change=None
+        )
+        is None
+    )
+
+
+def test_s2_through_strike_wins_over_writing_gone():
+    from src.oi_analyzer import s2_invalidation_reason
+
+    assert (
+        s2_invalidation_reason(
+            "SHORT", 1700.0, 1711.0, call_oi_change=-10, put_oi_change=5
+        )
+        == "strike_through"
+    )
+
+
+def test_s2_first_invalid_scan_does_not_exit():
+    from src.oi_analyzer import s2_confirm_invalidation
+
+    pending, exit_now = s2_confirm_invalidation("", "writing_gone", wall_valid=False)
+    assert pending == "writing_gone"
+    assert exit_now is False
+
+
+def test_s2_second_invalid_scan_exits_even_if_reason_changes():
+    from src.oi_analyzer import s2_confirm_invalidation
+
+    pending, exit_now = s2_confirm_invalidation(
+        "writing_gone", "strike_through", wall_valid=False
+    )
+    assert pending == "strike_through"
+    assert exit_now is True
+
+
+def test_s2_valid_wall_clears_first_invalidation():
+    from src.oi_analyzer import s2_confirm_invalidation
+
+    pending, exit_now = s2_confirm_invalidation(
+        "writing_gone", None, wall_valid=True
+    )
+    assert pending == ""
+    assert exit_now is False
+
+
+def test_s2_missing_oi_does_not_clear_or_confirm():
+    from src.oi_analyzer import s2_confirm_invalidation
+
+    pending, exit_now = s2_confirm_invalidation(
+        "writing_gone", None, wall_valid=False
+    )
+    assert pending == "writing_gone"
+    assert exit_now is False
+
+
+def test_s2_wall_still_valid_needs_writers_still_adding():
+    from src.oi_analyzer import s2_wall_still_valid
+
+    assert s2_wall_still_valid(
+        "SHORT", 1700.0, 1698.0, call_oi_change=400, put_oi_change=100
+    )
+    assert not s2_wall_still_valid(
+        "SHORT", 1700.0, 1698.0, call_oi_change=None, put_oi_change=100
+    )
+    assert not s2_wall_still_valid(
+        "SHORT", 1700.0, 1710.0, call_oi_change=400, put_oi_change=100
+    )
+
+
+def test_retag_s1_alert_as_s2_copies_the_wall():
+    from src.oi_analyzer import ScanAlert, retag_s1_alert_as_s2
+
+    s1 = ScanAlert(
+        symbol="PAYTM",
+        signal=SignalType.CALL_OI_S1,
+        ltp=1698.0,
+        rsi=75.8,
+        oi_strike=1700.0,
+        oi_value=1,
+        distance_pct=0.12,
+        expiry="2026-09-29",
+        message="PAYTM: RSI 75.8 vs max Call OI ₹1700 — taking position",
+        lot_size=725,
+    )
+    s2 = retag_s1_alert_as_s2(s1)
+    assert s2.signal == SignalType.CALL_OI_S2
+    assert s2.oi_strike == 1700.0
+    assert s2.ltp == s1.ltp
+    assert s1.signal == SignalType.CALL_OI_S1
+
+
+def test_s2_pcr_band_is_one_strike_below_wall_and_one_above():
+    from src.oi_analyzer import strikes_around_wall
+
+    legs = {k: {"CE": (1, f"ce-{k}")} for k in (1680.0, 1690.0, 1700.0, 1710.0, 1720.0)}
+    assert strikes_around_wall(legs, 1700.0, n_below=1, n_above=1) == [
+        1690.0,
+        1700.0,
+        1710.0,
+    ]
+
+
+def test_s2_short_needs_call_writing_at_the_wall_even_if_band_pcr_is_fine():
+    oi = _call_oi(
+        call_oi_change=-10,
+        put_oi_change=2,
+        band_call_oi_change=800,
+        band_put_oi_change=100,
+    )
+    assert call_oi_flow_rejection(oi, require_change_pcr=True) is not None
+    assert "unwinding" in call_oi_flow_rejection(oi, require_change_pcr=True)
+
+
+def test_s2_short_uses_band_pcr_not_wall_pcr():
+    # Wall PCR would be 0.5 (ok for a short); band PCR is 0.90 (too high).
+    oi = _call_oi(
+        call_oi_change=200,
+        put_oi_change=100,
+        band_call_oi_change=1000,
+        band_put_oi_change=900,
+    )
+    rejected = call_oi_flow_rejection(oi, max_change_pcr=0.75, require_change_pcr=True)
+    assert rejected is not None
+    assert "band ΔPCR" in rejected
+
+
+def test_s2_long_uses_band_pcr_and_requires_it():
+    oi = _call_oi(
+        call_oi_change=50,
+        put_oi_change=80,
+        band_call_oi_change=400,
+        band_put_oi_change=200,
+    )
+    rejected = put_oi_flow_rejection(oi, min_change_pcr=1.0, require_change_pcr=True)
+    assert rejected is not None
+    assert "band ΔPCR" in rejected
+
+
+def test_s2_skips_when_band_pcr_cannot_be_computed():
+    oi = _call_oi(
+        call_oi_change=200,
+        put_oi_change=100,
+        band_call_oi_change=500,
+        band_put_oi_change=-20,
+    )
+    rejected = call_oi_flow_rejection(oi, require_change_pcr=True)
+    assert rejected is not None
+    assert "unavailable" in rejected
+
+
+def test_s2_skips_a_thin_wall():
+    from src.config import SignalType
+    from src.oi_analyzer import s2_size_skip_reason
+
+    oi = _call_oi(max_call_oi=50 * 175, call_oi_change=30 * 175, lot_size=175)
+    reason = s2_size_skip_reason(
+        oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
+    )
+    assert reason is not None
+    assert "too thin" in reason
+
+
+def test_s2_skips_token_writing():
+    from src.config import SignalType
+    from src.oi_analyzer import s2_size_skip_reason
+
+    oi = _call_oi(max_call_oi=200 * 175, call_oi_change=5 * 175, lot_size=175)
+    reason = s2_size_skip_reason(
+        oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
+    )
+    assert reason is not None
+    assert "too little writing" in reason
+
+
+def test_s2_accepts_a_real_wall_and_writing():
+    from src.config import SignalType
+    from src.oi_analyzer import s2_size_skip_reason
+
+    oi = _call_oi(max_call_oi=200 * 175, call_oi_change=40 * 175, lot_size=175)
+    assert (
+        s2_size_skip_reason(
+            oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
+        )
+        is None
+    )
+
+
+

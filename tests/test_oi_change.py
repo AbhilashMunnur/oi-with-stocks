@@ -46,6 +46,14 @@ def test_change_pcr_is_none_without_data():
     assert snapshot().change_pcr is None
 
 
+def test_change_pcr_uses_band_totals_when_set():
+    oi = snapshot(call_change=200, put_change=50)
+    oi.band_call_oi_change = 1000
+    oi.band_put_oi_change = 400
+    assert oi.change_pcr == 0.4
+
+
+
 def test_alert_reports_each_leg_separately():
     """A call alert must not fold put OI into the number it shows."""
     from src.config import SignalType

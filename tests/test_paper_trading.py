@@ -22,7 +22,13 @@ def config(tmp_path):
     )
 
 
-def alert(signal=SignalType.CALL_OI, symbol="TITAN", ltp=5000.0, lot_size=175):
+def alert(
+    signal=SignalType.CALL_OI,
+    symbol="TITAN",
+    ltp=5000.0,
+    lot_size=175,
+    expiry="2026-10-27",
+):
     return ScanAlert(
         symbol=symbol,
         signal=signal,
@@ -31,7 +37,7 @@ def alert(signal=SignalType.CALL_OI, symbol="TITAN", ltp=5000.0, lot_size=175):
         oi_strike=5100.0,
         oi_value=800_000,
         distance_pct=0.2,
-        expiry="2026-08-25",
+        expiry=expiry,
         message="",
         lot_size=lot_size,
     )
@@ -225,7 +231,7 @@ def test_stop_wins_when_a_snapshot_shows_both_levels(config):
 
 def test_expiry_closes_at_the_observed_price(config):
     book = PaperBook(config)
-    book.open_from_alerts([alert()])
+    book.open_from_alerts([alert(expiry="2026-08-25")])
 
     events = book.update({"TITAN": 4990.0}, today=date(2026, 8, 25))
 
@@ -387,4 +393,84 @@ def test_rebase_moves_cash_entry_onto_futures_without_inventing_pnl(config):
     assert book.positions[0].priced_on == "futures"
     assert book.positions[0].unrealised(5120.5) == 0
     assert book.rebase_entries_to_futures({"TITAN": 5200.0}) == []
+
+
+def test_s2_strike_through_closes_remaining_at_futures(tmp_path):
+    from src.paper_trading.models import ExitReason
+
+    book = PaperBook(_s1_config(tmp_path))
+    book.config.name = "RSI+OI S2"
+    book.open_from_alerts([alert()])
+    position = book.positions[0]
+
+    event = book.close_remaining(position, 5100.0, ExitReason.STRIKE_THROUGH, exit_rsi=76.0)
+
+    assert event.kind == "strike_through"
+    assert not book.positions
+    assert book._pending_rows[0]["Exit reason"] == "strike_through"
+
+
+def test_s2_writing_gone_closes_remaining_at_futures(tmp_path):
+    from src.paper_trading.models import ExitReason
+
+    book = PaperBook(_s1_config(tmp_path))
+    book.open_from_alerts([alert()])
+    position = book.positions[0]
+
+    event = book.close_remaining(position, 5010.0, ExitReason.WRITING_GONE)
+
+    assert event.kind == "writing_gone"
+    assert not book.positions
+
+
+def test_s2_invalid_pending_survives_ledger_reload(tmp_path):
+    book = PaperBook(_s1_config(tmp_path))
+    book.config.name = "RSI+OI S2"
+    book.open_from_alerts([alert()])
+    book.positions[0].s2_invalid_pending = "writing_gone"
+    book.save()
+
+    reloaded = PaperBook(book.config)
+    assert reloaded.positions[0].s2_invalid_pending == "writing_gone"
+
+
+def test_laboratory_short_does_not_open_paper(tmp_path):
+    cfg = _s1_config(tmp_path)
+    book = PaperBook(cfg, no_short_symbols=["DIVISLAB", "LAURUSLABS"])
+    events = book.open_from_alerts([alert(symbol="DIVISLAB")])
+
+    assert not book.positions
+    assert events[0].kind == "skipped"
+    assert "laboratory" in events[0].detail
+
+
+def test_laboratory_long_still_opens_paper(tmp_path):
+    from src.config import SignalType
+
+    cfg = _s1_config(tmp_path)
+    book = PaperBook(cfg, no_short_symbols=["DIVISLAB"])
+    book.open_from_alerts(
+        [alert(signal=SignalType.PUT_OI, symbol="DIVISLAB", ltp=8400.0)]
+    )
+
+    assert book.positions[0].symbol == "DIVISLAB"
+    assert book.positions[0].direction == "LONG"
+
+
+def test_s2_does_not_reopen_a_name_that_stopped_today(tmp_path):
+    from src.paper_trading.models import ExitReason
+
+    cfg = _s1_config(tmp_path)
+    cfg.block_same_day_reentry = True
+    book = PaperBook(cfg)
+    book.open_from_alerts([alert()])
+    book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+
+    events = book.open_from_alerts([alert()])
+
+    assert not book.positions
+    assert events[0].kind == "skipped"
+    assert "re-entry" in events[0].detail
+
+
 

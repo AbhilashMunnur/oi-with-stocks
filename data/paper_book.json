@@ -1,9 +1,9 @@
 {
   "capital": 20000000,
-  "realised_pnl": -267251.59,
-  "closed_count": 10,
+  "realised_pnl": -198559.59,
+  "closed_count": 9,
   "day_date": "2026-08-26",
-  "day_realised_pnl": -89300.0,
+  "day_realised_pnl": -20608.0,
   "updated_at": "2026-08-26 12:01:29",
   "positions": [
     {
@@ -286,21 +286,6 @@
       "priced_on": "futures"
     },
     {
-      "symbol": "LAURUSLABS",
-      "direction": "SHORT",
-      "entry_price": 1824.0,
-      "entry_time": "2026-08-14 11:03:02",
-      "lot_size": 850,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 72.13808682635022,
-      "strike": 1840.0,
-      "margin_blocked": 620160.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
       "symbol": "NBCC",
       "direction": "LONG",
       "entry_price": 90.74,
@@ -560,51 +545,6 @@
       "rsi_at_entry": 72.06850933510972,
       "strike": 3300.0,
       "margin_blocked": 297135.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "DABUR",
-      "direction": "LONG",
-      "entry_price": 398.4,
-      "entry_time": "2026-08-25 11:01:03",
-      "lot_size": 1250,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 28.51039994246983,
-      "strike": 390.0,
-      "margin_blocked": 199200.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "IDEA",
-      "direction": "SHORT",
-      "entry_price": 15.14,
-      "entry_time": "2026-08-25 11:31:13",
-      "lot_size": 71475,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.64684037629279,
-      "strike": 15.0,
-      "margin_blocked": 432852.6,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "PAYTM",
-      "direction": "SHORT",
-      "entry_price": 1705.0,
-      "entry_time": "2026-08-25 13:31:05",
-      "lot_size": 725,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 75.05993967663554,
-      "strike": 1700.0,
-      "margin_blocked": 494450.0,
       "closed_legs": [],
       "priced_on": "futures"
     },

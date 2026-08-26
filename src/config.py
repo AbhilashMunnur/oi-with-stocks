@@ -12,6 +12,8 @@ class SignalType(str, Enum):
     PUT_OI = "PUT_OI"
     CALL_OI_S1 = "CALL_OI_S1"
     PUT_OI_S1 = "PUT_OI_S1"
+    CALL_OI_S2 = "CALL_OI_S2"
+    PUT_OI_S2 = "PUT_OI_S2"
     ST_BEARISH = "ST_BEARISH"  # Below Supertrend, bearish OI at ST strike → short
     ST_BULLISH = "ST_BULLISH"  # Above Supertrend, bullish OI at ST strike → long
 
@@ -48,6 +50,17 @@ class OIConfig:
     # S1 fallback (uncrossed wall after the peak is through price) must have
     # at least this % of the peak wall's OI, or it is treated as too thin.
     s1_min_fallback_oi_pct: float = 50.0
+    # S2 entry: cash must be this close to the uncrossed wall (tighter than S1).
+    s2_proximity_pct: float = 0.5
+    # S2 ΔPCR uses this many listed strikes below the wall, the wall, and the
+    # same count above. Writing is still required at the wall itself.
+    s2_pcr_strikes: int = 1
+    # S2: skip thin walls / token writing so a 3% stop is not eaten by noise.
+    s2_min_wall_contracts: int = 100
+    s2_min_write_contracts: int = 20
+    # No new paper on last-Tuesday stock monthly expiry (front-month unwind).
+    # Applies to RSI+OI, S1, S2, and Supertrend.
+    skip_monthly_expiry: bool = True
 
 
 @dataclass
@@ -92,6 +105,8 @@ class PaperTradingConfig:
     name: str = "Paper"
     # Optional third scale-out (S1: 1 lot at 6%, 1 at 10%, rest at 14%).
     third_target_pct: float | None = None
+    # After a stop / OI invalidation, do not reopen the same name today.
+    block_same_day_reentry: bool = False
 
 
 @dataclass
@@ -109,6 +124,10 @@ class AppConfig:
     supertrend_paper_trading: PaperTradingConfig | None = None
     # RSI+OI with Scenario 1 wall filter (broken = unwind + opposite add).
     rsi_s1_paper_trading: PaperTradingConfig | None = None
+    # Same S1 entry; OI exit after two consecutive invalid scans.
+    rsi_s2_paper_trading: PaperTradingConfig | None = None
+    # Laboratory names: never short on any scanner; longs still allowed.
+    no_short_symbols: list[str] = field(default_factory=list)
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -117,15 +136,23 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         raw = yaml.safe_load(handle)
 
     watchlist = raw["watchlist"]
+    no_short = [str(s).upper() for s in (raw.get("no_short_symbols") or [])]
+    oi_raw = dict(raw["oi"])
+    if "skip_monthly_expiry" not in oi_raw and "s2_skip_monthly_expiry" in oi_raw:
+        oi_raw["skip_monthly_expiry"] = oi_raw.pop("s2_skip_monthly_expiry")
+    else:
+        oi_raw.pop("s2_skip_monthly_expiry", None)
     st_raw = raw.get("supertrend") or {}
     st_paper_raw = raw.get("supertrend_paper_trading")
     s1_paper_raw = raw.get("rsi_s1_paper_trading")
+    s2_paper_raw = raw.get("rsi_s2_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
-        oi=OIConfig(**raw["oi"]),
+        oi=OIConfig(**oi_raw),
         data=DataConfig(**raw["data"]),
         watchlist=watchlist if isinstance(watchlist, str) else list(watchlist),
+        no_short_symbols=no_short,
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
         paper_trading=PaperTradingConfig(**raw["paper_trading"]),
@@ -135,5 +162,8 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         ),
         rsi_s1_paper_trading=(
             PaperTradingConfig(**s1_paper_raw) if s1_paper_raw else None
+        ),
+        rsi_s2_paper_trading=(
+            PaperTradingConfig(**s2_paper_raw) if s2_paper_raw else None
         ),
     )

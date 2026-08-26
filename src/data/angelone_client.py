@@ -21,7 +21,7 @@ from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
 from src.data.option_expiry import select_scan_oi_expiry
 from src.indicators import calculate_rsi
-from src.oi_analyzer import select_active_oi_walls
+from src.oi_analyzer import select_active_oi_walls, strikes_around_wall
 from src.paper_trading.futures_expiry import target_futures_year_month
 
 SCRIP_MASTER_URL = (
@@ -938,6 +938,9 @@ class AngelOneClient:
 
     def _previous_session_oi(self, token: str) -> int | None:
         """Open interest at the previous session's close for one contract."""
+        if token in getattr(self, "_prev_oi_cache", {}):
+            return self._prev_oi_cache[token]
+
         now = datetime.now()
         try:
             response = self._call(
@@ -953,6 +956,8 @@ class AngelOneClient:
             )
         except Exception as exc:
             print(f"  OI history unavailable for token {token} ({exc})")
+            self._prev_oi_cache = getattr(self, "_prev_oi_cache", {})
+            self._prev_oi_cache[token] = None
             return None
 
         today = f"{date.today():%Y-%m-%d}"
@@ -961,7 +966,10 @@ class AngelOneClient:
             for row in (response or {}).get("data") or []
             if str(row.get("time", ""))[:10] < today
         ]
-        return prior[-1] if prior else None
+        result = prior[-1] if prior else None
+        self._prev_oi_cache = getattr(self, "_prev_oi_cache", {})
+        self._prev_oi_cache[token] = result
+        return result
 
     def add_oi_changes(self, snapshot: OISnapshot) -> OISnapshot:
         """Fill in CE/PE OI change at the tokens already on the snapshot.
@@ -980,4 +988,38 @@ class AngelOneClient:
             if previous is not None:
                 snapshot.put_oi_change = snapshot.max_put_oi - previous
 
+        return snapshot
+
+    def add_band_oi_changes(
+        self,
+        snapshot: OISnapshot,
+        wall: float,
+        n_below: int = 1,
+        n_above: int = 1,
+    ) -> OISnapshot:
+        """Sum CE/PE ΔOI across listed strikes around the wall (S2 ΔPCR).
+
+        Wall-only ``call_oi_change`` / ``put_oi_change`` are left untouched so
+        writing is still judged at the peak Call/Put strike.
+        """
+        call_total = 0
+        put_total = 0
+        call_ok = False
+        put_ok = False
+        for strike in strikes_around_wall(snapshot.legs_by_strike, wall, n_below, n_above):
+            legs = snapshot.legs_by_strike.get(strike) or {}
+            if "CE" in legs:
+                oi_shares, token = legs["CE"]
+                previous = self._previous_session_oi(token)
+                if previous is not None:
+                    call_total += oi_shares - previous
+                    call_ok = True
+            if "PE" in legs:
+                oi_shares, token = legs["PE"]
+                previous = self._previous_session_oi(token)
+                if previous is not None:
+                    put_total += oi_shares - previous
+                    put_ok = True
+        snapshot.band_call_oi_change = call_total if call_ok else None
+        snapshot.band_put_oi_change = put_total if put_ok else None
         return snapshot

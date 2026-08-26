@@ -17,6 +17,8 @@ class ExitReason(str, Enum):
     STOP_LOSS = "stop_loss"
     EXPIRY = "expiry"
     WALL_BROKEN = "wall_broken"
+    STRIKE_THROUGH = "strike_through"
+    WRITING_GONE = "writing_gone"
 
 
 @dataclass
@@ -44,6 +46,9 @@ class Position:
     closed_legs: list[ClosedLeg] = field(default_factory=list)
     # "equity" until the first 3rd-month fut quote; then "futures".
     priced_on: str = "equity"
+    # S2: last scan's OI invalidation reason. Empty = wall still valid.
+    # Exit only after a second consecutive invalid scan.
+    s2_invalid_pending: str = ""
 
     def move_pct(self, price: float) -> float:
         """Percent moved in the trade's favour; negative means against it."""

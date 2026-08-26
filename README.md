@@ -64,7 +64,7 @@ Edit `config.yaml`:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
-| `rsi.put_threshold` | 32 | RSI must be at or below this for a Put OI alert |
+| `rsi.put_threshold` | 31 | RSI must be at or below this for a Put OI alert |
 | `oi.proximity_pct` | 1.0 | Price must be within this % of the max OI strike |
 | `data.history_days` | 400 | Daily candles for RSI + Supertrend |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
@@ -144,7 +144,7 @@ It asks for the bot token from [@BotFather](https://t.me/BotFather), finds your 
 ID automatically, sends a test message and writes both values to `.env`.
 
 Each scan sends **three** grouped messages (RSI+OI, RSI+OI S1, Supertrend). Every
-RSI ≥ 70 / ≤ 32 name is listed on the first two; Supertrend lists names within
+RSI ≥ 70 / ≤ 31 name is listed on the first two; Supertrend lists names within
 0.5% of the ST line. A `Not taking` line is added when that book does not trade:
 
 ```
@@ -159,7 +159,7 @@ CALL OI (RSI ≥ 70)
     Call ΔOI +0 | Put ΔOI +0  (contracts)
     Not taking — Call ΔOI +0 shares (call unwinding/flat — skip short)
 
-PUT OI (RSI ≤ 32)
+PUT OI (RSI ≤ 31)
 • LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
     Call ΔOI +200 | Put ΔOI +410 | ΔPCR 2.05  (contracts)
 ```
@@ -244,7 +244,7 @@ Alerts also carry how open interest moved since the previous session's close, at
 - **RSI ≥ 70 (CALL)** — reference = highest Call OI among strikes **≥ spot**.
   Broken call walls below price are ignored. Both **Call ΔOI** and **Put ΔOI**
   are measured on the CE and PE at that same strike.
-- **RSI ≤ 32 (PUT)** — reference = highest Put OI among strikes **≤ spot**.
+- **RSI ≤ 31 (PUT)** — reference = highest Put OI among strikes **≤ spot**.
   Broken put walls above price are ignored. Both legs again at that same strike.
 - Positive ΔOI means writing; negative means unwinding. The two legs are never
   summed together.
@@ -272,7 +272,7 @@ OI strikes are read as resistance and support.
 | Signal | Position |
 |--------|----------|
 | RSI ≥ 70 near max Call OI still above price | **SHORT** 2 lots — selling into resistance |
-| RSI ≤ 32 near max Put OI still below price | **LONG** 2 lots — buying at support |
+| RSI ≤ 31 near max Put OI still below price | **LONG** 2 lots — buying at support |
 
 Exits, checked on every scan:
 
@@ -285,10 +285,13 @@ Exits, checked on every scan:
 | Expiry reached | Close everything at market |
 | **S1 only:** 3 lots — 1 at **6%**, 1 at **10%**, 1 at **14%** | Scale out in the trade's favour |
 | **S1 only:** at **15:15 IST**, long if the **entry** Put strike is still broken, or short if the **entry** Call strike is still broken | Close remaining lots at market |
+| **S2 only:** same uncrossed-wall entry as S1, cash within **0.5%**, ΔPCR from **1 strike below + wall + 1 above**, writing still required at the wall | Own ledger (`rsi_s2_paper_trading`) |
+| **S2 only:** every scan, cash **through the entry strike** *or* **writing gone** at that strike | **Primary stop.** Close remaining lots at the 3rd-month future. **3%** is only a backup if the wall is still valid |
+| **S2 only:** wall ≥ **100 lots**, writing ≥ **20 lots**; no new entries on stock monthly expiry; no same-day re-entry after stop/invalidation | Cuts PAYTM-style noise so the tighter stop is usable |
 
 The original RSI+OI book does not use the wall-break exit. Supertrend has its own
 ledger. Settings live under `paper_trading` / `rsi_s1_paper_trading` /
-`supertrend_paper_trading` in `config.yaml`.
+`rsi_s2_paper_trading` / `supertrend_paper_trading` in `config.yaml`.
 
 ### The trade journal
 

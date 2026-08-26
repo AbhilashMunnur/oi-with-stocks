@@ -35,6 +35,8 @@ def main() -> None:
     books = [("RSI+OI", config.paper_trading)]
     if config.rsi_s1_paper_trading:
         books.append(("RSI+OI S1", config.rsi_s1_paper_trading))
+    if config.rsi_s2_paper_trading:
+        books.append(("RSI+OI S2", config.rsi_s2_paper_trading))
     if config.supertrend_paper_trading:
         books.append(("Supertrend", config.supertrend_paper_trading))
 

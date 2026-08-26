@@ -38,6 +38,13 @@ def is_stock_monthly_expiry_day(today: date | None = None) -> bool:
     return today == last_tuesday(today.year, today.month)
 
 
+def expiry_entry_skip_reason(today: date | None = None) -> str | None:
+    """No new paper on NSE stock monthly expiry (last Tuesday)."""
+    if is_stock_monthly_expiry_day(today):
+        return "no new entries on stock monthly expiry"
+    return None
+
+
 def oi_uses_next_month(today: date | None = None) -> bool:
     """Front-month stock OI is noise on Nifty Tuesday and stock monthly expiry."""
     today = today or date.today()

@@ -26,6 +26,10 @@ class OISnapshot:
     # Change against the previous session's close, filled in on demand.
     call_oi_change: int | None = None
     put_oi_change: int | None = None
+    # S2: summed ΔOI across the PCR band (1 strike below + wall + 1 above).
+    # When set, change_pcr uses these instead of the wall-only legs.
+    band_call_oi_change: int | None = None
+    band_put_oi_change: int | None = None
     # strike -> {"CE"|"PE": (oi_shares, token)} from the last chain fetch.
     # Used to bind both ΔOI legs to one reference strike for RSI signals.
     legs_by_strike: dict[float, dict[str, tuple[int, str]]] = field(
@@ -45,6 +49,8 @@ class OISnapshot:
         unwinding the ratio flips sign and stops describing anything useful.
         """
         call_change, put_change = self.call_oi_change, self.put_oi_change
+        if self.band_call_oi_change is not None or self.band_put_oi_change is not None:
+            call_change, put_change = self.band_call_oi_change, self.band_put_oi_change
         if not call_change or put_change is None:
             return None
         if call_change <= 0 or put_change <= 0:

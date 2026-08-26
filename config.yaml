@@ -2,11 +2,16 @@
 rsi:
   period: 14
   call_threshold: 70      # Notify when RSI is at or above this
-  put_threshold: 32       # Notify when RSI is at or below this
+  put_threshold: 31       # Notify when RSI is at or below this
 
 # How close price must be to the max OI strike (percentage)
 oi:
   proximity_pct: 1.0      # e.g. 1% means price within 1% of the strike
+  s2_proximity_pct: 0.5   # S2 only: tighter entry than RSI+OI / S1
+  s2_pcr_strikes: 1       # S2 ΔPCR: 1 listed strike below + wall + 1 above
+  s2_min_wall_contracts: 100   # S2: standing OI at the wall, in lots
+  s2_min_write_contracts: 20   # S2: session writing at the wall, in lots
+  skip_monthly_expiry: true    # All scanners: no new entries on last-Tuesday expiry
   # CALL shorts: require ΔPCR < 0.75.
   require_call_writing: true
   max_change_pcr: 0.75
@@ -37,6 +42,21 @@ data:
 #     - RELIANCE
 #     - HDFCBANK
 watchlist: all
+
+# Never short laboratory names (CDMO / research labs / diagnostic labs).
+# Applies to RSI+OI, S1, S2, and Supertrend. Longs still open if Put /
+# bullish Supertrend rules pass. Pharma (LUPIN, SUNPHARMA, CIPLA,
+# DRREDDY, BIOCON, ALKEM, GLENMARK, TORNTPHARM, ZYDUSLIFE, MANKIND…)
+# is not on this list and can still be shorted.
+no_short_symbols:
+  - DIVISLAB      # Divi's Laboratories
+  - LAURUSLABS    # Laurus Labs
+  - NEULANDLAB    # Neuland Laboratories
+  - SYNGENE       # Syngene (research labs)
+  - LALPATHLAB    # Dr Lal PathLabs
+  - METROPOLIS    # Metropolis Healthcare
+  - THYROCARE     # Thyrocare
+  - VIJAYA        # Vijaya Diagnostic
 
 # Scanner schedule (24h format, IST assumed). Weekdays only.
 schedule:
@@ -95,6 +115,33 @@ rsi_s1_paper_trading:
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "RSI S1 Paper trades"
   google_summary_worksheet: "RSI S1 Portfolio Summary"
+
+# RSI+OI Scenario 2: same uncrossed-wall entry as S1, but cash must be within
+# 0.5% of the strike (not 1%). ΔPCR is summed over 1 strike below the wall,
+# the wall, and 1 above; writing must still be at the peak Call/Put strike.
+# OI exit only after two consecutive scans both say the wall is dead
+# (cash through the entry strike, or writing gone at that strike). A
+# single print is ignored. 3% futures stop is a single-scan backup if
+# the wall is still valid. Same 3-lot scale-out.
+# Same 3-lot scale-out. Same-day re-entry after a stop is blocked.
+rsi_s2_paper_trading:
+  enabled: true
+  name: "RSI+OI S2"
+  capital: 20000000
+  lots_per_trade: 3
+  first_target_pct: 6.0
+  second_target_pct: 10.0
+  third_target_pct: 14.0
+  stop_loss_pct: 3.0
+  second_lot_stop_pct: 1.0
+  block_same_day_reentry: true
+  margin_pct: 20.0
+  futures_month: 3
+  ledger_path: data/rsi_s2_paper_book.json
+  journal_csv: data/rsi_s2_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "RSI S2 Paper trades"
+  google_summary_worksheet: "RSI S2 Portfolio Summary"
 
 # Paper trading for Supertrend + OI only — own capital, ledger, and journal.
 supertrend_paper_trading:
