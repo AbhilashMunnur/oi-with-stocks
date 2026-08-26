@@ -4,7 +4,8 @@
   "closed_count": 3,
   "day_date": "2026-08-26",
   "day_realised_pnl": -110710.8,
-  "updated_at": "2026-08-26 12:01:42",
+  "updated_at": "2026-08-26 12:31:07",
+  "blocked_reentry": [],
   "positions": [
     {
       "symbol": "HDFCAMC",
@@ -27,7 +28,8 @@
           "pnl": 45397.8
         }
       ],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "RECLTD",
@@ -42,7 +44,8 @@
       "strike": 335.0,
       "margin_blocked": 211837.5,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MAZDOCK",
@@ -57,7 +60,8 @@
       "strike": 2600.0,
       "margin_blocked": 232974.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "GMRAIRPORT",
@@ -72,7 +76,8 @@
       "strike": 102.0,
       "margin_blocked": 288430.2,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SHREECEM",
@@ -87,7 +92,8 @@
       "strike": 24500.0,
       "margin_blocked": 245950.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SUPREMEIND",
@@ -102,7 +108,8 @@
       "strike": 3600.0,
       "margin_blocked": 255339.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "LT",
@@ -117,7 +124,8 @@
       "strike": 4100.0,
       "margin_blocked": 288911.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "ICICIPRULI",
@@ -132,7 +140,8 @@
       "strike": 525.0,
       "margin_blocked": 196340.5,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     }
   ]
 }

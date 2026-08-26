@@ -4,7 +4,8 @@
   "closed_count": 9,
   "day_date": "2026-08-26",
   "day_realised_pnl": -20608.0,
-  "updated_at": "2026-08-26 12:01:29",
+  "updated_at": "2026-08-26 12:30:55",
+  "blocked_reentry": [],
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -19,7 +20,8 @@
       "strike": 1700.0,
       "margin_blocked": 324235.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "BLUESTARCO",
@@ -34,7 +36,8 @@
       "strike": 1500.0,
       "margin_blocked": 195260.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "HAL",
@@ -49,7 +52,8 @@
       "strike": 5000.0,
       "margin_blocked": 300198.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "LICHSGFIN",
@@ -72,7 +76,8 @@
           "pnl": 29946.0
         }
       ],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "LTM",
@@ -95,7 +100,8 @@
           "pnl": 43155.0
         }
       ],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MOTHERSON",
@@ -110,7 +116,8 @@
       "strike": 170.0,
       "margin_blocked": 420094.2,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SONACOMS",
@@ -125,7 +132,8 @@
       "strike": 820.0,
       "margin_blocked": 397733.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "TITAN",
@@ -140,7 +148,8 @@
       "strike": 5100.0,
       "margin_blocked": 361480.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "TVSMOTOR",
@@ -155,7 +164,8 @@
       "strike": 4400.0,
       "margin_blocked": 315056.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "HINDALCO",
@@ -170,7 +180,8 @@
       "strike": 1060.0,
       "margin_blocked": 302777.99999999994,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "NATIONALUM",
@@ -193,7 +204,8 @@
           "pnl": 47036.25
         }
       ],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "FORTIS",
@@ -208,7 +220,8 @@
       "strike": 880.0,
       "margin_blocked": 278550.5,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "PNB",
@@ -223,7 +236,8 @@
       "strike": 120.0,
       "margin_blocked": 384000.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "RADICO",
@@ -238,7 +252,8 @@
       "strike": 4600.0,
       "margin_blocked": 278412.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "GODREJCP",
@@ -253,7 +268,8 @@
       "strike": 920.0,
       "margin_blocked": 187920.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "ASTRAL",
@@ -268,7 +284,8 @@
       "strike": 1600.0,
       "margin_blocked": 264503.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MAXHEALTH",
@@ -283,7 +300,8 @@
       "strike": 1000.0,
       "margin_blocked": 213465.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "NBCC",
@@ -298,7 +316,8 @@
       "strike": 90.0,
       "margin_blocked": 235924.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SOLARINDS",
@@ -313,7 +332,8 @@
       "strike": 20000.0,
       "margin_blocked": 406720.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "PIIND",
@@ -328,7 +348,8 @@
       "strike": 2500.0,
       "margin_blocked": 171556.00000000003,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "HAVELLS",
@@ -343,7 +364,8 @@
       "strike": 1300.0,
       "margin_blocked": 263600.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "LUPIN",
@@ -358,7 +380,8 @@
       "strike": 2260.0,
       "margin_blocked": 386393.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "COALINDIA",
@@ -373,7 +396,8 @@
       "strike": 410.0,
       "margin_blocked": 219699.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "KEI",
@@ -396,7 +420,8 @@
           "pnl": 61666.5
         }
       ],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "COLPAL",
@@ -411,7 +436,8 @@
       "strike": 1900.0,
       "margin_blocked": 211871.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "BSE",
@@ -426,7 +452,8 @@
       "strike": 3300.0,
       "margin_blocked": 264360.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "GMRAIRPORT",
@@ -441,7 +468,8 @@
       "strike": 101.0,
       "margin_blocked": 285723.9,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "BOSCHLTD",
@@ -456,7 +484,8 @@
       "strike": 49000.0,
       "margin_blocked": 491550.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "PAGEIND",
@@ -471,7 +500,8 @@
       "strike": 35000.0,
       "margin_blocked": 287240.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "COFORGE",
@@ -486,7 +516,8 @@
       "strike": 1900.0,
       "margin_blocked": 361000.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "PFC",
@@ -501,7 +532,8 @@
       "strike": 360.0,
       "margin_blocked": 189592.00000000003,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SHREECEM",
@@ -516,7 +548,8 @@
       "strike": 24000.0,
       "margin_blocked": 241000.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MOTILALOFS",
@@ -531,7 +564,8 @@
       "strike": 1020.0,
       "margin_blocked": 317610.5,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MCX",
@@ -546,7 +580,8 @@
       "strike": 3300.0,
       "margin_blocked": 297135.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "JUBLFOOD",
@@ -561,7 +596,24 @@
       "strike": 520.0,
       "margin_blocked": 254500.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "direction": "SHORT",
+      "entry_price": 420.15,
+      "entry_time": "2026-08-26 12:30:55",
+      "lot_size": 2000,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.26309156975312,
+      "strike": 420.0,
+      "margin_blocked": 336120.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     }
   ]
 }

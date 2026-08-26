@@ -4,7 +4,8 @@
   "closed_count": 1,
   "day_date": "2026-08-26",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-26 12:01:36",
+  "updated_at": "2026-08-26 12:31:01",
+  "blocked_reentry": [],
   "positions": [
     {
       "symbol": "HAL",
@@ -19,7 +20,8 @@
       "strike": 5100.0,
       "margin_blocked": 460971.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "PFC",
@@ -34,7 +36,8 @@
       "strike": 360.0,
       "margin_blocked": 284388.00000000006,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "SHREECEM",
@@ -49,7 +52,8 @@
       "strike": 24000.0,
       "margin_blocked": 361500.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MAXHEALTH",
@@ -64,7 +68,8 @@
       "strike": 990.0,
       "margin_blocked": 317331.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "COFORGE",
@@ -79,7 +84,8 @@
       "strike": 1900.0,
       "margin_blocked": 542355.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MOTILALOFS",
@@ -94,7 +100,8 @@
       "strike": 1020.0,
       "margin_blocked": 476415.75,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "POLICYBZR",
@@ -109,7 +116,8 @@
       "strike": 1800.0,
       "margin_blocked": 381906.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "LUPIN",
@@ -124,7 +132,8 @@
       "strike": 2160.0,
       "margin_blocked": 564825.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MCX",
@@ -139,7 +148,8 @@
       "strike": 3300.0,
       "margin_blocked": 445702.5,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "MOTHERSON",
@@ -154,7 +164,8 @@
       "strike": 170.0,
       "margin_blocked": 625418.1,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     },
     {
       "symbol": "JUBLFOOD",
@@ -169,7 +180,24 @@
       "strike": 520.0,
       "margin_blocked": 381750.0,
       "closed_legs": [],
-      "priced_on": "futures"
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "direction": "SHORT",
+      "entry_price": 420.15,
+      "entry_time": "2026-08-26 12:31:01",
+      "lot_size": 2000,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.26309156975312,
+      "strike": 420.0,
+      "margin_blocked": 504180.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
     }
   ]
 }
