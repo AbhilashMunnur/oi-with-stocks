@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -47327.4,
-  "closed_count": 2,
+  "realised_pnl": -108595.8,
+  "closed_count": 3,
   "day_date": "2026-08-26",
-  "day_realised_pnl": -49442.4,
-  "updated_at": "2026-08-26 10:03:36",
+  "day_realised_pnl": -110710.8,
+  "updated_at": "2026-08-26 10:31:34",
   "positions": [
     {
       "symbol": "HDFCAMC",
@@ -116,21 +116,6 @@
       "rsi_at_entry": 0.0,
       "strike": 4100.0,
       "margin_blocked": 288911.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "MOTILALOFS",
-      "direction": "SHORT",
-      "entry_price": 988.2,
-      "entry_time": "2026-08-20 09:56:23",
-      "lot_size": 775,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 0.0,
-      "strike": 980.0,
-      "margin_blocked": 306342.0,
       "closed_legs": [],
       "priced_on": "futures"
     }
