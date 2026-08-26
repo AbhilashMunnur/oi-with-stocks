@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -177951.59,
-  "closed_count": 8,
-  "day_date": "2026-08-25",
-  "day_realised_pnl": -99408.52,
-  "updated_at": "2026-08-25 15:46:03",
+  "realised_pnl": -267251.59,
+  "closed_count": 10,
+  "day_date": "2026-08-26",
+  "day_realised_pnl": -89300.0,
+  "updated_at": "2026-08-26 09:59:23",
   "positions": [
     {
       "symbol": "ADANIPORTS",
@@ -57,13 +57,21 @@
       "entry_price": 499.1,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 1000,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-27",
       "rsi_at_entry": 30.018291617734263,
       "strike": 500.0,
-      "margin_blocked": 199640.0,
-      "closed_legs": [],
+      "margin_blocked": 99820.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 529.05,
+          "exit_time": "2026-08-26 09:59:23",
+          "reason": "first_target",
+          "pnl": 29946.0
+        }
+      ],
       "priced_on": "futures"
     },
     {
@@ -161,21 +169,6 @@
       "rsi_at_entry": 70.17258499138475,
       "strike": 1060.0,
       "margin_blocked": 302777.99999999994,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
-      "symbol": "DIVISLAB",
-      "direction": "SHORT",
-      "entry_price": 8586.5,
-      "entry_time": "2026-08-11 13:13:36",
-      "lot_size": 100,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 76.43620521513301,
-      "strike": 8500.0,
-      "margin_blocked": 343460.0,
       "closed_legs": [],
       "priced_on": "futures"
     },
@@ -481,21 +474,6 @@
       "priced_on": "futures"
     },
     {
-      "symbol": "POLICYBZR",
-      "direction": "SHORT",
-      "entry_price": 1805.5,
-      "entry_time": "2026-08-19 13:31:46",
-      "lot_size": 350,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 70.38254378807223,
-      "strike": 1800.0,
-      "margin_blocked": 252770.0,
-      "closed_legs": [],
-      "priced_on": "futures"
-    },
-    {
       "symbol": "PAGEIND",
       "direction": "LONG",
       "entry_price": 35905.0,
@@ -627,6 +605,21 @@
       "rsi_at_entry": 75.05993967663554,
       "strike": 1700.0,
       "margin_blocked": 494450.0,
+      "closed_legs": [],
+      "priced_on": "futures"
+    },
+    {
+      "symbol": "JUBLFOOD",
+      "direction": "SHORT",
+      "entry_price": 509.0,
+      "entry_time": "2026-08-26 09:59:23",
+      "lot_size": 1250,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.31075266455629,
+      "strike": 520.0,
+      "margin_blocked": 254500.0,
       "closed_legs": [],
       "priced_on": "futures"
     }
