@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from src.config import PaperTradingConfig, SignalType
+from src.data.option_expiry import opened_on_stock_monthly_expiry
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading.journal import TradeJournal, build_row, build_summary_row
 from src.paper_trading.models import (
@@ -333,6 +334,43 @@ class PaperBook:
     # ------------------------------------------------------------------ #
     # Entries
     # ------------------------------------------------------------------ #
+
+    def drop_void_positions(self, *, skip_monthly_expiry: bool = True) -> list[TradeEvent]:
+        """Remove lab shorts and expiry-day opens without booking P&L."""
+        events: list[TradeEvent] = []
+        kept: list[Position] = []
+        for position in self.positions:
+            if not position.is_open:
+                kept.append(position)
+                continue
+            blocked = no_short_skip_reason(
+                position.symbol,
+                self.no_short_symbols,
+                is_short=position.direction == Direction.SHORT,
+            )
+            if blocked:
+                events.append(
+                    TradeEvent(
+                        symbol=position.symbol,
+                        kind="removed",
+                        detail=blocked,
+                    )
+                )
+                continue
+            if skip_monthly_expiry and opened_on_stock_monthly_expiry(
+                position.entry_time
+            ):
+                events.append(
+                    TradeEvent(
+                        symbol=position.symbol,
+                        kind="removed",
+                        detail="opened on stock monthly expiry",
+                    )
+                )
+                continue
+            kept.append(position)
+        self.positions = kept
+        return events
 
     def _direction_for(self, alert: ScanAlert) -> Direction:
         # RSI Call OI / ST bearish → short; RSI Put OI / ST bullish → long.

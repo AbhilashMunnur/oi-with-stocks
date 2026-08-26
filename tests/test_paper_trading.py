@@ -457,6 +457,37 @@ def test_laboratory_long_still_opens_paper(tmp_path):
     assert book.positions[0].direction == "LONG"
 
 
+def test_drop_void_positions_removes_lab_short_without_booking(tmp_path):
+    cfg = _s1_config(tmp_path)
+    book = PaperBook(cfg, no_short_symbols=["DIVISLAB", "LAURUSLABS"])
+    book.open_from_alerts([alert(symbol="TITAN")])
+    book.positions[0].symbol = "LAURUSLABS"
+    before = book.realised_pnl
+
+    events = book.drop_void_positions()
+
+    assert [e.kind for e in events] == ["removed"]
+    assert events[0].symbol == "LAURUSLABS"
+    assert not book.positions
+    assert book.realised_pnl == before
+    assert book._pending_rows == []
+
+
+def test_drop_void_positions_removes_expiry_day_open_without_booking(tmp_path):
+    cfg = _s1_config(tmp_path)
+    book = PaperBook(cfg)
+    book.open_from_alerts([alert(symbol="IDEA")])
+    book.positions[0].entry_time = "2026-08-25 11:31:13"
+    before = book.realised_pnl
+
+    events = book.drop_void_positions()
+
+    assert events[0].kind == "removed"
+    assert "expiry" in events[0].detail
+    assert not book.positions
+    assert book.realised_pnl == before
+
+
 def test_s2_does_not_reopen_a_name_that_stopped_today(tmp_path):
     from src.paper_trading.models import ExitReason
 

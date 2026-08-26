@@ -19,6 +19,14 @@ def test_no_new_entries_on_stock_monthly_expiry():
     assert expiry_entry_skip_reason(date(2026, 8, 26)) is None
 
 
+def test_opened_on_stock_monthly_expiry_uses_entry_date():
+    from src.data.option_expiry import opened_on_stock_monthly_expiry
+
+    assert opened_on_stock_monthly_expiry("2026-08-25 11:31:13")
+    assert not opened_on_stock_monthly_expiry("2026-08-24 12:01:18")
+    assert not opened_on_stock_monthly_expiry("2026-08-26 09:59:23")
+
+
 def test_current_month_oi_picks_last_tuesday_not_bse_thursday():
     chosen = select_current_month_oi_expiry(
         [

@@ -727,6 +727,9 @@ class OIRsiScanner:
 
         fut_prices = self._futures_paper_prices(book, alerts)
         events = self._restate_cash_entries(book)
+        events += book.drop_void_positions(
+            skip_monthly_expiry=self.config.oi.skip_monthly_expiry
+        )
 
         paper_alerts: list[ScanAlert] = []
         for alert in alerts:

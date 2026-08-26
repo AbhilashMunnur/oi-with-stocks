@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 # NSE Nifty weekly (and monthly) index options expire on Tuesday.
 # NSE single-stock F&O monthly expiry is the last Tuesday (since Sep 2025).
@@ -43,6 +43,16 @@ def expiry_entry_skip_reason(today: date | None = None) -> str | None:
     if is_stock_monthly_expiry_day(today):
         return "no new entries on stock monthly expiry"
     return None
+
+
+def opened_on_stock_monthly_expiry(entry_time: str) -> bool:
+    """True if this paper entry was opened on that month's last Tuesday."""
+    stamp = (entry_time or "")[:19]
+    try:
+        entered = datetime.strptime(stamp, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return False
+    return entered.date() == last_tuesday(entered.year, entered.month)
 
 
 def oi_uses_next_month(today: date | None = None) -> bool:
