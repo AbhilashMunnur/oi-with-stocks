@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -198559.59,
-  "closed_count": 9,
+  "realised_pnl": -275838.19,
+  "closed_count": 10,
   "day_date": "2026-08-27",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-27 15:31:40",
+  "day_realised_pnl": -77278.6,
+  "updated_at": "2026-08-27 15:46:10",
   "blocked_reentry": [],
   "positions": [
     {
@@ -363,22 +363,6 @@
       "rsi_at_entry": 71.13763592977051,
       "strike": 1300.0,
       "margin_blocked": 263600.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 2272.9,
-      "entry_time": "2026-08-14 15:02:19",
-      "lot_size": 425,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 30.62535403592699,
-      "strike": 2260.0,
-      "margin_blocked": 386393.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
