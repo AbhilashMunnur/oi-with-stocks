@@ -1,49 +1,57 @@
-# Reliable scan scheduling
+# Live scan kick (Mac does not need to stay awake)
 
-GitHub’s built-in `schedule` trigger is **best-effort**. On busy runners it is
-often late or skipped entirely — that is a platform limitation, not a bug in
-this repo’s scanner. **A missed 09:30–11:30 window is missed live paper**
-(entries, stops, scale-outs). It is not backfilled.
+GitHub’s own `schedule` trigger is **best-effort**. It skipped all of 09:30–11:30
+IST on 27 Aug 2026. A missed slot is missed live paper (entries, stops,
+scale-outs). It is not backfilled.
 
-## What we do in-repo
+The Mac LaunchAgent is **optional extra** for when the laptop happens to be on.
+**Production kick is a cloud ping**, not this Mac.
 
-1. Poll every 5 minutes during the IST session, plus exact `:00` / `:30` crons.
-2. **Never cancel** an in-flight scan (`cancel-in-progress: false`). Older
-   polls used to kill a running scan when the next cron started.
-3. Slot guard so each half-hour (09:30 … 15:30 IST) runs at most once.
-4. **Self-chain** (recommended): after each poll, wait until the next half-hour
-   and `repository_dispatch` the next run. Needs secret `SCAN_DISPATCH_TOKEN`.
-   The chain **stops after 15:45**. Next morning needs a kick (warmup, Mac
-   watch, or cron-job.org). Chain wait can be ~50 minutes before 09:30.
+## What actually keeps the session alive
 
-## Morning kick (required for live paper)
+1. A cloud ping every 5 minutes during 08:00–15:55 IST (`repository_dispatch`).
+2. In-repo **self-chain** after the first scan of the day (needs
+   `SCAN_DISPATCH_TOKEN`). That chain **stops after 15:45**, so the next
+   morning still needs the cloud ping.
 
-Do **at least one** of these. GitHub cron alone is not enough.
+## Required: cron-job.org (runs while you sleep)
 
-**A. This Mac (awake during market hours):**
+Free account: https://console.cron-job.org/signup
+
+1. Sign up (email you can confirm), then Console → **Settings** → create an
+   **API key**.
+2. On this Mac, in a terminal (the key is typed hidden, not into chat):
 
 ```bash
-chmod +x scripts/install_mac_scan_watch.sh scripts/keep_scans_alive.sh
+cd "/Users/abhilashmunnur/OI with stocks"
+python3 scripts/provision_cronjob_org.py
+```
+
+That creates a POST every 5 minutes, **08:00–15:55 IST, Mon–Fri**, to:
+
+`https://api.github.com/repos/AbhilashMunnur/oi-with-stocks/dispatches`
+
+Body: `{"event_type":"oi-scan"}`. Auth is your current `gh` token (`repo` scope).
+
+The workflow slot guard no-ops in a few seconds if that half-hour already ran.
+Duplicate pings are safe.
+
+Re-run the same script after `gh auth login` if the GitHub token is rotated.
+
+## Already done in GitHub
+
+- `SCAN_DISPATCH_TOKEN` refreshed (self-chain for the rest of a session).
+- 08:30 warmup, if GitHub actually runs it, also dispatches the 09:30 chain.
+- Chain job can wait 90 minutes (used to die at 40).
+
+## Optional: this Mac, only if it is already awake
+
+```bash
 ./scripts/install_mac_scan_watch.sh
 ```
 
-Pings GitHub every 5 minutes from 09:15–15:50 IST. Slot guard no-ops if that
-half-hour already ran.
-
-**B. Self-chain token** (rest of the session after the first scan of the day):
+Unload it if you do not want local pings:
 
 ```bash
-chmod +x scripts/setup_scan_cron.sh
-./scripts/setup_scan_cron.sh
+launchctl bootout "gui/$(id -u)/com.oiwithstocks.scanwatch"
 ```
-
-**C. Optional third-party backup** when the Mac is asleep — cron-job.org:
-
-- URL: `https://api.github.com/repos/AbhilashMunnur/oi-with-stocks/dispatches`
-- Method: `POST`
-- Schedule: every 5 minutes, 03:45–10:20 UTC, Mon–Fri
-- Headers:
-  - `Accept: application/vnd.github+json`
-  - `Authorization: Bearer YOUR_PAT`
-  - `X-GitHub-Api-Version: 2022-11-28`
-- Body: `{"event_type":"oi-scan"}`
