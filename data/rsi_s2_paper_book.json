@@ -4,7 +4,7 @@
   "closed_count": 1,
   "day_date": "2026-08-27",
   "day_realised_pnl": -7125.0,
-  "updated_at": "2026-08-27 14:31:38",
+  "updated_at": "2026-08-27 15:01:39",
   "blocked_reentry": [
     "COFORGE"
   ],
@@ -39,7 +39,7 @@
       "margin_blocked": 647563.5,
       "closed_legs": [],
       "priced_on": "futures",
-      "s2_invalid_pending": "strike_through"
+      "s2_invalid_pending": ""
     }
   ]
 }
