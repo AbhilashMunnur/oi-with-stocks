@@ -46,3 +46,18 @@ jobs:
 
       - name: Warm candle cache
         run: python -u scripts/warmup_cache.py
+
+      # GitHub's 09:20 schedule is often skipped. Kick the scan workflow so
+      # its chain job waits for 09:30 even if no later cron fires.
+      - name: Kick 09:30 scan chain
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "SCAN_DISPATCH_TOKEN not set — cannot kick the 09:30 chain."
+            exit 0
+          fi
+          gh api --method POST "repos/${{ github.repository }}/dispatches" \
+            -f event_type='oi-scan'
+          echo "Dispatched oi-scan so the 09:30 chain can start."
