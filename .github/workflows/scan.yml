@@ -184,3 +184,26 @@ jobs:
           gh api --method POST "repos/${{ github.repository }}/dispatches" \
             -f event_type='oi-scan'
           echo "Dispatched oi-scan warmup for the next slot."
+
+  # Nifty 1H has no cron-job.org ping of its own. GitHub schedule skipped its
+  # whole morning on 27 Aug 2026. Reuse this repo's 5-minute cloud kick.
+  kick-nifty:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    concurrency:
+      group: kick-nifty-1h
+      cancel-in-progress: true
+    permissions:
+      contents: read
+    steps:
+      - name: Dispatch nifty-scan
+        env:
+          GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "SCAN_DISPATCH_TOKEN not set — nifty kick skipped."
+            exit 0
+          fi
+          gh api --method POST repos/AbhilashMunnur/nifty-index-trade/dispatches \
+            -f event_type='nifty-scan'
+          echo "Dispatched nifty-scan."
