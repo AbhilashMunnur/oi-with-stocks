@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -108595.8,
-  "closed_count": 3,
-  "day_date": "2026-08-26",
-  "day_realised_pnl": -110710.8,
-  "updated_at": "2026-08-26 15:46:54",
+  "realised_pnl": -150963.3,
+  "closed_count": 4,
+  "day_date": "2026-08-27",
+  "day_realised_pnl": -42367.5,
+  "updated_at": "2026-08-27 11:48:26",
   "blocked_reentry": [],
   "positions": [
     {
@@ -28,22 +28,6 @@
           "pnl": 45397.8
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "RECLTD",
-      "direction": "LONG",
-      "entry_price": 336.25,
-      "entry_time": "2026-08-14 10:55:46",
-      "lot_size": 1575,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 0.0,
-      "strike": 335.0,
-      "margin_blocked": 211837.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
     },

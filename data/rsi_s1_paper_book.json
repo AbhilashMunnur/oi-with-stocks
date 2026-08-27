@@ -2,9 +2,9 @@
   "capital": 20000000,
   "realised_pnl": -313508.55,
   "closed_count": 4,
-  "day_date": "2026-08-26",
-  "day_realised_pnl": -170358.75,
-  "updated_at": "2026-08-26 15:46:46",
+  "day_date": "2026-08-27",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-27 11:48:21",
   "blocked_reentry": [],
   "positions": [
     {
@@ -179,6 +179,22 @@
       "rsi_at_entry": 28.06910993267401,
       "strike": 320.0,
       "margin_blocked": 307125.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "JINDALSTEL",
+      "direction": "SHORT",
+      "entry_price": 1201.2,
+      "entry_time": "2026-08-27 11:48:21",
+      "lot_size": 625,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 70.35757731003574,
+      "strike": 1200.0,
+      "margin_blocked": 450450.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
