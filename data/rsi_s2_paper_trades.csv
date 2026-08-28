@@ -1,3 +1,1 @@
 Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
-COFORGE,Sell,27-Aug-26,1910.0,70.7,27-Aug-26,1915.0,71.4,0,181450*3,-7125,strike_through
-TATAPOWER,Buy,27-Aug-26,356.05,22.5,28-Aug-26,354.8,22.0,1,103254*3,-5438,writing_gone

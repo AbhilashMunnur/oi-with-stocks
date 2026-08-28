@@ -1,14 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -12562.0,
-  "closed_count": 2,
+  "realised_pnl": 0.0,
+  "closed_count": 0,
   "day_date": "2026-08-28",
-  "day_realised_pnl": -5437.0,
-  "updated_at": "2026-08-28 16:11:51",
-  "blocked_reentry": [
-    "ATHERENERG",
-    "GLENMARK",
-    "TATAPOWER"
-  ],
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-28 16:17:38",
+  "blocked_reentry": [],
   "positions": []
 }

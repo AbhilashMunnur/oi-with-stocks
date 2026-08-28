@@ -1,7 +1,1 @@
 Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
-MOTILALOFS,Sell,24-Aug-26,1024.55,70.8,26-Aug-26,1055.4,75.6,2,158805*3,-71726,wall_broken
-POLICYBZR,Sell,24-Aug-26,1818.6,70.8,26-Aug-26,1864.0,73.3,2,127302*3,-47670,wall_broken
-MCX,Sell,24-Aug-26,3301.5,72.1,26-Aug-26,3377.0,74.8,2,148568*3,-50962,wall_broken
-COFORGE,Sell,24-Aug-26,1903.0,72.1,28-Aug-26,1979.12,75.5,4,180785*3,-108471,stop_loss
-SHREECEM,Buy,21-Aug-26,24100.0,30.9,28-Aug-26,24055.0,28.6,5,120500*3,-3375,wall_broken
-RECLTD,Buy,26-Aug-26,325.0,28.1,28-Aug-26,317.75,25.6,2,102375*3,-34256,wall_broken
