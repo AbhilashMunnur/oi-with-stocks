@@ -4,7 +4,7 @@
   "closed_count": 11,
   "day_date": "2026-08-28",
   "day_realised_pnl": -32660.0,
-  "updated_at": "2026-08-28 11:31:04",
+  "updated_at": "2026-08-28 12:01:40",
   "blocked_reentry": [],
   "positions": [
     {
@@ -683,6 +683,22 @@
       "rsi_at_entry": 75.02407260861109,
       "strike": 1700.0,
       "margin_blocked": 493986.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "ATHERENERG",
+      "direction": "SHORT",
+      "entry_price": 1606.1,
+      "entry_time": "2026-08-28 12:01:40",
+      "lot_size": 375,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 71.64753386236936,
+      "strike": 1600.0,
+      "margin_blocked": 240915.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
