@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -275838.19,
-  "closed_count": 10,
-  "day_date": "2026-08-27",
-  "day_realised_pnl": -77278.6,
-  "updated_at": "2026-08-27 15:46:10",
+  "realised_pnl": -308498.19,
+  "closed_count": 11,
+  "day_date": "2026-08-28",
+  "day_realised_pnl": -32660.0,
+  "updated_at": "2026-08-28 09:31:16",
   "blocked_reentry": [],
   "positions": [
     {
@@ -357,13 +357,21 @@
       "entry_price": 1318.0,
       "entry_time": "2026-08-14 13:02:16",
       "lot_size": 500,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-27",
       "rsi_at_entry": 71.13763592977051,
       "strike": 1300.0,
-      "margin_blocked": 263600.0,
-      "closed_legs": [],
+      "margin_blocked": 131800.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1238.92,
+          "exit_time": "2026-08-28 09:31:16",
+          "reason": "first_target",
+          "pnl": 39540.0
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": ""
     },
@@ -483,22 +491,6 @@
       "rsi_at_entry": 27.233477130751297,
       "strike": 35000.0,
       "margin_blocked": 287240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "COFORGE",
-      "direction": "SHORT",
-      "entry_price": 1900.0,
-      "entry_time": "2026-08-20 11:01:48",
-      "lot_size": 475,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 72.120554323546,
-      "strike": 1900.0,
-      "margin_blocked": 361000.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
@@ -659,6 +651,38 @@
       "rsi_at_entry": 70.64684037629279,
       "strike": 15.0,
       "margin_blocked": 431709.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "LUPIN",
+      "direction": "LONG",
+      "entry_price": 2188.6,
+      "entry_time": "2026-08-28 09:31:16",
+      "lot_size": 425,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 25.11803460301219,
+      "strike": 2140.0,
+      "margin_blocked": 372062.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "PAYTM",
+      "direction": "SHORT",
+      "entry_price": 1703.4,
+      "entry_time": "2026-08-28 09:31:16",
+      "lot_size": 725,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 75.02407260861109,
+      "strike": 1700.0,
+      "margin_blocked": 493986.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""

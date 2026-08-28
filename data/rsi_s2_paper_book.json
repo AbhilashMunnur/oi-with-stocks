@@ -2,12 +2,10 @@
   "capital": 20000000,
   "realised_pnl": -7125.0,
   "closed_count": 1,
-  "day_date": "2026-08-27",
-  "day_realised_pnl": -7125.0,
-  "updated_at": "2026-08-27 15:46:55",
-  "blocked_reentry": [
-    "COFORGE"
-  ],
+  "day_date": "2026-08-28",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-08-28 09:31:30",
+  "blocked_reentry": [],
   "positions": [
     {
       "symbol": "TATAPOWER",
