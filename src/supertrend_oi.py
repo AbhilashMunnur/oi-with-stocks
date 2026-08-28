@@ -4,7 +4,7 @@ import pandas as pd
 import yfinance as yf
 
 from src.config import OIConfig, SignalType, SupertrendConfig
-from src.data.models import OISnapshot
+from src.data.models import OISnapshot, change_pcr_from_legs
 from src.indicators import calculate_supertrend
 from src.oi_analyzer import (
     ScanAlert,
@@ -193,13 +193,14 @@ def evaluate_supertrend_oi(
         return None
 
     strike = oi.max_call_oi_strike
+    wall_pcr = change_pcr_from_legs(oi.call_oi_change, oi.put_oi_change)
     detail = (
         f"ST ₹{supertrend:,.2f}, strike ₹{strike:,.0f}, "
         f"Call ΔOI {format_oi_change(oi, oi.call_oi_change)}, "
         f"Put ΔOI {format_oi_change(oi, oi.put_oi_change)}"
     )
-    if oi.change_pcr is not None:
-        detail += f", ΔPCR {oi.change_pcr:.2f}"
+    if wall_pcr is not None:
+        detail += f", ΔPCR {wall_pcr:.2f}"
 
     return ScanAlert(
         symbol=symbol,

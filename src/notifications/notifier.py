@@ -7,11 +7,63 @@ import requests
 from dotenv import load_dotenv
 
 from src.config import NotificationConfig, SignalType
+from src.data.models import change_pcr_from_legs
 from src.data.option_expiry import oi_scan_reason
 from src.oi_analyzer import ScanAlert
 
 TELEGRAM_API = "https://api.telegram.org/bot{token}/{method}"
 TELEGRAM_TEXT_LIMIT = 3900
+
+
+def _format_delta_oi(alert: ScanAlert, shares: int | None) -> str | None:
+    if shares is None:
+        return None
+    lots = alert.in_contracts(shares)
+    return f"{lots:+,}" if lots is not None else f"{shares:+,} shares"
+
+
+def _pcr_from_alert_legs(alert: ScanAlert, call: int | None, put: int | None) -> float | None:
+    """ΔPCR from the same units Telegram prints (contracts when lot size is known)."""
+    call_qty = alert.in_contracts(call) if call is not None else None
+    put_qty = alert.in_contracts(put) if put is not None else None
+    if call_qty is None:
+        call_qty = call
+    if put_qty is None:
+        put_qty = put
+    return change_pcr_from_legs(call_qty, put_qty)
+
+
+def _delta_oi_lines(alert: ScanAlert) -> list[str]:
+    """Call/Put ΔOI rows whose ΔPCR is computed from those same numbers.
+
+    S2 also has a 3-strike band. That ratio must not be printed next to the
+    wall-only +86 / +126 figures — that was the RECLTD 0.59 vs 1.47 bug.
+    """
+    lines: list[str] = []
+
+    def one(call: int | None, put: int | None, *, pcr_name: str, prefix: str = "") -> None:
+        parts = []
+        call_txt = _format_delta_oi(alert, call)
+        put_txt = _format_delta_oi(alert, put)
+        if call_txt is not None:
+            parts.append(f"{prefix}Call ΔOI {call_txt}")
+        if put_txt is not None:
+            parts.append(f"{prefix}Put ΔOI {put_txt}")
+        pcr = _pcr_from_alert_legs(alert, call, put)
+        if pcr is not None:
+            parts.append(f"{pcr_name} {pcr:.2f}")
+        if parts:
+            lines.append(f"    {' | '.join(parts)}  (contracts)")
+
+    one(alert.call_oi_change, alert.put_oi_change, pcr_name="ΔPCR")
+    if alert.band_call_oi_change is not None or alert.band_put_oi_change is not None:
+        one(
+            alert.band_call_oi_change,
+            alert.band_put_oi_change,
+            pcr_name="band ΔPCR",
+            prefix="Band ",
+        )
+    return lines
 
 
 def _telegram_chunks(text: str, limit: int = TELEGRAM_TEXT_LIMIT) -> list[str]:
@@ -109,21 +161,7 @@ class Notifier:
                         f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f}"
                     )
 
-                detail = []
-                for name, change in (
-                    ("Call", alert.call_oi_change),
-                    ("Put", alert.put_oi_change),
-                ):
-                    if change is None:
-                        continue
-                    lots = alert.in_contracts(change)
-                    unit = f"{lots:+,}" if lots is not None else f"{change:+,} shares"
-                    detail.append(f"{name} ΔOI {unit}")
-
-                if alert.change_pcr is not None:
-                    detail.append(f"ΔPCR {alert.change_pcr:.2f}")
-                if detail:
-                    lines.append(f"    {' | '.join(detail)}  (contracts)")
+                lines.extend(_delta_oi_lines(alert))
                 if alert.skip_reason:
                     lines.append(f"    Not taking — {alert.skip_reason}")
 

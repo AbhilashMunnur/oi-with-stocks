@@ -369,6 +369,75 @@ def test_put_unwind_without_price_cross_is_not_broken_support():
     assert support_is_broken(oi) is False
 
 
+def test_s1_oi_flow_short_breaks_without_price_cross():
+    from src.oi_analyzer import s1_oi_flow_broken
+
+    assert s1_oi_flow_broken(
+        "SHORT", call_oi_change=-50, put_oi_change=80
+    )
+    assert s1_oi_flow_broken("SHORT", call_oi_change=0, put_oi_change=80)
+    assert not s1_oi_flow_broken("SHORT", call_oi_change=-50, put_oi_change=0)
+    assert not s1_oi_flow_broken("SHORT", call_oi_change=111, put_oi_change=80)
+    assert not s1_oi_flow_broken("SHORT", call_oi_change=None, put_oi_change=80)
+
+
+def test_s1_oi_flow_long_breaks_without_price_cross():
+    from src.oi_analyzer import s1_oi_flow_broken
+
+    assert s1_oi_flow_broken("LONG", call_oi_change=200, put_oi_change=-50)
+    assert s1_oi_flow_broken("LONG", call_oi_change=200, put_oi_change=0)
+    assert not s1_oi_flow_broken("LONG", call_oi_change=0, put_oi_change=-50)
+    assert not s1_oi_flow_broken("LONG", call_oi_change=200, put_oi_change=16)
+
+
+def test_s1_oi_flow_needs_two_consecutive_breaks():
+    from src.oi_analyzer import s1_oi_flow_broken, s1_oi_flow_observed, s2_confirm_invalidation
+
+    def step(pending, call_d, put_d):
+        why = (
+            "wall_broken"
+            if s1_oi_flow_broken("SHORT", call_oi_change=call_d, put_oi_change=put_d)
+            else None
+        )
+        valid = s1_oi_flow_observed(call_d, put_d) and why is None
+        return s2_confirm_invalidation(pending, why, wall_valid=valid)
+
+    pending, exit_now = step("", -40, 20)
+    assert pending == "wall_broken" and exit_now is False
+    pending, exit_now = step(pending, -10, 5)
+    assert pending == "wall_broken" and exit_now is True
+
+
+def test_s1_oi_flow_clears_when_calls_write_again():
+    from src.oi_analyzer import s1_oi_flow_broken, s1_oi_flow_observed, s2_confirm_invalidation
+
+    pending, _ = s2_confirm_invalidation("", "wall_broken", wall_valid=False)
+    why = (
+        "wall_broken"
+        if s1_oi_flow_broken("SHORT", call_oi_change=50, put_oi_change=10)
+        else None
+    )
+    valid = s1_oi_flow_observed(50, 10) and why is None
+    pending, exit_now = s2_confirm_invalidation(pending, why, wall_valid=valid)
+    assert pending == ""
+    assert exit_now is False
+
+
+def test_s1_oi_flow_missing_delta_does_not_confirm_or_clear():
+    from src.oi_analyzer import s1_oi_flow_broken, s1_oi_flow_observed, s2_confirm_invalidation
+
+    pending, _ = s2_confirm_invalidation("", "wall_broken", wall_valid=False)
+    why = (
+        "wall_broken"
+        if s1_oi_flow_broken("SHORT", call_oi_change=None, put_oi_change=20)
+        else None
+    )
+    valid = s1_oi_flow_observed(None, 20) and why is None
+    pending, exit_now = s2_confirm_invalidation(pending, why, wall_valid=valid)
+    assert pending == "wall_broken"
+    assert exit_now is False
+
+
 def test_migrated_call_wall_is_not_a_break_of_the_entry_strike():
     """Short entered vs Call 110. Price later 103 vs a new 102 Call wall is not a 110 break."""
     from src.oi_analyzer import resistance_is_broken
@@ -452,24 +521,13 @@ def test_exactly_one_percent_away_still_counts_as_near():
     assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0) is None
 
 
-def test_s2_half_percent_proximity_rejects_what_s1_would_take():
+def test_s2_one_percent_proximity_takes_what_s1_would_take():
     from src.oi_analyzer import proximity_skip_reason
 
-    # 0.80% from 1700 — inside S1's 1%, outside S2's 0.5%.
+    # 0.80% from 1700 — inside the shared 1% band for S1 and S2.
     price = PriceSnapshot(symbol="PAYTM", ltp=1713.6, rsi=75.8)
     oi = _call_oi(ltp=1713.6, max_call_oi_strike=1700.0)
     assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 1.0) is None
-    reason = proximity_skip_reason(price, oi, SignalType.CALL_OI, 0.5)
-    assert reason is not None
-    assert "0.5%" in reason
-
-
-def test_s2_half_percent_proximity_still_takes_half_percent():
-    from src.oi_analyzer import proximity_skip_reason
-
-    price = PriceSnapshot(symbol="PAYTM", ltp=1708.5, rsi=75.8)
-    oi = _call_oi(ltp=1708.5, max_call_oi_strike=1700.0)
-    assert proximity_skip_reason(price, oi, SignalType.CALL_OI, 0.5) is None
 
 
 def test_s2_short_exits_when_cash_is_through_the_call_strike():
@@ -680,43 +738,6 @@ def test_s2_skips_when_band_pcr_cannot_be_computed():
     rejected = call_oi_flow_rejection(oi, require_change_pcr=True)
     assert rejected is not None
     assert "unavailable" in rejected
-
-
-def test_s2_skips_a_thin_wall():
-    from src.config import SignalType
-    from src.oi_analyzer import s2_size_skip_reason
-
-    oi = _call_oi(max_call_oi=50 * 175, call_oi_change=30 * 175, lot_size=175)
-    reason = s2_size_skip_reason(
-        oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
-    )
-    assert reason is not None
-    assert "too thin" in reason
-
-
-def test_s2_skips_token_writing():
-    from src.config import SignalType
-    from src.oi_analyzer import s2_size_skip_reason
-
-    oi = _call_oi(max_call_oi=200 * 175, call_oi_change=5 * 175, lot_size=175)
-    reason = s2_size_skip_reason(
-        oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
-    )
-    assert reason is not None
-    assert "too little writing" in reason
-
-
-def test_s2_accepts_a_real_wall_and_writing():
-    from src.config import SignalType
-    from src.oi_analyzer import s2_size_skip_reason
-
-    oi = _call_oi(max_call_oi=200 * 175, call_oi_change=40 * 175, lot_size=175)
-    assert (
-        s2_size_skip_reason(
-            oi, SignalType.CALL_OI, min_wall_contracts=100, min_write_contracts=20
-        )
-        is None
-    )
 
 
 

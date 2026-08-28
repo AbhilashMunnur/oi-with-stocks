@@ -4,7 +4,7 @@ Scans NSE F&O stocks on **live Angel One data** and alerts when:
 
 1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike still at or above price** (resistance)
 2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike still at or below price** (support)
-3. **RSI + OI Scenario 1** — same RSI + uncrossed-wall **entries** as RSI+OI (never open on a peak price has already crossed, even if writing continues). If the peak is through price, the next uncrossed wall is used only when it is within 1%, writing/ΔPCR still qualify, and its OI is at least **50%** of the peak. After entry, remaining lots are closed from the **15:15 IST** scan only if the **entry** strike is broken (price through **and** unwind + opposite add). A later peak OI strike does not count. 3 lots at 6% / 10% / 14%. Own paper book.
+3. **RSI + OI Scenario 1** — same RSI + uncrossed-wall **entries** as RSI+OI (never open on a peak price has already crossed, even if writing continues). If the peak is through price, the next uncrossed wall is used only when it is within 1%, writing/ΔPCR still qualify, and its OI is at least **50%** of the peak. After entry, remaining lots close after **two consecutive** scans of OI-flow death at the **entry** strike (calls unwind + puts write for shorts, vice versa for longs; cash through the strike is **not** required). The **15:15 IST** scan still exits on a single print if cash is through that strike **and** the same OI pattern. A later peak OI strike does not count. 3 lots at 6% / 10% / 14%. Own paper book.
 4. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
    from below/above with confirming Call/Put ΔOI at the ST strike → short/long
    3rd-month futures (2 lots)
@@ -284,10 +284,11 @@ Exits, checked on every scan:
 | After 1st lot booked, 1% against entry | Close remaining lots |
 | Expiry reached | Close everything at market |
 | **S1 only:** 3 lots — 1 at **6%**, 1 at **10%**, 1 at **14%** | Scale out in the trade's favour |
-| **S1 only:** at **15:15 IST**, long if the **entry** Put strike is still broken, or short if the **entry** Call strike is still broken | Close remaining lots at market |
-| **S2 only:** same uncrossed-wall entry as S1, cash within **0.5%**, ΔPCR from **1 strike below + wall + 1 above**, writing still required at the wall | Own ledger (`rsi_s2_paper_trading`) |
+| **S1 only:** every scan, **two consecutive** prints of Call unwind + Put writing (shorts) or Put unwind + Call writing (longs) at the **entry** strike | Close remaining lots. **Cash through the strike is not required.** Flat ΔOI counts as unwind |
+| **S1 only:** at **15:15 IST**, long if the **entry** Put strike is still broken, or short if the **entry** Call strike is still broken (cash through **and** the same OI pattern) | Close remaining lots at market |
+| **S2 only:** same uncrossed-wall entry as S1, cash within **1%**, ΔPCR from **1 strike below + wall + 1 above**, writing still required at the wall | Own ledger (`rsi_s2_paper_trading`) |
 | **S2 only:** every scan, cash **through the entry strike** *or* **writing gone** at that strike | **Primary stop.** Close remaining lots at the 3rd-month future. **3%** is only a backup if the wall is still valid |
-| **S2 only:** wall ≥ **100 lots**, writing ≥ **20 lots**; no new entries on stock monthly expiry; no same-day re-entry after stop/invalidation | Cuts PAYTM-style noise so the tighter stop is usable |
+| **S2 only:** no new entries on stock monthly expiry; no same-day re-entry after stop/invalidation | Avoids front-month unwind and stop-then-reopen noise |
 
 The original RSI+OI book does not use the wall-break exit. Supertrend has its own
 ledger. Settings live under `paper_trading` / `rsi_s1_paper_trading` /

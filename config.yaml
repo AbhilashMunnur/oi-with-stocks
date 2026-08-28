@@ -7,10 +7,8 @@ rsi:
 # How close price must be to the max OI strike (percentage)
 oi:
   proximity_pct: 1.0      # e.g. 1% means price within 1% of the strike
-  s2_proximity_pct: 0.5   # S2 only: tighter entry than RSI+OI / S1
+  s2_proximity_pct: 1.0   # S2: same 1% proximity as RSI+OI / S1
   s2_pcr_strikes: 1       # S2 ΔPCR: 1 listed strike below + wall + 1 above
-  s2_min_wall_contracts: 100   # S2: standing OI at the wall, in lots
-  s2_min_write_contracts: 20   # S2: session writing at the wall, in lots
   skip_monthly_expiry: true    # All scanners: no new entries on last-Tuesday expiry
   # CALL shorts: require ΔPCR < 0.75.
   require_call_writing: true
@@ -95,9 +93,11 @@ paper_trading:
   google_summary_worksheet: "RSI Portfolio Summary"
 
 # RSI+OI Scenario 1: enter only on an uncrossed wall (never the peak if price
-# is already through it). After entry, remaining lots close from 15:15 IST only
-# if the *entry* strike is broken. 3 lots at 6% / 10% / 14%.
-# Own capital, ledger, journal, and Google Sheet tab.
+# is already through it). Every scan: remaining lots close after two consecutive
+# OI-flow breaks at the *entry* strike (calls unwind + puts write for shorts,
+# vice versa for longs). Cash through the strike is not required. At 15:15 IST
+# a single scan still exits if cash is through the entry strike AND that OI
+# pattern prints. 3 lots at 6% / 10% / 14%. Own capital, ledger, journal.
 rsi_s1_paper_trading:
   enabled: true
   name: "RSI+OI S1"
@@ -116,8 +116,8 @@ rsi_s1_paper_trading:
   google_worksheet: "RSI S1 Paper trades"
   google_summary_worksheet: "RSI S1 Portfolio Summary"
 
-# RSI+OI Scenario 2: same uncrossed-wall entry as S1, but cash must be within
-# 0.5% of the strike (not 1%). ΔPCR is summed over 1 strike below the wall,
+# RSI+OI Scenario 2: same uncrossed-wall entry as S1, including 1% proximity.
+# ΔPCR is summed over 1 strike below the wall,
 # the wall, and 1 above; writing must still be at the peak Call/Put strike.
 # OI exit only after two consecutive scans both say the wall is dead
 # (cash through the entry strike, or writing gone at that strike). A

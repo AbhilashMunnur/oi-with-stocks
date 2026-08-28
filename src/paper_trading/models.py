@@ -46,8 +46,8 @@ class Position:
     closed_legs: list[ClosedLeg] = field(default_factory=list)
     # "equity" until the first 3rd-month fut quote; then "futures".
     priced_on: str = "equity"
-    # S2: last scan's OI invalidation reason. Empty = wall still valid.
-    # Exit only after a second consecutive invalid scan.
+    # Last scan's OI invalidation reason (S2 strike/writing; S1 OI-flow).
+    # Empty = wall still valid. Exit only after a second consecutive invalid scan.
     s2_invalid_pending: str = ""
 
     def move_pct(self, price: float) -> float:

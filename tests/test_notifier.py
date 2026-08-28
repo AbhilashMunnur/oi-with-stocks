@@ -114,6 +114,86 @@ def test_supertrend_digest_shows_skip_reason():
     assert "RELIANCE" in text
     assert "Not taking — Call ΔOI +0 shares" in text
 
+
+def test_telegram_pcr_matches_the_call_put_numbers_on_the_same_line():
+    """Every book: ΔPCR is Put ΔOI / Call ΔOI of the figures beside it.
+
+    RECLTD-style: wall +86 / +126 is 1.47. S2 band 0.59 must not sit on that
+    wall line (that was the Telegram bug for every S2 name, not just REC).
+    """
+    notifier = Notifier(
+        NotificationConfig(console=False, telegram=False, cooldown_minutes=30)
+    )
+    lot = 1000
+    wall_call, wall_put = 86 * lot, 126 * lot
+    band_call, band_put = 214 * lot, 126 * lot
+
+    rsi = _alert(
+        symbol="RECLTD",
+        signal=SignalType.PUT_OI,
+        ltp=321.10,
+        rsi=27.4,
+        oi_strike=320.0,
+        distance_pct=0.34,
+        call_oi_change=wall_call,
+        put_oi_change=wall_put,
+        change_pcr=wall_put / wall_call,
+        lot_size=lot,
+    )
+    s1 = _alert(
+        symbol="RECLTD",
+        signal=SignalType.PUT_OI_S1,
+        ltp=321.10,
+        rsi=27.4,
+        oi_strike=320.0,
+        distance_pct=0.34,
+        call_oi_change=wall_call,
+        put_oi_change=wall_put,
+        change_pcr=wall_put / wall_call,
+        lot_size=lot,
+    )
+    s2 = _alert(
+        symbol="RECLTD",
+        signal=SignalType.PUT_OI_S2,
+        ltp=321.10,
+        rsi=27.4,
+        oi_strike=320.0,
+        distance_pct=0.34,
+        call_oi_change=wall_call,
+        put_oi_change=wall_put,
+        # Filter still uses the band; Telegram must not mix it with wall ΔOI.
+        change_pcr=band_put / band_call,
+        band_call_oi_change=band_call,
+        band_put_oi_change=band_put,
+        lot_size=lot,
+    )
+    st = _alert(
+        symbol="RECLTD",
+        signal=SignalType.ST_BULLISH,
+        ltp=321.10,
+        rsi=0.0,
+        oi_strike=320.0,
+        distance_pct=0.34,
+        supertrend=320.0,
+        call_oi_change=wall_call,
+        put_oi_change=wall_put,
+        change_pcr=wall_put / wall_call,
+        lot_size=lot,
+    )
+
+    rsi_text = notifier._rsi_digest([rsi])
+    s1_text = notifier._scenario1_digest([s1])
+    s2_text = notifier._scenario2_digest([s2])
+    st_text = notifier._supertrend_digest([st])
+
+    for text in (rsi_text, s1_text, st_text):
+        assert "Call ΔOI +86 | Put ΔOI +126 | ΔPCR 1.47" in text
+        assert "ΔPCR 0.59" not in text
+
+    assert "Call ΔOI +86 | Put ΔOI +126 | ΔPCR 1.47" in s2_text
+    assert "Band Call ΔOI +214 | Band Put ΔOI +126 | band ΔPCR 0.59" in s2_text
+    assert "Call ΔOI +86 | Put ΔOI +126 | ΔPCR 0.59" not in s2_text
+
     text = "\n".join(["x" * 40] * 80)
     chunks = _telegram_chunks(text, limit=500)
     assert len(chunks) > 1

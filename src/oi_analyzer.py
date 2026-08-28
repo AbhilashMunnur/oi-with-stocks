@@ -4,7 +4,7 @@ from copy import copy
 from dataclasses import dataclass, replace
 
 from src.config import SignalType
-from src.data.models import OISnapshot, PriceSnapshot
+from src.data.models import OISnapshot, PriceSnapshot, change_pcr_from_legs
 
 
 def no_short_skip_reason(
@@ -37,6 +37,10 @@ class ScanAlert:
     call_oi_change: int | None = None
     put_oi_change: int | None = None
     change_pcr: float | None = None
+    # S2 PCR band totals. Telegram prints these on a second line so ΔPCR
+    # always matches the Call/Put ΔOI beside it.
+    band_call_oi_change: int | None = None
+    band_put_oi_change: int | None = None
     lot_size: int = 0
     supertrend: float | None = None
     # Set when this row is for Telegram only — paper trading must ignore it.
@@ -143,39 +147,6 @@ def strikes_around_wall(
     return strikes[lo:hi]
 
 
-def s2_size_skip_reason(
-    oi: OISnapshot,
-    signal: SignalType,
-    *,
-    min_wall_contracts: int,
-    min_write_contracts: int,
-) -> str | None:
-    """Skip S2 when the wall is too thin to justify a tight stop."""
-    if signal is SignalType.CALL_OI:
-        standing, writing = oi.max_call_oi, oi.call_oi_change
-        label = "Call"
-    else:
-        standing, writing = oi.max_put_oi, oi.put_oi_change
-        label = "Put"
-    lot = oi.lot_size
-    if lot <= 0:
-        return None
-    wall_lots = standing / lot
-    if wall_lots < min_wall_contracts:
-        return (
-            f"{label} wall {wall_lots:,.0f} lots < {min_wall_contracts} "
-            "(too thin for S2)"
-        )
-    if writing is not None:
-        write_lots = writing / lot
-        if write_lots < min_write_contracts:
-            return (
-                f"{label} writing {write_lots:,.0f} lots < {min_write_contracts} "
-                "(too little writing for S2)"
-            )
-    return None
-
-
 def copy_oi_snapshot(oi: OISnapshot) -> OISnapshot:
     """Shallow copy so Scenario 1 can retarget strikes without touching the RSI book."""
     clone = copy(oi)
@@ -202,30 +173,60 @@ def apply_oi_wall(oi: OISnapshot, wall: tuple[float, int, str], side: str) -> No
     oi.band_put_oi_change = None
 
 
-def resistance_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
-    """Bearish setup: resistance is broken only if price has crossed above the
-    Call strike *and* calls unwind while puts are added there.
+def s1_oi_flow_broken(
+    direction: str,
+    *,
+    call_oi_change: int | None,
+    put_oi_change: int | None,
+) -> bool:
+    """S1 OI-only wall death at the entry strike. Price is not used.
+
+    Short: Call ΔOI ≤ 0 (flat counts as unwind) and Put ΔOI > 0.
+    Long: Put ΔOI ≤ 0 and Call ΔOI > 0.
+    Missing either leg is not a break.
     """
+    if call_oi_change is None or put_oi_change is None:
+        return False
+    side = direction.upper()
+    if side == "SHORT":
+        return call_oi_change <= 0 and put_oi_change > 0
+    if side == "LONG":
+        return put_oi_change <= 0 and call_oi_change > 0
+    return False
+
+
+def s1_oi_flow_observed(
+    call_oi_change: int | None,
+    put_oi_change: int | None,
+) -> bool:
+    """True when both wall legs have a session ΔOI print."""
+    return call_oi_change is not None and put_oi_change is not None
+
+
+def resistance_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
+    """15:15 S1 exit: cash through the Call strike *and* OI flow broken."""
     price = ltp if ltp is not None else oi.ltp
     strike = oi.max_call_oi_strike
     if strike <= 0 or price <= strike:
         return False
-    if oi.call_oi_change is None or oi.put_oi_change is None:
-        return False
-    return oi.call_oi_change <= 0 and oi.put_oi_change > 0
+    return s1_oi_flow_broken(
+        "SHORT",
+        call_oi_change=oi.call_oi_change,
+        put_oi_change=oi.put_oi_change,
+    )
 
 
 def support_is_broken(oi: OISnapshot, ltp: float | None = None) -> bool:
-    """Bullish setup: support is broken only if price has crossed below the
-    Put strike *and* puts unwind while calls are added there.
-    """
+    """15:15 S1 exit: cash through the Put strike *and* OI flow broken."""
     price = ltp if ltp is not None else oi.ltp
     strike = oi.max_put_oi_strike
     if strike <= 0 or price >= strike:
         return False
-    if oi.call_oi_change is None or oi.put_oi_change is None:
-        return False
-    return oi.put_oi_change <= 0 and oi.call_oi_change > 0
+    return s1_oi_flow_broken(
+        "LONG",
+        call_oi_change=oi.call_oi_change,
+        put_oi_change=oi.put_oi_change,
+    )
 
 
 def s2_invalidation_reason(
@@ -488,6 +489,10 @@ def make_rsi_alert(
         call_change = oi.call_oi_change
         put_change = oi.put_oi_change
         pcr = oi.change_pcr
+        band_call = oi.band_call_oi_change
+        band_put = oi.band_put_oi_change
+    else:
+        band_call = band_put = None
     distance = distance_to_strike_pct(ltp, strike) if strike > 0 else 0.0
     label = "Call" if signal is SignalType.CALL_OI else "Put"
     status = f"not taking ({skip_reason})" if skip_reason else "taking position"
@@ -504,6 +509,8 @@ def make_rsi_alert(
         call_oi_change=call_change,
         put_oi_change=put_change,
         change_pcr=pcr,
+        band_call_oi_change=band_call,
+        band_put_oi_change=band_put,
         lot_size=lot_size,
         skip_reason=skip_reason,
         message=(
@@ -636,17 +643,26 @@ def evaluate_stock(
         label = "Put"
 
     distance = distance_to_strike_pct(ltp, strike)
-    pcr = oi.change_pcr
+    wall_pcr = change_pcr_from_legs(oi.call_oi_change, oi.put_oi_change)
 
     # Name both legs; "ΔOI" alone reads as though puts might be included.
+    # Wall ΔPCR is from these two numbers. S2 band PCR is named separately.
     detail = (
         f"OI: {format_oi(oi, value)}, "
         f"Call ΔOI {format_oi_change(oi, oi.call_oi_change)}, "
         f"Put ΔOI {format_oi_change(oi, oi.put_oi_change)}, "
         f"distance: {distance:.2f}%"
     )
-    if pcr is not None:
-        detail += f", change PCR: {pcr:.2f}"
+    if wall_pcr is not None:
+        detail += f", ΔPCR {wall_pcr:.2f}"
+    if oi.band_call_oi_change is not None or oi.band_put_oi_change is not None:
+        band_pcr = change_pcr_from_legs(oi.band_call_oi_change, oi.band_put_oi_change)
+        detail += (
+            f", band Call ΔOI {format_oi_change(oi, oi.band_call_oi_change)}, "
+            f"band Put ΔOI {format_oi_change(oi, oi.band_put_oi_change)}"
+        )
+        if band_pcr is not None:
+            detail += f", band ΔPCR {band_pcr:.2f}"
 
     return ScanAlert(
         symbol=price.symbol,
@@ -660,7 +676,9 @@ def evaluate_stock(
         oi_change=change,
         call_oi_change=oi.call_oi_change,
         put_oi_change=oi.put_oi_change,
-        change_pcr=pcr,
+        change_pcr=oi.change_pcr,
+        band_call_oi_change=oi.band_call_oi_change,
+        band_put_oi_change=oi.band_put_oi_change,
         lot_size=oi.lot_size,
         message=(
             f"{price.symbol}: {comparison} and price ₹{ltp:.2f} is near max {label} "

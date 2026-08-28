@@ -53,6 +53,16 @@ def test_change_pcr_uses_band_totals_when_set():
     assert oi.change_pcr == 0.4
 
 
+def test_change_pcr_from_legs_is_put_over_call_not_share_of_total():
+    from src.data.models import change_pcr_from_legs
+
+    # RECLTD wall: +86 call / +126 put → 1.47, never Put/(Put+Call)=0.59.
+    assert round(change_pcr_from_legs(86, 126), 2) == 1.47
+    assert round(126 / (86 + 126), 2) == 0.59
+    assert change_pcr_from_legs(86, 126) != 126 / (86 + 126)
+
+
+
 
 def test_alert_reports_each_leg_separately():
     """A call alert must not fold put OI into the number it shows."""

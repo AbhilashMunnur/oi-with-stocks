@@ -24,11 +24,12 @@ from src.oi_analyzer import (
     resistance_is_broken,
     retag_s1_alert_as_s2,
     rsi_watch_side,
+    s1_oi_flow_broken,
+    s1_oi_flow_observed,
     s2_confirm_invalidation,
     s2_invalidation_reason,
     s2_wall_still_valid,
     select_active_oi_walls,
-    s2_size_skip_reason,
     support_is_broken,
 )
 from src.paper_trading import PaperBook
@@ -250,7 +251,6 @@ class OIRsiScanner:
         proximity_pct: float | None = None,
         pcr_band_strikes: int | None = None,
         log_tag: str = "S1",
-        s2_mode: bool = False,
     ) -> ScanAlert | None:
         """RSI+OI entry on an uncrossed wall, with S1 broken-wall fallback.
 
@@ -360,17 +360,6 @@ class OIRsiScanner:
         if rejected:
             print(f"  {price.symbol}: {log_tag} {side.value} skipped — {rejected}")
             return self._s1_watch(price, s1, side, rejected)
-
-        if s2_mode:
-            size_skip = s2_size_skip_reason(
-                s1,
-                side,
-                min_wall_contracts=self.config.oi.s2_min_wall_contracts,
-                min_write_contracts=self.config.oi.s2_min_write_contracts,
-            )
-            if size_skip:
-                print(f"  {price.symbol}: {log_tag} skipped — {size_skip}")
-                return self._s1_watch(price, s1, side, size_skip)
 
         if side is SignalType.CALL_OI and call_wall and peak_call and call_wall[0] != peak_call[0]:
             print(
@@ -578,7 +567,8 @@ class OIRsiScanner:
         fut_prices: dict[str, float],
         rsi_values: dict[str, float],
     ) -> list:
-        """Close at 15:15 IST only if the *entry* strike is broken.
+        """Close at 15:15 IST only if cash is through the *entry* strike
+        and OI flow is broken there (calls unwind + puts write for shorts).
 
         A later peak Call/Put OI (e.g. short at 110, then max Call OI at 102
         with price 103) is not a break of the position we took.
@@ -625,6 +615,80 @@ class OIRsiScanner:
             print(
                 f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
                 f"exiting {lots} lot {position.direction} @ ₹{fill:,.2f} (fut)"
+            )
+        return events
+
+    def _exit_s1_oi_flow_walls(
+        self,
+        book: PaperBook,
+        equity_prices: dict[str, float],
+        fut_prices: dict[str, float],
+        rsi_values: dict[str, float],
+    ) -> list:
+        """Every scan: two consecutive OI-flow breaks at the entry strike.
+
+        Short: Call ΔOI ≤ 0 and Put ΔOI > 0. Long: Put ΔOI ≤ 0 and Call ΔOI > 0.
+        Cash through the strike is not required. Missing ΔOI neither confirms
+        nor clears. Fill is 3rd-month NSE futures. 15:15 price-through exit
+        still runs separately.
+        """
+        events = []
+        for position in list(book.positions):
+            if not position.is_open or position.strike <= 0:
+                continue
+            cash = equity_prices.get(position.symbol)
+            if not cash:
+                continue
+
+            oi = self.client.get_oi_at_price(
+                position.symbol, target_price=position.strike, ltp=cash
+            )
+            if oi:
+                self.client.add_oi_changes(oi)
+                call_d, put_d = oi.call_oi_change, oi.put_oi_change
+            else:
+                call_d = put_d = None
+
+            broken = s1_oi_flow_broken(
+                position.direction,
+                call_oi_change=call_d,
+                put_oi_change=put_d,
+            )
+            why = "wall_broken" if broken else None
+            wall_valid = s1_oi_flow_observed(call_d, put_d) and not broken
+            previous = position.s2_invalid_pending
+            position.s2_invalid_pending, confirmed = s2_confirm_invalidation(
+                previous, why, wall_valid=wall_valid
+            )
+            if not confirmed:
+                if why and not previous:
+                    print(
+                        f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
+                        "first scan, holding for confirm"
+                    )
+                elif not why and previous and wall_valid:
+                    print(
+                        f"  {position.symbol}: S1 OI wall valid again ₹{position.strike:.0f} — "
+                        f"cleared {previous}"
+                    )
+                continue
+
+            fill = fut_prices.get(position.symbol)
+            if not fill:
+                print(
+                    f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
+                    "confirmed, no NSE fut LTP, not exiting on cash"
+                )
+                continue
+            lots = position.lots_open
+            event = book.close_on_broken_wall(
+                position, fill, rsi_values.get(position.symbol)
+            )
+            events.append(event)
+            print(
+                f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
+                f"confirmed, exiting {lots} lot {position.direction} "
+                f"@ ₹{fill:,.2f} (fut)"
             )
         return events
 
@@ -747,8 +811,14 @@ class OIRsiScanner:
         # S2: confirmed OI invalidation is the primary stop (two consecutive
         # scans). Run it before the 3% futures cap so a dead wall is booked
         # as strike_through / writing_gone, not stop_loss.
+        # S1: two consecutive OI-flow breaks (price optional) before the 4%
+        # cap, so a dead wall is booked as wall_broken, not stop_loss.
         if book is self.s2_book:
             events += self._exit_s2_invalid_strikes(
+                book, prices, fut_prices, rsi_values
+            )
+        if book is self.s1_book:
+            events += self._exit_s1_oi_flow_walls(
                 book, prices, fut_prices, rsi_values
             )
         events += book.update(fut_prices, rsi_values=rsi_values)
@@ -885,7 +955,6 @@ class OIRsiScanner:
                     proximity_pct=self.config.oi.s2_proximity_pct,
                     pcr_band_strikes=self.config.oi.s2_pcr_strikes,
                     log_tag="S2",
-                    s2_mode=True,
                 )
                 if s2_src:
                     alerts.append(retag_s1_alert_as_s2(s2_src))

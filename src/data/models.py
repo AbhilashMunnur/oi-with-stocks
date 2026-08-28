@@ -43,16 +43,25 @@ class OISnapshot:
 
     @property
     def change_pcr(self) -> float | None:
-        """Put/call ratio of OI *change* at the shared reference strike.
+        """Put/call ratio of OI *change* used for the trade filter.
 
-        Only meaningful while both sides are adding positions; if either is
-        unwinding the ratio flips sign and stops describing anything useful.
+        Wall legs by default. S2 fills ``band_*`` (1 strike below + wall + 1
+        above) and those replace the wall for this ratio only.
         """
         call_change, put_change = self.call_oi_change, self.put_oi_change
         if self.band_call_oi_change is not None or self.band_put_oi_change is not None:
             call_change, put_change = self.band_call_oi_change, self.band_put_oi_change
-        if not call_change or put_change is None:
-            return None
-        if call_change <= 0 or put_change <= 0:
-            return None
-        return put_change / call_change
+        return change_pcr_from_legs(call_change, put_change)
+
+
+def change_pcr_from_legs(call_change: int | None, put_change: int | None) -> float | None:
+    """ΔPCR = Put ΔOI / Call ΔOI while both sides are writing.
+
+    Unwind or a missing/zero call leg is not a ratio — return None rather than
+    a sign-flipped or Put/(Put+Call) number.
+    """
+    if not call_change or put_change is None:
+        return None
+    if call_change <= 0 or put_change <= 0:
+        return None
+    return put_change / call_change

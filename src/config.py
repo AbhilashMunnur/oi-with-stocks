@@ -50,14 +50,11 @@ class OIConfig:
     # S1 fallback (uncrossed wall after the peak is through price) must have
     # at least this % of the peak wall's OI, or it is treated as too thin.
     s1_min_fallback_oi_pct: float = 50.0
-    # S2 entry: cash must be this close to the uncrossed wall (tighter than S1).
-    s2_proximity_pct: float = 0.5
+    # S2 entry: cash must be this close to the uncrossed wall (same 1% as S1).
+    s2_proximity_pct: float = 1.0
     # S2 ΔPCR uses this many listed strikes below the wall, the wall, and the
     # same count above. Writing is still required at the wall itself.
     s2_pcr_strikes: int = 1
-    # S2: skip thin walls / token writing so a 3% stop is not eaten by noise.
-    s2_min_wall_contracts: int = 100
-    s2_min_write_contracts: int = 20
     # No new paper on last-Tuesday stock monthly expiry (front-month unwind).
     # Applies to RSI+OI, S1, S2, and Supertrend.
     skip_monthly_expiry: bool = True

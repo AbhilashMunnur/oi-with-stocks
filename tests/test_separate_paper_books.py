@@ -61,10 +61,8 @@ def test_config_loads_scenario2_paper_book():
         config.rsi_s2_paper_trading.google_summary_worksheet
         == "RSI S2 Portfolio Summary"
     )
-    assert config.oi.s2_proximity_pct == 0.5
+    assert config.oi.s2_proximity_pct == 1.0
     assert config.oi.s2_pcr_strikes == 1
-    assert config.oi.s2_min_wall_contracts == 100
-    assert config.oi.s2_min_write_contracts == 20
     assert config.oi.skip_monthly_expiry is True
     assert config.rsi_s2_paper_trading.stop_loss_pct == 3.0
     assert config.rsi_s2_paper_trading.block_same_day_reentry is True
