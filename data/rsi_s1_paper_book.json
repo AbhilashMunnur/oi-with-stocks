@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -421979.55,
-  "closed_count": 5,
+  "realised_pnl": -425354.55,
+  "closed_count": 6,
   "day_date": "2026-08-28",
-  "day_realised_pnl": -108471.0,
-  "updated_at": "2026-08-28 15:01:33",
+  "day_realised_pnl": -111846.0,
+  "updated_at": "2026-08-28 15:17:14",
   "blocked_reentry": [],
   "positions": [
     {
@@ -35,22 +35,6 @@
       "rsi_at_entry": 21.344420932335154,
       "strike": 360.0,
       "margin_blocked": 284388.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "SHREECEM",
-      "direction": "LONG",
-      "entry_price": 24100.0,
-      "entry_time": "2026-08-21 11:02:26",
-      "lot_size": 25,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 30.90683854681869,
-      "strike": 24000.0,
-      "margin_blocked": 361500.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
