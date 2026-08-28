@@ -4,7 +4,7 @@
   "closed_count": 1,
   "day_date": "2026-08-28",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-08-28 10:31:32",
+  "updated_at": "2026-08-28 11:01:30",
   "blocked_reentry": [],
   "positions": [
     {
@@ -37,7 +37,7 @@
       "margin_blocked": 647563.5,
       "closed_legs": [],
       "priced_on": "futures",
-      "s2_invalid_pending": "writing_gone"
+      "s2_invalid_pending": ""
     }
   ]
 }
