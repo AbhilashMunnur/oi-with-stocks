@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -459610.8,
-  "closed_count": 7,
+  "realised_pnl": -316460.8,
+  "closed_count": 6,
   "day_date": "2026-08-28",
   "day_realised_pnl": -146102.25,
-  "updated_at": "2026-08-28 15:52:31",
+  "updated_at": "2026-08-28 16:11:51",
   "blocked_reentry": [],
   "positions": [
     {

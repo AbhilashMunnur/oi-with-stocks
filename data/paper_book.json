@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -261239.79,
-  "closed_count": 11,
+  "realised_pnl": -111206.79,
+  "closed_count": 7,
   "day_date": "2026-08-28",
   "day_realised_pnl": 14598.4,
-  "updated_at": "2026-08-28 15:52:31",
+  "updated_at": "2026-08-28 16:11:51",
   "blocked_reentry": [],
   "positions": [
     {
@@ -184,22 +184,6 @@
       "s2_invalid_pending": ""
     },
     {
-      "symbol": "GODREJCP",
-      "direction": "LONG",
-      "entry_price": 939.6,
-      "entry_time": "2026-08-13 12:02:11",
-      "lot_size": 500,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 25.066410514938,
-      "strike": 920.0,
-      "margin_blocked": 187920.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
       "symbol": "ASTRAL",
       "direction": "SHORT",
       "entry_price": 1555.9,
@@ -243,22 +227,6 @@
       "rsi_at_entry": 31.935910291841083,
       "strike": 90.0,
       "margin_blocked": 235924.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": ""
-    },
-    {
-      "symbol": "PIIND",
-      "direction": "LONG",
-      "entry_price": 2450.8,
-      "entry_time": "2026-08-14 12:02:15",
-      "lot_size": 175,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 31.027812795173332,
-      "strike": 2500.0,
-      "margin_blocked": 171556.00000000003,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""

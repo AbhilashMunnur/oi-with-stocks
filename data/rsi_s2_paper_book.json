@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -59925.0,
-  "closed_count": 4,
+  "realised_pnl": -12562.0,
+  "closed_count": 2,
   "day_date": "2026-08-28",
-  "day_realised_pnl": -52800.0,
-  "updated_at": "2026-08-28 15:52:31",
+  "day_realised_pnl": -5437.0,
+  "updated_at": "2026-08-28 16:11:51",
   "blocked_reentry": [
     "ATHERENERG",
     "GLENMARK",

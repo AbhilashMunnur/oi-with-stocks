@@ -1,5 +1,4 @@
 Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
-PAYTM,Sell,21-Aug-26,1645.4,71.8,25-Aug-26,1711.22,75.6,2,238583*3,-143150,stop_loss
 MOTILALOFS,Sell,24-Aug-26,1024.55,70.8,26-Aug-26,1055.4,75.6,2,158805*3,-71726,wall_broken
 POLICYBZR,Sell,24-Aug-26,1818.6,70.8,26-Aug-26,1864.0,73.3,2,127302*3,-47670,wall_broken
 MCX,Sell,24-Aug-26,3301.5,72.1,26-Aug-26,3377.0,74.8,2,148568*3,-50962,wall_broken
