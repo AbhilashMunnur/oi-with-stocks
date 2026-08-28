@@ -282,6 +282,7 @@ Exits, checked on every scan:
 | 11% move in our favour | Close the remaining lot |
 | 4% move against us (before first target) | Close everything |
 | After 1st lot booked, 1% against entry | Close remaining lots |
+| **All books:** cash within **2%** of 52-week or all-time high/low, or **2 sessions** after those levels are crossed | No new entries (open trades are left alone) |
 | Expiry reached | Close everything at market |
 | **S1 only:** 3 lots — 1 at **6%**, 1 at **10%**, 1 at **14%** | Scale out in the trade's favour |
 | **S1 only:** every scan, **two consecutive** prints of Call unwind + Put writing (shorts) or Put unwind + Call writing (longs) at the **entry** strike | Close remaining lots. **Cash through the strike is not required.** Flat ΔOI counts as unwind |

@@ -10,6 +10,8 @@ oi:
   s2_proximity_pct: 1.0   # S2: same 1% proximity as RSI+OI / S1
   s2_pcr_strikes: 1       # S2 ΔPCR: 1 listed strike below + wall + 1 above
   skip_monthly_expiry: true    # All scanners: no new entries on last-Tuesday expiry
+  extreme_proximity_pct: 2.0   # Skip if cash within 2% of 52w / all-time high or low
+  extreme_cooldown_days: 2     # No new entries for 2 sessions after those levels are crossed
   # CALL shorts: require ΔPCR < 0.75.
   require_call_writing: true
   max_change_pcr: 0.75
@@ -33,6 +35,7 @@ supertrend:
 # Live data from Angel One SmartAPI
 data:
   history_days: 400       # Daily candles for RSI + Supertrend (Angel One)
+  extreme_history_days: 4000  # 52-week / all-time highs and lows (candidates only)
 
 # Stocks to scan: "all" covers every NSE stock with listed options,
 # or replace it with an explicit list of symbols, e.g.

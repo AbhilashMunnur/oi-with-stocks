@@ -35,6 +35,7 @@ from src.oi_analyzer import (
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
 from src.paper_trading.models import ExitReason
+from src.price_extremes import extreme_entry_skip_reason
 from src.scan_slots import is_close_pnl_slot, is_s1_wall_exit_slot
 from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
@@ -45,6 +46,7 @@ class OIRsiScanner:
         self.client = AngelOneClient(
             rsi_period=config.rsi.period,
             history_days=config.data.history_days,
+            extreme_history_days=config.data.extreme_history_days,
         )
         self.notifier = Notifier(config.notifications)
         self.book = None
@@ -177,6 +179,23 @@ class OIRsiScanner:
             min_change_pcr=self.config.oi.min_change_pcr,
         )
 
+    def _extreme_skip_reason(self, symbol: str, ltp: float) -> str | None:
+        """No new entries near 52-week / all-time highs and lows, or for 2 sessions after a cross."""
+        oi_cfg = self.config.oi
+        if oi_cfg.extreme_proximity_pct <= 0:
+            return None
+        try:
+            ohlc = self.client.extreme_ohlc(symbol)
+        except Exception as exc:
+            print(f"  {symbol}: 52w/ATH history unavailable ({exc})")
+            return None
+        return extreme_entry_skip_reason(
+            ltp,
+            ohlc,
+            proximity_pct=oi_cfg.extreme_proximity_pct,
+            cooldown_days=oi_cfg.extreme_cooldown_days,
+        )
+
     def _check_candidate(self, price: PriceSnapshot, oi=None) -> ScanAlert | None:
         thresholds = self._rsi_thresholds()
         flow = self._oi_flow()
@@ -200,6 +219,11 @@ class OIRsiScanner:
             if expiry_skip:
                 print(f"  {price.symbol}: {side.value} skipped — {expiry_skip}")
                 return make_rsi_alert(price, oi, side, skip_reason=expiry_skip)
+
+        extreme_skip = self._extreme_skip_reason(price.symbol, price.ltp)
+        if extreme_skip:
+            print(f"  {price.symbol}: {side.value} skipped — {extreme_skip}")
+            return make_rsi_alert(price, oi, side, skip_reason=extreme_skip)
 
         oi = oi or self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
         if not oi:
@@ -281,6 +305,11 @@ class OIRsiScanner:
             expiry_skip = expiry_entry_skip_reason()
             if expiry_skip:
                 return self._s1_watch(price, oi, side, expiry_skip)
+
+        extreme_skip = self._extreme_skip_reason(price.symbol, price.ltp)
+        if extreme_skip:
+            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {extreme_skip}")
+            return self._s1_watch(price, oi, side, extreme_skip)
 
         if not oi or not oi.legs_by_strike:
             return self._s1_watch(price, None, side, "OI unavailable")
@@ -428,6 +457,18 @@ class OIRsiScanner:
                 side=side,
                 oi=None,
                 skip_reason=blocked,
+            )
+
+        extreme_skip = self._extreme_skip_reason(symbol, ltp)
+        if extreme_skip:
+            print(f"  {symbol}: ST skipped — {extreme_skip}")
+            return make_supertrend_watch(
+                symbol=symbol,
+                ltp=ltp,
+                supertrend=st_value,
+                side=side,
+                oi=None,
+                skip_reason=extreme_skip,
             )
 
         oi = self.client.get_oi_at_price(symbol, target_price=st_value, ltp=ltp)

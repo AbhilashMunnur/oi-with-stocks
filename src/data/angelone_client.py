@@ -80,7 +80,12 @@ class AngelOneClient:
 
     name = "angelone"
 
-    def __init__(self, rsi_period: int = 14, history_days: int = 120):
+    def __init__(
+        self,
+        rsi_period: int = 14,
+        history_days: int = 120,
+        extreme_history_days: int = 4000,
+    ):
         load_dotenv()
         api_key = os.getenv("ANGEL_API_KEY", "").strip()
         client_code = os.getenv("ANGEL_CLIENT_CODE", "").strip()
@@ -95,6 +100,7 @@ class AngelOneClient:
 
         self.rsi_period = rsi_period
         self.history_days = history_days
+        self.extreme_history_days = extreme_history_days
         self.client_code = client_code
         self._api_key = api_key
         self._pin = pin
@@ -109,6 +115,7 @@ class AngelOneClient:
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
         # date, high, low, close — shared with Supertrend (same Angel candles as RSI).
         self._ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
+        self._extreme_ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
         self._fut_daily_cache: dict[str, list[tuple[str, float]]] = {}
         self._fut_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
         self._eq_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
@@ -144,6 +151,7 @@ class AngelOneClient:
             self._futures_rows = None
             self._closes_cache = None
             self._ohlc_cache = None
+            self._extreme_ohlc_cache = None
             if getattr(self, "_session_date", None) != today:
                 self.login()
 
@@ -641,6 +649,59 @@ class AngelOneClient:
             json.dumps(self._ohlc_cache), encoding="utf-8"
         )
 
+    def _extreme_ohlc_path(self) -> Path:
+        return CACHE_DIR / f"extreme_ohlc_{date.today():%Y-%m-%d}.json"
+
+    def _load_extreme_ohlc_cache(
+        self,
+    ) -> dict[str, list[tuple[str, float, float, float]]]:
+        self._refresh_for_new_day()
+        if self._extreme_ohlc_cache is not None:
+            return self._extreme_ohlc_cache
+        path = self._extreme_ohlc_path()
+        if path.exists():
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            self._extreme_ohlc_cache = {
+                k: [(d, float(h), float(l), float(c)) for d, h, l, c in v]
+                for k, v in raw.items()
+            }
+        else:
+            self._extreme_ohlc_cache = {}
+        return self._extreme_ohlc_cache
+
+    def _save_extreme_ohlc_cache(self) -> None:
+        if not self._extreme_ohlc_cache:
+            return
+        CACHE_DIR.mkdir(exist_ok=True)
+        self._extreme_ohlc_path().write_text(
+            json.dumps(self._extreme_ohlc_cache), encoding="utf-8"
+        )
+
+    def extreme_ohlc(self, symbol: str) -> list[tuple[str, float, float, float]]:
+        """Long daily OHLC for 52-week / all-time highs and lows.
+
+        Fetched only for RSI/ST candidates. Falls back to the RSI series
+        if the long request fails.
+        """
+        symbol = symbol.upper()
+        cache = self._load_extreme_ohlc_cache()
+        if symbol in cache:
+            return cache[symbol]
+
+        candles = self._request_candles(symbol, days=self.extreme_history_days)
+        rows: list[tuple[str, float, float, float]] = []
+        for row in candles or []:
+            if len(row) < 5:
+                continue
+            rows.append(
+                (str(row[0])[:10], float(row[2]), float(row[3]), float(row[4]))
+            )
+        if not rows:
+            rows = list(self.daily_ohlc(symbol))
+        cache[symbol] = rows
+        self._save_extreme_ohlc_cache()
+        return rows
+
     def seed_closes_cache_from_repo(self) -> int:
         """Load data/daily_closes_seed.json into today's cache when cold."""
         seed = Path("data") / "daily_closes_seed.json"
@@ -676,13 +737,14 @@ class AngelOneClient:
         closes_cache[symbol] = [(d, c) for d, _h, _l, c in ohlc]
         return ohlc
 
-    def _request_candles(self, symbol: str) -> list:
+    def _request_candles(self, symbol: str, days: int | None = None) -> list:
         self._load_instruments()
         token = (self._equity_tokens or {}).get(symbol)
         if not token:
             return []
 
         now = datetime.now()
+        span = days if days is not None else self.history_days
         try:
             response = self._call(
                 self._candle_throttle,
@@ -691,7 +753,7 @@ class AngelOneClient:
                     "exchange": "NSE",
                     "symboltoken": token,
                     "interval": "ONE_DAY",
-                    "fromdate": (now - timedelta(days=self.history_days)).strftime(
+                    "fromdate": (now - timedelta(days=span)).strftime(
                         "%Y-%m-%d %H:%M"
                     ),
                     "todate": now.strftime("%Y-%m-%d %H:%M"),

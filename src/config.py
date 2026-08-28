@@ -58,11 +58,17 @@ class OIConfig:
     # No new paper on last-Tuesday stock monthly expiry (front-month unwind).
     # Applies to RSI+OI, S1, S2, and Supertrend.
     skip_monthly_expiry: bool = True
+    # Skip new entries within this % of 52-week / all-time high or low.
+    extreme_proximity_pct: float = 2.0
+    # After price crosses those highs/lows, no new entries for this many sessions.
+    extreme_cooldown_days: int = 2
 
 
 @dataclass
 class DataConfig:
     history_days: int
+    # Daily bars for 52-week / all-time high and low (candidates only).
+    extreme_history_days: int = 4000
 
 
 @dataclass

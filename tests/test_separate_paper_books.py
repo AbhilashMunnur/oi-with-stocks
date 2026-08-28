@@ -64,6 +64,8 @@ def test_config_loads_scenario2_paper_book():
     assert config.oi.s2_proximity_pct == 1.0
     assert config.oi.s2_pcr_strikes == 1
     assert config.oi.skip_monthly_expiry is True
+    assert config.oi.extreme_proximity_pct == 2.0
+    assert config.oi.extreme_cooldown_days == 2
     assert config.rsi_s2_paper_trading.stop_loss_pct == 3.0
     assert config.rsi_s2_paper_trading.block_same_day_reentry is True
     assert config.oi.proximity_pct == 1.0
