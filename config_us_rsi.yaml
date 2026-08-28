@@ -2,7 +2,7 @@
 # Daily RSI ≤ 32 and weekly RSI ≤ 35; two Telegram messages.
 # Separate from the NSE OI + RSI intraday scanner.
 us_rsi:
-  enabled: true
+  enabled: false
   rsi_period: 14
   rsi_threshold: 32
   weekly_enabled: true

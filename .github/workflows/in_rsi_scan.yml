@@ -4,8 +4,7 @@ name: India Nifty RSI scan
 # 10:30 UTC = 16:00 IST — gives Yahoo/NSE closes time to settle.
 # Universe: Nifty-200 (data/nifty200.txt). Sends daily + weekly RSI ≤ threshold.
 on:
-  schedule:
-    - cron: "30 10 * * 1-5"
+  # Schedule paused — no Telegram until the new strategy is live.
   workflow_dispatch:
 
 concurrency:

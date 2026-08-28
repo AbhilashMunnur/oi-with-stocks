@@ -3,8 +3,7 @@ name: Warm market-data cache
 # Prefetch daily candles before the session so the 09:30 scan does not burn
 # the Angel One rate limit on a cold cache.
 on:
-  schedule:
-    - cron: "0 3 * * 1-5"    # 08:30 IST weekdays
+  # Schedule paused with the scanner.
   workflow_dispatch:
 
 concurrency:

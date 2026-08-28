@@ -2,7 +2,7 @@
 # Sends daily RSI and weekly RSI digests (both RSI ≤ threshold).
 # Separate from the intraday OI + RSI scanner.
 in_rsi:
-  enabled: true
+  enabled: false
   rsi_period: 14
   rsi_threshold: 32
   history_days: 120

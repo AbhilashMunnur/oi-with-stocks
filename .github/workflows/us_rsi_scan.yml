@@ -5,8 +5,7 @@ name: US Nasdaq RSI scan
 # Universe: Nasdaq-100 (data/nasdaq100.txt).
 # Sends daily RSI ≤ 32 and weekly RSI ≤ 35.
 on:
-  schedule:
-    - cron: "30 21 * * 1-5"
+  # Schedule paused — no Telegram until the new strategy is live.
   workflow_dispatch:
 
 concurrency:

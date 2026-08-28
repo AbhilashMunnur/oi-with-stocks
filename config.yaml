@@ -27,7 +27,7 @@ oi:
 # Price below ST and within proximity → bearish ΔOI → short 3rd-month futures.
 # Price above ST and within proximity → bullish ΔOI → long 3rd-month futures.
 supertrend:
-  enabled: true
+  enabled: false
   atr_period: 20
   multiplier: 4.5
   proximity_pct: 0.5
@@ -68,14 +68,14 @@ schedule:
 # Notification settings
 notifications:
   console: true
-  telegram: true          # Used only when the bot token and chat ID are set
+  telegram: false         # Off until the new strategy is in place
   cooldown_minutes: 30    # Matches the scan interval, so a stock that still
                           # qualifies is re-alerted once per scan. Raise it to
                           # hear about each stock less often.
 
 # Paper trading (RSI + max OI only) — separate book from Supertrend.
 paper_trading:
-  enabled: true
+  enabled: false
   name: "RSI+OI"
   capital: 20000000         # ₹2 crore
   lots_per_trade: 2
@@ -102,7 +102,7 @@ paper_trading:
 # a single scan still exits if cash is through the entry strike AND that OI
 # pattern prints. 3 lots at 6% / 10% / 14%. Own capital, ledger, journal.
 rsi_s1_paper_trading:
-  enabled: true
+  enabled: false
   name: "RSI+OI S1"
   capital: 20000000
   lots_per_trade: 3
@@ -128,7 +128,7 @@ rsi_s1_paper_trading:
 # the wall is still valid. Same 3-lot scale-out.
 # Same 3-lot scale-out. Same-day re-entry after a stop is blocked.
 rsi_s2_paper_trading:
-  enabled: true
+  enabled: false
   name: "RSI+OI S2"
   capital: 20000000
   lots_per_trade: 3
@@ -148,7 +148,7 @@ rsi_s2_paper_trading:
 
 # Paper trading for Supertrend + OI only — own capital, ledger, and journal.
 supertrend_paper_trading:
-  enabled: true
+  enabled: false
   name: "Supertrend"
   capital: 20000000
   lots_per_trade: 2
