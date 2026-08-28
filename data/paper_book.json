@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -308498.19,
+  "realised_pnl": -261239.79,
   "closed_count": 11,
   "day_date": "2026-08-28",
-  "day_realised_pnl": -32660.0,
-  "updated_at": "2026-08-28 12:01:40",
+  "day_realised_pnl": 14598.4,
+  "updated_at": "2026-08-28 12:31:35",
   "blocked_reentry": [],
   "positions": [
     {
@@ -157,13 +157,21 @@
       "entry_price": 4500.8,
       "entry_time": "2026-08-10 22:57:32",
       "lot_size": 175,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-27",
       "rsi_at_entry": 77.21800530073828,
       "strike": 4400.0,
-      "margin_blocked": 315056.0,
-      "closed_legs": [],
+      "margin_blocked": 157528.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 4230.75,
+          "exit_time": "2026-08-28 12:31:35",
+          "reason": "first_target",
+          "pnl": 47258.4
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": ""
     },
@@ -699,6 +707,22 @@
       "rsi_at_entry": 71.64753386236936,
       "strike": 1600.0,
       "margin_blocked": 240915.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": ""
+    },
+    {
+      "symbol": "COFORGE",
+      "direction": "SHORT",
+      "entry_price": 2007.1,
+      "entry_time": "2026-08-28 12:31:35",
+      "lot_size": 475,
+      "lots_open": 2,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 76.56181416762266,
+      "strike": 2000.0,
+      "margin_blocked": 381349.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": ""
