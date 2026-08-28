@@ -4,7 +4,7 @@
   "closed_count": 2,
   "day_date": "2026-08-28",
   "day_realised_pnl": -11362.5,
-  "updated_at": "2026-08-28 13:32:05",
+  "updated_at": "2026-08-28 14:01:51",
   "blocked_reentry": [
     "ATHERENERG"
   ],
@@ -23,7 +23,7 @@
       "margin_blocked": 309763.5,
       "closed_legs": [],
       "priced_on": "futures",
-      "s2_invalid_pending": ""
+      "s2_invalid_pending": "writing_gone"
     },
     {
       "symbol": "IDEA",
