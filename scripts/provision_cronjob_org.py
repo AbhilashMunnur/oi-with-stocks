@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-"""Create or update the cron-job.org ping that kicks GitHub scans.
+"""Create or update cron-job.org pings at OI half-hour IST slots.
 
-GitHub's own schedule is best-effort and can skip an entire morning. This
-job POSTs repository_dispatch (oi-scan) every 5 minutes during the NSE
-session so the Mac does not need to stay awake.
+GitHub bills a full minute per run. The old every-5-minutes 08:00–15:55 job
+shared the 2,000 min/month cap with nifty-index-trade and exhausted it.
+
+Slots: 09:30, then :00/:30 through 15:30, plus 15:15 and 15:45 IST, Mon–Fri.
 
 Usage:
   CRON_JOB_ORG_API_KEY=... python3 scripts/provision_cronjob_org.py
-
-The API key is created in cron-job.org Console → Settings. The GitHub
-token is read from `gh auth token` (already has repo scope).
 """
 
 from __future__ import annotations
@@ -23,8 +21,13 @@ import urllib.request
 
 API = "https://api.cron-job.org"
 REPO = os.environ.get("GITHUB_REPOSITORY", "AbhilashMunnur/oi-with-stocks")
-JOB_TITLE = "OI with stocks — scan kick"
+OLD_TITLE = "OI with stocks — scan kick"
 DISPATCH_URL = f"https://api.github.com/repos/{REPO}/dispatches"
+SPECS = (
+    ("OI scan — 09:30 IST", [9], [30]),
+    ("OI scan — 10:00–14:30 IST", list(range(10, 15)), [0, 30]),
+    ("OI scan — 15:00–15:45 IST", [15], [0, 15, 30, 45]),
+)
 
 
 def gh_token() -> str:
@@ -78,22 +81,20 @@ def request(method: str, path: str, key: str, payload: dict | None = None) -> di
     return json.loads(raw)
 
 
-def job_body(github_token: str) -> dict:
-    # Cartesian product: 08:00–15:55 IST Mon–Fri every 5 minutes.
-    # Extra pings before 09:30 / after 15:30 are no-ops (slot guard).
+def job_body(github_token: str, title: str, hours: list[int], minutes: list[int]) -> dict:
     return {
         "job": {
             "enabled": True,
-            "title": JOB_TITLE,
+            "title": title,
             "saveResponses": False,
             "url": DISPATCH_URL,
             "requestMethod": 1,  # POST
             "schedule": {
                 "timezone": "Asia/Kolkata",
                 "expiresAt": 0,
-                "hours": list(range(8, 16)),
+                "hours": hours,
                 "mdays": [-1],
-                "minutes": list(range(0, 60, 5)),
+                "minutes": minutes,
                 "months": [-1],
                 "wdays": [1, 2, 3, 4, 5],
             },
@@ -113,16 +114,27 @@ def main() -> None:
     key = api_key()
     token = gh_token()
     existing = request("GET", "/jobs", key).get("jobs") or []
-    match = next((j for j in existing if j.get("title") == JOB_TITLE), None)
-    payload = job_body(token)
-    if match:
-        job_id = match["jobId"]
-        request("PATCH", f"/jobs/{job_id}", key, payload)
-        print(f"Updated cron-job.org job {job_id} ({JOB_TITLE})")
-    else:
-        created = request("PUT", "/jobs", key, payload)
-        print(f"Created cron-job.org job {created.get('jobId')} ({JOB_TITLE})")
-    print("Schedule: every 5 minutes, 08:00–15:55 IST, Mon–Fri")
+    old = next((j for j in existing if j.get("title") == OLD_TITLE), None)
+    if old:
+        request(
+            "PATCH",
+            f"/jobs/{old['jobId']}",
+            key,
+            {"job": {"enabled": False, "title": OLD_TITLE}},
+        )
+        print(f"Disabled old 5-minute job {old['jobId']} ({OLD_TITLE})")
+        existing = request("GET", "/jobs", key).get("jobs") or []
+    for title, hours, minutes in SPECS:
+        payload = job_body(token, title, hours, minutes)
+        match = next((j for j in existing if j.get("title") == title), None)
+        if match:
+            request("PATCH", f"/jobs/{match['jobId']}", key, payload)
+            print(f"Updated cron-job.org job {match['jobId']} ({title})")
+        else:
+            created = request("PUT", "/jobs", key, payload)
+            print(f"Created cron-job.org job {created.get('jobId')} ({title})")
+        existing = request("GET", "/jobs", key).get("jobs") or []
+    print("Schedule: 09:30 then :00/:30 through 15:30, plus 15:15 and 15:45 IST, Mon–Fri")
     print(f"Target:   POST {DISPATCH_URL} event_type=oi-scan")
 
 

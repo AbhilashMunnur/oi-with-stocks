@@ -1,14 +1,8 @@
 name: OI + RSI scan
 
-# GitHub's schedule event is often late or skipped (platform limitation).
-# Mitigations stacked here:
-# 1) Poll every 5 minutes + exact :00/:30 crons during the IST session
-# 2) Never cancel an in-flight scan (slot guard skips duplicates instead)
-# 3) Early slot guard before pip install so skip-runs finish in seconds
-# 4) Warmup 10 minutes before the slot so pip/login finish by :00/:30
-# 5) Chain wait lives in a separate job so it cannot block the next scan
-# 6) Optional self-chain via SCAN_DISPATCH_TOKEN (see scripts/setup_scan_cron.sh)
-# 7) repository_dispatch for external cron-job.org backup
+# Shared GitHub Free 2,000 min/month with nifty-index-trade. Do not poll every
+# 5 minutes or sleep on a runner until the next slot. Nifty has its own IST
+# 15-minute cron — this workflow must not dispatch nifty-scan.
 on:
   # Schedule paused — no Telegram / paper until the new strategy is live.
   workflow_dispatch:
@@ -19,8 +13,6 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    outputs:
-      chain: ${{ steps.slot.outputs.chain }}
     concurrency:
       group: oi-rsi-scan
       # Do not cancel a running scan. Slot guard skips duplicates instead.
@@ -46,7 +38,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import os
-          from src.scan_slots import should_run_slot, seconds_until_next_slot
+          from src.scan_slots import should_run_slot
 
           event = os.environ.get("GITHUB_EVENT_NAME", "")
           # Manual "Run workflow" always scans; schedules / external pings use the lock.
@@ -56,12 +48,8 @@ jobs:
           if slot is not None:
               print(f"slot={slot.isoformat()}")
 
-          chain = seconds_until_next_slot() is not None
-          print(f"chain={chain}")
-
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
               handle.write(f"run={'true' if run else 'false'}\n")
-              handle.write(f"chain={'true' if chain else 'false'}\n")
           PY
 
       - uses: actions/setup-python@v5
@@ -127,71 +115,3 @@ jobs:
           done
           echo "Could not push the ledger after 3 attempts."
           exit 1
-
-  # Sleeps until 10 minutes before the next slot, then dispatches. Separate
-  # concurrency group so this wait cannot queue (and delay) the next scan.
-  chain:
-    needs: scan
-    if: always() && needs.scan.result != 'cancelled' && needs.scan.outputs.chain == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 90
-    concurrency:
-      group: oi-rsi-chain
-      cancel-in-progress: true
-    permissions:
-      contents: read
-    env:
-      TZ: Asia/Kolkata
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Dispatch next slot with warmup
-        env:
-          GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
-        run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "SCAN_DISPATCH_TOKEN not set — chain disabled."
-            echo "Run: scripts/setup_scan_cron.sh"
-            exit 0
-          fi
-
-          WAIT_SECONDS=$(python3 - <<'PY'
-          from src.scan_slots import seconds_until_warmup_dispatch
-          wait = seconds_until_warmup_dispatch()
-          print(0 if wait is None else int(wait))
-          PY
-          )
-
-          if [ "$WAIT_SECONDS" -le 0 ]; then
-            echo "No further IST slots today — chain stop."
-            exit 0
-          fi
-
-          echo "Waiting ${WAIT_SECONDS}s, then dispatching warmup for the next IST slot..."
-          sleep "$WAIT_SECONDS"
-          gh api --method POST "repos/${{ github.repository }}/dispatches" \
-            -f event_type='oi-scan'
-          echo "Dispatched oi-scan warmup for the next slot."
-
-  # Nifty 1H has no cron-job.org ping of its own. GitHub schedule skipped its
-  # whole morning on 27 Aug 2026. Reuse this repo's 5-minute cloud kick.
-  kick-nifty:
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    concurrency:
-      group: kick-nifty-1h
-      cancel-in-progress: true
-    permissions:
-      contents: read
-    steps:
-      - name: Dispatch nifty-scan
-        env:
-          GH_TOKEN: ${{ secrets.SCAN_DISPATCH_TOKEN }}
-        run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "SCAN_DISPATCH_TOKEN not set — nifty kick skipped."
-            exit 0
-          fi
-          gh api --method POST repos/AbhilashMunnur/nifty-index-trade/dispatches \
-            -f event_type='nifty-scan'
-          echo "Dispatched nifty-scan."

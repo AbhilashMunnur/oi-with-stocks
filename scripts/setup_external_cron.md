@@ -1,18 +1,14 @@
 # Live scan kick (Mac does not need to stay awake)
 
-GitHub’s own `schedule` trigger is **best-effort**. It skipped all of 09:30–11:30
-IST on 27 Aug 2026. A missed slot is missed live paper (entries, stops,
-scale-outs). It is not backfilled.
+GitHub Free private repos share **2,000 Actions minutes/month** with
+nifty-index-trade. Every run is billed at least 1 minute, including skips
+and `sleep` on the runner.
 
-The Mac LaunchAgent is **optional extra** for when the laptop happens to be on.
-**Production kick is a cloud ping**, not this Mac.
+## Minute budget (OI)
 
-## What actually keeps the session alive
-
-1. A cloud ping every 5 minutes during 08:00–15:55 IST (`repository_dispatch`).
-2. In-repo **self-chain** after the first scan of the day (needs
-   `SCAN_DISPATCH_TOKEN`). That chain **stops after 15:45**, so the next
-   morning still needs the cloud ping.
+Half-hour IST slots: **09:30, then :00/:30 through 15:30, plus 15:15 and 15:45**.
+Do **not** ping every 5 minutes from 08:00. Nifty has its own 15-minute cron;
+this repo must not dispatch `nifty-scan`.
 
 ## Required: cron-job.org (runs while you sleep)
 
@@ -27,22 +23,19 @@ cd "/Users/abhilashmunnur/OI with stocks"
 python3 scripts/provision_cronjob_org.py
 ```
 
-That creates a POST every 5 minutes, **08:00–15:55 IST, Mon–Fri**, to:
+That POSTs at the half-hour slots above, Mon–Fri, to:
 
 `https://api.github.com/repos/AbhilashMunnur/oi-with-stocks/dispatches`
 
 Body: `{"event_type":"oi-scan"}`. Auth is your current `gh` token (`repo` scope).
 
-The workflow slot guard no-ops in a few seconds if that half-hour already ran.
-Duplicate pings are safe.
+The script disables the old every-5-minutes job. Re-run after `gh auth login`
+if the GitHub token is rotated.
 
-Re-run the same script after `gh auth login` if the GitHub token is rotated.
+## Already in GitHub
 
-## Already done in GitHub
-
-- `SCAN_DISPATCH_TOKEN` refreshed (self-chain for the rest of a session).
-- 08:30 warmup, if GitHub actually runs it, also dispatches the 09:30 chain.
-- Chain job can wait 90 minutes (used to die at 40).
+- No self-chain sleep job (that billed wait time).
+- No `kick-nifty` job.
 
 ## Optional: this Mac, only if it is already awake
 
