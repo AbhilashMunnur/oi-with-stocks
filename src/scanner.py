@@ -47,6 +47,7 @@ from src.paper_trading.journal import TradeJournal
 from src.paper_trading.models import ExitReason
 from src.price_extremes import extreme_entry_skip_reason
 from src.scan_slots import (
+    is_cash_stop_slot,
     is_close_pnl_slot,
     is_s1_wall_exit_slot,
     is_candle_entry_window,
@@ -67,6 +68,7 @@ class OIRsiScanner:
         self.st_book = None
         self.s1_book = None
         self.s2_book = None
+        self.two_week_book = None
         if config.paper_trading.enabled:
             paper = config.paper_trading
             journal = TradeJournal(
@@ -113,6 +115,20 @@ class OIRsiScanner:
             )
             self.s2_book = PaperBook(
                 s2_paper, journal=s2_journal, no_short_symbols=config.no_short_symbols
+            )
+
+        two_week = config.rsi_candle_2w_paper_trading
+        if two_week and two_week.enabled:
+            two_week_journal = TradeJournal(
+                csv_path=two_week.journal_csv,
+                sheet_id=two_week.google_sheet_id,
+                worksheet=two_week.google_worksheet,
+                summary_worksheet=two_week.google_summary_worksheet,
+            )
+            self.two_week_book = PaperBook(
+                two_week,
+                journal=two_week_journal,
+                no_short_symbols=config.no_short_symbols,
             )
 
     def close(self) -> None:
@@ -573,6 +589,31 @@ class OIRsiScanner:
         alerts: list[ScanAlert],
     ) -> dict[str, float]:
         """LTP of the book's futures month. Cash is never used to mark P&L."""
+        if book.config.mark_entry_contract:
+            pairs = [
+                (position.symbol, position.expiry)
+                for position in book.positions
+                if position.is_open and position.expiry
+            ]
+            if not book.config.skip_new_entries:
+                pairs.extend(
+                    (alert.symbol, alert.expiry)
+                    for alert in alerts
+                    if alert.expiry
+                )
+            if not pairs:
+                return {}
+            fut = self.client.get_futures_ltps_for_expiries(pairs)
+            wanted = {symbol for symbol, _expiry in pairs}
+            missing = sorted(symbol for symbol in wanted if symbol not in fut)
+            if missing:
+                print(
+                    f"  {book.config.name}: no stored-expiry fut LTP for "
+                    f"{', '.join(missing[:8])}"
+                    + ("…" if len(missing) > 8 else "")
+                )
+            return fut
+
         symbols = {position.symbol for position in book.positions if position.is_open}
         symbols.update(alert.symbol for alert in alerts)
         if not symbols:
@@ -863,27 +904,31 @@ class OIRsiScanner:
         prices: dict[str, float],
         rsi_values: dict[str, float],
     ) -> None:
-        self._align_open_futures_expiry(book)
-        self._apply_futures_expiry(alerts, month=book.config.futures_month)
+        if not book.config.mark_entry_contract:
+            self._align_open_futures_expiry(book)
+        if not book.config.skip_new_entries:
+            self._apply_futures_expiry(alerts, month=book.config.futures_month)
 
-        fut_prices = self._futures_paper_prices(book, alerts)
+        quote_alerts = [] if book.config.skip_new_entries else alerts
+        fut_prices = self._futures_paper_prices(book, quote_alerts)
         events = self._restate_cash_entries(book)
         events += book.drop_void_positions(
             skip_monthly_expiry=self.config.oi.skip_monthly_expiry
         )
 
         paper_alerts: list[ScanAlert] = []
-        for alert in alerts:
-            if alert.skip_reason:
-                continue
-            if alert.symbol not in fut_prices:
-                print(
-                    f"  {alert.symbol}: not opening paper — "
-                    f"no NSE month-{book.config.futures_month} futures LTP (cash is not used)"
-                )
-                continue
-            alert.ltp = fut_prices[alert.symbol]
-            paper_alerts.append(alert)
+        if not book.config.skip_new_entries:
+            for alert in alerts:
+                if alert.skip_reason:
+                    continue
+                if alert.symbol not in fut_prices:
+                    print(
+                        f"  {alert.symbol}: not opening paper — "
+                        f"no NSE month-{book.config.futures_month} futures LTP (cash is not used)"
+                    )
+                    continue
+                alert.ltp = fut_prices[alert.symbol]
+                paper_alerts.append(alert)
 
         # S2: confirmed OI invalidation is the primary stop (two consecutive
         # scans). Run it before the 3% futures cap so a dead wall is booked
@@ -899,14 +944,23 @@ class OIRsiScanner:
                 book, prices, fut_prices, rsi_values
             )
         smma_levels = self._smma_levels_for_book(book, fut_prices)
+        cash_slot = is_cash_stop_slot()
+        skip_candle = book.config.cash_close_stop and not cash_slot
+        stop_prices = prices if book.config.cash_close_stop and cash_slot else None
         events += book.update(
-            fut_prices, rsi_values=rsi_values, smma_levels=smma_levels
+            fut_prices,
+            rsi_values=rsi_values,
+            smma_levels=smma_levels,
+            skip_candle_stop=skip_candle,
+            stop_prices=stop_prices,
         )
         if book is self.s1_book and is_s1_wall_exit_slot():
             events += self._exit_s1_broken_walls(
                 book, prices, fut_prices, rsi_values
             )
-        if not is_close_pnl_slot():
+        if book.config.skip_new_entries:
+            print(f"  {book.config.name}: marking open P&L — no new entries")
+        elif not is_close_pnl_slot():
             events += book.open_from_alerts(paper_alerts)
         else:
             print(f"  {book.config.name}: 15:45 close — marking P&L, not opening new paper")
@@ -1005,6 +1059,8 @@ class OIRsiScanner:
             self._run_one_paper_book(self.s2_book, s2_alerts, prices, rsi_values)
         if self.st_book:
             self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
+        if self.two_week_book:
+            self._run_one_paper_book(self.two_week_book, [], prices, rsi_values)
 
     def _bars_to_candles(
         self, rows: list[tuple[str, float, float, float, float]]

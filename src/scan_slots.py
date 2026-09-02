@@ -64,6 +64,16 @@ def is_close_pnl_slot(now: datetime | None = None) -> bool:
     return slot is not None and slot.time() == CLOSE_PNL_SLOT
 
 
+def is_cash_stop_slot(now: datetime | None = None) -> bool:
+    """True at 15:30 (cash close) and 15:45 (backup after F&O ends).
+
+    Candle stops wait for a cash close through the stored bar. A 15:15 wick
+    or an earlier 30-minute futures print is not a stop.
+    """
+    slot = active_slot(now)
+    return slot is not None and slot.time() in (CASH_CLOSE, CLOSE_PNL_SLOT)
+
+
 def is_candle_entry_window(now: datetime | None = None) -> bool:
     """RSI_CandlePattern takes from 15:15 IST on a weekday — not in the morning.
 

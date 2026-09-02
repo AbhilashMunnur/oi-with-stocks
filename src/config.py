@@ -137,6 +137,13 @@ class PaperTradingConfig:
     loss_streak_count: int = 0
     loss_streak_sessions: int = 0
     skip_qualifies_after_streak: int = 0
+    # Mark-only books: never open new paper from this scan's alerts.
+    skip_new_entries: bool = False
+    # Quote the futures expiry stored on each position (do not roll the month).
+    mark_entry_contract: bool = False
+    # Candle stop fires only when cash closes through the stored bar, not on
+    # an intraday futures wick. Intraday slots still mark P&L and SMMA.
+    cash_close_stop: bool = False
 
 
 @dataclass
@@ -157,6 +164,8 @@ class AppConfig:
     rsi_s1_paper_trading: PaperTradingConfig | None = None
     # Same S1 entry; OI exit after two consecutive invalid scans.
     rsi_s2_paper_trading: PaperTradingConfig | None = None
+    # 19 Aug–2 Sep 3rd-month names still open — mark and Telegram only.
+    rsi_candle_2w_paper_trading: PaperTradingConfig | None = None
     # Laboratory names: never short on any scanner; longs still allowed.
     no_short_symbols: list[str] = field(default_factory=list)
 
@@ -177,6 +186,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
     st_paper_raw = raw.get("supertrend_paper_trading")
     s1_paper_raw = raw.get("rsi_s1_paper_trading")
     s2_paper_raw = raw.get("rsi_s2_paper_trading")
+    two_week_raw = raw.get("rsi_candle_2w_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -197,5 +207,8 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         ),
         rsi_s2_paper_trading=(
             PaperTradingConfig(**s2_paper_raw) if s2_paper_raw else None
+        ),
+        rsi_candle_2w_paper_trading=(
+            PaperTradingConfig(**two_week_raw) if two_week_raw else None
         ),
     )

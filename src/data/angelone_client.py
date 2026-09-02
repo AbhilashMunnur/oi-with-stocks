@@ -294,8 +294,38 @@ class AngelOneClient:
             return datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
 
         row = max(nfo, key=expiry_of)
+        return self._stock_future_from_row(row)
+
+    def futures_contract_expiring(
+        self, symbol: str, expiry: str
+    ) -> StockFuture | None:
+        """The NFO stock future that expires on this calendar date."""
+        self._load_instruments()
+        rows = (self._futures_rows or {}).get(symbol.upper())
+        if not rows:
+            return None
+        try:
+            want = date.fromisoformat(str(expiry)[:10])
+        except ValueError:
+            return None
+
+        for row in rows:
+            try:
+                exp = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+            except (KeyError, ValueError):
+                continue
+            if exp != want:
+                continue
+            if str(row.get("exch_seg") or "NFO").upper() != "NFO":
+                continue
+            return self._stock_future_from_row(row)
+        return None
+
+    @staticmethod
+    def _stock_future_from_row(row: dict) -> StockFuture:
+        expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
         return StockFuture(
-            expiry=expiry_of(row).strftime("%Y-%m-%d"),
+            expiry=expiry.strftime("%Y-%m-%d"),
             lot_size=int(float(row.get("lotsize") or 0)),
             token=str(row.get("token") or ""),
             nfo_symbol=str(row.get("symbol") or ""),
@@ -323,26 +353,48 @@ class AngelOneClient:
 
         prices: dict[str, float] = {}
         for exchange, tokens in by_exchange.items():
-            token_list = list(tokens)
-            for start in range(0, len(token_list), MAX_TOKENS_PER_REQUEST):
-                batch = token_list[start : start + MAX_TOKENS_PER_REQUEST]
-                try:
-                    response = self._call(
-                        self._quote_throttle,
-                        "getMarketData",
-                        "LTP",
-                        {"NFO": batch},
-                    )
-                except Exception as exc:
-                    print(f"  {exchange} futures quote batch failed: {exc}")
-                    continue
-                if not response or not response.get("status"):
-                    continue
-                for quote in (response.get("data") or {}).get("fetched") or []:
-                    symbol = tokens.get(str(quote.get("symbolToken")))
-                    price = quote.get("ltp")
-                    if symbol and price:
-                        prices[symbol] = float(price)
+            prices.update(self._nfo_ltps(tokens))
+        return prices
+
+    def get_futures_ltps_for_expiries(
+        self, pairs: list[tuple[str, str]]
+    ) -> dict[str, float]:
+        """LTP of each name's stored futures expiry, keyed by cash symbol."""
+        self._load_instruments()
+        tokens: dict[str, str] = {}
+        for symbol, expiry in pairs:
+            if not expiry:
+                continue
+            contract = self.futures_contract_expiring(symbol, expiry)
+            if not contract or not contract.token:
+                continue
+            if contract.exchange != "NFO":
+                continue
+            tokens[contract.token] = symbol.upper()
+        return self._nfo_ltps(tokens)
+
+    def _nfo_ltps(self, token_to_symbol: dict[str, str]) -> dict[str, float]:
+        prices: dict[str, float] = {}
+        token_list = list(token_to_symbol)
+        for start in range(0, len(token_list), MAX_TOKENS_PER_REQUEST):
+            batch = token_list[start : start + MAX_TOKENS_PER_REQUEST]
+            try:
+                response = self._call(
+                    self._quote_throttle,
+                    "getMarketData",
+                    "LTP",
+                    {"NFO": batch},
+                )
+            except Exception as exc:
+                print(f"  NFO futures quote batch failed: {exc}")
+                continue
+            if not response or not response.get("status"):
+                continue
+            for quote in (response.get("data") or {}).get("fetched") or []:
+                symbol = token_to_symbol.get(str(quote.get("symbolToken")))
+                price = quote.get("ltp")
+                if symbol and price:
+                    prices[symbol] = float(price)
         return prices
 
     def futures_daily_close(

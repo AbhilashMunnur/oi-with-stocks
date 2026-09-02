@@ -114,6 +114,33 @@ paper_trading:
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "RSI Paper trades"
   google_summary_worksheet: "RSI Portfolio Summary"
+  # Candle stop only when cash closes through the stored bar (15:30 / 15:45).
+  cash_close_stop: true
+
+# Mark-only: 19 Aug–2 Sep 3rd-month names still open. Telegram P&L every
+# 30-minute slot. No new fills. Quote the stored Oct/Nov contract — do not
+# roll to the current 3rd month. Candle stop on cash close, not a futures wick.
+rsi_candle_2w_paper_trading:
+  enabled: true
+  name: "RSI_CandlePattern · 2-week 3rd-month"
+  capital: 20000000
+  lots_per_trade: 2
+  smma_fast: 21
+  smma_slow: 50
+  second_lot_rsi_short: 30
+  second_lot_rsi_long: 70
+  stop_loss_pct: 4.0
+  second_lot_stop_pct: 1.0
+  margin_pct: 20.0
+  futures_month: 3
+  skip_new_entries: true
+  mark_entry_contract: true
+  cash_close_stop: true
+  loss_streak_count: 3
+  loss_streak_sessions: 10
+  skip_qualifies_after_streak: 3
+  ledger_path: data/rsi_candle_3m_2w_paper_book.json
+  journal_csv: data/rsi_candle_3m_2w_paper_trades.csv
 
 # RSI+OI Scenario 1: enter only on an uncrossed wall (never the peak if price
 # is already through it). Every scan: remaining lots close after two consecutive

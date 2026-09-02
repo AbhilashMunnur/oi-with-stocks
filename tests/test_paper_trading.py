@@ -710,6 +710,54 @@ def test_long_candle_stop_is_the_bar_low(tmp_path):
     assert book._pending_rows[0]["Exit price"] == pytest.approx(92.0)
 
 
+def test_skip_candle_stop_does_not_fire_on_futures_through_stop(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+
+    events = book.update(
+        {"TITAN": 109.0},
+        skip_candle_stop=True,
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    assert events == []
+    assert book.positions[0].lots_open == 2
+
+
+def test_cash_close_stop_uses_cash_not_futures_mark(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+
+    events = book.update(
+        {"TITAN": 102.0},
+        stop_prices={"TITAN": 109.0},
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    assert [e.kind for e in events] == ["stop_loss"]
+    assert not book.positions
+
+
+def test_cash_close_stop_holds_when_cash_has_not_closed_through(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+
+    events = book.update(
+        {"TITAN": 109.0},
+        stop_prices={"TITAN": 105.0},
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    assert events == []
+    assert book.positions[0].lots_open == 2
+
+
 def _streak_config(tmp_path):
     cfg = _smma_config(tmp_path)
     cfg.loss_streak_count = 3

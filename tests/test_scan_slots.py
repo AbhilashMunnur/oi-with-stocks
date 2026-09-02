@@ -118,6 +118,15 @@ def test_close_pnl_slot_is_three_forty_five():
     assert is_close_pnl_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST)) is True
 
 
+def test_cash_stop_slot_is_cash_close_and_backup():
+    from src.scan_slots import is_cash_stop_slot
+
+    assert is_cash_stop_slot(datetime(2026, 8, 11, 15, 15, tzinfo=IST)) is False
+    assert is_cash_stop_slot(datetime(2026, 8, 11, 15, 30, tzinfo=IST)) is True
+    assert is_cash_stop_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST)) is True
+    assert is_cash_stop_slot(datetime(2026, 8, 11, 14, 30, tzinfo=IST)) is False
+
+
 def test_ten_minute_warmup_starts_at_ten_fifty(tmp_path):
     marker = tmp_path / "last_scan_slot.txt"
     write_last_slot(

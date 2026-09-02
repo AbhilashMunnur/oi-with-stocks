@@ -402,13 +402,24 @@ class PaperBook:
         today: date,
         rsi: float | None,
         smma_levels: tuple[float | None, float | None] | None = None,
+        *,
+        skip_candle_stop: bool = False,
+        stop_prices: dict[str, float] | None = None,
     ) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         move = position.move_pct(price)
 
         # Stop first: on a 30-minute snapshot we cannot know the intrabar order,
         # so assume the adverse level was reached before any target.
-        candle_stop = self._candle_stop_fill(position, price)
+        if skip_candle_stop:
+            candle_stop = None
+        elif stop_prices is not None:
+            cash = stop_prices.get(position.symbol)
+            candle_stop = (
+                self._candle_stop_fill(position, cash) if cash else None
+            )
+        else:
+            candle_stop = self._candle_stop_fill(position, price)
         if candle_stop is not None:
             events.append(
                 self._close_lots(
@@ -468,6 +479,9 @@ class PaperBook:
         today: date | None = None,
         rsi_values: dict[str, float] | None = None,
         smma_levels: dict[str, tuple[float | None, float | None]] | None = None,
+        *,
+        skip_candle_stop: bool = False,
+        stop_prices: dict[str, float] | None = None,
     ) -> list[TradeEvent]:
         """Mark open positions to market and run the exit rules."""
         today = today or date.today()
@@ -486,6 +500,8 @@ class PaperBook:
                     today,
                     rsi_values.get(position.symbol),
                     smma_levels.get(position.symbol),
+                    skip_candle_stop=skip_candle_stop,
+                    stop_prices=stop_prices,
                 )
             )
 
