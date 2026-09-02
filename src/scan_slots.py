@@ -11,6 +11,7 @@ S1_WALL_EXIT_SLOT = time(15, 15)
 # F&O close is 15:40 IST; 15:45 marks books to the closing print.
 CLOSE_PNL_SLOT = time(15, 45)
 SESSION_END = time(16, 0)
+CASH_CLOSE = time(15, 30)
 DEFAULT_MARKER = Path("data/last_scan_slot.txt")
 # Start the GitHub job this many seconds before the slot so pip / login / the
 # scrip master are done by :00/:30. Telegram should then land within ~5 minutes.
@@ -61,6 +62,23 @@ def is_close_pnl_slot(now: datetime | None = None) -> bool:
     """True for the 15:45 IST closing P&L mark after F&O 15:40."""
     slot = active_slot(now)
     return slot is not None and slot.time() == CLOSE_PNL_SLOT
+
+
+def is_candle_entry_window(now: datetime | None = None) -> bool:
+    """RSI_CandlePattern takes from 15:15 IST on a weekday — not in the morning.
+
+    F&O is live at 15:15; cash close is not required. After 15:15 it stays
+    valid through the rest of that calendar day (15:30 is a backup).
+    """
+    current = now_ist(now)
+    if current.weekday() >= 5:
+        return False
+    return current.time() >= S1_WALL_EXIT_SLOT
+
+
+def is_same_day_reversal_window(now: datetime | None = None) -> bool:
+    """Same clock as candle entries: 15:15 IST, not cash close."""
+    return is_candle_entry_window(now)
 
 
 def read_last_slot(path: Path = DEFAULT_MARKER) -> str:

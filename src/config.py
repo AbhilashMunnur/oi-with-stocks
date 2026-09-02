@@ -16,6 +16,8 @@ class SignalType(str, Enum):
     PUT_OI_S2 = "PUT_OI_S2"
     ST_BEARISH = "ST_BEARISH"  # Below Supertrend, bearish OI at ST strike → short
     ST_BULLISH = "ST_BULLISH"  # Above Supertrend, bullish OI at ST strike → long
+    RSI_CANDLE_SHORT = "RSI_CANDLE_SHORT"
+    RSI_CANDLE_LONG = "RSI_CANDLE_LONG"
 
 
 @dataclass
@@ -23,6 +25,17 @@ class RSIConfig:
     period: int
     call_threshold: float
     put_threshold: float
+
+
+@dataclass
+class CandleConfig:
+    """Day-2 reversal shapes after an RSI 70/30 strong bar."""
+
+    strong_body_pct: float = 60.0
+    weak_body_pct: float = 40.0
+    side_wick_pct: float = 20.0
+    hammer_long_wick_pct: float = 50.0
+    hammer_short_wick_pct: float = 15.0
 
 
 @dataclass
@@ -90,26 +103,40 @@ class PaperTradingConfig:
     enabled: bool
     capital: float
     lots_per_trade: int
-    first_target_pct: float
-    second_target_pct: float
-    stop_loss_pct: float
     margin_pct: float
     ledger_path: str
     journal_csv: str
+    first_target_pct: float = 6.0
+    second_target_pct: float = 11.0
+    stop_loss_pct: float = 4.0
     google_sheet_id: str = ""
     google_worksheet: str = ""
     google_summary_worksheet: str = ""
     # 1 = current month futures, 3 = far month (e.g. August → October).
     futures_month: int = 3
-    # After the first lot is booked at first_target_pct, remaining lots'
-    # stop tightens to this % adverse from the original entry price.
+    # After the first lot is booked, remaining lots' stop tightens to this
+    # % adverse from the original entry price.
     second_lot_stop_pct: float = 1.0
+    # RSI_CandlePattern: 1 lot at SMMA fast, remaining lot at SMMA slow. When set,
+    # percent targets are ignored on this book.
+    smma_fast: int | None = None
+    smma_slow: int | None = None
+    # After SMMA 21: remaining lot at SMMA 50, or earlier at RSI 30 (shorts)
+    # / RSI 70 (longs) if that prints first.
+    second_lot_rsi_short: float | None = None
+    second_lot_rsi_long: float | None = None
     # Label on Telegram dashboards so RSI and Supertrend books stay distinct.
     name: str = "Paper"
     # Optional third scale-out (S1: 1 lot at 6%, 1 at 10%, rest at 14%).
     third_target_pct: float | None = None
     # After a stop / OI invalidation, do not reopen the same name today.
     block_same_day_reentry: bool = False
+    # RSI_CandlePattern: after this many consecutive losing trades whose
+    # first-to-last exit sits inside this many book sessions, skip the next
+    # N times the name qualifies. 0 disables.
+    loss_streak_count: int = 0
+    loss_streak_sessions: int = 0
+    skip_qualifies_after_streak: int = 0
 
 
 @dataclass
@@ -122,6 +149,7 @@ class AppConfig:
     schedule: ScheduleConfig
     notifications: NotificationConfig
     paper_trading: PaperTradingConfig
+    candles: CandleConfig = field(default_factory=CandleConfig)
     supertrend: SupertrendConfig = field(default_factory=SupertrendConfig)
     # Separate capital / ledger / journal from the RSI+OI paper book.
     supertrend_paper_trading: PaperTradingConfig | None = None
@@ -159,6 +187,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
         paper_trading=PaperTradingConfig(**raw["paper_trading"]),
+        candles=CandleConfig(**(raw.get("candles") or {})),
         supertrend=SupertrendConfig(**st_raw),
         supertrend_paper_trading=(
             PaperTradingConfig(**st_paper_raw) if st_paper_raw else None

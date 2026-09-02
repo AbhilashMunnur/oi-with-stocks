@@ -20,7 +20,10 @@ def _alert(signal, symbol="TITAN"):
 
 def test_config_loads_separate_supertrend_paper_book():
     config = load_config()
-    assert config.paper_trading.name == "RSI+OI"
+    assert config.paper_trading.name == "RSI_CandlePattern"
+    assert config.paper_trading.loss_streak_count == 3
+    assert config.paper_trading.loss_streak_sessions == 10
+    assert config.paper_trading.skip_qualifies_after_streak == 3
     assert config.supertrend_paper_trading is not None
     assert config.supertrend_paper_trading.name == "Supertrend"
     assert "supertrend" in config.supertrend_paper_trading.ledger_path
@@ -44,7 +47,11 @@ def test_config_loads_scenario1_paper_book():
     assert config.paper_trading.google_worksheet == "RSI Paper trades"
     assert config.paper_trading.google_summary_worksheet == "RSI Portfolio Summary"
     assert config.paper_trading.lots_per_trade == 2
-    assert config.paper_trading.second_target_pct == 11.0
+    assert config.paper_trading.smma_fast == 21
+    assert config.paper_trading.smma_slow == 50
+    assert config.paper_trading.second_lot_rsi_short == 30
+    assert config.paper_trading.second_lot_rsi_long == 70
+    assert config.paper_trading.futures_month == 2
     assert config.paper_trading.third_target_pct is None
 
 

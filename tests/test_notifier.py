@@ -43,7 +43,7 @@ def test_rsi_digest_shows_why_a_name_is_not_taken():
     assert text.index("TITAN") < text.index("HDFCBANK")
     assert "Not taking — 4.07% from max Call OI (need ≤ 1%)" in text
     assert "Call ΔOI +111" in text
-    assert "3rd-month future" in text
+    assert "stock future" in text
     assert "OI:" in text
 
 
@@ -198,3 +198,23 @@ def test_telegram_pcr_matches_the_call_put_numbers_on_the_same_line():
     chunks = _telegram_chunks(text, limit=500)
     assert len(chunks) > 1
     assert all(len(chunk) <= 500 for chunk in chunks)
+
+
+def test_rsi_candle_digest_shows_the_reversal_pattern():
+    notifier = Notifier(
+        NotificationConfig(console=False, telegram=False, cooldown_minutes=30)
+    )
+    short = _alert(
+        symbol="TITAN",
+        signal=SignalType.RSI_CANDLE_SHORT,
+        ltp=5090.0,
+        rsi=74.3,
+        oi_strike=0.0,
+        distance_pct=0.0,
+        candle_pattern="inverted hammer",
+    )
+    text = notifier._rsi_candle_digest([short])
+    assert "RSI_CandlePattern alerts" in text
+    assert "SHORT (after RSI ≥ 70 strong bull)" in text
+    assert "inverted hammer" in text
+    assert "TITAN" in text

@@ -16,8 +16,8 @@ def test_third_month_wraps_the_year():
     assert target_futures_year_month(date(2026, 12, 1), month_index=3) == (2027, 2)
 
 
-def test_current_month_index_is_unchanged():
-    assert target_futures_year_month(date(2026, 8, 10), month_index=1) == (2026, 8)
+def test_second_month_from_september_is_october():
+    assert target_futures_year_month(date(2026, 9, 2), month_index=2) == (2026, 10)
 
 
 def test_standard_futures_symbol_is_recognised():

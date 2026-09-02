@@ -20,7 +20,7 @@ logzero.loglevel(logging.WARNING)
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
 from src.data.option_expiry import select_scan_oi_expiry
-from src.indicators import calculate_rsi
+from src.indicators import calculate_rsi, calculate_smma
 from src.oi_analyzer import select_active_oi_walls, strikes_around_wall
 from src.paper_trading.futures_expiry import target_futures_year_month
 
@@ -59,6 +59,25 @@ AUTH_ERROR_CODES = {"AG8001", "AG8002", "AG8003", "AB1010", "AB1011", "AB8050", 
 
 # Strikes in the instrument master are quoted in paise.
 STRIKE_DIVISOR = 100.0
+
+
+def _parse_full_bar(row) -> tuple[str, float, float, float, float]:
+    """Angel or cache row → (date, open, high, low, close)."""
+    if len(row) >= 5:
+        return (
+            str(row[0])[:10],
+            float(row[1]),
+            float(row[2]),
+            float(row[3]),
+            float(row[4]),
+        )
+    return (
+        str(row[0])[:10],
+        float("nan"),
+        float(row[1]),
+        float(row[2]),
+        float(row[3]),
+    )
 
 
 class Throttle:
@@ -113,8 +132,8 @@ class AngelOneClient:
         self._option_rows: dict[str, list[dict]] | None = None
         self._futures_rows: dict[str, list[dict]] | None = None
         self._closes_cache: dict[str, list[tuple[str, float]]] | None = None
-        # date, high, low, close — shared with Supertrend (same Angel candles as RSI).
-        self._ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
+        # date, open, high, low, close — open is required for candle patterns.
+        self._ohlc_cache: dict[str, list[tuple[str, float, float, float, float]]] | None = None
         self._extreme_ohlc_cache: dict[str, list[tuple[str, float, float, float]]] | None = None
         self._fut_daily_cache: dict[str, list[tuple[str, float]]] = {}
         self._fut_intraday_cache: dict[str, list[tuple[datetime, float]]] = {}
@@ -613,7 +632,7 @@ class AngelOneClient:
             self._closes_cache = {}
         return self._closes_cache
 
-    def _load_ohlc_cache(self) -> dict[str, list[tuple[str, float, float, float]]]:
+    def _load_ohlc_cache(self) -> dict[str, list[tuple[str, float, float, float, float]]]:
         self._refresh_for_new_day()
         if self._ohlc_cache is not None:
             return self._ohlc_cache
@@ -621,10 +640,14 @@ class AngelOneClient:
         path = self._ohlc_cache_path()
         if path.exists():
             raw = json.loads(path.read_text(encoding="utf-8"))
-            self._ohlc_cache = {
-                k: [(d, float(h), float(l), float(c)) for d, h, l, c in v]
-                for k, v in raw.items()
-            }
+            parsed: dict[str, list[tuple[str, float, float, float, float]]] = {}
+            stale = False
+            for key, rows in raw.items():
+                if rows and len(rows[0]) < 5:
+                    stale = True
+                    break
+                parsed[key] = [_parse_full_bar(row) for row in rows]
+            self._ohlc_cache = {} if stale else parsed
         else:
             self._ohlc_cache = {}
         return self._ohlc_cache
@@ -720,21 +743,27 @@ class AngelOneClient:
 
     def _ingest_candles(
         self, symbol: str, candles: list
-    ) -> list[tuple[str, float, float, float]]:
-        """Parse Angel candle rows into OHLC and mirror closes for RSI."""
-        ohlc: list[tuple[str, float, float, float]] = []
+    ) -> list[tuple[str, float, float, float, float]]:
+        """Parse Angel candle rows into OHLC (with open) and mirror closes for RSI."""
+        ohlc: list[tuple[str, float, float, float, float]] = []
         for row in candles:
             if len(row) < 5:
                 continue
             # Angel format: [timestamp, open, high, low, close, volume]
             ohlc.append(
-                (str(row[0])[:10], float(row[2]), float(row[3]), float(row[4]))
+                (
+                    str(row[0])[:10],
+                    float(row[1]),
+                    float(row[2]),
+                    float(row[3]),
+                    float(row[4]),
+                )
             )
 
         ohlc_cache = self._load_ohlc_cache()
         closes_cache = self._load_closes_cache()
         ohlc_cache[symbol] = ohlc
-        closes_cache[symbol] = [(d, c) for d, _h, _l, c in ohlc]
+        closes_cache[symbol] = [(d, c) for d, _o, _h, _l, c in ohlc]
         return ohlc
 
     def _request_candles(self, symbol: str, days: int | None = None) -> list:
@@ -765,8 +794,10 @@ class AngelOneClient:
 
         return (response or {}).get("data") or []
 
-    def daily_ohlc(self, symbol: str) -> list[tuple[str, float, float, float]]:
-        """Daily (date, high, low, close) from Angel One, cached once per day."""
+    def daily_full_ohlc(
+        self, symbol: str
+    ) -> list[tuple[str, float, float, float, float]]:
+        """Daily (date, open, high, low, close) from Angel One, cached once per day."""
         symbol = symbol.upper()
         cache = self._load_ohlc_cache()
         if symbol in cache:
@@ -783,12 +814,16 @@ class AngelOneClient:
             self._save_closes_cache()
         return series
 
+    def daily_ohlc(self, symbol: str) -> list[tuple[str, float, float, float]]:
+        """Daily (date, high, low, close) for 52-week / Supertrend consumers."""
+        return [(d, h, l, c) for d, _o, h, l, c in self.daily_full_ohlc(symbol)]
+
     def daily_closes(self, symbol: str) -> list[tuple[str, float]]:
         """Daily (date, close) pairs, fetched once per day and cached on disk."""
         symbol = symbol.upper()
         ohlc_cache = self._load_ohlc_cache()
         if symbol in ohlc_cache:
-            return [(d, c) for d, _h, _l, c in ohlc_cache[symbol]]
+            return [(d, c) for d, _o, _h, _l, c in ohlc_cache[symbol]]
 
         cache = self._load_closes_cache()
         if symbol in cache:
@@ -803,24 +838,46 @@ class AngelOneClient:
         if len(cache) % 10 == 0:
             self._save_closes_cache()
             self._save_ohlc_cache()
-        return [(d, c) for d, _h, _l, c in ohlc]
+        return [(d, c) for d, _o, _h, _l, c in ohlc]
 
-    def get_rsi(self, symbol: str, ltp: float) -> float | None:
-        """RSI from cached daily closes, with today's close set to the live price."""
+    def _closes_with_live(self, symbol: str, ltp: float | None = None) -> list[float]:
+        """Daily closes, with LTP applied to today's still-forming bar when given."""
         series = self.daily_closes(symbol)
         if not series:
-            return None
-
+            return []
         closes = [close for _, close in series]
+        if ltp is None:
+            return closes
         today = f"{date.today():%Y-%m-%d}"
-
-        # Only overwrite the final close when it is today's still-forming candle,
-        # otherwise the live price would replace the previous session's close.
         if series[-1][0] == today:
             closes[-1] = ltp
         else:
             closes.append(ltp)
+        return closes
 
+    def get_rsi(self, symbol: str, ltp: float) -> float | None:
+        """RSI from cached daily closes, with today's close set to the live price."""
+        closes = self._closes_with_live(symbol, ltp)
+        if not closes:
+            return None
+        return calculate_rsi(pd.Series(closes, dtype=float), period=self.rsi_period)
+
+    def get_smma(self, symbol: str, period: int, ltp: float | None = None) -> float | None:
+        """SMMA on cash daily closes; live LTP updates today's bar when given."""
+        closes = self._closes_with_live(symbol, ltp)
+        if not closes:
+            return None
+        return calculate_smma(pd.Series(closes, dtype=float), period=period)
+
+    def completed_rsi(self, symbol: str) -> float | None:
+        """RSI on the last finished session — not mixed with today's live LTP."""
+        series = self.daily_closes(symbol)
+        if not series:
+            return None
+        today = f"{date.today():%Y-%m-%d}"
+        closes = [close for day, close in series if day < today]
+        if not closes:
+            return None
         return calculate_rsi(pd.Series(closes, dtype=float), period=self.rsi_period)
 
     # ------------------------------------------------------------------ #

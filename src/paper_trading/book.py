@@ -49,12 +49,20 @@ class PaperBook:
         self.day_date: str = str(date.today())
         self.day_realised_pnl: float = 0.0
         self.blocked_reentry: set[str] = set()
+        self.session_dates: list[str] = []
+        self.closed_results: list[dict] = []
+        self.qualify_skips: dict[str, int] = {}
         self._pending_rows: list[dict] = []
         self._load()
 
     # ------------------------------------------------------------------ #
     # Persistence
     # ------------------------------------------------------------------ #
+
+    def _note_session(self, day_s: str) -> None:
+        if day_s and day_s not in self.session_dates:
+            self.session_dates.append(day_s)
+            self.session_dates.sort()
 
     def _roll_day(self, today: date | None = None) -> None:
         """Reset the day bucket when the calendar date changes."""
@@ -63,6 +71,7 @@ class PaperBook:
             self.day_date = today_s
             self.day_realised_pnl = 0.0
             self.blocked_reentry = set()
+        self._note_session(today_s)
 
     def _load(self) -> None:
         if not self.path.exists():
@@ -77,6 +86,17 @@ class PaperBook:
         self.blocked_reentry = {
             str(symbol) for symbol in raw.get("blocked_reentry") or []
         }
+        self.session_dates = [str(d) for d in raw.get("session_dates") or []]
+        self.closed_results = [
+            row
+            for row in (raw.get("closed_results") or [])
+            if isinstance(row, dict) and row.get("symbol")
+        ]
+        self.qualify_skips = {
+            str(symbol): int(left)
+            for symbol, left in (raw.get("qualify_skips") or {}).items()
+            if int(left) > 0
+        }
         self._roll_day()
 
     def save(self) -> None:
@@ -90,6 +110,13 @@ class PaperBook:
             "day_realised_pnl": round(self.day_realised_pnl, 2),
             "updated_at": now_stamp(),
             "blocked_reentry": sorted(self.blocked_reentry),
+            "session_dates": self.session_dates,
+            "closed_results": self.closed_results,
+            "qualify_skips": {
+                symbol: left
+                for symbol, left in sorted(self.qualify_skips.items())
+                if left > 0
+            },
             "positions": [p.to_dict() for p in self.positions],
         }
         self.path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -174,6 +201,7 @@ class PaperBook:
                 ExitReason.WALL_BROKEN,
             ):
                 self.blocked_reentry.add(position.symbol)
+            self._record_closed_trade(position)
 
         return TradeEvent(
             symbol=position.symbol,
@@ -185,11 +213,88 @@ class PaperBook:
             pnl=pnl,
         )
 
+    def _loss_skip_enabled(self) -> bool:
+        return (
+            self.config.loss_streak_count > 0
+            and self.config.loss_streak_sessions > 0
+            and self.config.skip_qualifies_after_streak > 0
+        )
+
+    def _session_span(self, start: str, end: str) -> int:
+        self._note_session(start)
+        self._note_session(end)
+        first = self.session_dates.index(start)
+        last = self.session_dates.index(end)
+        return abs(last - first) + 1
+
+    def _trim_closed_results(self) -> None:
+        keep = 12
+        by_symbol: dict[str, list[dict]] = {}
+        for row in self.closed_results:
+            by_symbol.setdefault(str(row["symbol"]), []).append(row)
+        trimmed: list[dict] = []
+        for rows in by_symbol.values():
+            trimmed.extend(rows[-keep:])
+        self.closed_results = trimmed
+
+    def _record_closed_trade(self, position: Position) -> None:
+        if not self._loss_skip_enabled():
+            return
+        exit_date = ""
+        if position.closed_legs:
+            exit_date = str(position.closed_legs[-1].exit_time)[:10]
+        exit_date = exit_date or self.day_date
+        self._note_session(exit_date)
+        net = round(sum(leg.pnl for leg in position.closed_legs), 2)
+        self.closed_results.append(
+            {
+                "symbol": position.symbol,
+                "exit_date": exit_date,
+                "pnl": net,
+            }
+        )
+        self._trim_closed_results()
+        self._maybe_arm_qualify_skip(position.symbol)
+
+    def _maybe_arm_qualify_skip(self, symbol: str) -> None:
+        need = self.config.loss_streak_count
+        window = self.config.loss_streak_sessions
+        rows = [row for row in self.closed_results if row["symbol"] == symbol]
+        if len(rows) < need:
+            return
+        streak = rows[-need:]
+        if any(float(row["pnl"]) >= 0 for row in streak):
+            return
+        span = self._session_span(str(streak[0]["exit_date"]), str(streak[-1]["exit_date"]))
+        if span > window:
+            return
+        self.qualify_skips[symbol] = self.config.skip_qualifies_after_streak
+
+    def _consume_qualify_skip(self, symbol: str) -> str | None:
+        left = self.qualify_skips.get(symbol, 0)
+        if left <= 0:
+            return None
+        total = self.config.skip_qualifies_after_streak
+        used = total - left + 1
+        left -= 1
+        if left <= 0:
+            self.qualify_skips.pop(symbol, None)
+        else:
+            self.qualify_skips[symbol] = left
+        return (
+            f"{self.config.loss_streak_count} consecutive losses in "
+            f"{self.config.loss_streak_sessions} sessions — sitting out "
+            f"qualify {used}/{total}"
+        )
+
     def _stop_pct(self, position: Position) -> float:
         """Full stop until the first lot is booked; then tighten from entry."""
         if position.lots_open < position.lots_total:
             return self.config.second_lot_stop_pct
         return self.config.stop_loss_pct
+
+    def _uses_smma_targets(self) -> bool:
+        return self.config.smma_fast is not None and self.config.smma_slow is not None
 
     def _scale_targets(self) -> list[tuple[float, ExitReason]]:
         """One lot per target; the last target closes whatever is still open."""
@@ -201,43 +306,154 @@ class PaperBook:
             targets.append((self.config.third_target_pct, ExitReason.THIRD_TARGET))
         return targets
 
+    @staticmethod
+    def _level_is_profit(position: Position, level: float) -> bool:
+        """SMMA is a take-profit only when it sits on the winning side of entry."""
+        if position.direction == Direction.LONG:
+            return level > position.entry_price + TRIGGER_TOLERANCE
+        return level < position.entry_price - TRIGGER_TOLERANCE
+
+    @staticmethod
+    def _level_reached(position: Position, price: float, level: float) -> bool:
+        if position.direction == Direction.LONG:
+            return price >= level - TRIGGER_TOLERANCE
+        return price <= level + TRIGGER_TOLERANCE
+
+    def _rsi_second_lot_hit(self, position: Position, rsi: float | None) -> bool:
+        if rsi is None:
+            return False
+        if position.direction == Direction.SHORT:
+            threshold = self.config.second_lot_rsi_short
+            return threshold is not None and rsi <= threshold + TRIGGER_TOLERANCE
+        threshold = self.config.second_lot_rsi_long
+        return threshold is not None and rsi >= threshold - TRIGGER_TOLERANCE
+
+    def _apply_smma_exits(
+        self,
+        position: Position,
+        price: float,
+        rsi: float | None,
+        smma_levels: tuple[float | None, float | None] | None,
+    ) -> list[TradeEvent]:
+        """1 lot at SMMA 21; remaining at SMMA 50, or RSI 30/70 if that prints first."""
+        events: list[TradeEvent] = []
+        fast, slow = smma_levels if smma_levels is not None else (None, None)
+
+        if position.lots_open == position.lots_total:
+            if (
+                fast is not None
+                and self._level_is_profit(position, fast)
+                and self._level_reached(position, price, fast)
+            ):
+                events.append(
+                    self._close_lots(position, 1, fast, ExitReason.FIRST_TARGET, rsi)
+                )
+            if position.lots_open == position.lots_total:
+                return events
+
+        if not position.is_open:
+            return events
+
+        if (
+            slow is not None
+            and self._level_is_profit(position, slow)
+            and self._level_reached(position, price, slow)
+        ):
+            events.append(
+                self._close_lots(
+                    position,
+                    position.lots_open,
+                    slow,
+                    ExitReason.SECOND_TARGET,
+                    rsi,
+                )
+            )
+            return events
+
+        if self._rsi_second_lot_hit(position, rsi):
+            events.append(
+                self._close_lots(
+                    position,
+                    position.lots_open,
+                    price,
+                    ExitReason.RSI_TARGET,
+                    rsi,
+                )
+            )
+        return events
+
+    def _candle_stop_fill(self, position: Position, price: float) -> float | None:
+        """Both lots share this cash-bar stop when it was stored at entry."""
+        stop = position.stop_price
+        if stop is None or stop <= 0:
+            return None
+        if position.direction == Direction.SHORT:
+            if price >= stop - TRIGGER_TOLERANCE:
+                return stop
+            return None
+        if price <= stop + TRIGGER_TOLERANCE:
+            return stop
+        return None
+
     def _apply_exits(
-        self, position: Position, price: float, today: date, rsi: float | None
+        self,
+        position: Position,
+        price: float,
+        today: date,
+        rsi: float | None,
+        smma_levels: tuple[float | None, float | None] | None = None,
     ) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         move = position.move_pct(price)
 
         # Stop first: on a 30-minute snapshot we cannot know the intrabar order,
         # so assume the adverse level was reached before any target.
-        stop_pct = self._stop_pct(position)
-        if move <= -stop_pct + TRIGGER_TOLERANCE:
-            stop_price = position.price_at_move(-stop_pct)
+        candle_stop = self._candle_stop_fill(position, price)
+        if candle_stop is not None:
             events.append(
                 self._close_lots(
-                    position, position.lots_open, stop_price, ExitReason.STOP_LOSS, rsi
+                    position,
+                    position.lots_open,
+                    candle_stop,
+                    ExitReason.STOP_LOSS,
+                    rsi,
                 )
             )
             return events
 
-        targets = self._scale_targets()
-        for index, (pct, reason) in enumerate(targets):
-            if not position.is_open:
-                break
-            if move < pct - TRIGGER_TOLERANCE:
-                break
-            already_closed = position.lots_total - position.lots_open
-            if already_closed != index:
-                continue
-            lots = position.lots_open if index == len(targets) - 1 else 1
-            events.append(
-                self._close_lots(
-                    position,
-                    lots,
-                    position.price_at_move(pct),
-                    reason,
-                    rsi,
+        if position.stop_price is None:
+            stop_pct = self._stop_pct(position)
+            if move <= -stop_pct + TRIGGER_TOLERANCE:
+                stop_price = position.price_at_move(-stop_pct)
+                events.append(
+                    self._close_lots(
+                        position, position.lots_open, stop_price, ExitReason.STOP_LOSS, rsi
+                    )
                 )
-            )
+                return events
+
+        if self._uses_smma_targets():
+            events.extend(self._apply_smma_exits(position, price, rsi, smma_levels))
+        else:
+            targets = self._scale_targets()
+            for index, (pct, reason) in enumerate(targets):
+                if not position.is_open:
+                    break
+                if move < pct - TRIGGER_TOLERANCE:
+                    break
+                already_closed = position.lots_total - position.lots_open
+                if already_closed != index:
+                    continue
+                lots = position.lots_open if index == len(targets) - 1 else 1
+                events.append(
+                    self._close_lots(
+                        position,
+                        lots,
+                        position.price_at_move(pct),
+                        reason,
+                        rsi,
+                    )
+                )
 
         if position.is_open and position.expiry and str(today) >= position.expiry:
             events.append(
@@ -251,10 +467,12 @@ class PaperBook:
         prices: dict[str, float],
         today: date | None = None,
         rsi_values: dict[str, float] | None = None,
+        smma_levels: dict[str, tuple[float | None, float | None]] | None = None,
     ) -> list[TradeEvent]:
         """Mark open positions to market and run the exit rules."""
         today = today or date.today()
         rsi_values = rsi_values or {}
+        smma_levels = smma_levels or {}
         events: list[TradeEvent] = []
 
         for position in list(self.positions):
@@ -262,7 +480,13 @@ class PaperBook:
             if not price or not position.is_open:
                 continue
             events.extend(
-                self._apply_exits(position, price, today, rsi_values.get(position.symbol))
+                self._apply_exits(
+                    position,
+                    price,
+                    today,
+                    rsi_values.get(position.symbol),
+                    smma_levels.get(position.symbol),
+                )
             )
 
         self.positions = [p for p in self.positions if p.is_open]
@@ -379,6 +603,7 @@ class PaperBook:
             SignalType.ST_BEARISH,
             SignalType.CALL_OI_S1,
             SignalType.CALL_OI_S2,
+            SignalType.RSI_CANDLE_SHORT,
         ):
             return Direction.SHORT
         return Direction.LONG
@@ -419,6 +644,13 @@ class PaperBook:
                 )
                 continue
 
+            sit_out = self._consume_qualify_skip(alert.symbol)
+            if sit_out:
+                events.append(
+                    TradeEvent(symbol=alert.symbol, kind="skipped", detail=sit_out)
+                )
+                continue
+
             lots = self.config.lots_per_trade
             margin = self._margin_for(alert.ltp, alert.lot_size, lots)
             if margin > self.free_capital:
@@ -444,6 +676,7 @@ class PaperBook:
                 strike=alert.oi_strike,
                 margin_blocked=margin,
                 priced_on="futures",
+                stop_price=alert.stop_price,
             )
             self.positions.append(position)
             held.add(alert.symbol)
@@ -455,7 +688,13 @@ class PaperBook:
                     detail=(
                         f"{direction.value} {lots} lot(s) x {alert.lot_size} @ "
                         f"₹{alert.ltp:,.2f} ({alert.signal.value}, strike ₹{alert.oi_strike:,.0f}, "
-                        f"fut {alert.expiry})"
+                        f"fut {alert.expiry}"
+                        + (
+                            f", stop ₹{alert.stop_price:,.2f}"
+                            if alert.stop_price
+                            else ""
+                        )
+                        + ")"
                     ),
                 )
             )

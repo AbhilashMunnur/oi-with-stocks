@@ -14,6 +14,7 @@ class ExitReason(str, Enum):
     FIRST_TARGET = "first_target"
     SECOND_TARGET = "second_target"
     THIRD_TARGET = "third_target"
+    RSI_TARGET = "rsi_target"
     STOP_LOSS = "stop_loss"
     EXPIRY = "expiry"
     WALL_BROKEN = "wall_broken"
@@ -49,6 +50,8 @@ class Position:
     # Last scan's OI invalidation reason (S2 strike/writing; S1 OI-flow).
     # Empty = wall still valid. Exit only after a second consecutive invalid scan.
     s2_invalid_pending: str = ""
+    # RSI_CandlePattern: bar high (short) or low (long). None = use percent stop.
+    stop_price: float | None = None
 
     def move_pct(self, price: float) -> float:
         """Percent moved in the trade's favour; negative means against it."""

@@ -4,7 +4,7 @@ import pytest
 
 from src.config import PaperTradingConfig, SignalType
 from src.oi_analyzer import ScanAlert
-from src.paper_trading import PaperBook
+from src.paper_trading import PaperBook, ExitReason
 
 
 @pytest.fixture
@@ -502,6 +502,327 @@ def test_s2_does_not_reopen_a_name_that_stopped_today(tmp_path):
     assert not book.positions
     assert events[0].kind == "skipped"
     assert "re-entry" in events[0].detail
+
+
+def _smma_config(tmp_path):
+    return PaperTradingConfig(
+        enabled=True,
+        name="RSI_CandlePattern",
+        capital=5_000_000,
+        lots_per_trade=2,
+        stop_loss_pct=4.0,
+        second_lot_stop_pct=1.0,
+        smma_fast=21,
+        smma_slow=50,
+        second_lot_rsi_short=30,
+        second_lot_rsi_long=70,
+        margin_pct=20.0,
+        ledger_path=str(tmp_path / "smma.json"),
+        journal_csv=str(tmp_path / "smma.csv"),
+    )
+
+
+def test_smma_books_one_lot_at_21_and_holds_the_other(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+
+    events = book.update(
+        {"TITAN": 106.0},
+        smma_levels={"TITAN": (106.0, 112.0)},
+    )
+
+    assert [e.kind for e in events] == ["first_target"]
+    assert book.positions[0].lots_open == 1
+    assert book.positions[0].closed_legs[0].exit_price == pytest.approx(106.0)
+
+
+def test_smma_50_books_the_remaining_lot(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 106.0}, smma_levels={"TITAN": (106.0, 112.0)})
+
+    events = book.update(
+        {"TITAN": 112.0},
+        smma_levels={"TITAN": (106.0, 112.0)},
+    )
+
+    assert events[-1].kind == "second_target"
+    assert not book.positions
+    assert book.closed_count == 1
+
+
+def test_short_books_at_smma_as_price_falls(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+
+    events = book.update(
+        {"TITAN": 94.0},
+        smma_levels={"TITAN": (94.0, 88.0)},
+    )
+
+    assert events[0].kind == "first_target"
+    assert events[0].pnl == pytest.approx(6.0 * 100)
+
+
+def test_smma_does_not_book_a_level_behind_entry(tmp_path):
+    """Long already above SMMA 21 — wait for SMMA 50 instead of booking a loss."""
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+
+    events = book.update(
+        {"TITAN": 101.0},
+        smma_levels={"TITAN": (98.0, 110.0)},
+    )
+
+    assert events == []
+    assert book.positions[0].lots_open == 2
+
+
+def test_gap_through_both_smmas_books_at_each_line(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+
+    events = book.update(
+        {"TITAN": 120.0},
+        smma_levels={"TITAN": (106.0, 112.0)},
+    )
+
+    assert [e.kind for e in events] == ["first_target", "second_target"]
+    assert not book.positions
+    assert book.realised_pnl == pytest.approx((6.0 + 12.0) * 100)
+
+
+def test_percent_targets_still_used_when_smma_is_not_configured(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+    events = book.update({"TITAN": 4700.0})
+    assert events[0].kind == "first_target"
+    assert book.positions[0].lots_open == 1
+
+
+def test_short_second_lot_books_at_rsi_30_before_smma_50(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 94.0}, smma_levels={"TITAN": (94.0, 80.0)})
+
+    events = book.update(
+        {"TITAN": 90.0},
+        rsi_values={"TITAN": 29.0},
+        smma_levels={"TITAN": (93.0, 80.0)},
+    )
+
+    assert [e.kind for e in events] == ["rsi_target"]
+    assert not book.positions
+    assert book._pending_rows[-1]["Exit price"] == 90.0
+
+
+def test_long_second_lot_books_at_rsi_70_before_smma_50(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 106.0}, smma_levels={"TITAN": (106.0, 120.0)})
+
+    events = book.update(
+        {"TITAN": 110.0},
+        rsi_values={"TITAN": 70.0},
+        smma_levels={"TITAN": (107.0, 120.0)},
+    )
+
+    assert [e.kind for e in events] == ["rsi_target"]
+    assert not book.positions
+
+
+def test_smma_50_wins_when_price_already_through_it(tmp_path):
+    """RSI 30 on the same bar as SMMA 50 — price travelled through the MA first."""
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 94.0}, smma_levels={"TITAN": (94.0, 88.0)})
+
+    events = book.update(
+        {"TITAN": 85.0},
+        rsi_values={"TITAN": 25.0},
+        smma_levels={"TITAN": (92.0, 88.0)},
+    )
+
+    assert [e.kind for e in events] == ["second_target"]
+    assert book._pending_rows[-1]["Exit price"] == pytest.approx(88.0)
+
+
+def test_rsi_30_does_not_close_until_smma_21_is_booked(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+
+    events = book.update(
+        {"TITAN": 97.0},
+        rsi_values={"TITAN": 28.0},
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    assert events == []
+    assert book.positions[0].lots_open == 2
+
+
+def test_candle_stop_closes_both_lots_at_the_bar(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+
+    events = book.update(
+        {"TITAN": 109.0},
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    assert [e.kind for e in events] == ["stop_loss"]
+    assert not book.positions
+    assert book._pending_rows[0]["Exit price"] == pytest.approx(108.0)
+
+
+def test_candle_stop_does_not_tighten_after_smma_21(tmp_path):
+    """1% from entry would be 101 on this short; the candle high is 108."""
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+    book.update({"TITAN": 94.0}, smma_levels={"TITAN": (94.0, 80.0)})
+    assert book.positions[0].lots_open == 1
+
+    events = book.update(
+        {"TITAN": 102.0},
+        smma_levels={"TITAN": (93.0, 80.0)},
+    )
+
+    assert events == []
+    assert book.positions[0].lots_open == 1
+
+
+def test_long_candle_stop_is_the_bar_low(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)
+    row.stop_price = 92.0
+    book.open_from_alerts([row])
+
+    events = book.update(
+        {"TITAN": 90.0},
+        smma_levels={"TITAN": (110.0, 120.0)},
+    )
+
+    assert events[0].kind == "stop_loss"
+    assert book._pending_rows[0]["Exit price"] == pytest.approx(92.0)
+
+
+def _streak_config(tmp_path):
+    cfg = _smma_config(tmp_path)
+    cfg.loss_streak_count = 3
+    cfg.loss_streak_sessions = 10
+    cfg.skip_qualifies_after_streak = 3
+    return cfg
+
+
+def test_three_losses_in_ten_sessions_sit_out_next_three_qualifies(tmp_path, monkeypatch):
+    book = PaperBook(_streak_config(tmp_path))
+    stamp = ["2026-08-19 15:15:00"]
+    monkeypatch.setattr("src.paper_trading.book.now_stamp", lambda: stamp[0])
+
+    loss_days = [date(2026, 8, 19), date(2026, 8, 20), date(2026, 8, 21)]
+    for day in loss_days:
+        book._roll_day(day)
+        stamp[0] = f"{day.isoformat()} 15:15:00"
+        book.open_from_alerts([alert()])
+        book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+
+    assert book.qualify_skips["TITAN"] == 3
+
+    sit_out_days = [date(2026, 8, 24), date(2026, 8, 25), date(2026, 8, 26)]
+    for index, day in enumerate(sit_out_days, start=1):
+        book._roll_day(day)
+        stamp[0] = f"{day.isoformat()} 15:15:00"
+        events = book.open_from_alerts([alert()])
+        assert events[0].kind == "skipped"
+        assert f"{index}/3" in events[0].detail
+        assert not book.positions
+
+    book._roll_day(date(2026, 8, 27))
+    stamp[0] = "2026-08-27 15:15:00"
+    events = book.open_from_alerts([alert()])
+    assert events[0].kind == "entry"
+    assert book.positions[0].symbol == "TITAN"
+
+
+def test_win_breaks_the_consecutive_loss_streak(tmp_path, monkeypatch):
+    book = PaperBook(_streak_config(tmp_path))
+    stamp = ["2026-08-19 15:15:00"]
+    monkeypatch.setattr("src.paper_trading.book.now_stamp", lambda: stamp[0])
+
+    book._roll_day(date(2026, 8, 19))
+    book.open_from_alerts([alert()])
+    book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+
+    book._roll_day(date(2026, 8, 20))
+    stamp[0] = "2026-08-20 15:15:00"
+    book.open_from_alerts([alert()])
+    book.close_remaining(book.positions[0], 4800.0, ExitReason.FIRST_TARGET)
+
+    book._roll_day(date(2026, 8, 21))
+    stamp[0] = "2026-08-21 15:15:00"
+    book.open_from_alerts([alert()])
+    book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+
+    assert "TITAN" not in book.qualify_skips
+    events = book.open_from_alerts([alert()])
+    assert events[0].kind == "entry"
+
+
+def test_three_losses_outside_ten_sessions_do_not_sit_out(tmp_path, monkeypatch):
+    book = PaperBook(_streak_config(tmp_path))
+    stamp = ["2026-08-19 15:15:00"]
+    monkeypatch.setattr("src.paper_trading.book.now_stamp", lambda: stamp[0])
+
+    sessions = [
+        date(2026, 8, 19),
+        date(2026, 8, 20),
+        date(2026, 8, 21),
+        date(2026, 8, 24),
+        date(2026, 8, 25),
+        date(2026, 8, 26),
+        date(2026, 8, 27),
+        date(2026, 8, 28),
+        date(2026, 8, 31),
+        date(2026, 9, 1),
+        date(2026, 9, 2),
+    ]
+    lose_on = {sessions[0], sessions[1], sessions[-1]}
+    for day in sessions:
+        book._roll_day(day)
+        stamp[0] = f"{day.isoformat()} 15:15:00"
+        if day in lose_on:
+            book.open_from_alerts([alert()])
+            book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+
+    assert "TITAN" not in book.qualify_skips
+    events = book.open_from_alerts([alert()])
+    assert events[0].kind == "entry"
+
+
+def test_qualify_skip_survives_ledger_reload(tmp_path, monkeypatch):
+    cfg = _streak_config(tmp_path)
+    book = PaperBook(cfg)
+    stamp = ["2026-08-19 15:15:00"]
+    monkeypatch.setattr("src.paper_trading.book.now_stamp", lambda: stamp[0])
+    for day in (date(2026, 8, 19), date(2026, 8, 20), date(2026, 8, 21)):
+        book._roll_day(day)
+        stamp[0] = f"{day.isoformat()} 15:15:00"
+        book.open_from_alerts([alert()])
+        book.close_remaining(book.positions[0], 5100.0, ExitReason.STOP_LOSS)
+    book.save()
+
+    loaded = PaperBook(cfg)
+    assert loaded.qualify_skips["TITAN"] == 3
+    events = loaded.open_from_alerts([alert()])
+    assert events[0].kind == "skipped"
+    loaded.save()
+
+    loaded_again = PaperBook(cfg)
+    assert loaded_again.qualify_skips["TITAN"] == 2
 
 
 

@@ -352,7 +352,7 @@ def render_positions_image(
     footer = (
         f"{book_name}  ·  NSE Oct futures closing P&L  ·  not live orders"
         if closing
-        else f"{book_name} paper book  ·  3rd-month futures  ·  not live orders"
+        else f"{book_name} paper book  ·  NSE stock futures  ·  not live orders"
     )
     fw = draw.textlength(footer, font=small_font)
     draw.text(((WIDTH - fw) / 2, y + 12), footer, fill=MUTED, font=small_font)

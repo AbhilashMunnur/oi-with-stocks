@@ -43,8 +43,11 @@ class ScanAlert:
     band_put_oi_change: int | None = None
     lot_size: int = 0
     supertrend: float | None = None
+    candle_pattern: str = ""
     # Set when this row is for Telegram only — paper trading must ignore it.
     skip_reason: str | None = None
+    # RSI+candle: cash high/low used as the futures stop for both lots.
+    stop_price: float | None = None
 
     def in_contracts(self, shares: int | None) -> int | None:
         """Angel One reports OI in shares; traders read it in contracts."""

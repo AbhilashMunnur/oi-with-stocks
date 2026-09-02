@@ -4,7 +4,12 @@ name: OI + RSI scan
 # 5 minutes or sleep on a runner until the next slot. Nifty has its own IST
 # 15-minute cron — this workflow must not dispatch nifty-scan.
 on:
-  # Schedule paused — no Telegram / paper until the new strategy is live.
+  schedule:
+    # Half-hour slots 09:30–15:00 IST, then 15:15 / 15:30 / 15:45.
+    # RSI_CandlePattern entries are from 15:15. Earlier slots mark stops / SMMA.
+    - cron: "0,30 4-9 * * 1-5"
+    - cron: "45 9 * * 1-5"
+    - cron: "0,15 10 * * 1-5"
   workflow_dispatch:
   repository_dispatch:
     types: [oi-scan]

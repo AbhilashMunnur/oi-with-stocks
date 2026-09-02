@@ -2,7 +2,21 @@
 rsi:
   period: 14
   call_threshold: 70      # Notify when RSI is at or above this
-  put_threshold: 31       # Notify when RSI is at or below this
+  put_threshold: 30       # Notify when RSI is at or below this
+
+# RSI_CandlePattern (main book). Do not fade RSI 70/30 on the strong bar.
+# Take a trade if either scenario qualifies (one position, not both required):
+#   next-day: yesterday strong bull/bear at RSI 70/30 + today's reversal candle
+#   same-day: from 15:15 IST, RSI tagged 70/30 today + today's bar already reversed
+# Entries at 15:15 IST on 2nd-month stock futures — cash is never the fill.
+# Short only after inverted hammer / weak middle body / strong red.
+# Long only after hammer / weak middle body / strong green.
+candles:
+  strong_body_pct: 60.0
+  weak_body_pct: 40.0
+  side_wick_pct: 20.0
+  hammer_long_wick_pct: 50.0
+  hammer_short_wick_pct: 15.0
 
 # How close price must be to the max OI strike (percentage)
 oi:
@@ -68,25 +82,31 @@ schedule:
 # Notification settings
 notifications:
   console: true
-  telegram: false         # Off until the new strategy is in place
+  telegram: true
   cooldown_minutes: 30    # Matches the scan interval, so a stock that still
                           # qualifies is re-alerted once per scan. Raise it to
                           # hear about each stock less often.
 
-# Paper trading (RSI + max OI only) — separate book from Supertrend.
+# Paper trading (RSI_CandlePattern) — 2nd-month NSE stock futures, never cash.
 paper_trading:
-  enabled: false
-  name: "RSI+OI"
+  enabled: true
+  name: "RSI_CandlePattern"
   capital: 20000000         # ₹2 crore
   lots_per_trade: 2
-  first_target_pct: 6.0     # Close 1 lot after a 6% move in our favour
-  second_target_pct: 11.0   # Close the remaining lot at 11% (10–12% band)
-  stop_loss_pct: 4.0        # Close everything on a 4% adverse move (before first target)
-  second_lot_stop_pct: 1.0  # After booking 1 lot at 6%, SL on the rest = 1% from entry
+  smma_fast: 21             # Close 1 lot when price reaches SMMA 21
+  smma_slow: 50             # Remaining lot at SMMA 50 unless RSI gets there first
+  second_lot_rsi_short: 30  # Shorts: book 2nd lot at RSI 30 if that hits before SMMA 50
+  second_lot_rsi_long: 70   # Longs: book 2nd lot at RSI 70 if that hits before SMMA 50
+  stop_loss_pct: 4.0        # Fallback only when a position has no candle stop
+  second_lot_stop_pct: 1.0  # Unused on RSI_CandlePattern — both lots share the candle stop
   margin_pct: 20.0          # Approximate futures margin as a % of notional
-  # Paper futures month: 1 = current, 3 = far month (August → October).
-# Scan uses NSE cash + current-month option OI; fills are this futures month.
-  futures_month: 3
+  # Entries at 15:15 IST on 2nd-month stock futures (Sep → Oct). Never cash.
+  futures_month: 2
+  # After 3 consecutive losing trades inside 10 working sessions, sit out the
+  # next 3 times this name qualifies (not 3 calendar days).
+  loss_streak_count: 3
+  loss_streak_sessions: 10
+  skip_qualifies_after_streak: 3
   ledger_path: data/paper_book.json     # Open positions and running P&L
   journal_csv: data/paper_trades.csv    # One row per closed trade
   # Optional: mirror closed trades into a Google Sheet. Needs a service account

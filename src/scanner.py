@@ -1,7 +1,17 @@
 from __future__ import annotations
 
-from datetime import datetime, time as dt_time
+import math
+from datetime import date, datetime, time as dt_time
 
+from src.candle_patterns import (
+    Candle,
+    candle_stop_price,
+    make_candle_alert,
+    reversal_setup,
+    same_day_setup,
+    waiting_reason,
+    with_live_close,
+)
 from src.config import AppConfig, SignalType
 from src.data.angelone_client import AngelOneClient
 from src.data.models import PriceSnapshot
@@ -36,7 +46,11 @@ from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
 from src.paper_trading.models import ExitReason
 from src.price_extremes import extreme_entry_skip_reason
-from src.scan_slots import is_close_pnl_slot, is_s1_wall_exit_slot
+from src.scan_slots import (
+    is_close_pnl_slot,
+    is_s1_wall_exit_slot,
+    is_candle_entry_window,
+)
 from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
 
@@ -512,9 +526,9 @@ class OIRsiScanner:
             oi_config=self.config.oi,
         )
 
-    def _apply_futures_expiry(self, alerts: list[ScanAlert]) -> None:
-        """Point paper entries at the configured futures month (default: 3rd)."""
-        month = self.config.paper_trading.futures_month
+    def _apply_futures_expiry(self, alerts: list[ScanAlert], month: int | None = None) -> None:
+        """Point paper entries at this book's futures month (RSI_CandlePattern: 2nd)."""
+        month = month if month is not None else self.config.paper_trading.futures_month
         for alert in alerts:
             contract = self.client.futures_contract(alert.symbol, month_index=month)
             if not contract:
@@ -575,6 +589,28 @@ class OIRsiScanner:
                 + ("…" if len(missing) > 8 else "")
             )
         return fut
+
+    def _smma_levels_for_book(
+        self,
+        book: PaperBook,
+        cash_prices: dict[str, float],
+    ) -> dict[str, tuple[float | None, float | None]] | None:
+        """Cash SMMA 21 / 50 for open paper names, last bar = futures LTP.
+
+        None when this book uses % targets. RSI_CandlePattern does not mark cash.
+        """
+        if book.config.smma_fast is None or book.config.smma_slow is None:
+            return None
+        levels: dict[str, tuple[float | None, float | None]] = {}
+        for position in book.positions:
+            if not position.is_open:
+                continue
+            ltp = cash_prices.get(position.symbol)
+            levels[position.symbol] = (
+                self.client.get_smma(position.symbol, book.config.smma_fast, ltp),
+                self.client.get_smma(position.symbol, book.config.smma_slow, ltp),
+            )
+        return levels
 
     def _restate_cash_entries(self, book: PaperBook) -> list:
         """Rewrite cash fills to the 3rd-month future print at entry time."""
@@ -828,7 +864,7 @@ class OIRsiScanner:
         rsi_values: dict[str, float],
     ) -> None:
         self._align_open_futures_expiry(book)
-        self._apply_futures_expiry(alerts)
+        self._apply_futures_expiry(alerts, month=book.config.futures_month)
 
         fut_prices = self._futures_paper_prices(book, alerts)
         events = self._restate_cash_entries(book)
@@ -843,7 +879,7 @@ class OIRsiScanner:
             if alert.symbol not in fut_prices:
                 print(
                     f"  {alert.symbol}: not opening paper — "
-                    "no NSE 3rd-month futures LTP (scan used NSE cash + current-month OI)"
+                    f"no NSE month-{book.config.futures_month} futures LTP (cash is not used)"
                 )
                 continue
             alert.ltp = fut_prices[alert.symbol]
@@ -862,7 +898,10 @@ class OIRsiScanner:
             events += self._exit_s1_oi_flow_walls(
                 book, prices, fut_prices, rsi_values
             )
-        events += book.update(fut_prices, rsi_values=rsi_values)
+        smma_levels = self._smma_levels_for_book(book, fut_prices)
+        events += book.update(
+            fut_prices, rsi_values=rsi_values, smma_levels=smma_levels
+        )
         if book is self.s1_book and is_s1_wall_exit_slot():
             events += self._exit_s1_broken_walls(
                 book, prices, fut_prices, rsi_values
@@ -930,7 +969,14 @@ class OIRsiScanner:
         rsi_alerts = [
             a
             for a in alerts
-            if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI) and not a.skip_reason
+            if a.signal
+            in (
+                SignalType.CALL_OI,
+                SignalType.PUT_OI,
+                SignalType.RSI_CANDLE_SHORT,
+                SignalType.RSI_CANDLE_LONG,
+            )
+            and not a.skip_reason
         ]
         st_alerts = [
             a
@@ -960,6 +1006,173 @@ class OIRsiScanner:
         if self.st_book:
             self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
 
+    def _bars_to_candles(
+        self, rows: list[tuple[str, float, float, float, float]]
+    ) -> list[Candle]:
+        bars: list[Candle] = []
+        for day, open_, high, low, close in rows:
+            if not math.isfinite(open_) or open_ <= 0:
+                continue
+            bars.append(
+                Candle(date=day, open=open_, high=high, low=low, close=close)
+            )
+        return bars
+
+    def _candle_entry_alert(
+        self,
+        *,
+        symbol: str,
+        ltp: float,
+        rsi: float,
+        signal: SignalType,
+        pattern: str,
+        detail: str,
+        stop_price: float | None = None,
+    ) -> ScanAlert:
+        blocked = no_short_skip_reason(
+            symbol,
+            self.config.no_short_symbols,
+            is_short=signal is SignalType.RSI_CANDLE_SHORT,
+        )
+        if blocked:
+            print(f"  {symbol}: {pattern} skipped — {blocked}")
+            return make_candle_alert(
+                symbol=symbol,
+                ltp=ltp,
+                rsi=rsi,
+                signal=signal,
+                pattern=pattern,
+                skip_reason=blocked,
+                stop_price=stop_price,
+            )
+        if self.config.oi.skip_monthly_expiry:
+            expiry_skip = expiry_entry_skip_reason()
+            if expiry_skip:
+                print(f"  {symbol}: {pattern} skipped — {expiry_skip}")
+                return make_candle_alert(
+                    symbol=symbol,
+                    ltp=ltp,
+                    rsi=rsi,
+                    signal=signal,
+                    pattern=pattern,
+                    skip_reason=expiry_skip,
+                    stop_price=stop_price,
+                )
+        stop_txt = f", stop ₹{stop_price:,.2f}" if stop_price else ""
+        print(f"  {symbol}: {signal.value} {pattern} ({detail}{stop_txt})")
+        return make_candle_alert(
+            symbol=symbol,
+            ltp=ltp,
+            rsi=rsi,
+            signal=signal,
+            pattern=pattern,
+            stop_price=stop_price,
+        )
+
+    def _check_candle_reversal(
+        self, symbol: str, ltp: float
+    ) -> tuple[ScanAlert | None, str | None]:
+        """RSI_CandlePattern: take if either scenario qualifies, from 15:15 IST.
+
+        Next-day: yesterday's stretch + today's reversal candle.
+        Same-day: RSI tagged 70/30 today and the bar already reversed.
+        Live price is 2nd-month futures, never cash.
+        """
+        try:
+            rows = self.client.daily_full_ohlc(symbol)
+        except Exception as exc:
+            print(f"  {symbol}: candles unavailable ({exc})")
+            return None, None
+
+        bars = self._bars_to_candles(rows)
+        today = f"{date.today():%Y-%m-%d}"
+        if not bars or bars[-1].date != today:
+            return None, None
+
+        today_bar = with_live_close(bars[-1], ltp)
+        cfg = self.config.candles
+        call_th = self.config.rsi.call_threshold
+        put_th = self.config.rsi.put_threshold
+        yesterday_rsi: float | None = None
+        take = is_candle_entry_window()
+
+        if take and len(bars) >= 2:
+            yesterday = bars[-2]
+            yesterday_rsi = self.client.completed_rsi(symbol)
+            setup = reversal_setup(
+                yesterday,
+                today_bar,
+                yesterday_rsi,
+                call_threshold=call_th,
+                put_threshold=put_th,
+                cfg=cfg,
+            )
+            if setup:
+                signal, pattern = setup
+                stop = candle_stop_price(
+                    signal, reversal=today_bar, prior=yesterday, same_day=False
+                )
+                return (
+                    self._candle_entry_alert(
+                        symbol=symbol,
+                        ltp=ltp,
+                        rsi=yesterday_rsi or 0.0,
+                        signal=signal,
+                        pattern=pattern,
+                        detail=f"next-day, yesterday RSI {yesterday_rsi:.1f}",
+                        stop_price=stop,
+                    ),
+                    None,
+                )
+
+        if take:
+            rsi_close = self.client.get_rsi(symbol, ltp)
+            rsi_high = self.client.get_rsi(symbol, today_bar.high)
+            rsi_low = self.client.get_rsi(symbol, today_bar.low)
+            setup = same_day_setup(
+                today_bar,
+                rsi_at_close=rsi_close,
+                rsi_at_high=rsi_high,
+                rsi_at_low=rsi_low,
+                call_threshold=call_th,
+                put_threshold=put_th,
+                cfg=cfg,
+            )
+            if setup:
+                signal, pattern = setup
+                rsi = rsi_close or rsi_high or rsi_low or 0.0
+                stop = candle_stop_price(
+                    signal, reversal=today_bar, prior=None, same_day=True
+                )
+                return (
+                    self._candle_entry_alert(
+                        symbol=symbol,
+                        ltp=ltp,
+                        rsi=rsi,
+                        signal=signal,
+                        pattern=pattern,
+                        detail=f"same-day by 15:15, RSI {rsi:.1f}",
+                        stop_price=stop,
+                    ),
+                    None,
+                )
+        elif len(bars) >= 2:
+            yesterday_rsi = self.client.completed_rsi(symbol)
+
+        if len(bars) >= 2:
+            waiting = waiting_reason(
+                bars[-2],
+                yesterday_rsi,
+                call_threshold=call_th,
+                put_threshold=put_th,
+                cfg=cfg,
+            )
+            if waiting and yesterday_rsi is not None and yesterday_rsi >= call_th:
+                return None, "short"
+            if waiting:
+                return None, "long"
+        return None, None
+
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         symbols = self.symbols()
@@ -970,41 +1183,108 @@ class OIRsiScanner:
         # series and blow the Angel One rate limit.
         self.client.seed_closes_cache_from_repo()
 
-        prices = self.client.get_ltps(symbols)
+        prices: dict[str, float] = {}
+        if self.s1_book or self.s2_book or self.st_book or self.config.supertrend.enabled:
+            prices = self.client.get_ltps(symbols)
+
+        fut_month = self.config.paper_trading.futures_month
+        fut_scan: dict[str, float] = {}
+        if self.book:
+            fut_scan = self.client.get_futures_ltps(symbols, month_index=fut_month)
+            print(
+                f"  RSI_CandlePattern: month-{fut_month} futures LTP "
+                f"on {len(fut_scan)}/{len(symbols)} names — cash not used for fills"
+            )
+            if not is_candle_entry_window():
+                print("  RSI_CandlePattern: before 15:15 IST — no new entries")
+
         rsi_values: dict[str, float] = {}
-        candidates = self._rsi_candidates(symbols, prices, rsi_values)
+        alerts: list[ScanAlert] = []
+
+        call_th = self.config.rsi.call_threshold
+        put_th = self.config.rsi.put_threshold
         print(
-            f"\n{len(candidates)} stock(s) passed the RSI filter "
-            f"(>= {self.config.rsi.call_threshold} or <= {self.config.rsi.put_threshold})"
+            f"\nRSI_CandlePattern — take if either next-day or same-day qualifies "
+            f"(from 15:15 IST, month-{fut_month} futures)"
+        )
+        print(
+            f"  short after RSI ≥ {call_th:g} strong bull + inverted hammer / "
+            "weak middle / strong red"
+        )
+        print(
+            f"  long after RSI ≤ {put_th:g} strong bear "
+            "+ hammer / weak middle / strong green"
         )
 
-        alerts: list[ScanAlert] = []
-        for price in candidates:
-            oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
-            s1_oi = copy_oi_snapshot(oi) if oi else None
-            alert = self._check_candidate(price, oi)
+        waiting_short = waiting_long = 0
+        hits = 0
+        for index, symbol in enumerate(symbols, 1):
+            ltp = fut_scan.get(symbol) if self.book else prices.get(symbol)
+            if not ltp:
+                continue
+            rsi = self.client.get_rsi(symbol, ltp)
+            if rsi is not None:
+                rsi_values[symbol] = rsi
+            alert, waiting = self._check_candle_reversal(symbol, ltp)
+            if waiting == "short":
+                waiting_short += 1
+            elif waiting == "long":
+                waiting_long += 1
             if alert:
                 alerts.append(alert)
-            if self.s1_book:
-                s1_alert = self._check_scenario1_candidate(price, s1_oi)
-                if s1_alert:
-                    alerts.append(s1_alert)
-            if self.s2_book:
-                s2_src = self._check_scenario1_candidate(
-                    price,
-                    copy_oi_snapshot(oi) if oi else None,
-                    proximity_pct=self.config.oi.s2_proximity_pct,
-                    pcr_band_strikes=self.config.oi.s2_pcr_strikes,
-                    log_tag="S2",
+                hits += 1
+            if index % 25 == 0:
+                print(f"  screened {index}/{len(symbols)} symbols...")
+                self.client._save_ohlc_cache()
+                self.client._save_closes_cache()
+
+        self.client._save_ohlc_cache()
+        self.client._save_closes_cache()
+        print(f"  {hits} reversal signal(s)")
+        print(
+            f"  {waiting_short} name(s) RSI ≥ {call_th:g} strong bull "
+            "— not shorting until a reversal candle"
+        )
+        print(
+            f"  {waiting_long} name(s) RSI ≤ {put_th:g} strong bear "
+            "— not longing until a reversal candle"
+        )
+
+        if self.s1_book or self.s2_book:
+            candidates = [
+                PriceSnapshot(symbol=symbol, ltp=prices[symbol], rsi=rsi_values[symbol])
+                for symbol in symbols
+                if symbol in prices
+                and symbol in rsi_values
+                and (
+                    rsi_values[symbol] >= call_th or rsi_values[symbol] <= put_th
                 )
-                if s2_src:
-                    alerts.append(retag_s1_alert_as_s2(s2_src))
+            ]
+            for price in candidates:
+                oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
+                s1_oi = copy_oi_snapshot(oi) if oi else None
+                if self.s1_book:
+                    s1_alert = self._check_scenario1_candidate(price, s1_oi)
+                    if s1_alert:
+                        alerts.append(s1_alert)
+                if self.s2_book:
+                    s2_src = self._check_scenario1_candidate(
+                        price,
+                        copy_oi_snapshot(oi) if oi else None,
+                        proximity_pct=self.config.oi.s2_proximity_pct,
+                        pcr_band_strikes=self.config.oi.s2_pcr_strikes,
+                        log_tag="S2",
+                    )
+                    if s2_src:
+                        alerts.append(retag_s1_alert_as_s2(s2_src))
 
         rsi_batch = [
             a
             for a in alerts
             if a.signal
             in (
+                SignalType.RSI_CANDLE_SHORT,
+                SignalType.RSI_CANDLE_LONG,
                 SignalType.CALL_OI,
                 SignalType.PUT_OI,
                 SignalType.CALL_OI_S1,
@@ -1016,7 +1296,7 @@ class OIRsiScanner:
         if is_close_pnl_slot():
             print("  15:45 close — skipping RSI/ST signal Telegram; sending closing P&L")
         else:
-            self._emit_telegram(rsi_batch, "RSI+OI")
+            self._emit_telegram(rsi_batch, "RSI_CandlePattern")
 
         if self.config.supertrend.enabled:
             st_cfg = self.config.supertrend

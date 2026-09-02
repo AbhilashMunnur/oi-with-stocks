@@ -4,6 +4,8 @@ from zoneinfo import ZoneInfo
 from src.scan_slots import (
     active_slot,
     is_s1_wall_exit_slot,
+    is_candle_entry_window,
+    is_same_day_reversal_window,
     iter_slots_for_day,
     seconds_until_next_slot,
     seconds_until_warmup_dispatch,
@@ -185,3 +187,11 @@ def test_s1_wall_exit_starts_at_three_fifteen():
     assert is_s1_wall_exit_slot(datetime(2026, 8, 11, 15, 30, tzinfo=IST)) is True
     assert is_s1_wall_exit_slot(datetime(2026, 8, 11, 12, 5, tzinfo=IST)) is False
     assert is_s1_wall_exit_slot(datetime(2026, 8, 11, 16, 0, tzinfo=IST)) is False
+
+
+def test_candle_entries_from_three_fifteen():
+    assert is_candle_entry_window(datetime(2026, 8, 11, 15, 14, tzinfo=IST)) is False
+    assert is_candle_entry_window(datetime(2026, 8, 11, 15, 15, tzinfo=IST)) is True
+    assert is_same_day_reversal_window(datetime(2026, 8, 11, 15, 15, tzinfo=IST)) is True
+    assert is_candle_entry_window(datetime(2026, 8, 11, 22, 0, tzinfo=IST)) is True
+    assert is_candle_entry_window(datetime(2026, 8, 15, 15, 15, tzinfo=IST)) is False

@@ -32,7 +32,7 @@ def main() -> None:
     load_dotenv(ROOT / ".env")
     config = load_config(ROOT / "config.yaml")
 
-    books = [("RSI+OI", config.paper_trading)]
+    books = [("RSI_CandlePattern", config.paper_trading)]
     if config.rsi_s1_paper_trading:
         books.append(("RSI+OI S1", config.rsi_s1_paper_trading))
     if config.rsi_s2_paper_trading:

@@ -127,6 +127,8 @@ class Notifier:
             SignalType.PUT_OI_S2: "PUT OI S2 ALERT",
             SignalType.ST_BEARISH: "ST BEARISH ALERT",
             SignalType.ST_BULLISH: "ST BULLISH ALERT",
+            SignalType.RSI_CANDLE_SHORT: "RSI CANDLE SHORT",
+            SignalType.RSI_CANDLE_LONG: "RSI CANDLE LONG",
         }
         tag = labels.get(alert.signal, "ALERT")
         print(f"\n[{tag}] {alert.message}")
@@ -151,6 +153,11 @@ class Notifier:
                         f"• {alert.symbol}: ₹{alert.ltp:,.2f} vs ST ₹{alert.supertrend:,.2f} "
                         f"({alert.distance_pct:.2f}% away) | strike ₹{alert.oi_strike:,.0f}"
                     )
+                elif alert.candle_pattern:
+                    lines.append(
+                        f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
+                        f"| {alert.candle_pattern}"
+                    )
                 elif alert.oi_strike > 0:
                     lines.append(
                         f"• {alert.symbol}: RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
@@ -169,8 +176,18 @@ class Notifier:
         if len(expiries) == 1:
             lines.append(f"\nExpiry: {next(iter(expiries))}")
         lines.append(f"\nOI: {oi_scan_reason()}")
-        lines.append("Paper book fills the 3rd-month future, not cash.")
+        lines.append("Paper book fills the stock future, not cash.")
         return "\n".join(lines)
+
+    def _rsi_candle_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="RSI_CandlePattern alerts",
+            sections=[
+                (SignalType.RSI_CANDLE_SHORT, "SHORT (after RSI ≥ 70 strong bull)"),
+                (SignalType.RSI_CANDLE_LONG, "LONG (after RSI ≤ 30 strong bear)"),
+            ],
+        )
 
     def _rsi_digest(self, alerts: list[ScanAlert]) -> str:
         return self._digest(
@@ -298,6 +315,11 @@ class Notifier:
         rsi_alerts = [
             a for a in alerts if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
         ]
+        candle_alerts = [
+            a
+            for a in alerts
+            if a.signal in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
+        ]
         s1_alerts = [
             a for a in alerts if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
         ]
@@ -313,6 +335,12 @@ class Notifier:
         if self.config.telegram:
             if self.telegram_ready:
                 recipients = f"{len(self.chat_ids)} recipient(s)"
+                if candle_alerts:
+                    delivered = self.send_message(self._rsi_candle_digest(candle_alerts))
+                    print(
+                        f"\nSent {len(candle_alerts)} RSI_CandlePattern row(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
                 if rsi_alerts:
                     delivered = self.send_message(self._rsi_digest(rsi_alerts))
                     print(
