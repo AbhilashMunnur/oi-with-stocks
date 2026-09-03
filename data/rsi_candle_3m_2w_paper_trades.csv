@@ -1,0 +1,3 @@
+Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
+LUPIN,Buy,01-Sep-26,2180.0,33.2,03-Sep-26,2137.6,,2,185300*2,-36040,stop_loss
+SBILIFE,Buy,02-Sep-26,1757.0,39.0,03-Sep-26,1716.0,,1,131775*2,-30750,stop_loss

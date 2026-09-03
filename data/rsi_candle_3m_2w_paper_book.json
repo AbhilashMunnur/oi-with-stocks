@@ -1,15 +1,26 @@
 {
   "capital": 20000000,
-  "realised_pnl": -348862.06,
-  "closed_count": 41,
+  "realised_pnl": -415652.06,
+  "closed_count": 43,
   "day_date": "2026-09-03",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-03 16:31:01",
+  "day_realised_pnl": -66790.0,
+  "updated_at": "2026-09-03 16:32:29",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03"
   ],
-  "closed_results": [],
+  "closed_results": [
+    {
+      "symbol": "LUPIN",
+      "exit_date": "2026-09-03",
+      "pnl": -36040.0
+    },
+    {
+      "symbol": "SBILIFE",
+      "exit_date": "2026-09-03",
+      "pnl": -30750.0
+    }
+  ],
   "qualify_skips": {},
   "positions": [
     {
@@ -462,23 +473,6 @@
       "stop_price": 514.45
     },
     {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 2180.0,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 425,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.22583958075292,
-      "strike": 0.0,
-      "margin_blocked": 370600.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2137.6
-    },
-    {
       "symbol": "PFC",
       "direction": "LONG",
       "entry_price": 348.8,
@@ -715,23 +709,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 203.83
-    },
-    {
-      "symbol": "SBILIFE",
-      "direction": "LONG",
-      "entry_price": 1757.0,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 375,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 39.02163490536868,
-      "strike": 0.0,
-      "margin_blocked": 263550.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1716.0
     },
     {
       "symbol": "WAAREEENER",
