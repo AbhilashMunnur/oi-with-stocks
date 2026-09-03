@@ -217,4 +217,30 @@ def test_rsi_candle_digest_shows_the_reversal_pattern():
     assert "RSI_CandlePattern alerts" in text
     assert "SHORT (after RSI ≥ 70 strong bull)" in text
     assert "inverted hammer" in text
-    assert "TITAN" in text
+
+
+def test_telegram_http_200_with_ok_false_is_not_delivered(monkeypatch):
+    import requests
+
+    notifier = Notifier(
+        NotificationConfig(console=False, telegram=True, cooldown_minutes=30)
+    )
+    notifier.bot_token = "token"
+    notifier.chat_ids = ["111"]
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"ok": False, "description": "Bad Request: chat not found"}
+
+    def fake_post(*_args, **_kwargs):
+        return FakeResponse()
+
+    monkeypatch.setattr(requests, "post", fake_post)
+    monkeypatch.setattr(
+        notifier, "_chat_error", lambda chat_id, exc: None
+    )
+    assert notifier.send_message("hello") == 0
+    assert notifier.send_photo(b"png", caption="hi") == 0

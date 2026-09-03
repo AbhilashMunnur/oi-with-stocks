@@ -1255,14 +1255,12 @@ class OIRsiScanner:
         prices: dict[str, float] = {}
         if open_names and is_cash_stop_slot():
             prices = self.client.get_ltps(open_names)
-        rsi_values: dict[str, float] = {}
-        for symbol in open_names:
-            rsi = self.client.completed_rsi(symbol)
-            if rsi is not None:
-                rsi_values[symbol] = rsi
+        # Do not call completed_rsi here — that refetches daily candles when
+        # the cache is cold and blows the Angel rate limit before Telegram.
+        # Lot-2 RSI 30/70 waits until the 15:15 screen.
         if not open_names:
             print("  No open paper to mark.")
-        self._run_paper_trading([], prices, rsi_values)
+        self._run_paper_trading([], prices, {})
         return []
 
     def run_once(self) -> list[ScanAlert]:

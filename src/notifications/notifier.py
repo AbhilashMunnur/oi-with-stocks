@@ -232,6 +232,19 @@ class Notifier:
     def _telegram_url(self, method: str) -> str:
         return TELEGRAM_API.format(token=self.bot_token, method=method)
 
+    @staticmethod
+    def _require_telegram_ok(response: requests.Response) -> None:
+        """Telegram often returns HTTP 200 with ok=false in the JSON body."""
+        response.raise_for_status()
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise requests.RequestException("Telegram returned non-JSON") from exc
+        if payload.get("ok") is True:
+            return
+        desc = payload.get("description") or str(payload.get("error_code") or "ok=false")
+        raise requests.RequestException(desc)
+
     def _chat_error(self, chat_id: str, exc: requests.RequestException) -> None:
         detail = ""
         if exc.response is not None:
@@ -263,7 +276,7 @@ class Notifier:
                         json=payload,
                         timeout=20,
                     )
-                    response.raise_for_status()
+                    self._require_telegram_ok(response)
                 except requests.RequestException as exc:
                     self._chat_error(chat_id, exc)
                     ok = False
@@ -297,7 +310,7 @@ class Notifier:
                     files={"photo": ("positions.png", image, "image/png")},
                     timeout=40,
                 )
-                response.raise_for_status()
+                self._require_telegram_ok(response)
                 delivered += 1
             except requests.RequestException as exc:
                 self._chat_error(chat_id, exc)
