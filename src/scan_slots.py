@@ -65,13 +65,12 @@ def is_close_pnl_slot(now: datetime | None = None) -> bool:
 
 
 def is_cash_stop_slot(now: datetime | None = None) -> bool:
-    """True at 15:30 (cash close) and 15:45 (backup after F&O ends).
-
-    Candle stops wait for a cash close through the stored bar. A 15:15 wick
-    or an earlier 30-minute futures print is not a stop.
-    """
+    """True at 15:30 / 15:45, or any later weekday catch-up after cash close."""
+    current = now_ist(now)
     slot = active_slot(now)
-    return slot is not None and slot.time() in (CASH_CLOSE, CLOSE_PNL_SLOT)
+    if slot is not None and slot.time() in (CASH_CLOSE, CLOSE_PNL_SLOT):
+        return True
+    return current.weekday() < 5 and current.time() >= CASH_CLOSE
 
 
 def is_candle_entry_window(now: datetime | None = None) -> bool:
@@ -93,18 +92,57 @@ def is_candle_screen_slot(
 
     Morning slots mark open P&L. 15:15 takes new paper. 15:30 screens only if
     15:15 never completed today. 15:45 is mark-only.
+
+    After the session ends, still screen once the same day if 15:15 was missed
+    (GitHub schedule is often skipped).
     """
     if not is_candle_entry_window(now):
         return False
+    current = now_ist(now)
+    fifteen = current.replace(hour=15, minute=15, second=0, microsecond=0)
+    last = read_last_slot(path)
+    if last == fifteen.isoformat():
+        return False
+    if last:
+        try:
+            if datetime.fromisoformat(last) >= fifteen:
+                return False
+        except ValueError:
+            pass
+
     slot = active_slot(now)
     if slot is None:
-        return False
-    if slot.time() == S1_WALL_EXIT_SLOT:
+        # Past 16:00 IST: catch up the missed entry screen the same day.
+        return current >= fifteen
+    if slot.time() in (S1_WALL_EXIT_SLOT, LAST_SLOT):
         return True
-    if slot.time() == LAST_SLOT:
-        fifteen = slot.replace(hour=15, minute=15, second=0, microsecond=0)
-        return read_last_slot(path) != fifteen.isoformat()
     return False
+
+
+def earliest_unpaid_slot(
+    *,
+    now: datetime | None = None,
+    path: Path = DEFAULT_MARKER,
+) -> datetime | None:
+    """Earliest scan slot today that has started (or session ended) but is unpaid."""
+    current = now_ist(now)
+    if current.weekday() >= 5:
+        return None
+    last = read_last_slot(path)
+    last_dt: datetime | None = None
+    if last:
+        try:
+            last_dt = datetime.fromisoformat(last)
+        except ValueError:
+            last_dt = None
+
+    session_over = current.time() >= SESSION_END
+    for slot in iter_slots_for_day(current):
+        if last_dt is not None and slot <= last_dt:
+            continue
+        if slot <= current or session_over:
+            return slot
+    return None
 
 
 def is_same_day_reversal_window(now: datetime | None = None) -> bool:
@@ -134,6 +172,8 @@ def target_scan_slot(
     An unpaid current slot always wins (a late 09:30 still runs at 09:56).
     Otherwise, if the next slot is within `warmup_seconds`, return that so the
     runner can install deps and log in before the clock hits the slot.
+    After the session, still return an unpaid afternoon slot so a late kick can
+    catch 15:15 entries / closing P&L the same day.
     """
     current = now_ist(now)
     due = active_slot(current)
@@ -147,6 +187,9 @@ def target_scan_slot(
             if read_last_slot(path) != slot.isoformat():
                 return slot
         break
+
+    if due is None:
+        return earliest_unpaid_slot(now=current, path=path)
     return None
 
 
@@ -158,7 +201,8 @@ def should_run_slot(
 ) -> tuple[bool, str, datetime | None]:
     """Return (run, reason, slot)."""
     if force:
-        return True, "forced", active_slot(now)
+        slot = active_slot(now) or earliest_unpaid_slot(now=now, path=path)
+        return True, "forced", slot
 
     slot = target_scan_slot(now=now, path=path)
     if slot is None:
@@ -170,6 +214,8 @@ def should_run_slot(
     current = now_ist(now)
     if slot > current:
         return True, f"warmup for slot {slot:%H:%M} IST", slot
+    if slot.time() < current.time() and current.time() >= SESSION_END:
+        return True, f"catch-up for unpaid slot {slot:%H:%M} IST", slot
     return True, f"due for slot {slot:%H:%M} IST", slot
 
 
