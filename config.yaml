@@ -142,6 +142,9 @@ rsi_candle_2w_paper_trading:
   skip_qualifies_after_streak: 3
   ledger_path: data/rsi_candle_3m_2w_paper_book.json
   journal_csv: data/rsi_candle_3m_2w_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "RSI Paper trades"
+  google_summary_worksheet: "RSI Portfolio Summary"
 
 # RSI+OI Scenario 1: enter only on an uncrossed wall (never the peak if price
 # is already through it). Every scan: remaining lots close after two consecutive
