@@ -1,0 +1,1524 @@
+{
+  "title": "RSI_CandlePattern \u00b7 3rd-month futures \u00b7 19 Aug\u20132 Sep 2026",
+  "entry_time": "15:15 IST",
+  "mark_time": "15:15 IST (15:30 stop/SMMA pass after entries)",
+  "futures_month": 3,
+  "capital": 20000000,
+  "sessions": [
+    "2026-08-19",
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-24",
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02"
+  ],
+  "booked_pnl": -348862.06,
+  "running_pnl": 958217.0,
+  "total_pnl": 609354.94,
+  "closed_count": 41,
+  "open_count": 42,
+  "equity_curve": [
+    {
+      "date": "2026-08-19",
+      "booked_pnl": 0.0,
+      "running_pnl": -5844.0,
+      "total_pnl": -5844.0,
+      "open_positions": 8
+    },
+    {
+      "date": "2026-08-20",
+      "booked_pnl": -6890.0,
+      "running_pnl": 26428.5,
+      "total_pnl": 19538.5,
+      "open_positions": 14
+    },
+    {
+      "date": "2026-08-21",
+      "booked_pnl": -11179.35,
+      "running_pnl": 71647.5,
+      "total_pnl": 60468.15,
+      "open_positions": 17
+    },
+    {
+      "date": "2026-08-24",
+      "booked_pnl": 64797.65,
+      "running_pnl": 127390.5,
+      "total_pnl": 192188.15,
+      "open_positions": 19
+    },
+    {
+      "date": "2026-08-25",
+      "booked_pnl": 6382.65,
+      "running_pnl": 173735.0,
+      "total_pnl": 180117.65,
+      "open_positions": 17
+    },
+    {
+      "date": "2026-08-26",
+      "booked_pnl": -24839.85,
+      "running_pnl": 178815.0,
+      "total_pnl": 153975.15,
+      "open_positions": 21
+    },
+    {
+      "date": "2026-08-27",
+      "booked_pnl": -108577.35,
+      "running_pnl": 165987.0,
+      "total_pnl": 57409.65,
+      "open_positions": 27
+    },
+    {
+      "date": "2026-08-28",
+      "booked_pnl": -188152.35,
+      "running_pnl": 309383.0,
+      "total_pnl": 121230.65,
+      "open_positions": 26
+    },
+    {
+      "date": "2026-08-31",
+      "booked_pnl": -216624.26,
+      "running_pnl": 362703.0,
+      "total_pnl": 146078.74,
+      "open_positions": 30
+    },
+    {
+      "date": "2026-09-01",
+      "booked_pnl": -256284.26,
+      "running_pnl": 638149.5,
+      "total_pnl": 381865.24,
+      "open_positions": 37
+    },
+    {
+      "date": "2026-09-02",
+      "booked_pnl": -348862.06,
+      "running_pnl": 932505.0,
+      "total_pnl": 583642.94,
+      "open_positions": 42
+    }
+  ],
+  "open_positions": [
+    {
+      "symbol": "BOSCHLTD",
+      "side": "SHORT",
+      "entry": 48910.0,
+      "entry_time": "2026-08-19 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 25,
+      "expiry": "2026-10-27",
+      "stop": 48940.0,
+      "mark": 47600.0,
+      "running_pnl": 65500.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 81.4
+    },
+    {
+      "symbol": "MOTHERSON",
+      "side": "SHORT",
+      "entry": 172.35,
+      "entry_time": "2026-08-19 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 6150,
+      "expiry": "2026-10-27",
+      "stop": 170.9,
+      "mark": 164.4,
+      "running_pnl": 97785.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 74.0
+    },
+    {
+      "symbol": "POWERGRID",
+      "side": "LONG",
+      "entry": 265.95,
+      "entry_time": "2026-08-19 15:15:00",
+      "lots_open": 1,
+      "lots_total": 2,
+      "lot_size": 1900,
+      "expiry": "2026-10-27",
+      "stop": 262.05,
+      "mark": 270.5,
+      "running_pnl": 8645.0,
+      "booked_on_trade": 24610.65,
+      "rsi_at_entry": 31.8
+    },
+    {
+      "symbol": "RADICO",
+      "side": "SHORT",
+      "entry": 4699.6,
+      "entry_time": "2026-08-19 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 150,
+      "expiry": "2026-10-27",
+      "stop": 4747.0,
+      "mark": 4510.0,
+      "running_pnl": 56880.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 73.7
+    },
+    {
+      "symbol": "COALINDIA",
+      "side": "LONG",
+      "entry": 401.85,
+      "entry_time": "2026-08-20 15:15:00",
+      "lots_open": 1,
+      "lots_total": 2,
+      "lot_size": 1350,
+      "expiry": "2026-10-27",
+      "stop": 397.3,
+      "mark": 414.8,
+      "running_pnl": 17482.5,
+      "booked_on_trade": 18886.65,
+      "rsi_at_entry": 26.6
+    },
+    {
+      "symbol": "PNBHOUSING",
+      "side": "SHORT",
+      "entry": 1192.6,
+      "entry_time": "2026-08-20 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 650,
+      "expiry": "2026-10-27",
+      "stop": 1207.0,
+      "mark": 1150.2,
+      "running_pnl": 55120.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 69.0
+    },
+    {
+      "symbol": "SONACOMS",
+      "side": "SHORT",
+      "entry": 826.4,
+      "entry_time": "2026-08-20 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1225,
+      "expiry": "2026-10-27",
+      "stop": 844.0,
+      "mark": 789.55,
+      "running_pnl": 90282.5,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 72.1
+    },
+    {
+      "symbol": "ETERNAL",
+      "side": "SHORT",
+      "entry": 329.6,
+      "entry_time": "2026-08-21 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 2425,
+      "expiry": "2026-10-27",
+      "stop": 331.7,
+      "mark": 328.65,
+      "running_pnl": 4607.5,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 70.3
+    },
+    {
+      "symbol": "HAL",
+      "side": "SHORT",
+      "entry": 5030.0,
+      "entry_time": "2026-08-21 15:15:00",
+      "lots_open": 1,
+      "lots_total": 2,
+      "lot_size": 150,
+      "expiry": "2026-10-27",
+      "stop": 5092.0,
+      "mark": 4815.3,
+      "running_pnl": 32205.0,
+      "booked_on_trade": 40877.55,
+      "rsi_at_entry": 67.9
+    },
+    {
+      "symbol": "IDEA",
+      "side": "SHORT",
+      "entry": 15.24,
+      "entry_time": "2026-08-26 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 71475,
+      "expiry": "2026-10-27",
+      "stop": 15.31,
+      "mark": 14.69,
+      "running_pnl": 78622.5,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 72.7
+    },
+    {
+      "symbol": "JUBLFOOD",
+      "side": "SHORT",
+      "entry": 497.3,
+      "entry_time": "2026-08-26 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1250,
+      "expiry": "2026-10-27",
+      "stop": 527.85,
+      "mark": 481.5,
+      "running_pnl": 39500.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 58.3
+    },
+    {
+      "symbol": "PAGEIND",
+      "side": "LONG",
+      "entry": 35675.0,
+      "entry_time": "2026-08-26 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 20,
+      "expiry": "2026-10-27",
+      "stop": 35100.0,
+      "mark": 36400.0,
+      "running_pnl": 29000.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 32.0
+    },
+    {
+      "symbol": "JINDALSTEL",
+      "side": "SHORT",
+      "entry": 1187.1,
+      "entry_time": "2026-08-27 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 625,
+      "expiry": "2026-10-27",
+      "stop": 1196.4,
+      "mark": 1169.1,
+      "running_pnl": 22500.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 70.4
+    },
+    {
+      "symbol": "MCX",
+      "side": "SHORT",
+      "entry": 3315.0,
+      "entry_time": "2026-08-27 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 225,
+      "expiry": "2026-10-27",
+      "stop": 3362.0,
+      "mark": 3321.0,
+      "running_pnl": -2700.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 71.7
+    },
+    {
+      "symbol": "PAYTM",
+      "side": "SHORT",
+      "entry": 1716.8,
+      "entry_time": "2026-08-27 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 725,
+      "expiry": "2026-10-27",
+      "stop": 1731.0,
+      "mark": 1633.9,
+      "running_pnl": 120205.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 76.5
+    },
+    {
+      "symbol": "COLPAL",
+      "side": "LONG",
+      "entry": 1849.7,
+      "entry_time": "2026-08-28 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 275,
+      "expiry": "2026-10-27",
+      "stop": 1825.0,
+      "mark": 1873.6,
+      "running_pnl": 13145.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 28.4
+    },
+    {
+      "symbol": "ITC",
+      "side": "LONG",
+      "entry": 267.75,
+      "entry_time": "2026-08-31 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1725,
+      "expiry": "2026-10-27",
+      "stop": 262.8,
+      "mark": 269.8,
+      "running_pnl": 7072.5,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 36.6
+    },
+    {
+      "symbol": "NTPC",
+      "side": "LONG",
+      "entry": 327.95,
+      "entry_time": "2026-08-31 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1500,
+      "expiry": "2026-10-27",
+      "stop": 323.5,
+      "mark": 332.45,
+      "running_pnl": 13500.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 31.5
+    },
+    {
+      "symbol": "SAIL",
+      "side": "SHORT",
+      "entry": 199.0,
+      "entry_time": "2026-08-31 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 4700,
+      "expiry": "2026-10-27",
+      "stop": 200.96,
+      "mark": 198.19,
+      "running_pnl": 7614.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 74.5
+    },
+    {
+      "symbol": "TATAPOWER",
+      "side": "LONG",
+      "entry": 352.5,
+      "entry_time": "2026-08-31 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1450,
+      "expiry": "2026-10-27",
+      "stop": 347.25,
+      "mark": 365.55,
+      "running_pnl": 37845.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 22.8
+    },
+    {
+      "symbol": "ADANIGREEN",
+      "side": "LONG",
+      "entry": 1269.0,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 600,
+      "expiry": "2026-11-23",
+      "stop": 1214.9,
+      "mark": 1313.9,
+      "running_pnl": 53880.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 29.3
+    },
+    {
+      "symbol": "GMRAIRPORT",
+      "side": "LONG",
+      "entry": 95.0,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 6975,
+      "expiry": "2026-11-23",
+      "stop": 93.63,
+      "mark": 94.81,
+      "running_pnl": -2650.5,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 21.8
+    },
+    {
+      "symbol": "HDFCBANK",
+      "side": "LONG",
+      "entry": 720.5,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 650,
+      "expiry": "2026-11-23",
+      "stop": 698.5,
+      "mark": 714.0,
+      "running_pnl": -8450.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 41.8
+    },
+    {
+      "symbol": "INOXWIND",
+      "side": "LONG",
+      "entry": 70.2,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 6400,
+      "expiry": "2026-11-23",
+      "stop": 69.1,
+      "mark": 71.97,
+      "running_pnl": 22656.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 31.4
+    },
+    {
+      "symbol": "JSWENERGY",
+      "side": "LONG",
+      "entry": 526.5,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1075,
+      "expiry": "2026-11-23",
+      "stop": 514.45,
+      "mark": 546.0,
+      "running_pnl": 41925.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 35.5
+    },
+    {
+      "symbol": "LUPIN",
+      "side": "LONG",
+      "entry": 2180.0,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 425,
+      "expiry": "2026-11-23",
+      "stop": 2137.6,
+      "mark": 2182.0,
+      "running_pnl": 1700.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 33.2
+    },
+    {
+      "symbol": "PFC",
+      "side": "LONG",
+      "entry": 348.8,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1300,
+      "expiry": "2026-11-23",
+      "stop": 336.3,
+      "mark": 351.0,
+      "running_pnl": 5720.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 15.8
+    },
+    {
+      "symbol": "SHREECEM",
+      "side": "LONG",
+      "entry": 23500.0,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 25,
+      "expiry": "2026-11-23",
+      "stop": 23200.0,
+      "mark": 23650.0,
+      "running_pnl": 7500.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 29.3
+    },
+    {
+      "symbol": "UNOMINDA",
+      "side": "SHORT",
+      "entry": 1275.0,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 550,
+      "expiry": "2026-11-23",
+      "stop": 1307.5,
+      "mark": 1255.0,
+      "running_pnl": 22000.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 63.4
+    },
+    {
+      "symbol": "VBL",
+      "side": "LONG",
+      "entry": 414.1,
+      "entry_time": "2026-09-01 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1275,
+      "expiry": "2026-11-23",
+      "stop": 400.45,
+      "mark": 421.6,
+      "running_pnl": 19125.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 28.8
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "side": "LONG",
+      "entry": 2563.0,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 250,
+      "expiry": "2026-11-23",
+      "stop": 2510.7,
+      "mark": 2563.0,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 33.6
+    },
+    {
+      "symbol": "ATHERENERG",
+      "side": "SHORT",
+      "entry": 1661.0,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 375,
+      "expiry": "2026-11-23",
+      "stop": 1737.0,
+      "mark": 1661.0,
+      "running_pnl": -0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 69.0
+    },
+    {
+      "symbol": "BANDHANBNK",
+      "side": "LONG",
+      "entry": 164.95,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 3600,
+      "expiry": "2026-11-23",
+      "stop": 159.24,
+      "mark": 164.95,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 35.2
+    },
+    {
+      "symbol": "CROMPTON",
+      "side": "LONG",
+      "entry": 232.12,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 2150,
+      "expiry": "2026-11-23",
+      "stop": 226.05,
+      "mark": 232.12,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 33.4
+    },
+    {
+      "symbol": "DABUR",
+      "side": "LONG",
+      "entry": 381.5,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1250,
+      "expiry": "2026-11-23",
+      "stop": 377.6,
+      "mark": 381.5,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 25.1
+    },
+    {
+      "symbol": "IRFC",
+      "side": "LONG",
+      "entry": 82.2,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 5425,
+      "expiry": "2026-11-23",
+      "stop": 81.3,
+      "mark": 82.2,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 24.8
+    },
+    {
+      "symbol": "PATANJALI",
+      "side": "LONG",
+      "entry": 346.0,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1075,
+      "expiry": "2026-11-23",
+      "stop": 339.1,
+      "mark": 346.0,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 36.2
+    },
+    {
+      "symbol": "PIIND",
+      "side": "LONG",
+      "entry": 2377.8,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 175,
+      "expiry": "2026-11-23",
+      "stop": 2353.5,
+      "mark": 2377.8,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 30.6
+    },
+    {
+      "symbol": "RECLTD",
+      "side": "LONG",
+      "entry": 317.35,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1575,
+      "expiry": "2026-11-23",
+      "stop": 313.0,
+      "mark": 317.35,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 28.7
+    },
+    {
+      "symbol": "RVNL",
+      "side": "LONG",
+      "entry": 208.2,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 1925,
+      "expiry": "2026-11-23",
+      "stop": 203.83,
+      "mark": 208.2,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 28.8
+    },
+    {
+      "symbol": "SBILIFE",
+      "side": "LONG",
+      "entry": 1757.0,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 375,
+      "expiry": "2026-11-23",
+      "stop": 1716.0,
+      "mark": 1757.0,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 39.0
+    },
+    {
+      "symbol": "WAAREEENER",
+      "side": "LONG",
+      "entry": 2613.7,
+      "entry_time": "2026-09-02 15:15:00",
+      "lots_open": 2,
+      "lots_total": 2,
+      "lot_size": 175,
+      "expiry": "2026-11-23",
+      "stop": 2552.5,
+      "mark": 2613.7,
+      "running_pnl": 0.0,
+      "booked_on_trade": 0,
+      "rsi_at_entry": 38.2
+    }
+  ],
+  "entries": [
+    {
+      "day": "2026-08-19",
+      "symbol": "ADANIGREEN",
+      "detail": "LONG 2 lot(s) x 600 @ \u20b91,306.30 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b91,281.10)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "BOSCHLTD",
+      "detail": "SHORT 2 lot(s) x 25 @ \u20b948,910.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b948,940.00)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "GODREJCP",
+      "detail": "LONG 2 lot(s) x 500 @ \u20b9943.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9928.00)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "MOTHERSON",
+      "detail": "SHORT 2 lot(s) x 6150 @ \u20b9172.35 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9170.90)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "NBCC",
+      "detail": "LONG 2 lot(s) x 6500 @ \u20b988.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b987.70)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9373.80 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9371.15)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "POWERGRID",
+      "detail": "LONG 2 lot(s) x 1900 @ \u20b9265.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9262.05)"
+    },
+    {
+      "day": "2026-08-19",
+      "symbol": "RADICO",
+      "detail": "SHORT 2 lot(s) x 150 @ \u20b94,699.60 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b94,747.00)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "COALINDIA",
+      "detail": "LONG 2 lot(s) x 1350 @ \u20b9401.85 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9397.30)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "COLPAL",
+      "detail": "LONG 2 lot(s) x 275 @ \u20b91,935.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b91,875.00)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "ITC",
+      "detail": "LONG 2 lot(s) x 1725 @ \u20b9274.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9265.00)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "LUPIN",
+      "detail": "LONG 2 lot(s) x 425 @ \u20b92,239.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b92,205.00)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "PNBHOUSING",
+      "detail": "SHORT 2 lot(s) x 650 @ \u20b91,192.60 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,207.00)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "POLICYBZR",
+      "detail": "SHORT 2 lot(s) x 350 @ \u20b91,794.40 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,803.40)"
+    },
+    {
+      "day": "2026-08-20",
+      "symbol": "SONACOMS",
+      "detail": "SHORT 2 lot(s) x 1225 @ \u20b9826.40 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9844.00)"
+    },
+    {
+      "day": "2026-08-21",
+      "symbol": "ETERNAL",
+      "detail": "SHORT 2 lot(s) x 2425 @ \u20b9329.60 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9331.70)"
+    },
+    {
+      "day": "2026-08-21",
+      "symbol": "HAL",
+      "detail": "SHORT 2 lot(s) x 150 @ \u20b95,030.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b95,092.00)"
+    },
+    {
+      "day": "2026-08-21",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9362.65 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9363.20)"
+    },
+    {
+      "day": "2026-08-21",
+      "symbol": "VMM",
+      "detail": "LONG 2 lot(s) x 4850 @ \u20b9104.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9102.34)"
+    },
+    {
+      "day": "2026-08-24",
+      "symbol": "APLAPOLLO",
+      "detail": "SHORT 2 lot(s) x 350 @ \u20b92,159.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b92,172.80)"
+    },
+    {
+      "day": "2026-08-24",
+      "symbol": "LUPIN",
+      "detail": "LONG 2 lot(s) x 425 @ \u20b92,210.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b92,180.30)"
+    },
+    {
+      "day": "2026-08-24",
+      "symbol": "RECLTD",
+      "detail": "LONG 2 lot(s) x 1575 @ \u20b9326.70 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9323.55)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "COFORGE",
+      "detail": "SHORT 2 lot(s) x 475 @ \u20b91,900.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,937.10)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "IDEA",
+      "detail": "SHORT 2 lot(s) x 71475 @ \u20b915.24 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b915.31)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "JUBLFOOD",
+      "detail": "SHORT 2 lot(s) x 1250 @ \u20b9497.30 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9527.85)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "LUPIN",
+      "detail": "LONG 2 lot(s) x 425 @ \u20b92,225.70 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b92,173.60)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "PAGEIND",
+      "detail": "LONG 2 lot(s) x 20 @ \u20b935,675.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b935,100.00)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "RECLTD",
+      "detail": "LONG 2 lot(s) x 1575 @ \u20b9326.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9321.95)"
+    },
+    {
+      "day": "2026-08-26",
+      "symbol": "TATAPOWER",
+      "detail": "LONG 2 lot(s) x 1450 @ \u20b9370.15 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9364.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "COLPAL",
+      "detail": "LONG 2 lot(s) x 275 @ \u20b91,865.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b91,860.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "DABUR",
+      "detail": "LONG 2 lot(s) x 1250 @ \u20b9392.25 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9392.20)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "GODREJCP",
+      "detail": "LONG 2 lot(s) x 500 @ \u20b9929.80 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9912.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "HDFCBANK",
+      "detail": "LONG 2 lot(s) x 650 @ \u20b9722.35 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9710.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "JINDALSTEL",
+      "detail": "SHORT 2 lot(s) x 625 @ \u20b91,187.10 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,196.40)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "KAYNES",
+      "detail": "SHORT 2 lot(s) x 150 @ \u20b94,030.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b94,113.20)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "MCX",
+      "detail": "SHORT 2 lot(s) x 225 @ \u20b93,315.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b93,362.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "PAYTM",
+      "detail": "SHORT 2 lot(s) x 725 @ \u20b91,716.80 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,731.00)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9359.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9352.35)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "SAIL",
+      "detail": "SHORT 2 lot(s) x 4700 @ \u20b9192.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9196.50)"
+    },
+    {
+      "day": "2026-08-27",
+      "symbol": "TATAPOWER",
+      "detail": "LONG 2 lot(s) x 1450 @ \u20b9355.55 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9364.00)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "COLPAL",
+      "detail": "LONG 2 lot(s) x 275 @ \u20b91,849.70 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b91,825.00)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "DABUR",
+      "detail": "LONG 2 lot(s) x 1250 @ \u20b9388.45 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9386.05)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "GMRAIRPORT",
+      "detail": "LONG 2 lot(s) x 6975 @ \u20b999.71 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b998.11)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "ICICIGI",
+      "detail": "LONG 2 lot(s) x 325 @ \u20b91,582.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b91,550.10)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "LUPIN",
+      "detail": "LONG 2 lot(s) x 425 @ \u20b92,198.80 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b92,153.00)"
+    },
+    {
+      "day": "2026-08-28",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9355.70 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9350.20)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "ASIANPAINT",
+      "detail": "LONG 2 lot(s) x 250 @ \u20b92,607.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b92,561.10)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "ATHERENERG",
+      "detail": "SHORT 2 lot(s) x 375 @ \u20b91,664.30 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b91,630.00)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "CROMPTON",
+      "detail": "LONG 2 lot(s) x 2150 @ \u20b9235.90 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9227.25)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "DABUR",
+      "detail": "LONG 2 lot(s) x 1250 @ \u20b9388.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9381.00)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "GODREJCP",
+      "detail": "LONG 2 lot(s) x 500 @ \u20b9915.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9901.40)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "ITC",
+      "detail": "LONG 2 lot(s) x 1725 @ \u20b9267.75 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9262.80)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "NBCC",
+      "detail": "LONG 2 lot(s) x 6500 @ \u20b986.61 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b985.60)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "NTPC",
+      "detail": "LONG 2 lot(s) x 1500 @ \u20b9327.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9323.50)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9351.35 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9350.20)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "RECLTD",
+      "detail": "LONG 2 lot(s) x 1575 @ \u20b9314.90 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9316.00)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "SAIL",
+      "detail": "SHORT 2 lot(s) x 4700 @ \u20b9199.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-10-27, stop \u20b9200.96)"
+    },
+    {
+      "day": "2026-08-31",
+      "symbol": "TATAPOWER",
+      "detail": "LONG 2 lot(s) x 1450 @ \u20b9352.50 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-10-27, stop \u20b9347.25)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "ADANIGREEN",
+      "detail": "LONG 2 lot(s) x 600 @ \u20b91,269.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b91,214.90)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "BANDHANBNK",
+      "detail": "LONG 2 lot(s) x 3600 @ \u20b9164.86 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9161.65)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "GMRAIRPORT",
+      "detail": "LONG 2 lot(s) x 6975 @ \u20b995.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b993.63)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "HDFCBANK",
+      "detail": "LONG 2 lot(s) x 650 @ \u20b9720.50 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9698.50)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "INOXWIND",
+      "detail": "LONG 2 lot(s) x 6400 @ \u20b970.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b969.10)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "JSWENERGY",
+      "detail": "LONG 2 lot(s) x 1075 @ \u20b9526.50 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9514.45)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "LUPIN",
+      "detail": "LONG 2 lot(s) x 425 @ \u20b92,180.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b92,137.60)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "NBCC",
+      "detail": "LONG 2 lot(s) x 6500 @ \u20b986.62 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b985.00)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "PFC",
+      "detail": "LONG 2 lot(s) x 1300 @ \u20b9348.80 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9336.30)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "RVNL",
+      "detail": "LONG 2 lot(s) x 1925 @ \u20b9209.90 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9208.00)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "SHREECEM",
+      "detail": "LONG 2 lot(s) x 25 @ \u20b923,500.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b923,200.00)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "UNOMINDA",
+      "detail": "SHORT 2 lot(s) x 550 @ \u20b91,275.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-11-23, stop \u20b91,307.50)"
+    },
+    {
+      "day": "2026-09-01",
+      "symbol": "VBL",
+      "detail": "LONG 2 lot(s) x 1275 @ \u20b9414.10 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9400.45)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "ASIANPAINT",
+      "detail": "LONG 2 lot(s) x 250 @ \u20b92,563.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b92,510.70)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "ATHERENERG",
+      "detail": "SHORT 2 lot(s) x 375 @ \u20b91,661.00 (RSI_CANDLE_SHORT, strike \u20b90, fut 2026-11-23, stop \u20b91,737.00)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "BANDHANBNK",
+      "detail": "LONG 2 lot(s) x 3600 @ \u20b9164.95 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9159.24)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "CROMPTON",
+      "detail": "LONG 2 lot(s) x 2150 @ \u20b9232.12 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9226.05)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "DABUR",
+      "detail": "LONG 2 lot(s) x 1250 @ \u20b9381.50 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9377.60)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "IRFC",
+      "detail": "LONG 2 lot(s) x 5425 @ \u20b982.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b981.30)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "PATANJALI",
+      "detail": "LONG 2 lot(s) x 1075 @ \u20b9346.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9339.10)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "PIIND",
+      "detail": "LONG 2 lot(s) x 175 @ \u20b92,377.80 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b92,353.50)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "RECLTD",
+      "detail": "LONG 2 lot(s) x 1575 @ \u20b9317.35 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9313.00)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "RVNL",
+      "detail": "LONG 2 lot(s) x 1925 @ \u20b9208.20 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b9203.83)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "SBILIFE",
+      "detail": "LONG 2 lot(s) x 375 @ \u20b91,757.00 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b91,716.00)"
+    },
+    {
+      "day": "2026-09-02",
+      "symbol": "WAAREEENER",
+      "detail": "LONG 2 lot(s) x 175 @ \u20b92,613.70 (RSI_CANDLE_LONG, strike \u20b90, fut 2026-11-23, stop \u20b92,552.50)"
+    }
+  ],
+  "exits": [
+    {
+      "day": "2026-08-20",
+      "stamp": "15:15:00",
+      "symbol": "PFC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9371.15 (entry \u20b9373.80)",
+      "pnl": -6890.0
+    },
+    {
+      "day": "2026-08-21",
+      "stamp": "15:15:00",
+      "symbol": "POWERGRID",
+      "kind": "first_target",
+      "detail": "LONG 1 lot(s) @ \u20b9278.90 (entry \u20b9265.95)",
+      "pnl": 24610.65
+    },
+    {
+      "day": "2026-08-21",
+      "stamp": "15:15:00",
+      "symbol": "LUPIN",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b92,205.00 (entry \u20b92,239.00)",
+      "pnl": -28900.0
+    },
+    {
+      "day": "2026-08-24",
+      "stamp": "15:15:00",
+      "symbol": "VMM",
+      "kind": "first_target",
+      "detail": "LONG 1 lot(s) @ \u20b9110.57 (entry \u20b9104.95)",
+      "pnl": 27254.11
+    },
+    {
+      "day": "2026-08-24",
+      "stamp": "15:15:00",
+      "symbol": "VMM",
+      "kind": "second_target",
+      "detail": "LONG 1 lot(s) @ \u20b9115.00 (entry \u20b9104.95)",
+      "pnl": 48722.89
+    },
+    {
+      "day": "2026-08-25",
+      "stamp": "15:15:00",
+      "symbol": "COLPAL",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b91,875.00 (entry \u20b91,935.00)",
+      "pnl": -33000.0
+    },
+    {
+      "day": "2026-08-25",
+      "stamp": "15:15:00",
+      "symbol": "LUPIN",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b92,180.30 (entry \u20b92,210.20)",
+      "pnl": -25415.0
+    },
+    {
+      "day": "2026-08-26",
+      "stamp": "15:15:00",
+      "symbol": "GODREJCP",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9928.00 (entry \u20b9943.00)",
+      "pnl": -15000.0
+    },
+    {
+      "day": "2026-08-26",
+      "stamp": "15:15:00",
+      "symbol": "POLICYBZR",
+      "kind": "stop_loss",
+      "detail": "SHORT 2 lot(s) @ \u20b91,803.40 (entry \u20b91,794.40)",
+      "pnl": -6300.0
+    },
+    {
+      "day": "2026-08-26",
+      "stamp": "15:15:00",
+      "symbol": "RECLTD",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9323.55 (entry \u20b9326.70)",
+      "pnl": -9922.5
+    },
+    {
+      "day": "2026-08-27",
+      "stamp": "15:15:00",
+      "symbol": "PFC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9363.20 (entry \u20b9362.65)",
+      "pnl": 1430.0
+    },
+    {
+      "day": "2026-08-27",
+      "stamp": "15:15:00",
+      "symbol": "APLAPOLLO",
+      "kind": "stop_loss",
+      "detail": "SHORT 2 lot(s) @ \u20b92,172.80 (entry \u20b92,159.00)",
+      "pnl": -9660.0
+    },
+    {
+      "day": "2026-08-27",
+      "stamp": "15:15:00",
+      "symbol": "LUPIN",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b92,173.60 (entry \u20b92,225.70)",
+      "pnl": -44285.0
+    },
+    {
+      "day": "2026-08-27",
+      "stamp": "15:15:00",
+      "symbol": "RECLTD",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9321.95 (entry \u20b9326.20)",
+      "pnl": -13387.5
+    },
+    {
+      "day": "2026-08-27",
+      "stamp": "15:15:00",
+      "symbol": "TATAPOWER",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9364.00 (entry \u20b9370.15)",
+      "pnl": -17835.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "NBCC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b987.70 (entry \u20b988.00)",
+      "pnl": -3900.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "COFORGE",
+      "kind": "stop_loss",
+      "detail": "SHORT 2 lot(s) @ \u20b91,937.10 (entry \u20b91,900.00)",
+      "pnl": -35245.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "COLPAL",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b91,860.00 (entry \u20b91,865.00)",
+      "pnl": -2750.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "DABUR",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9392.20 (entry \u20b9392.25)",
+      "pnl": -125.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "PFC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9352.35 (entry \u20b9359.95)",
+      "pnl": -19760.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "SAIL",
+      "kind": "stop_loss",
+      "detail": "SHORT 2 lot(s) @ \u20b9196.50 (entry \u20b9192.00)",
+      "pnl": -42300.0
+    },
+    {
+      "day": "2026-08-28",
+      "stamp": "15:15:00",
+      "symbol": "TATAPOWER",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9364.00 (entry \u20b9355.55)",
+      "pnl": 24505.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "ADANIGREEN",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b91,281.10 (entry \u20b91,306.30)",
+      "pnl": -30240.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "ITC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9265.00 (entry \u20b9274.00)",
+      "pnl": -31050.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "GODREJCP",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9912.00 (entry \u20b9929.80)",
+      "pnl": -17800.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "HDFCBANK",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9710.00 (entry \u20b9722.35)",
+      "pnl": -16055.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "KAYNES",
+      "kind": "first_target",
+      "detail": "SHORT 1 lot(s) @ \u20b93,662.18 (entry \u20b94,030.00)",
+      "pnl": 55172.7
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "KAYNES",
+      "kind": "second_target",
+      "detail": "SHORT 1 lot(s) @ \u20b93,669.20 (entry \u20b94,030.00)",
+      "pnl": 54120.39
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "DABUR",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9386.05 (entry \u20b9388.45)",
+      "pnl": -6000.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "GMRAIRPORT",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b998.11 (entry \u20b999.71)",
+      "pnl": -22320.0
+    },
+    {
+      "day": "2026-08-31",
+      "stamp": "15:15:00",
+      "symbol": "PFC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9350.20 (entry \u20b9355.70)",
+      "pnl": -14300.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "LUPIN",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b92,153.00 (entry \u20b92,198.80)",
+      "pnl": -38930.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "ATHERENERG",
+      "kind": "stop_loss",
+      "detail": "SHORT 2 lot(s) @ \u20b91,630.00 (entry \u20b91,664.30)",
+      "pnl": 25725.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "GODREJCP",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9901.40 (entry \u20b9915.20)",
+      "pnl": -13800.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "NBCC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b985.60 (entry \u20b986.61)",
+      "pnl": -13130.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "PFC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9350.20 (entry \u20b9351.35)",
+      "pnl": -2990.0
+    },
+    {
+      "day": "2026-09-01",
+      "stamp": "15:15:00",
+      "symbol": "RECLTD",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9316.00 (entry \u20b9314.90)",
+      "pnl": 3465.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "COALINDIA",
+      "kind": "first_target",
+      "detail": "LONG 1 lot(s) @ \u20b9415.84 (entry \u20b9401.85)",
+      "pnl": 18886.65
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "HAL",
+      "kind": "first_target",
+      "detail": "SHORT 1 lot(s) @ \u20b94,757.48 (entry \u20b95,030.00)",
+      "pnl": 40877.55
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "ICICIGI",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b91,550.10 (entry \u20b91,582.00)",
+      "pnl": -20735.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "ASIANPAINT",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b92,561.10 (entry \u20b92,607.20)",
+      "pnl": -23050.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "CROMPTON",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9227.25 (entry \u20b9235.90)",
+      "pnl": -37195.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "DABUR",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9381.00 (entry \u20b9388.95)",
+      "pnl": -19875.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "BANDHANBNK",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9161.65 (entry \u20b9164.86)",
+      "pnl": -23112.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:15:00",
+      "symbol": "RVNL",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b9208.00 (entry \u20b9209.90)",
+      "pnl": -7315.0
+    },
+    {
+      "day": "2026-09-02",
+      "stamp": "15:30:00",
+      "symbol": "NBCC",
+      "kind": "stop_loss",
+      "detail": "LONG 2 lot(s) @ \u20b985.00 (entry \u20b986.62)",
+      "pnl": -21060.0
+    }
+  ],
+  "elapsed_sec": 10.0
+}
