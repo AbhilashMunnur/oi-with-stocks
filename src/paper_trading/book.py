@@ -421,11 +421,15 @@ class PaperBook:
         else:
             candle_stop = self._candle_stop_fill(position, price)
         if candle_stop is not None:
+            # When cash triggers the stop but the position is in futures,
+            # fill at the futures LTP — the cash stop price may never have
+            # traded on the futures contract.
+            fill = price if stop_prices is not None else candle_stop
             events.append(
                 self._close_lots(
                     position,
                     position.lots_open,
-                    candle_stop,
+                    fill,
                     ExitReason.STOP_LOSS,
                     rsi,
                 )
