@@ -46,5 +46,5 @@ if [[ "${in_flight:-0}" != "0" ]]; then
   exit 0
 fi
 
-gh api --method POST "repos/${REPO}/dispatches" -f event_type='oi-scan'
-echo "$(date '+%Y-%m-%d %H:%M:%S') dispatched oi-scan"
+gh api --method POST "repos/${REPO}/dispatches" -f event_type='oi-halfhour-scan'
+echo "$(date '+%Y-%m-%d %H:%M:%S') dispatched oi-halfhour-scan"

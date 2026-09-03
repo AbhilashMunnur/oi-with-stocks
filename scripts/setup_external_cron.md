@@ -27,7 +27,8 @@ That POSTs at the half-hour slots above, Mon–Fri, to:
 
 `https://api.github.com/repos/AbhilashMunnur/oi-with-stocks/dispatches`
 
-Body: `{"event_type":"oi-scan"}`. Auth is your current `gh` token (`repo` scope).
+Body: `{"event_type":"oi-halfhour-scan"}`. Auth is your current `gh` token (`repo` scope).
+Do not use `oi-scan` — that old event is ignored so every-5-minute crons stop.
 
 The script disables the old every-5-minutes job. Re-run after `gh auth login`
 if the GitHub token is rotated.

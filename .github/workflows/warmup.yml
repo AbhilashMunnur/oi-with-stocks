@@ -60,5 +60,5 @@ jobs:
             exit 0
           fi
           gh api --method POST "repos/${{ github.repository }}/dispatches" \
-            -f event_type='oi-scan'
-          echo "Dispatched oi-scan so the 09:30 chain can start."
+            -f event_type='oi-halfhour-scan'
+          echo "Dispatched oi-halfhour-scan so the 09:30 chain can start."

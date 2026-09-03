@@ -69,7 +69,7 @@ echo "  Logs:   ~/Library/Logs/${LABEL}.log"
 echo
 echo "Mac must be awake during market hours. Prefer cron-job.org half-hour"
 echo "jobs (scripts/setup_external_cron.md) when this Mac sleeps. Delete any"
-echo "every-5-minutes cron that POSTs oi-scan — it re-sends Telegram."
+echo "every-5-minutes cron that POSTs oi-scan — that event is ignored now."
 echo
 echo "Firing one ping now..."
 "$SCRIPT"

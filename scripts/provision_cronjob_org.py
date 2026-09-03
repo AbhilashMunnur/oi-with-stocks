@@ -104,7 +104,7 @@ def job_body(github_token: str, title: str, hours: list[int], minutes: list[int]
                     "Authorization": f"Bearer {github_token}",
                     "X-GitHub-Api-Version": "2022-11-28",
                 },
-                "body": json.dumps({"event_type": "oi-scan"}),
+                "body": json.dumps({"event_type": "oi-halfhour-scan"}),
             },
         }
     }
@@ -150,7 +150,7 @@ def main() -> None:
             print(f"Created cron-job.org job {created.get('jobId')} ({title})")
         existing = request("GET", "/jobs", key).get("jobs") or []
     print("Schedule: 09:30 then :00/:30 through 15:30, plus 15:15 and 15:45 IST, Mon–Fri")
-    print(f"Target:   POST {DISPATCH_URL} event_type=oi-scan")
+    print(f"Target:   POST {DISPATCH_URL} event_type=oi-halfhour-scan")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,9 @@ on:
     - cron: "0,15 10 * * 1-5"
   workflow_dispatch:
   repository_dispatch:
-    types: [oi-scan]
+    # Old every-5-minute crons still POST "oi-scan" — ignore them.
+    # Only half-hour kickers should use this event type.
+    types: [oi-halfhour-scan]
 
 jobs:
   scan:
@@ -108,23 +110,36 @@ jobs:
         env:
           SLOT_ISO: ${{ steps.slot.outputs.slot }}
         run: |
+          set -euo pipefail
           # Persist the paid slot even if the books did not move. Without this,
-          # a 5-minute external kick re-sends the same half-hour Telegram.
-          if [ -n "$SLOT_ISO" ]; then
+          # a duplicate kick re-sends the same half-hour Telegram.
+          if [ -n "${SLOT_ISO:-}" ]; then
             printf '%s' "$SLOT_ISO" > data/last_scan_slot.txt
             echo "Slot marker → $SLOT_ISO"
           fi
           echo "Working tree (data):"
           git status --porcelain -- data || true
-          cat data/last_scan_slot.txt
+          echo "marker file: $(cat data/last_scan_slot.txt)"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -u -- data/paper_book.json data/rsi_candle_3m_2w_paper_book.json data/last_scan_slot.txt data/paper_trades.csv data/rsi_candle_3m_2w_paper_trades.csv || true
-          git add -- data/paper_book.json data/rsi_candle_3m_2w_paper_book.json data/last_scan_slot.txt data/paper_trades.csv data/rsi_candle_3m_2w_paper_trades.csv || true
+
+          # Add each path alone — one missing file must not abort the whole add.
+          for path in \
+            data/last_scan_slot.txt \
+            data/paper_book.json \
+            data/rsi_candle_3m_2w_paper_book.json \
+            data/paper_trades.csv \
+            data/rsi_candle_3m_2w_paper_trades.csv
+          do
+            if [ -e "$path" ]; then
+              git add -- "$path"
+            fi
+          done
 
           if git diff --cached --quiet; then
-            echo "Ledger unchanged."
+            echo "Ledger unchanged (nothing staged)."
+            git diff -- data/last_scan_slot.txt || true
             exit 0
           fi
           git commit -m "Update paper trading ledger [skip ci]"
