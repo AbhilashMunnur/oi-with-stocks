@@ -122,7 +122,8 @@ def main() -> None:
                         "blocked": blocked,
                     }
                 )
-        out = ROOT / "data" / "rsi_candle_chart_setups.json"
+        out = ROOT / "data" / "replay" / "rsi_candle_chart_setups.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(rows, indent=2), encoding="utf-8")
         nxt = [r for r in rows if r["kind"] == "next-day" and not r["blocked"]]
         same_close = [

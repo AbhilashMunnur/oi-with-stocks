@@ -5,8 +5,7 @@ Signals still use the live candle/RSI rules (cash session bar as of 15:15, with
 the 3rd-month futures print overlaid on today's close like the scanner). Fills,
 SMMA marks, and P&L use 3rd-month futures. Candle stops fire only when the
 *cash* close is through the cash-bar stop — a futures print through that level
-is not enough. Pass ``--no-stop`` to skip candle stops (SMMA 21/50 and RSI
-30/70 targets still apply). Does not touch the live 2nd-month ledger.
+is not enough. Does not touch the live 2nd-month ledger.
 """
 
 from __future__ import annotations
@@ -48,22 +47,10 @@ END = date(2026, 9, 2)
 FUTURES_MONTH = 3
 ENTRY_STAMP = "15:15:00"
 EXIT_STAMP = "15:30:00"
-NO_STOP = "--no-stop" in sys.argv
-LEDGER = ROOT / "data" / (
-    "rsi_candle_3m_2w_nostop_paper_book.json"
-    if NO_STOP
-    else "rsi_candle_3m_2w_paper_book.json"
-)
-JOURNAL = ROOT / "data" / (
-    "rsi_candle_3m_2w_nostop_paper_trades.csv"
-    if NO_STOP
-    else "rsi_candle_3m_2w_paper_trades.csv"
-)
-RESULT = ROOT / "data" / (
-    "rsi_candle_3m_2w_nostop_replay.json"
-    if NO_STOP
-    else "rsi_candle_3m_2w_replay.json"
-)
+REPLAY_DIR = ROOT / "data" / "replay"
+LEDGER = ROOT / "data" / "rsi_candle_3m_2w_paper_book.json"
+JOURNAL = ROOT / "data" / "rsi_candle_3m_2w_paper_trades.csv"
+RESULT = REPLAY_DIR / "rsi_candle_3m_2w_replay.json"
 CHART_ONLY = "--chart-only" in sys.argv
 
 
@@ -612,11 +599,7 @@ def main() -> None:
         google_sheet_id="",
         google_worksheet="",
         google_summary_worksheet="",
-        name=(
-            "RSI_CandlePattern 3rd-month 2w no-stop"
-            if NO_STOP
-            else "RSI_CandlePattern 3rd-month 2w"
-        ),
+        name="RSI_CandlePattern 3rd-month 2w",
     )
     if not resume:
         for path in (LEDGER, JOURNAL):
@@ -641,7 +624,6 @@ def main() -> None:
             f"RSI_CandlePattern replay {START} → {END} · 3rd-month futures · "
             f"15:15 IST · {len(symbols)} F&O names"
             + (" · chart setups only" if CHART_ONLY else "")
-            + (" · no candle stop" if NO_STOP else "")
             + (" · resume" if resume else "")
         )
         feed.load_cash_daily(symbols)
@@ -683,7 +665,7 @@ def main() -> None:
             smma = smma_levels(feed, book, day, marks)
             rsi = rsi_values(feed, open_syms, day, marks, config.rsi.period)
             for event in apply_exits(
-                book, bars_1515, cash_1515, day, rsi, smma, no_stop=NO_STOP
+                book, bars_1515, cash_1515, day, rsi, smma
             ):
                 exits_log.append(
                     {
@@ -773,7 +755,7 @@ def main() -> None:
             smma = smma_levels(feed, book, day, marks)
             rsi = rsi_values(feed, open_syms, day, marks, config.rsi.period)
             for event in apply_exits(
-                book, bars_1530, cash_1530, day, rsi, smma, no_stop=NO_STOP
+                book, bars_1530, cash_1530, day, rsi, smma
             ):
                 exits_log.append(
                     {
@@ -824,17 +806,9 @@ def main() -> None:
         book.save()
 
         payload = {
-            "title": (
-                "RSI_CandlePattern · 3rd-month futures · 19 Aug–2 Sep 2026"
-                + (" · no candle stop" if NO_STOP else "")
-            ),
+            "title": "RSI_CandlePattern · 3rd-month futures · 19 Aug–2 Sep 2026",
             "entry_time": "15:15 IST",
-            "mark_time": (
-                "15:15 IST (15:30 SMMA pass after entries; no candle stop)"
-                if NO_STOP
-                else "15:15 IST (15:30 stop/SMMA pass after entries)"
-            ),
-            "no_stop": NO_STOP,
+            "mark_time": "15:15 IST (15:30 stop/SMMA pass after entries)",
             "futures_month": FUTURES_MONTH,
             "capital": paper.capital,
             "sessions": [d.isoformat() for d in days],
@@ -849,6 +823,7 @@ def main() -> None:
             "exits": exits_log,
             "elapsed_sec": round(time() - started, 1),
         }
+        RESULT.parent.mkdir(parents=True, exist_ok=True)
         RESULT.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         print(
             f"\nDone in {payload['elapsed_sec']}s. Booked ₹{booked:,.0f} · "

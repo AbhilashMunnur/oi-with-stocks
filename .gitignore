@@ -7,3 +7,7 @@ logs/
 secrets/
 .DS_Store
 scanner.log
+
+# One-off no-stop experiment — not the live strategy
+data/*nostop*
+data/rsi_candle_3m_2w_nostop_*
