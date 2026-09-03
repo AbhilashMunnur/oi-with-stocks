@@ -48,6 +48,7 @@ from src.paper_trading.models import ExitReason
 from src.price_extremes import extreme_entry_skip_reason
 from src.scan_slots import (
     is_cash_stop_slot,
+    is_candle_screen_slot,
     is_close_pnl_slot,
     is_s1_wall_exit_slot,
     is_candle_entry_window,
@@ -1229,6 +1230,41 @@ class OIRsiScanner:
                 return None, "long"
         return None, None
 
+    def _open_paper_symbols(self) -> list[str]:
+        names: set[str] = set()
+        for book in (
+            self.book,
+            self.two_week_book,
+            self.s1_book,
+            self.s2_book,
+            self.st_book,
+        ):
+            if not book:
+                continue
+            names.update(p.symbol for p in book.positions if p.is_open)
+        return sorted(names)
+
+    def _mark_open_books(self) -> list[ScanAlert]:
+        """Mark open paper to futures LTP and Telegram P&L — no 210-name screen.
+
+        New RSI_CandlePattern fills are 15:15 only. Screening every F&O name
+        on the morning slots was blowing the 12-minute cap before Telegram.
+        """
+        print("  Mark-only slot — open P&L, not screening new candle entries")
+        open_names = self._open_paper_symbols()
+        prices: dict[str, float] = {}
+        if open_names and is_cash_stop_slot():
+            prices = self.client.get_ltps(open_names)
+        rsi_values: dict[str, float] = {}
+        for symbol in open_names:
+            rsi = self.client.completed_rsi(symbol)
+            if rsi is not None:
+                rsi_values[symbol] = rsi
+        if not open_names:
+            print("  No open paper to mark.")
+        self._run_paper_trading([], prices, rsi_values)
+        return []
+
     def run_once(self) -> list[ScanAlert]:
         started = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         symbols = self.symbols()
@@ -1238,6 +1274,9 @@ class OIRsiScanner:
         # Prefer the committed seed so hosted runners do not refetch 208 candle
         # series and blow the Angel One rate limit.
         self.client.seed_closes_cache_from_repo()
+
+        if not is_candle_screen_slot():
+            return self._mark_open_books()
 
         prices: dict[str, float] = {}
         if self.s1_book or self.s2_book or self.st_book or self.config.supertrend.enabled:

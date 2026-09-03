@@ -86,6 +86,27 @@ def is_candle_entry_window(now: datetime | None = None) -> bool:
     return current.time() >= S1_WALL_EXIT_SLOT
 
 
+def is_candle_screen_slot(
+    now: datetime | None = None, path: Path = DEFAULT_MARKER
+) -> bool:
+    """True only when this run should screen 210 names for new candle entries.
+
+    Morning slots mark open P&L. 15:15 takes new paper. 15:30 screens only if
+    15:15 never completed today. 15:45 is mark-only.
+    """
+    if not is_candle_entry_window(now):
+        return False
+    slot = active_slot(now)
+    if slot is None:
+        return False
+    if slot.time() == S1_WALL_EXIT_SLOT:
+        return True
+    if slot.time() == LAST_SLOT:
+        fifteen = slot.replace(hour=15, minute=15, second=0, microsecond=0)
+        return read_last_slot(path) != fifteen.isoformat()
+    return False
+
+
 def is_same_day_reversal_window(now: datetime | None = None) -> bool:
     """Same clock as candle entries: 15:15 IST, not cash close."""
     return is_candle_entry_window(now)

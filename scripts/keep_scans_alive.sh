@@ -29,5 +29,14 @@ if ! command -v gh >/dev/null; then
 fi
 
 REPO="${GITHUB_REPOSITORY:-AbhilashMunnur/oi-with-stocks}"
+
+# Same Angel login as a running scan. Piling on causes AB1021 and the 12-minute
+# timeout, so Telegram never leaves.
+in_flight="$(gh run list --repo "$REPO" --workflow=scan.yml --status in_progress --json databaseId --jq 'length' 2>/dev/null || echo 0)"
+if [[ "${in_flight:-0}" != "0" ]]; then
+  echo "$(date '+%Y-%m-%d %H:%M:%S') scan already in progress — skip dispatch"
+  exit 0
+fi
+
 gh api --method POST "repos/${REPO}/dispatches" -f event_type='oi-scan'
 echo "$(date '+%Y-%m-%d %H:%M:%S') dispatched oi-scan"

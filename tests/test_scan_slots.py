@@ -127,6 +127,27 @@ def test_cash_stop_slot_is_cash_close_and_backup():
     assert is_cash_stop_slot(datetime(2026, 8, 11, 14, 30, tzinfo=IST)) is False
 
 
+def test_candle_screen_only_at_three_fifteen_unless_missed(tmp_path):
+    from src.scan_slots import is_candle_screen_slot, write_last_slot
+
+    marker = tmp_path / "last_scan_slot.txt"
+    morning = datetime(2026, 8, 11, 11, 0, tzinfo=IST)
+    assert is_candle_screen_slot(morning, path=marker) is False
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 15, 15, tzinfo=IST), path=marker
+    ) is True
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 15, 30, tzinfo=IST), path=marker
+    ) is True
+    write_last_slot(datetime(2026, 8, 11, 15, 15, tzinfo=IST), marker)
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 15, 30, tzinfo=IST), path=marker
+    ) is False
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 15, 45, tzinfo=IST), path=marker
+    ) is False
+
+
 def test_ten_minute_warmup_starts_at_ten_fifty(tmp_path):
     marker = tmp_path / "last_scan_slot.txt"
     write_last_slot(
