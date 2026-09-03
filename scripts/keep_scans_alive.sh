@@ -23,9 +23,10 @@ if [[ "$HOUR" -eq 15 && "$MINUTE" -gt 50 ]]; then
   exit 0
 fi
 
-# Only fire within 2 minutes of a real scan slot (:00 / :15 / :30 / :45).
+# Only fire near a real scan slot (:00 / :15 / :30 / :45), with a few
+# minutes of slack so a brief Mac sleep does not miss the window.
 case "$MINUTE" in
-  0|1|2|15|16|17|28|29|30|31|32|43|44|45|46|47) ;;
+  0|1|2|13|14|15|16|17|28|29|30|31|32|43|44|45|46|47|58|59) ;;
   *)
     echo "$(date '+%Y-%m-%d %H:%M:%S') not near a 30-minute slot — skip"
     exit 0

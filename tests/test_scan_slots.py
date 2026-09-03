@@ -148,20 +148,30 @@ def test_candle_screen_only_at_three_fifteen_unless_missed(tmp_path):
     ) is False
 
 
-def test_missed_three_fifteen_still_screens_after_session(tmp_path):
-    from src.scan_slots import earliest_unpaid_slot, is_candle_screen_slot, write_last_slot
+def test_late_same_day_run_screens_if_fifteen_fifteen_was_missed(tmp_path):
+    from src.scan_slots import is_candle_screen_slot, write_last_slot
 
     marker = tmp_path / "last_scan_slot.txt"
     write_last_slot(datetime(2026, 8, 11, 15, 0, tzinfo=IST), marker)
-    late = datetime(2026, 8, 11, 16, 20, tzinfo=IST)
-    assert is_candle_screen_slot(late, path=marker) is True
-    unpaid = earliest_unpaid_slot(now=late, path=marker)
-    assert unpaid is not None
-    assert unpaid.strftime("%H:%M") == "15:15"
-    run, reason, slot = should_run_slot(now=late, path=marker)
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 16, 20, tzinfo=IST), path=marker
+    ) is True
+    write_last_slot(datetime(2026, 8, 11, 15, 15, tzinfo=IST), marker)
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 16, 20, tzinfo=IST), path=marker
+    ) is False
+
+
+def test_forced_run_after_close_uses_three_forty_five_slot():
+    from src.scan_slots import should_run_slot
+
+    run, reason, slot = should_run_slot(
+        force=True, now=datetime(2026, 8, 11, 16, 20, tzinfo=IST)
+    )
     assert run is True
-    assert slot.strftime("%H:%M") == "15:15"
-    assert "catch-up" in reason or "due" in reason
+    assert reason == "forced"
+    assert slot is not None
+    assert slot.strftime("%H:%M") == "15:45"
 
 
 def test_ten_minute_warmup_starts_at_ten_fifty(tmp_path):
