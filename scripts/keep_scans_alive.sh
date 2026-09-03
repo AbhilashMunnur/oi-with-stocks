@@ -4,8 +4,9 @@
 set -euo pipefail
 
 export TZ=Asia/Kolkata
-HOUR="$(date +%H)"
-MINUTE="$(date +%M)"
+# Force decimal — date +%H can be 09, which bash treats as invalid octal.
+HOUR=$((10#$(date +%H)))
+MINUTE=$((10#$(date +%M)))
 DOW="$(date +%u)" # 1=Mon … 7=Sun
 
 # Weekends off. Session covers 09:30 open through 15:45.
@@ -23,7 +24,6 @@ if [[ "$HOUR" -eq 15 && "$MINUTE" -gt 50 ]]; then
 fi
 
 # Only fire within 2 minutes of a real scan slot (:00 / :15 / :30 / :45).
-# A every-5-minute LaunchAgent or cron must not trigger Telegram between slots.
 case "$MINUTE" in
   0|1|2|15|16|17|28|29|30|31|32|43|44|45|46|47) ;;
   *)
