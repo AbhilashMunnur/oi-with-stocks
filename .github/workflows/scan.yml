@@ -118,7 +118,7 @@ jobs:
             data/paper_trades.csv \
             data/rsi_candle_3m_2w_paper_trades.csv \
             2>/dev/null || true
-          if [ -z "$(git status --porcelain --cached)" ]; then
+          if git diff --cached --quiet; then
             echo "Ledger unchanged."
             exit 0
           fi
