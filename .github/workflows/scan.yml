@@ -19,7 +19,7 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     concurrency:
       group: oi-rsi-scan
       # Do not cancel a running scan. Slot guard skips duplicates instead.
