@@ -87,9 +87,10 @@ notifications:
                           # qualifies is re-alerted once per scan. Raise it to
                           # hear about each stock less often.
 
-# Paper trading (RSI_CandlePattern) — 2nd-month NSE stock futures, never cash.
+# Paper trading (RSI_CandlePattern) — disabled; all entries now go into the
+# unified 2-week 3rd-month book below.
 paper_trading:
-  enabled: true
+  enabled: false
   name: "RSI_CandlePattern"
   capital: 20000000         # ₹2 crore
   lots_per_trade: 2
@@ -117,12 +118,12 @@ paper_trading:
   # Candle stop only when cash closes through the stored bar (15:30 / 15:45).
   cash_close_stop: true
 
-# Mark-only: 19 Aug–2 Sep 3rd-month names still open. Telegram P&L every
-# 30-minute slot. No new fills. Quote the stored Oct/Nov contract — do not
-# roll to the current 3rd month. Candle stop on cash close, not a futures wick.
+# Unified RSI_CandlePattern book — 3rd-month NSE stock futures.
+# New entries at 15:15 IST daily. Profit booking (SMMA 21/50, RSI targets)
+# and candle stop losses active. Older positions keep their stored contract.
 rsi_candle_2w_paper_trading:
   enabled: true
-  name: "RSI_CandlePattern · 2-week 3rd-month"
+  name: "RSI_CandlePattern"
   capital: 20000000
   lots_per_trade: 2
   smma_fast: 21
@@ -133,7 +134,7 @@ rsi_candle_2w_paper_trading:
   second_lot_stop_pct: 1.0
   margin_pct: 20.0
   futures_month: 3
-  skip_new_entries: true
+  skip_new_entries: false
   mark_entry_contract: true
   cash_close_stop: true
   loss_streak_count: 3

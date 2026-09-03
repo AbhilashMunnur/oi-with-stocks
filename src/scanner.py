@@ -1061,7 +1061,7 @@ class OIRsiScanner:
         if self.st_book:
             self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
         if self.two_week_book:
-            self._run_one_paper_book(self.two_week_book, [], prices, rsi_values)
+            self._run_one_paper_book(self.two_week_book, rsi_alerts, prices, rsi_values)
 
     def _bars_to_candles(
         self, rows: list[tuple[str, float, float, float, float]]
