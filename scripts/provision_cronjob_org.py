@@ -124,6 +124,21 @@ def main() -> None:
         )
         print(f"Disabled old 5-minute job {old['jobId']} ({OLD_TITLE})")
         existing = request("GET", "/jobs", key).get("jobs") or []
+    # Kill any other every-5-minutes oi-scan kick (Telegram is once per 30 min).
+    for job in existing:
+        title = str(job.get("title") or "")
+        schedule = (job.get("schedule") or {}) if isinstance(job.get("schedule"), dict) else {}
+        minutes = schedule.get("minutes") or []
+        if sorted(minutes) == list(range(0, 60, 5)) or "5 minute" in title.lower() or "every 5" in title.lower():
+            if job.get("enabled"):
+                request(
+                    "PATCH",
+                    f"/jobs/{job['jobId']}",
+                    key,
+                    {"job": {"enabled": False}},
+                )
+                print(f"Disabled 5-minute job {job['jobId']} ({title})")
+    existing = request("GET", "/jobs", key).get("jobs") or []
     for title, hours, minutes in SPECS:
         payload = job_body(token, title, hours, minutes)
         match = next((j for j in existing if j.get("title") == title), None)
