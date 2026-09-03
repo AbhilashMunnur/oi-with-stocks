@@ -102,7 +102,7 @@ jobs:
 
       - name: Run scan
         if: steps.slot.outputs.run == 'true'
-        timeout-minutes: 18
+        timeout-minutes: 25
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger
