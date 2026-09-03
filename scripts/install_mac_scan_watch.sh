@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Install a Mac LaunchAgent that pings GitHub every 5 minutes during the
-# NSE session. This is the morning kick GitHub's schedule does not provide.
+# Install a Mac LaunchAgent that pings GitHub near half-hour IST slots.
+# Prefer cron-job.org (scripts/setup_external_cron.md) when this Mac sleeps.
+# Do NOT use a every-5-minutes schedule — Telegram is once per 30-minute slot.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -37,7 +38,7 @@ cat > "$PLIST" <<EOF
     <string>${SCRIPT}</string>
   </array>
   <key>StartInterval</key>
-  <integer>300</integer>
+  <integer>60</integer>
   <key>RunAtLoad</key>
   <true/>
   <key>WorkingDirectory</key>
@@ -63,11 +64,12 @@ launchctl enable "gui/$(id -u)/${LABEL}" >/dev/null 2>&1 || true
 
 echo "Installed ${LABEL}"
 echo "  Plist:  $PLIST"
-echo "  Ping:   every 5 minutes, 09:15–15:50 IST weekdays"
+echo "  Ping:   checks every minute; only dispatches near :00/:15/:30/:45 IST"
 echo "  Logs:   ~/Library/Logs/${LABEL}.log"
 echo
-echo "Mac must be awake during market hours. For when it sleeps, keep"
-echo "cron-job.org as in scripts/setup_external_cron.md"
+echo "Mac must be awake during market hours. Prefer cron-job.org half-hour"
+echo "jobs (scripts/setup_external_cron.md) when this Mac sleeps. Delete any"
+echo "every-5-minutes cron that POSTs oi-scan — it re-sends Telegram."
 echo
 echo "Firing one ping now..."
 "$SCRIPT"

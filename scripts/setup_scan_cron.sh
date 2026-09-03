@@ -36,15 +36,8 @@ cat <<EOF
 
 Done. Self-chain is enabled for the rest of each market session once any scan starts.
 
-Optional extra backup (cron-job.org, free):
-  URL:    https://api.github.com/repos/$REPO/dispatches
-  Method: POST
-  Cron:   every 5 minutes, 04:00–10:15 UTC, Mon–Fri
-  Headers:
-    Accept: application/vnd.github+json
-    Authorization: Bearer <same PAT / gh token>
-    X-GitHub-Api-Version: 2022-11-28
-  Body:   {"event_type":"oi-scan"}
+Prefer scripts/provision_cronjob_org.py (half-hour IST slots only).
+Do NOT create an every-5-minutes job — Telegram is once per 30-minute slot.
 
 Watch runs: gh run list --workflow=scan.yml --limit 5
 EOF

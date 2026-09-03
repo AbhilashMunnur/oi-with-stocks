@@ -50,11 +50,13 @@ jobs:
           force = event == "workflow_dispatch"
           run, reason, slot = should_run_slot(force=force)
           print(reason)
-          if slot is not None:
-              print(f"slot={slot.isoformat()}")
+          slot_iso = slot.isoformat() if slot is not None else ""
+          if slot_iso:
+              print(f"slot={slot_iso}")
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
               handle.write(f"run={'true' if run else 'false'}\n")
+              handle.write(f"slot={slot_iso}\n")
           PY
 
       - uses: actions/setup-python@v5
@@ -103,21 +105,24 @@ jobs:
 
       - name: Save paper trading ledger
         if: always() && steps.slot.outputs.run == 'true'
+        env:
+          SLOT_ISO: ${{ steps.slot.outputs.slot }}
         run: |
-          if [ -z "$(git status --porcelain -- data/paper_book.json data/rsi_candle_3m_2w_paper_book.json data/last_scan_slot.txt data/paper_trades.csv data/rsi_candle_3m_2w_paper_trades.csv 2>/dev/null)" ]; then
-            echo "Ledger unchanged."
-            exit 0
+          # Persist the paid slot even if the books did not move. Without this,
+          # a 5-minute external kick re-sends the same half-hour Telegram.
+          if [ -n "$SLOT_ISO" ]; then
+            printf '%s' "$SLOT_ISO" > data/last_scan_slot.txt
+            echo "Slot marker → $SLOT_ISO"
           fi
+          echo "Working tree (data):"
+          git status --porcelain -- data || true
+          cat data/last_scan_slot.txt
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            data/paper_book.json \
-            data/rsi_candle_3m_2w_paper_book.json \
-            data/last_scan_slot.txt \
-            data/paper_trades.csv \
-            data/rsi_candle_3m_2w_paper_trades.csv \
-            2>/dev/null || true
+          git add -u -- data/paper_book.json data/rsi_candle_3m_2w_paper_book.json data/last_scan_slot.txt data/paper_trades.csv data/rsi_candle_3m_2w_paper_trades.csv || true
+          git add -- data/paper_book.json data/rsi_candle_3m_2w_paper_book.json data/last_scan_slot.txt data/paper_trades.csv data/rsi_candle_3m_2w_paper_trades.csv || true
+
           if git diff --cached --quiet; then
             echo "Ledger unchanged."
             exit 0
