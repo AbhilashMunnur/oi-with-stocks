@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -369262.06,
-  "closed_count": 43,
+  "realised_pnl": -367312.06,
+  "closed_count": 44,
   "day_date": "2026-09-04",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-04 15:15:48",
+  "day_realised_pnl": 1950.0,
+  "updated_at": "2026-09-04 15:31:01",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -20,6 +20,11 @@
       "symbol": "SBILIFE",
       "exit_date": "2026-09-03",
       "pnl": -30750.0
+    },
+    {
+      "symbol": "ICICIGI",
+      "exit_date": "2026-09-04",
+      "pnl": 1950.0
     }
   ],
   "qualify_skips": {},
@@ -778,23 +783,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 859.55
-    },
-    {
-      "symbol": "ICICIGI",
-      "direction": "LONG",
-      "entry_price": 1529.0,
-      "entry_time": "2026-09-03 16:30:56",
-      "lot_size": 325,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 27.053232236903014,
-      "strike": 0.0,
-      "margin_blocked": 198770.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1510.1
     },
     {
       "symbol": "NBCC",

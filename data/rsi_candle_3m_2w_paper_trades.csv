@@ -1,3 +1,4 @@
 Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason
 LUPIN,Buy,01-Sep-26,2180.0,33.2,03-Sep-26,2171.0,,2,185300*2,-7650,stop_loss
 SBILIFE,Buy,02-Sep-26,1757.0,39.0,03-Sep-26,1740.0,,1,131775*2,-12750,stop_loss
+ICICIGI,Buy,03-Sep-26,1529.0,27.1,04-Sep-26,1532.0,,1,99385*2,1950,stop_loss
