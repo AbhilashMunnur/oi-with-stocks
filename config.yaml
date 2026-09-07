@@ -120,14 +120,14 @@ paper_trading:
 
 # Unified RSI_CandlePattern book — 3rd-month NSE stock futures.
 # New entries at 15:15 IST daily. Profit booking races percent vs SMMA:
-#   lot 1: 4% or SMMA 21 (whichever first); lot 2: 12% or SMMA 50 (else RSI).
+#   lot 1: 5% or SMMA 21 (whichever first); lot 2: 12% or SMMA 50 (else RSI).
 # Candle stop losses active. Older positions keep their stored contract.
 rsi_candle_2w_paper_trading:
   enabled: true
   name: "RSI_CandlePattern"
   capital: 20000000
   lots_per_trade: 2
-  first_target_pct: 4.0
+  first_target_pct: 5.0
   second_target_pct: 12.0
   smma_fast: 21
   smma_slow: 50

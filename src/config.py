@@ -118,7 +118,7 @@ class PaperTradingConfig:
     # % adverse from the original entry price.
     second_lot_stop_pct: float = 1.0
     # RSI_CandlePattern: race percent targets vs SMMA — whichever prints first.
-    # Lot 1: first_target_pct (e.g. 4%) or SMMA fast (21). Lot 2: second_target_pct
+    # Lot 1: first_target_pct (e.g. 5%) or SMMA fast (21). Lot 2: second_target_pct
     # (e.g. 12%) or SMMA slow (50). RSI 30/70 can still take lot 2 earlier.
     smma_fast: int | None = None
     smma_slow: int | None = None

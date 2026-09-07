@@ -510,7 +510,7 @@ def _smma_config(tmp_path):
         name="RSI_CandlePattern",
         capital=5_000_000,
         lots_per_trade=2,
-        first_target_pct=4.0,
+        first_target_pct=5.0,
         second_target_pct=12.0,
         stop_loss_pct=4.0,
         second_lot_stop_pct=1.0,
@@ -525,7 +525,7 @@ def _smma_config(tmp_path):
 
 
 def test_smma_books_one_lot_at_21_and_holds_the_other(tmp_path):
-    """SMMA 21 before 4% — book at the SMMA line."""
+    """SMMA 21 before 5% — book at the SMMA line."""
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
 
@@ -539,17 +539,17 @@ def test_smma_books_one_lot_at_21_and_holds_the_other(tmp_path):
     assert book.positions[0].closed_legs[0].exit_price == pytest.approx(102.0)
 
 
-def test_four_percent_books_before_smma_21(tmp_path):
+def test_five_percent_books_before_smma_21(tmp_path):
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
 
     events = book.update(
-        {"TITAN": 105.0},
+        {"TITAN": 106.0},
         smma_levels={"TITAN": (108.0, 115.0)},
     )
 
     assert [e.kind for e in events] == ["first_target"]
-    assert book.positions[0].closed_legs[0].exit_price == pytest.approx(104.0)
+    assert book.positions[0].closed_legs[0].exit_price == pytest.approx(105.0)
 
 
 def test_smma_50_books_the_remaining_lot(tmp_path):
@@ -571,7 +571,7 @@ def test_smma_50_books_the_remaining_lot(tmp_path):
 def test_twelve_percent_books_before_smma_50(tmp_path):
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
-    book.update({"TITAN": 104.0}, smma_levels={"TITAN": (108.0, 120.0)})
+    book.update({"TITAN": 105.0}, smma_levels={"TITAN": (108.0, 120.0)})
 
     events = book.update(
         {"TITAN": 113.0},
@@ -597,7 +597,7 @@ def test_short_books_at_smma_as_price_falls(tmp_path):
 
 
 def test_smma_does_not_book_a_level_behind_entry(tmp_path):
-    """Long already above SMMA 21 — wait for 4% or SMMA 50 instead of booking a loss."""
+    """Long already above SMMA 21 — wait for 5% or SMMA 50 instead of booking a loss."""
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
 
@@ -611,7 +611,7 @@ def test_smma_does_not_book_a_level_behind_entry(tmp_path):
 
 
 def test_gap_through_both_smmas_books_nearer_levels_first(tmp_path):
-    """Gap past 4%/SMMA21 and 12%/SMMA50 — fill at the nearer race winner each time."""
+    """Gap past 5%/SMMA21 and 12%/SMMA50 — fill at the nearer race winner each time."""
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
 
@@ -622,8 +622,8 @@ def test_gap_through_both_smmas_books_nearer_levels_first(tmp_path):
 
     assert [e.kind for e in events] == ["first_target", "second_target"]
     assert not book.positions
-    # Lot 1: 4% (104) nearer than SMMA 21 (106); lot 2: both at 112.
-    assert book.realised_pnl == pytest.approx((4.0 + 12.0) * 100)
+    # Lot 1: 5% (105) nearer than SMMA 21 (106); lot 2: both at 112.
+    assert book.realised_pnl == pytest.approx((5.0 + 12.0) * 100)
 
 
 def test_percent_targets_still_used_when_smma_is_not_configured(config):
@@ -653,7 +653,7 @@ def test_short_second_lot_books_at_rsi_30_before_smma_50(tmp_path):
 def test_long_second_lot_books_at_rsi_70_before_smma_50(tmp_path):
     book = PaperBook(_smma_config(tmp_path))
     book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
-    book.update({"TITAN": 104.0}, smma_levels={"TITAN": (108.0, 120.0)})
+    book.update({"TITAN": 105.0}, smma_levels={"TITAN": (108.0, 120.0)})
 
     events = book.update(
         {"TITAN": 110.0},

@@ -338,7 +338,7 @@ class PaperBook:
     ) -> float | None:
         """Whichever favourable level is nearer to entry and already reached.
 
-        Used so 4% can book before SMMA 21 (or vice versa), and 12% before
+        Used so 5% can book before SMMA 21 (or vice versa), and 12% before
         SMMA 50 (or vice versa), on a single scan snapshot.
         """
         candidates: list[tuple[float, float]] = []
@@ -364,7 +364,7 @@ class PaperBook:
         rsi: float | None,
         smma_levels: tuple[float | None, float | None] | None,
     ) -> list[TradeEvent]:
-        """Lot 1: 4% or SMMA 21 (first). Lot 2: 12% or SMMA 50, else RSI 30/70."""
+        """Lot 1: 5% or SMMA 21 (first). Lot 2: 12% or SMMA 50, else RSI 30/70."""
         events: list[TradeEvent] = []
         fast, slow = smma_levels if smma_levels is not None else (None, None)
 
