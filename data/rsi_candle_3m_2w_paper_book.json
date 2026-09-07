@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 28052.94,
-  "closed_count": 48,
+  "realised_pnl": 156707.94,
+  "closed_count": 47,
   "day_date": "2026-09-07",
-  "day_realised_pnl": 395365.0,
-  "updated_at": "2026-09-07 20:19:34",
+  "day_realised_pnl": 469699.0,
+  "updated_at": "2026-09-07 20:29:52",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -874,6 +874,30 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1151.0
+    },
+    {
+      "symbol": "IDEA",
+      "direction": "SHORT",
+      "entry_price": 15.24,
+      "entry_time": "2026-08-26 15:15:00",
+      "lot_size": 71475,
+      "lots_open": 1,
+      "lots_total": 2,
+      "expiry": "2026-10-27",
+      "rsi_at_entry": 72.721079793997,
+      "strike": 0.0,
+      "margin_blocked": 217855.8,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 14.48,
+          "exit_time": "2026-08-31 15:15:00",
+          "reason": "first_target",
+          "pnl": 54321.0
+        }
+      ],
+      "priced_on": "futures",
+      "stop_price": 15.31
     }
   ]
 }
