@@ -2,3 +2,7 @@ Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,H
 LUPIN,Buy,01-Sep-26,2180.0,33.2,03-Sep-26,2171.0,,2,185300*2,-7650,stop_loss
 SBILIFE,Buy,02-Sep-26,1757.0,39.0,03-Sep-26,1740.0,,1,131775*2,-12750,stop_loss
 ICICIGI,Buy,03-Sep-26,1529.0,27.1,04-Sep-26,1532.0,,1,99385*2,1950,stop_loss
+IDEA,Sell,26-Aug-26,15.24,72.7,07-Sep-26,15.76,,8,217856*2,-74334,stop_loss
+COLPAL,Buy,28-Aug-26,1849.7,28.4,07-Sep-26,1831.6,,6,101734*2,-9955,stop_loss
+ASIANPAINT,Buy,02-Sep-26,2563.0,33.6,07-Sep-26,2529.0,,3,128150*2,-17000,stop_loss
+DABUR,Buy,02-Sep-26,381.5,25.1,07-Sep-26,378.65,,3,95375*2,-7125,stop_loss

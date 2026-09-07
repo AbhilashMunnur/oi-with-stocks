@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": -367312.06,
-  "closed_count": 44,
+  "realised_pnl": -475726.06,
+  "closed_count": 48,
   "day_date": "2026-09-07",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-07 15:15:44",
+  "day_realised_pnl": -108414.0,
+  "updated_at": "2026-09-07 15:30:49",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -26,6 +26,26 @@
       "symbol": "ICICIGI",
       "exit_date": "2026-09-04",
       "pnl": 1950.0
+    },
+    {
+      "symbol": "IDEA",
+      "exit_date": "2026-09-07",
+      "pnl": -74334.0
+    },
+    {
+      "symbol": "COLPAL",
+      "exit_date": "2026-09-07",
+      "pnl": -9955.0
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "exit_date": "2026-09-07",
+      "pnl": -17000.0
+    },
+    {
+      "symbol": "DABUR",
+      "exit_date": "2026-09-07",
+      "pnl": -7125.0
     }
   ],
   "qualify_skips": {},
@@ -208,23 +228,6 @@
       "stop_price": 5092.0
     },
     {
-      "symbol": "IDEA",
-      "direction": "SHORT",
-      "entry_price": 15.24,
-      "entry_time": "2026-08-26 15:15:00",
-      "lot_size": 71475,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 72.721079793997,
-      "strike": 0.0,
-      "margin_blocked": 435711.6,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 15.31
-    },
-    {
       "symbol": "JUBLFOOD",
       "direction": "SHORT",
       "entry_price": 497.3,
@@ -308,23 +311,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1731.0
-    },
-    {
-      "symbol": "COLPAL",
-      "direction": "LONG",
-      "entry_price": 1849.7,
-      "entry_time": "2026-08-28 15:15:00",
-      "lot_size": 275,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 28.371049034030435,
-      "strike": 0.0,
-      "margin_blocked": 203467.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1825.0
     },
     {
       "symbol": "ITC",
@@ -548,23 +534,6 @@
       "stop_price": 400.45
     },
     {
-      "symbol": "ASIANPAINT",
-      "direction": "LONG",
-      "entry_price": 2563.0,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 250,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.600648565566004,
-      "strike": 0.0,
-      "margin_blocked": 256300.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2510.7
-    },
-    {
       "symbol": "ATHERENERG",
       "direction": "SHORT",
       "entry_price": 1661.0,
@@ -614,23 +583,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 226.05
-    },
-    {
-      "symbol": "DABUR",
-      "direction": "LONG",
-      "entry_price": 381.5,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 1250,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.12098407467485,
-      "strike": 0.0,
-      "margin_blocked": 190750.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 377.6
     },
     {
       "symbol": "IRFC",
