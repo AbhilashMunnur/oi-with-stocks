@@ -31,7 +31,7 @@ class RSIConfig:
 class CandleConfig:
     """Day-2 reversal shapes after an RSI 70/30 strong bar."""
 
-    strong_body_pct: float = 60.0
+    strong_body_pct: float = 50.0
     weak_body_pct: float = 40.0
     side_wick_pct: float = 20.0
     hammer_long_wick_pct: float = 50.0

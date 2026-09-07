@@ -199,6 +199,6 @@ def test_same_day_long_stop_is_the_reversal_low():
 
 def test_config_loads_candle_thresholds():
     cfg = load_config()
-    assert cfg.candles.strong_body_pct == 60.0
+    assert cfg.candles.strong_body_pct == 50.0
     assert cfg.candles.weak_body_pct == 40.0
     assert cfg.candles.side_wick_pct == 20.0

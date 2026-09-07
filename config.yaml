@@ -12,7 +12,7 @@ rsi:
 # Short only after inverted hammer / weak middle body / strong red.
 # Long only after hammer / weak middle body / strong green.
 candles:
-  strong_body_pct: 60.0
+  strong_body_pct: 50.0
   weak_body_pct: 40.0
   side_wick_pct: 20.0
   hammer_long_wick_pct: 50.0
