@@ -328,6 +328,35 @@ class PaperBook:
         threshold = self.config.second_lot_rsi_long
         return threshold is not None and rsi >= threshold - TRIGGER_TOLERANCE
 
+    def _race_target_fill(
+        self,
+        position: Position,
+        price: float,
+        *,
+        pct: float | None,
+        smma: float | None,
+    ) -> float | None:
+        """Whichever favourable level is nearer to entry and already reached.
+
+        Used so 4% can book before SMMA 21 (or vice versa), and 12% before
+        SMMA 50 (or vice versa), on a single scan snapshot.
+        """
+        candidates: list[tuple[float, float]] = []
+        if pct is not None and pct > 0:
+            level = position.price_at_move(pct)
+            if self._level_reached(position, price, level):
+                candidates.append((abs(level - position.entry_price), level))
+        if (
+            smma is not None
+            and self._level_is_profit(position, smma)
+            and self._level_reached(position, price, smma)
+        ):
+            candidates.append((abs(smma - position.entry_price), smma))
+        if not candidates:
+            return None
+        candidates.sort(key=lambda item: item[0])
+        return candidates[0][1]
+
     def _apply_smma_exits(
         self,
         position: Position,
@@ -335,18 +364,20 @@ class PaperBook:
         rsi: float | None,
         smma_levels: tuple[float | None, float | None] | None,
     ) -> list[TradeEvent]:
-        """1 lot at SMMA 21; remaining at SMMA 50, or RSI 30/70 if that prints first."""
+        """Lot 1: 4% or SMMA 21 (first). Lot 2: 12% or SMMA 50, else RSI 30/70."""
         events: list[TradeEvent] = []
         fast, slow = smma_levels if smma_levels is not None else (None, None)
 
         if position.lots_open == position.lots_total:
-            if (
-                fast is not None
-                and self._level_is_profit(position, fast)
-                and self._level_reached(position, price, fast)
-            ):
+            fill = self._race_target_fill(
+                position,
+                price,
+                pct=self.config.first_target_pct,
+                smma=fast,
+            )
+            if fill is not None:
                 events.append(
-                    self._close_lots(position, 1, fast, ExitReason.FIRST_TARGET, rsi)
+                    self._close_lots(position, 1, fill, ExitReason.FIRST_TARGET, rsi)
                 )
             if position.lots_open == position.lots_total:
                 return events
@@ -354,16 +385,18 @@ class PaperBook:
         if not position.is_open:
             return events
 
-        if (
-            slow is not None
-            and self._level_is_profit(position, slow)
-            and self._level_reached(position, price, slow)
-        ):
+        fill = self._race_target_fill(
+            position,
+            price,
+            pct=self.config.second_target_pct,
+            smma=slow,
+        )
+        if fill is not None:
             events.append(
                 self._close_lots(
                     position,
                     position.lots_open,
-                    slow,
+                    fill,
                     ExitReason.SECOND_TARGET,
                     rsi,
                 )

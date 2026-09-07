@@ -117,12 +117,11 @@ class PaperTradingConfig:
     # After the first lot is booked, remaining lots' stop tightens to this
     # % adverse from the original entry price.
     second_lot_stop_pct: float = 1.0
-    # RSI_CandlePattern: 1 lot at SMMA fast, remaining lot at SMMA slow. When set,
-    # percent targets are ignored on this book.
+    # RSI_CandlePattern: race percent targets vs SMMA — whichever prints first.
+    # Lot 1: first_target_pct (e.g. 4%) or SMMA fast (21). Lot 2: second_target_pct
+    # (e.g. 12%) or SMMA slow (50). RSI 30/70 can still take lot 2 earlier.
     smma_fast: int | None = None
     smma_slow: int | None = None
-    # After SMMA 21: remaining lot at SMMA 50, or earlier at RSI 30 (shorts)
-    # / RSI 70 (longs) if that prints first.
     second_lot_rsi_short: float | None = None
     second_lot_rsi_long: float | None = None
     # Label on Telegram dashboards so RSI and Supertrend books stay distinct.

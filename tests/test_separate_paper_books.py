@@ -57,10 +57,14 @@ def test_config_loads_scenario1_paper_book():
     two_week = config.rsi_candle_2w_paper_trading
     assert two_week is not None
     assert two_week.enabled is True
-    assert two_week.skip_new_entries is True
+    assert two_week.skip_new_entries is False
     assert two_week.mark_entry_contract is True
     assert two_week.cash_close_stop is True
     assert two_week.futures_month == 3
+    assert two_week.first_target_pct == 4.0
+    assert two_week.second_target_pct == 12.0
+    assert two_week.smma_fast == 21
+    assert two_week.smma_slow == 50
     assert "rsi_candle_3m_2w" in two_week.ledger_path
     assert two_week.ledger_path != config.paper_trading.ledger_path
 
