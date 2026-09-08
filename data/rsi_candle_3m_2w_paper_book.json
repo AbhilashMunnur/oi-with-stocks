@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 587058.37,
-  "closed_count": 83,
+  "realised_pnl": 504627.12,
+  "closed_count": 88,
   "day_date": "2026-09-08",
-  "day_realised_pnl": 29691.0,
-  "updated_at": "2026-09-08 15:15:41",
+  "day_realised_pnl": -52740.25,
+  "updated_at": "2026-09-08 15:30:50",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -34,6 +34,11 @@
       "pnl": -74334.0
     },
     {
+      "symbol": "IDEA",
+      "exit_date": "2026-09-08",
+      "pnl": 36452.25
+    },
+    {
       "symbol": "COLPAL",
       "exit_date": "2026-09-07",
       "pnl": -9955.0
@@ -47,6 +52,26 @@
       "symbol": "DABUR",
       "exit_date": "2026-09-07",
       "pnl": -7125.0
+    },
+    {
+      "symbol": "SHREECEM",
+      "exit_date": "2026-09-08",
+      "pnl": 24750.0
+    },
+    {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-08",
+      "pnl": -21450.0
+    },
+    {
+      "symbol": "HINDPETRO",
+      "exit_date": "2026-09-08",
+      "pnl": -27540.0
+    },
+    {
+      "symbol": "RBLBANK",
+      "exit_date": "2026-09-08",
+      "pnl": -40322.5
     }
   ],
   "qualify_skips": {},
@@ -564,23 +589,6 @@
       "stop_price": 336.3
     },
     {
-      "symbol": "SHREECEM",
-      "direction": "LONG",
-      "entry_price": 23500.0,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 25,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.252943250065698,
-      "strike": 0.0,
-      "margin_blocked": 235000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 23200.0
-    },
-    {
       "symbol": "UNOMINDA",
       "direction": "SHORT",
       "entry_price": 1275.0,
@@ -868,48 +876,6 @@
       "stop_price": 85.15
     },
     {
-      "symbol": "VOLTAS",
-      "direction": "LONG",
-      "entry_price": 1180.1,
-      "entry_time": "2026-09-03 16:30:56",
-      "lot_size": 375,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 27.797867603755705,
-      "strike": 0.0,
-      "margin_blocked": 177014.99999999997,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1151.0
-    },
-    {
-      "symbol": "IDEA",
-      "direction": "SHORT",
-      "entry_price": 15.24,
-      "entry_time": "2026-08-26 15:15:00",
-      "lot_size": 71475,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 72.721079793997,
-      "strike": 0.0,
-      "margin_blocked": 217855.8,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 14.48,
-          "exit_time": "2026-08-31 15:15:00",
-          "reason": "first_target",
-          "pnl": 54321.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 15.31
-    },
-    {
       "symbol": "NAUKRI",
       "direction": "SHORT",
       "entry_price": 1339.0,
@@ -1003,23 +969,6 @@
       "stop_price": 4985.0
     },
     {
-      "symbol": "HINDPETRO",
-      "direction": "LONG",
-      "entry_price": 356.9,
-      "entry_time": "2026-09-07 15:15:00",
-      "lot_size": 2025,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 34.11553499918429,
-      "strike": 0.0,
-      "margin_blocked": 289089.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 349.55
-    },
-    {
       "symbol": "POLYCAB",
       "direction": "LONG",
       "entry_price": 8261.0,
@@ -1035,23 +984,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 8175.0
-    },
-    {
-      "symbol": "RBLBANK",
-      "direction": "SHORT",
-      "entry_price": 415.0,
-      "entry_time": "2026-09-07 15:15:00",
-      "lot_size": 3175,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 72.79554470569047,
-      "strike": 0.0,
-      "margin_blocked": 527050.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 417.05
     }
   ]
 }
