@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 543447.59,
-  "closed_count": 89,
+  "realised_pnl": 618020.35,
+  "closed_count": 90,
   "day_date": "2026-09-09",
-  "day_realised_pnl": 38820.47,
-  "updated_at": "2026-09-09 09:30:52",
+  "day_realised_pnl": 113393.23,
+  "updated_at": "2026-09-09 10:00:53",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -78,6 +78,11 @@
       "symbol": "COALINDIA",
       "exit_date": "2026-09-09",
       "pnl": 57707.12
+    },
+    {
+      "symbol": "ADANIGREEN",
+      "exit_date": "2026-09-09",
+      "pnl": 74572.76
     }
   ],
   "qualify_skips": {},
@@ -458,23 +463,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 347.25
-    },
-    {
-      "symbol": "ADANIGREEN",
-      "direction": "LONG",
-      "entry_price": 1269.0,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 600,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.27813591033498,
-      "strike": 0.0,
-      "margin_blocked": 304560.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1214.9
     },
     {
       "symbol": "GMRAIRPORT",
