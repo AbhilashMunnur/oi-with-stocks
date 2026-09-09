@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 651151.6,
-  "closed_count": 90,
+  "realised_pnl": 564119.1,
+  "closed_count": 96,
   "day_date": "2026-09-09",
-  "day_realised_pnl": 146524.48,
-  "updated_at": "2026-09-09 15:18:45",
+  "day_realised_pnl": 59491.98,
+  "updated_at": "2026-09-09 15:32:48",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -83,35 +83,40 @@
       "symbol": "ADANIGREEN",
       "exit_date": "2026-09-09",
       "pnl": 74572.76
+    },
+    {
+      "symbol": "BOSCHLTD",
+      "exit_date": "2026-09-09",
+      "pnl": 58012.5
+    },
+    {
+      "symbol": "PAYTM",
+      "exit_date": "2026-09-09",
+      "pnl": 25331.5
+    },
+    {
+      "symbol": "ITC",
+      "exit_date": "2026-09-09",
+      "pnl": -13627.5
+    },
+    {
+      "symbol": "HDFCBANK",
+      "exit_date": "2026-09-09",
+      "pnl": -25740.0
+    },
+    {
+      "symbol": "ALKEM",
+      "exit_date": "2026-09-09",
+      "pnl": -6500.0
+    },
+    {
+      "symbol": "NBCC",
+      "exit_date": "2026-09-09",
+      "pnl": -37960.0
     }
   ],
   "qualify_skips": {},
   "positions": [
-    {
-      "symbol": "BOSCHLTD",
-      "direction": "SHORT",
-      "entry_price": 48910.0,
-      "entry_time": "2026-08-19 15:15:00",
-      "lot_size": 25,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 81.35993437413558,
-      "strike": 0.0,
-      "margin_blocked": 244550.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 46464.5,
-          "exit_time": "2026-09-02 15:15:00",
-          "reason": "first_target",
-          "pnl": 61137.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 48940.0
-    },
     {
       "symbol": "MOTHERSON",
       "direction": "SHORT",
@@ -356,48 +361,6 @@
       "stop_price": 3362.0
     },
     {
-      "symbol": "PAYTM",
-      "direction": "SHORT",
-      "entry_price": 1716.8,
-      "entry_time": "2026-08-27 15:15:00",
-      "lot_size": 725,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 76.51107638020517,
-      "strike": 0.0,
-      "margin_blocked": 248936.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1630.96,
-          "exit_time": "2026-08-31 15:15:00",
-          "reason": "first_target",
-          "pnl": 62234.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1731.0
-    },
-    {
-      "symbol": "ITC",
-      "direction": "LONG",
-      "entry_price": 267.75,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 1725,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 36.603783635616054,
-      "strike": 0.0,
-      "margin_blocked": 184747.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 262.8
-    },
-    {
       "symbol": "NTPC",
       "direction": "LONG",
       "entry_price": 327.95,
@@ -488,23 +451,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 93.63
-    },
-    {
-      "symbol": "HDFCBANK",
-      "direction": "LONG",
-      "entry_price": 720.5,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 650,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 41.834034301658356,
-      "strike": 0.0,
-      "margin_blocked": 187330.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 698.5
     },
     {
       "symbol": "INOXWIND",
@@ -802,23 +748,6 @@
       "stop_price": 1378.0
     },
     {
-      "symbol": "ALKEM",
-      "direction": "LONG",
-      "entry_price": 5228.0,
-      "entry_time": "2026-09-03 16:30:56",
-      "lot_size": 125,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 34.43319988128266,
-      "strike": 0.0,
-      "margin_blocked": 261400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 5157.0
-    },
-    {
       "symbol": "GODREJCP",
       "direction": "LONG",
       "entry_price": 882.0,
@@ -836,35 +765,26 @@
       "stop_price": 859.55
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 87.23,
-      "entry_time": "2026-09-03 16:30:56",
-      "lot_size": 6500,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 38.36976595908318,
-      "strike": 0.0,
-      "margin_blocked": 226798.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 85.15
-    },
-    {
       "symbol": "NAUKRI",
       "direction": "SHORT",
       "entry_price": 1339.0,
       "entry_time": "2026-08-12 15:15:00",
       "lot_size": 550,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-10-27",
       "rsi_at_entry": 75.17772400907198,
       "strike": 0.0,
-      "margin_blocked": 294580.0,
-      "closed_legs": [],
+      "margin_blocked": 147290.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1272.05,
+          "exit_time": "2026-09-09 15:32:48",
+          "reason": "first_target",
+          "pnl": 36822.5
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1391.0
