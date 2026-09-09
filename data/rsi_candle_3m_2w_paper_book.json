@@ -1,16 +1,17 @@
 {
   "capital": 20000000,
-  "realised_pnl": 504627.12,
-  "closed_count": 88,
-  "day_date": "2026-09-08",
-  "day_realised_pnl": -52740.25,
-  "updated_at": "2026-09-08 15:45:50",
+  "realised_pnl": 543447.59,
+  "closed_count": 89,
+  "day_date": "2026-09-09",
+  "day_realised_pnl": 38820.47,
+  "updated_at": "2026-09-09 09:30:52",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
     "2026-09-04",
     "2026-09-07",
-    "2026-09-08"
+    "2026-09-08",
+    "2026-09-09"
   ],
   "closed_results": [
     {
@@ -72,6 +73,11 @@
       "symbol": "RBLBANK",
       "exit_date": "2026-09-08",
       "pnl": -40322.5
+    },
+    {
+      "symbol": "COALINDIA",
+      "exit_date": "2026-09-09",
+      "pnl": 57707.12
     }
   ],
   "qualify_skips": {},
@@ -175,31 +181,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 4747.0
-    },
-    {
-      "symbol": "COALINDIA",
-      "direction": "LONG",
-      "entry_price": 401.85,
-      "entry_time": "2026-08-20 15:15:00",
-      "lot_size": 1350,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 26.595615814645186,
-      "strike": 0.0,
-      "margin_blocked": 108499.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 415.84,
-          "exit_time": "2026-09-02 15:15:00",
-          "reason": "first_target",
-          "pnl": 18886.65
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 397.3
     },
     {
       "symbol": "PNBHOUSING",
