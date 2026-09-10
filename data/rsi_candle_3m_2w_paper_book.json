@@ -1,10 +1,10 @@
 {
   "capital": 20000000,
-  "realised_pnl": 614419.1,
-  "closed_count": 96,
+  "realised_pnl": 582040.6,
+  "closed_count": 98,
   "day_date": "2026-09-10",
-  "day_realised_pnl": 50300.0,
-  "updated_at": "2026-09-10 15:15:42",
+  "day_realised_pnl": 17921.5,
+  "updated_at": "2026-09-10 15:30:51",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -114,6 +114,16 @@
       "symbol": "NBCC",
       "exit_date": "2026-09-09",
       "pnl": -37960.0
+    },
+    {
+      "symbol": "IRFC",
+      "exit_date": "2026-09-10",
+      "pnl": -13128.5
+    },
+    {
+      "symbol": "WAAREEENER",
+      "exit_date": "2026-09-10",
+      "pnl": -19250.0
     }
   ],
   "qualify_skips": {},
@@ -622,23 +632,6 @@
       "stop_price": 226.05
     },
     {
-      "symbol": "IRFC",
-      "direction": "LONG",
-      "entry_price": 82.2,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 5425,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.77677149728575,
-      "strike": 0.0,
-      "margin_blocked": 178374.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 81.3
-    },
-    {
       "symbol": "PATANJALI",
       "direction": "LONG",
       "entry_price": 346.0,
@@ -713,23 +706,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 203.83
-    },
-    {
-      "symbol": "WAAREEENER",
-      "direction": "LONG",
-      "entry_price": 2613.7,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 175,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 38.179559837926824,
-      "strike": 0.0,
-      "margin_blocked": 182958.99999999997,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2552.5
     },
     {
       "symbol": "ADANIENSOL",
