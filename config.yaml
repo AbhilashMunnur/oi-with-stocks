@@ -4,9 +4,9 @@ rsi:
   call_threshold: 70      # Notify when RSI is at or above this
   put_threshold: 30       # Notify when RSI is at or below this
 
-# RSI_CandlePattern (main book). Do not fade RSI 70/30 on the strong bar.
+# RSI_CandlePattern (main book). Do not fade RSI 70/30 on the stretch bar alone.
 # Take a trade if either scenario qualifies (one position, not both required):
-#   next-day: yesterday strong bull/bear at RSI 70/30 + today's reversal candle
+#   next-day: yesterday tagged RSI 70/30 (any candle) + today's reversal candle
 #   same-day: from 15:15 IST, RSI tagged 70/30 today + today's bar already reversed
 # Entries at 15:15 IST on 2nd-month stock futures — cash is never the fill.
 # Short only after inverted hammer / weak middle body / strong red.

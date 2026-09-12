@@ -1,4 +1,4 @@
-"""RSI + candle reversal: do not fade a 70/30 stretch until a day-2 reversal prints."""
+"""RSI + candle reversal: do not fade a 70/30 stretch until a reversal prints."""
 
 from __future__ import annotations
 
@@ -127,15 +127,20 @@ def reversal_setup(
     put_threshold: float,
     cfg: CandleConfig,
 ) -> tuple[SignalType, str] | None:
-    """Short/long only on the reversal day, never on the RSI-stretch strong bar."""
+    """Short/long only on the reversal day after an RSI 70/30 touch.
+
+    Stretch day needs the RSI tag only (any candle shape). Entry is the next
+    session's reversal: strong red / inverted hammer / weak middle for shorts,
+    strong green / hammer / weak middle for longs.
+    """
     if yesterday_rsi is None:
         return None
-    if is_strong_bull(yesterday, cfg) and yesterday_rsi >= call_threshold:
+    if yesterday_rsi >= call_threshold:
         pattern = day2_short_pattern(today, cfg)
         if pattern:
             return SignalType.RSI_CANDLE_SHORT, pattern
         return None
-    if is_strong_bear(yesterday, cfg) and yesterday_rsi <= put_threshold:
+    if yesterday_rsi <= put_threshold:
         pattern = day2_long_pattern(today, cfg)
         if pattern:
             return SignalType.RSI_CANDLE_LONG, pattern
@@ -204,17 +209,18 @@ def waiting_reason(
     put_threshold: float,
     cfg: CandleConfig,
 ) -> str | None:
-    """Day-1 stretch with no day-2 reversal yet — do not trade."""
+    """Day-1 RSI stretch with no day-2 reversal yet — do not trade."""
+    _ = (yesterday, cfg)  # stretch is RSI-only; candle shape checked on day 2
     if yesterday_rsi is None:
         return None
-    if is_strong_bull(yesterday, cfg) and yesterday_rsi >= call_threshold:
+    if yesterday_rsi >= call_threshold:
         return (
-            f"strong bull at RSI {yesterday_rsi:.1f} — waiting for "
+            f"RSI {yesterday_rsi:.1f} tagged — waiting for "
             "inverted hammer / weak middle / strong red"
         )
-    if is_strong_bear(yesterday, cfg) and yesterday_rsi <= put_threshold:
+    if yesterday_rsi <= put_threshold:
         return (
-            f"strong bear at RSI {yesterday_rsi:.1f} — waiting for "
+            f"RSI {yesterday_rsi:.1f} tagged — waiting for "
             "hammer / weak middle / strong green"
         )
     return None

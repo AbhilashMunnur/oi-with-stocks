@@ -1301,12 +1301,12 @@ class OIRsiScanner:
             f"(from 15:15 IST, month-{fut_month} futures)"
         )
         print(
-            f"  short after RSI ≥ {call_th:g} strong bull + inverted hammer / "
-            "weak middle / strong red"
+            f"  short after RSI ≥ {call_th:g} (any candle) + next/same-day "
+            "inverted hammer / weak middle / strong red"
         )
         print(
-            f"  long after RSI ≤ {put_th:g} strong bear "
-            "+ hammer / weak middle / strong green"
+            f"  long after RSI ≤ {put_th:g} (any candle) + next/same-day "
+            "hammer / weak middle / strong green"
         )
 
         waiting_short = waiting_long = 0

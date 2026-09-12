@@ -55,7 +55,7 @@ def test_hammer_is_the_long_side_inverse():
     assert day2_long_pattern(hammer, CFG) == "hammer"
 
 
-def test_does_not_short_on_rsi_70_strong_bull_alone():
+def test_does_not_short_on_rsi_70_alone_without_reversal():
     stretch = bar(100, 110, 99, 109, "2026-08-27")
     follow = bar(109, 118, 108, 117, "2026-08-28")
     assert reversal_setup(
@@ -75,7 +75,18 @@ def test_shorts_only_after_one_of_the_three_bearish_days():
     assert got == (SignalType.RSI_CANDLE_SHORT, "strong red body")
 
 
-def test_longs_only_after_rsi_30_strong_bear_then_reversal():
+def test_next_day_short_after_rsi_70_even_without_strong_bull_stretch():
+    """HINDALCO-style: ~49% green at RSI 70, then strong red → short."""
+    stretch = bar(100, 110, 99, 105.4, "2026-08-12")  # body ~49% of range
+    assert not is_strong_bull(stretch, CFG)
+    red = bar(105, 106, 95, 96, "2026-08-13")
+    got = reversal_setup(
+        stretch, red, 71.0, call_threshold=70, put_threshold=30, cfg=CFG
+    )
+    assert got == (SignalType.RSI_CANDLE_SHORT, "strong red body")
+
+
+def test_longs_only_after_rsi_30_then_reversal():
     stretch = bar(110, 111, 100, 101, "2026-08-27")
     hammer = bar(101, 103, 90, 102, "2026-08-28")
     got = reversal_setup(
@@ -84,7 +95,17 @@ def test_longs_only_after_rsi_30_strong_bear_then_reversal():
     assert got == (SignalType.RSI_CANDLE_LONG, "hammer")
 
 
-def test_rsi_69_strong_bull_is_not_a_short_setup():
+def test_next_day_long_after_rsi_30_even_without_strong_bear_stretch():
+    stretch = bar(110, 112, 100, 104.8, "2026-08-27")  # red but not ≥50% body
+    assert not is_strong_bear(stretch, CFG)
+    green = bar(104, 115, 103, 114, "2026-08-28")
+    got = reversal_setup(
+        stretch, green, 28.0, call_threshold=70, put_threshold=30, cfg=CFG
+    )
+    assert got == (SignalType.RSI_CANDLE_LONG, "strong green body")
+
+
+def test_rsi_69_is_not_a_short_setup():
     stretch = bar(100, 110, 99, 109, "2026-08-27")
     red = bar(110, 111, 100, 101, "2026-08-28")
     assert (
