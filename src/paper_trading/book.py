@@ -4,7 +4,12 @@ import json
 from datetime import date
 from pathlib import Path
 
-from src.candle_patterns import Candle, is_strong_bear, is_strong_bull
+from src.candle_patterns import (
+    Candle,
+    is_strong_bear,
+    is_strong_bull,
+    wider_of_candle_and_pct,
+)
 from src.config import CandleConfig, PaperTradingConfig, SignalType
 from src.data.option_expiry import opened_on_stock_monthly_expiry
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
@@ -803,6 +808,17 @@ class PaperBook:
         self.positions = kept
         return events
 
+    def _entry_stop(self, alert: ScanAlert) -> float | None:
+        """Candle high/low, never tighter than stop_loss_pct from this fill."""
+        if not self.config.candle_stop or alert.stop_price is None:
+            return None
+        return wider_of_candle_and_pct(
+            self._direction_for(alert).value,
+            alert.ltp,
+            alert.stop_price,
+            self.config.stop_loss_pct,
+        )
+
     def _direction_for(self, alert: ScanAlert) -> Direction:
         # RSI Call OI / ST bearish → short; RSI Put OI / ST bullish → long.
         if alert.signal in (
@@ -859,6 +875,7 @@ class PaperBook:
                 continue
 
             lots = self.config.lots_per_trade
+            stop = self._entry_stop(alert)
             margin = self._margin_for(alert.ltp, alert.lot_size, lots)
             if margin > self.free_capital:
                 events.append(
@@ -883,7 +900,7 @@ class PaperBook:
                 strike=alert.oi_strike,
                 margin_blocked=margin,
                 priced_on="futures",
-                stop_price=alert.stop_price,
+                stop_price=stop,
             )
             self.positions.append(position)
             held.add(alert.symbol)
@@ -897,8 +914,8 @@ class PaperBook:
                         f"₹{alert.ltp:,.2f} ({alert.signal.value}, strike ₹{alert.oi_strike:,.0f}, "
                         f"fut {alert.expiry}"
                         + (
-                            f", stop ₹{alert.stop_price:,.2f}"
-                            if alert.stop_price
+                            f", stop ₹{stop:,.2f}"
+                            if stop
                             else ""
                         )
                         + ")"

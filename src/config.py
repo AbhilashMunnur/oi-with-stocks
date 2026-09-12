@@ -143,8 +143,9 @@ class PaperTradingConfig:
     # Candle stop fires only when cash closes through the stored bar, not on
     # an intraday futures wick. Intraday slots still mark P&L and SMMA.
     cash_close_stop: bool = False
-    # Store the reversal bar's high/low as the stop. Turn this off to fall back
-    # to stop_loss_pct / second_lot_stop_pct measured from the entry price.
+    # Store a bar stop at entry. When on, the stored level is the farther of
+    # the reversal-bar high/low and stop_loss_pct from the fill. Turn this off
+    # to use only the percent stop.
     candle_stop: bool = True
     # Three-lot books: once every other lot is booked, the last lot rides for
     # RSI 30/70. These two govern how that runner behaves.

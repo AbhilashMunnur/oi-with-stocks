@@ -7,6 +7,7 @@ from src.candle_patterns import (
     Candle,
     candle_stop_price,
     make_candle_alert,
+    wider_of_candle_and_pct,
     reversal_setup,
     same_day_setup,
     waiting_reason,
@@ -1122,9 +1123,18 @@ class OIRsiScanner:
         detail: str,
         stop_price: float | None = None,
     ) -> ScanAlert:
-        if not self.config.rsi_candle_2w_paper_trading.candle_stop:
-            # Without a stored bar stop the book falls back to the percent stop.
+        paper = self.config.rsi_candle_2w_paper_trading
+        shown_stop = stop_price
+        if not paper.candle_stop:
             stop_price = None
+            shown_stop = None
+        elif stop_price is not None:
+            shown_stop = wider_of_candle_and_pct(
+                "SHORT" if signal is SignalType.RSI_CANDLE_SHORT else "LONG",
+                ltp,
+                stop_price,
+                paper.stop_loss_pct,
+            )
         blocked = no_short_skip_reason(
             symbol,
             self.config.no_short_symbols,
@@ -1154,7 +1164,7 @@ class OIRsiScanner:
                     skip_reason=expiry_skip,
                     stop_price=stop_price,
                 )
-        stop_txt = f", stop ₹{stop_price:,.2f}" if stop_price else ""
+        stop_txt = f", stop ₹{shown_stop:,.2f}" if shown_stop else ""
         print(f"  {symbol}: {signal.value} {pattern} ({detail}{stop_txt})")
         return make_candle_alert(
             symbol=symbol,

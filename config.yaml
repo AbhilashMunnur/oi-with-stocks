@@ -139,12 +139,12 @@ rsi_candle_2w_paper_trading:
   # SMMA 21, and carries no stop — the two lots ahead of it banked the trade.
   final_lot_smma_cross_exit: true
   final_lot_no_stop: true
-  # Flat 2% from entry, both before and after lot 1 books. A one-year test over
-  # 210 F&O names had the reversal-bar stop at -63% and this at +40%; see
-  # scripts/backtest_rsi_candle_1y.py.
+  # Stop is the farther of the candle high/low and 2% from entry: 2% when the
+  # bar is tighter than 2%, the bar when it is farther. cash_close_stop still
+  # waits for the cash close to print through that level.
   stop_loss_pct: 2.0
   second_lot_stop_pct: 2.0
-  candle_stop: false
+  candle_stop: true
   margin_pct: 20.0
   futures_month: 3
   skip_new_entries: false

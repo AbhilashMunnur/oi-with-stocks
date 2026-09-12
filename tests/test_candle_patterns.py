@@ -11,6 +11,7 @@ from src.candle_patterns import (
     reversal_setup,
     same_day_setup,
     waiting_reason,
+    wider_of_candle_and_pct,
     with_live_close,
 )
 from src.config import CandleConfig, SignalType, load_config
@@ -223,3 +224,27 @@ def test_config_loads_candle_thresholds():
     assert cfg.candles.strong_body_pct == 50.0
     assert cfg.candles.weak_body_pct == 40.0
     assert cfg.candles.side_wick_pct == 20.0
+
+
+def test_short_stop_uses_two_percent_when_the_high_is_tighter():
+    assert wider_of_candle_and_pct(
+        "SHORT", entry=100.0, candle_stop=100.80, pct=2.0
+    ) == 102.0
+
+
+def test_short_stop_uses_the_high_when_it_is_farther_than_two_percent():
+    assert wider_of_candle_and_pct(
+        "SHORT", entry=100.0, candle_stop=104.0, pct=2.0
+    ) == 104.0
+
+
+def test_long_stop_uses_two_percent_when_the_low_is_tighter():
+    assert wider_of_candle_and_pct(
+        "LONG", entry=100.0, candle_stop=99.40, pct=2.0
+    ) == 98.0
+
+
+def test_long_stop_uses_the_low_when_it_is_farther_than_two_percent():
+    assert wider_of_candle_and_pct(
+        "LONG", entry=100.0, candle_stop=95.0, pct=2.0
+    ) == 95.0

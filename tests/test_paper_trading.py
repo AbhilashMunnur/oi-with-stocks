@@ -989,12 +989,13 @@ def test_trigger_names_the_expiry_date(config):
 
 
 
-def test_live_config_stops_a_short_two_percent_above_entry(tmp_path):
-    """The shipped RSI_CandlePattern stop: flat 2% from entry, no bar stop."""
+def test_live_config_floors_a_tight_candle_stop_at_two_percent(tmp_path):
+    """High is only 0.8% away — store 2% from the futures fill, not the high."""
     from src.config import load_config
 
     live = load_config("config.yaml").rsi_candle_2w_paper_trading
-    assert live.candle_stop is False, "percent stop only fires without a bar stop"
+    assert live.candle_stop is True
+    assert live.stop_loss_pct == 2.0
     config = replace(
         live,
         capital=5_000_000,
@@ -1003,16 +1004,33 @@ def test_live_config_stops_a_short_two_percent_above_entry(tmp_path):
         google_sheet_id="",
     )
 
+    row = alert(signal=SignalType.RSI_CANDLE_SHORT, ltp=100.0, lot_size=100)
+    row.stop_price = 100.80
     book = PaperBook(config)
-    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.open_from_alerts([row])
 
+    assert book.positions[0].stop_price == 102.0
     book.update({"TITAN": 101.9})
     assert book.positions[0].is_open
-
-    book.update({"TITAN": 102.1})
+    book.update({"TITAN": 102.0})
     assert not any(position.is_open for position in book.positions)
-    assert book._pending_rows[-1]["Exit reason"] == "stop_loss"
-    assert book._pending_rows[-1]["Exit trigger"] == "2% stop ₹102.00"
+
+
+def test_live_config_keeps_a_candle_high_farther_than_two_percent(tmp_path):
+    from src.config import load_config
+
+    config = replace(
+        load_config("config.yaml").rsi_candle_2w_paper_trading,
+        capital=5_000_000,
+        ledger_path=str(tmp_path / "book.json"),
+        journal_csv=str(tmp_path / "trades.csv"),
+        google_sheet_id="",
+    )
+    row = alert(signal=SignalType.RSI_CANDLE_SHORT, ltp=100.0, lot_size=100)
+    row.stop_price = 104.0
+    book = PaperBook(config)
+    book.open_from_alerts([row])
+    assert book.positions[0].stop_price == 104.0
 
 
 def _three_lot_config(tmp_path):

@@ -201,6 +201,26 @@ def candle_stop_price(
     return bar.low
 
 
+def wider_of_candle_and_pct(
+    direction: str,
+    entry: float,
+    candle_stop: float,
+    pct: float,
+) -> float:
+    """Farther of the bar high/low and `pct` from entry.
+
+    A short dies on the way up, so the stop is the higher of the candle high
+    and entry × (1 + pct). A long dies on the way down, so the stop is the
+    lower of the candle low and entry × (1 − pct). That is: 2% when the high
+    (or low) is tighter than 2%, and the high (or low) when it is farther.
+    """
+    if entry <= 0 or pct <= 0:
+        return candle_stop
+    if direction == "SHORT":
+        return max(candle_stop, entry * (1 + pct / 100.0))
+    return min(candle_stop, entry * (1 - pct / 100.0))
+
+
 def waiting_reason(
     yesterday: Candle,
     yesterday_rsi: float | None,
