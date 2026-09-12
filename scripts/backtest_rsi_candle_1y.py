@@ -198,7 +198,8 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
     if ledger.exists():
         ledger.unlink()
     book = PaperBook(paper, path=ledger, journal=None,
-                     no_short_symbols=config.no_short_symbols)
+                     no_short_symbols=config.no_short_symbols,
+                     candle_cfg=config.candles)
 
     closes = {s: {r[0]: r[4] for r in rows} for s, rows in data.items()}
     frames = {}
@@ -220,7 +221,7 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
     peak_margin = 0.0
     for day_s in sessions:
         set_clock(day_s, "15:30:00")
-        marks, stops, smma, rsi = {}, {}, {}, {}
+        marks, stops, smma, rsi, bars = {}, {}, {}, {}, {}
         for position in book.positions:
             symbol = position.symbol
             if not position.is_open or position.entry_time[:10] >= day_s:
@@ -231,6 +232,8 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
             price = closes[symbol][day_s]
             marks[symbol] = price
             stops[symbol] = price
+            row = data[symbol][i]
+            bars[symbol] = Candle(row[0], row[1], row[2], row[3], row[4])
             frame = frames[symbol]
             fast, slow = frame["f"], frame["s"]
             smma[symbol] = (
@@ -242,7 +245,8 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
                 rsi[symbol] = float(value)
         if marks:
             book.update(marks, date.fromisoformat(day_s), rsi, smma,
-                        stop_prices=stops if use_candle_stop else None)
+                        stop_prices=stops if use_candle_stop else None,
+                        candles=bars)
 
         if expiry_entry_skip_reason(date.fromisoformat(day_s)):
             continue
@@ -290,6 +294,16 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
         "max_drawdown": round(trough),
         "charges": round(charges),
         "net_total": round(book.realised_pnl + unreal - charges),
+        "capital": paper.capital,
+        "lots": paper.lots_per_trade,
+        "by_reason": {
+            reason: [
+                sum(1 for r in legs if r["Exit reason"] == reason),
+                round(sum(float(r["Profit/loss"]) for r in legs
+                          if r["Exit reason"] == reason)),
+            ]
+            for reason in sorted({r["Exit reason"] for r in legs})
+        },
         "variant": name, "opened": opened, "legs": len(legs),
         "stops": len(stopped), "win_legs": len(wins),
         "realised": round(book.realised_pnl), "unrealised": round(unreal),
@@ -302,6 +316,9 @@ def run(name: str, paper, signals, data, lot_sizes, config, sessions, *,
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--days", type=int, default=450)
+    parser.add_argument("--start", default="", help="first trading day, e.g. 2026-05-01")
+    parser.add_argument("--ladder", action="store_true",
+                        help="compare the 3-lot / Rs 4 Cr ladder instead of stop levels")
     args = parser.parse_args()
 
     config = load_config(ROOT / "config.yaml")
@@ -321,6 +338,8 @@ def main() -> None:
 
     sessions = sorted({r[0] for rows in data.values() for r in rows})
     warm = sessions[PERIOD + 40:]          # let RSI and SMMA 50 settle
+    if args.start:
+        warm = [d for d in warm if d >= args.start]
     print(f"  {len(data)} names, {len(sessions)} sessions "
           f"({sessions[0]} → {sessions[-1]}); trading from {warm[0]}")
 
@@ -328,7 +347,34 @@ def main() -> None:
     signals = [s for s in signals if s["day"] >= warm[0]]
     print(f"  {len(signals)} signal(s) in window")
 
-    variants = [
+    # The proposed book: Rs 4 Cr, 3 lots, and a runner that rides for RSI 30/70
+    # or a strong close back through SMMA 21, carrying no stop of its own.
+    ladder = replace(
+        base, capital=40_000_000, lots_per_trade=3,
+        stop_loss_pct=2.0, second_lot_stop_pct=2.0,
+        final_lot_smma_cross_exit=True, final_lot_no_stop=True,
+    )
+    if args.ladder:
+        variants = [
+            ("2 lot 2Cr pct-2", dict(use_candle_stop=False),
+             replace(base, stop_loss_pct=2.0, second_lot_stop_pct=2.0)),
+            ("2 lot 4Cr pct-2", dict(use_candle_stop=False),
+             replace(base, capital=40_000_000, stop_loss_pct=2.0,
+                     second_lot_stop_pct=2.0)),
+            ("3 lot 4Cr ladder", dict(use_candle_stop=False), ladder),
+            ("3 lot, stop on runner", dict(use_candle_stop=False),
+             replace(ladder, final_lot_no_stop=False)),
+            ("3 lot, no SMMA exit", dict(use_candle_stop=False),
+             replace(ladder, final_lot_smma_cross_exit=False)),
+            ("3 lot ladder, shorts", dict(use_candle_stop=False, sides=("SHORT",)),
+             ladder),
+            ("3 lot ladder, longs", dict(use_candle_stop=False, sides=("LONG",)),
+             ladder),
+            ("3 lot 4Cr candle stop", dict(use_candle_stop=True),
+             replace(ladder, candle_stop=True)),
+        ]
+    else:
+        variants = [
         ("candle (live)", dict(use_candle_stop=True), base),
         ("pct-2", dict(use_candle_stop=False),
          replace(base, stop_loss_pct=2.0, second_lot_stop_pct=2.0)),
@@ -352,38 +398,52 @@ def main() -> None:
         print(f"  {name:16} opened {out['opened']:>4}  legs {out['legs']:>4}  "
               f"realised {out['realised']:>12,}  total {out['total']:>12,}")
 
-    print("\n" + "=" * 108)
+    print("\n" + "=" * 112)
     print(f"RSI_CandlePattern · {warm[0]} → {sessions[-1]} · {len(data)} F&O names · "
-          f"Rs {base.capital / 10_000_000:.0f} Cr, 2 lots, 20% margin")
-    print("=" * 108)
-    print(f"{'variant':16} {'trades':>7} {'legs':>6} {'stop%':>7} {'win%':>6} "
-          f"{'realised':>13} {'unrealised':>12} {'charges':>11} {'NET':>13} {'ret%':>7}")
-    print("-" * 108)
+          f"20% margin · ret% is on each variant's own capital")
+    print("=" * 112)
+    print(f"{'variant':22} {'cap':>5} {'lots':>5} {'trades':>7} {'stop%':>6} "
+          f"{'win%':>6} {'realised':>13} {'unrealised':>12} {'charges':>10} "
+          f"{'NET':>13} {'ret%':>7}")
+    print("-" * 112)
     for r in results:
         share = r["stops"] / r["legs"] if r["legs"] else 0
         win = r["win_legs"] / r["legs"] if r["legs"] else 0
-        print(f"{r['variant']:16} {r['opened']:>7} {r['legs']:>6} {share:>6.0%} "
-              f"{win:>5.0%} {r['realised']:>13,} {r['unrealised']:>12,} "
-              f"{-r['charges']:>11,} {r['net_total']:>13,} "
-              f"{r['net_total'] / base.capital:>6.1%}")
+        print(f"{r['variant']:22} {r['capital'] / 10_000_000:>4.0f}Cr {r['lots']:>5} "
+              f"{r['opened']:>7} {share:>5.0%} {win:>5.0%} {r['realised']:>13,} "
+              f"{r['unrealised']:>12,} {-r['charges']:>10,} {r['net_total']:>13,} "
+              f"{r['net_total'] / r['capital']:>6.1%}")
 
     CACHE.mkdir(parents=True, exist_ok=True)
-    (CACHE / "results.json").write_text(json.dumps(
-        {"window": [warm[0], sessions[-1]], "names": len(data),
-         "signals": len(signals), "results": results}, indent=2))
     months = sorted({m for r in results for m in r["monthly"]})
     print("\nRealised P&L by exit month")
-    print("-" * 108)
-    print(f"{'variant':16}" + "".join(f"{m[2:]:>11}" for m in months))
+    print("-" * 112)
+    print(f"{'variant':22}" + "".join(f"{m[2:]:>11}" for m in months))
     for r in results:
         cells = "".join(f"{r['monthly'].get(m, 0) / 100000:>10.1f}L" for m in months)
-        print(f"{r['variant']:16}{cells}")
+        print(f"{r['variant']:22}{cells}")
+    reasons = sorted({k for r in results for k in r["by_reason"]})
+    print("\nLegs closed by each exit rule (count / realised P&L)")
+    print("-" * 112)
+    print(f"{'variant':22}" + "".join(f"{k[:13]:>18}" for k in reasons))
+    for r in results:
+        cells = ""
+        for k in reasons:
+            count, pnl = r["by_reason"].get(k, (0, 0))
+            cells += f"{f'{count} / {pnl / 100000:.1f}L':>18}"
+        print(f"{r['variant']:22}{cells}")
+
     print("\nWorst peak-to-trough on realised P&L (month end):")
     for r in results:
-        print(f"  {r['variant']:16} {r['max_drawdown']:>13,}  "
+        print(f"  {r['variant']:22} {r['max_drawdown']:>13,}  "
               f"peak margin used {r['peak_margin']:>13,}")
 
-    print(f"\nWrote {CACHE / 'results.json'}")
+    name = f"results{'_ladder' if args.ladder else ''}" \
+           f"{'_' + args.start if args.start else ''}.json"
+    (CACHE / name).write_text(json.dumps(
+        {"window": [warm[0], sessions[-1]], "names": len(data),
+         "signals": len(signals), "results": results}, indent=2))
+    print(f"\nWrote {CACHE / name}")
 
 
 if __name__ == "__main__":
