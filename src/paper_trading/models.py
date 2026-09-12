@@ -16,6 +16,7 @@ class ExitReason(str, Enum):
     THIRD_TARGET = "third_target"
     RSI_TARGET = "rsi_target"
     SMMA_CROSS = "smma_cross"
+    SMMA_REVERSAL = "smma_reversal"
     STOP_LOSS = "stop_loss"
     EXPIRY = "expiry"
     WALL_BROKEN = "wall_broken"

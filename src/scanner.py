@@ -15,46 +15,17 @@ from src.candle_patterns import (
 )
 from src.config import AppConfig, SignalType
 from src.data.angelone_client import AngelOneClient
-from src.data.models import PriceSnapshot
 from src.data.option_expiry import expiry_entry_skip_reason, oi_scan_reason
 from src.notifications.notifier import Notifier
-from src.oi_analyzer import (
-    ScanAlert,
-    align_snapshot_to_reference_strike,
-    apply_oi_wall,
-    call_oi_flow_rejection,
-    choose_s1_entry_wall,
-    copy_oi_snapshot,
-    evaluate_stock,
-    is_substantial_fallback_wall,
-    make_rsi_alert,
-    matched_signal,
-    no_short_skip_reason,
-    proximity_skip_reason,
-    put_oi_flow_rejection,
-    resistance_is_broken,
-    retag_s1_alert_as_s2,
-    rsi_watch_side,
-    s1_oi_flow_broken,
-    s1_oi_flow_observed,
-    s2_confirm_invalidation,
-    s2_invalidation_reason,
-    s2_wall_still_valid,
-    select_active_oi_walls,
-    support_is_broken,
-)
+from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
-from src.paper_trading.models import ExitReason
-from src.price_extremes import extreme_entry_skip_reason
 from src.scan_slots import (
     is_cash_stop_slot,
     is_candle_screen_slot,
     is_close_pnl_slot,
-    is_s1_wall_exit_slot,
     is_candle_entry_window,
 )
-from src.supertrend_oi import evaluate_supertrend_oi, fetch_supertrends, make_supertrend_watch
 
 
 class OIRsiScanner:
@@ -66,58 +37,8 @@ class OIRsiScanner:
             extreme_history_days=config.data.extreme_history_days,
         )
         self.notifier = Notifier(config.notifications)
-        self.book = None
-        self.st_book = None
-        self.s1_book = None
-        self.s2_book = None
         self.two_week_book = None
-        if config.paper_trading.enabled:
-            paper = config.paper_trading
-            journal = TradeJournal(
-                csv_path=paper.journal_csv,
-                sheet_id=paper.google_sheet_id,
-                worksheet=paper.google_worksheet,
-                summary_worksheet=paper.google_summary_worksheet,
-            )
-            self.book = PaperBook(
-                paper, journal=journal, no_short_symbols=config.no_short_symbols
-            )
-
-        st_paper = config.supertrend_paper_trading
-        if st_paper and st_paper.enabled:
-            st_journal = TradeJournal(
-                csv_path=st_paper.journal_csv,
-                sheet_id=st_paper.google_sheet_id,
-                worksheet=st_paper.google_worksheet,
-                summary_worksheet=st_paper.google_summary_worksheet,
-            )
-            self.st_book = PaperBook(
-                st_paper, journal=st_journal, no_short_symbols=config.no_short_symbols
-            )
-
-        s1_paper = config.rsi_s1_paper_trading
-        if s1_paper and s1_paper.enabled:
-            s1_journal = TradeJournal(
-                csv_path=s1_paper.journal_csv,
-                sheet_id=s1_paper.google_sheet_id,
-                worksheet=s1_paper.google_worksheet,
-                summary_worksheet=s1_paper.google_summary_worksheet,
-            )
-            self.s1_book = PaperBook(
-                s1_paper, journal=s1_journal, no_short_symbols=config.no_short_symbols
-            )
-
-        s2_paper = config.rsi_s2_paper_trading
-        if s2_paper and s2_paper.enabled:
-            s2_journal = TradeJournal(
-                csv_path=s2_paper.journal_csv,
-                sheet_id=s2_paper.google_sheet_id,
-                worksheet=s2_paper.google_worksheet,
-                summary_worksheet=s2_paper.google_summary_worksheet,
-            )
-            self.s2_book = PaperBook(
-                s2_paper, journal=s2_journal, no_short_symbols=config.no_short_symbols
-            )
+        self.three_lot_book = None
 
         two_week = config.rsi_candle_2w_paper_trading
         if two_week and two_week.enabled:
@@ -130,6 +51,21 @@ class OIRsiScanner:
             self.two_week_book = PaperBook(
                 two_week,
                 journal=two_week_journal,
+                no_short_symbols=config.no_short_symbols,
+                candle_cfg=config.candles,
+            )
+
+        three_lot = config.rsi_candle_3lot_paper_trading
+        if three_lot and three_lot.enabled:
+            three_lot_journal = TradeJournal(
+                csv_path=three_lot.journal_csv,
+                sheet_id=three_lot.google_sheet_id,
+                worksheet=three_lot.google_worksheet,
+                summary_worksheet=three_lot.google_summary_worksheet,
+            )
+            self.three_lot_book = PaperBook(
+                three_lot,
+                journal=three_lot_journal,
                 no_short_symbols=config.no_short_symbols,
                 candle_cfg=config.candles,
             )
@@ -163,391 +99,16 @@ class OIRsiScanner:
             return self.client.fno_symbols()
         return [symbol.upper() for symbol in watchlist]
 
-    def _rsi_candidates(
-        self, symbols: list[str], prices: dict[str, float], rsi_values: dict[str, float]
-    ) -> list[PriceSnapshot]:
-        """Stocks whose RSI is stretched enough to be worth an option-chain lookup.
-
-        Fills `rsi_values` for every symbol, since open positions need an exit RSI
-        even when they are nowhere near alerting.
-        """
-        missing = [s for s in symbols if s not in prices]
-        if missing:
-            print(f"  no live price for {len(missing)} symbol(s): {', '.join(missing[:5])}")
-
-        candidates: list[PriceSnapshot] = []
-        for index, symbol in enumerate(symbols, 1):
-            ltp = prices.get(symbol)
-            if not ltp:
-                continue
-
-            rsi = self.client.get_rsi(symbol, ltp)
-            if rsi is None:
-                continue
-
-            rsi_values[symbol] = rsi
-
-            if rsi >= self.config.rsi.call_threshold or rsi <= self.config.rsi.put_threshold:
-                candidates.append(PriceSnapshot(symbol=symbol, ltp=ltp, rsi=rsi))
-
-            if index % 25 == 0:
-                print(f"  screened {index}/{len(symbols)} symbols...")
-                self.client._save_closes_cache()
-
-        self.client._save_closes_cache()
-        return candidates
-
-    def _rsi_thresholds(self) -> dict:
-        return dict(
-            rsi_call_threshold=self.config.rsi.call_threshold,
-            rsi_put_threshold=self.config.rsi.put_threshold,
-            proximity_pct=self.config.oi.proximity_pct,
+    def _default_futures_month(self) -> int:
+        paper = (
+            self.config.rsi_candle_2w_paper_trading
+            or self.config.rsi_candle_3lot_paper_trading
         )
-
-    def _oi_flow(self) -> dict:
-        return dict(
-            require_call_writing=self.config.oi.require_call_writing,
-            max_change_pcr=self.config.oi.max_change_pcr,
-            require_put_writing=self.config.oi.require_put_writing,
-            min_change_pcr=self.config.oi.min_change_pcr,
-        )
-
-    def _extreme_skip_reason(self, symbol: str, ltp: float) -> str | None:
-        """No new entries near 52-week / all-time highs and lows, or for 2 sessions after a cross."""
-        oi_cfg = self.config.oi
-        if oi_cfg.extreme_proximity_pct <= 0:
-            return None
-        try:
-            ohlc = self.client.extreme_ohlc(symbol)
-        except Exception as exc:
-            print(f"  {symbol}: 52w/ATH history unavailable ({exc})")
-            return None
-        return extreme_entry_skip_reason(
-            ltp,
-            ohlc,
-            proximity_pct=oi_cfg.extreme_proximity_pct,
-            cooldown_days=oi_cfg.extreme_cooldown_days,
-        )
-
-    def _check_candidate(self, price: PriceSnapshot, oi=None) -> ScanAlert | None:
-        thresholds = self._rsi_thresholds()
-        flow = self._oi_flow()
-        side = rsi_watch_side(
-            price, thresholds["rsi_call_threshold"], thresholds["rsi_put_threshold"]
-        )
-        if side is None:
-            return None
-
-        blocked = no_short_skip_reason(
-            price.symbol,
-            self.config.no_short_symbols,
-            is_short=side is SignalType.CALL_OI,
-        )
-        if blocked:
-            print(f"  {price.symbol}: {side.value} skipped — {blocked}")
-            return make_rsi_alert(price, oi, side, skip_reason=blocked)
-
-        if self.config.oi.skip_monthly_expiry:
-            expiry_skip = expiry_entry_skip_reason()
-            if expiry_skip:
-                print(f"  {price.symbol}: {side.value} skipped — {expiry_skip}")
-                return make_rsi_alert(price, oi, side, skip_reason=expiry_skip)
-
-        extreme_skip = self._extreme_skip_reason(price.symbol, price.ltp)
-        if extreme_skip:
-            print(f"  {price.symbol}: {side.value} skipped — {extreme_skip}")
-            return make_rsi_alert(price, oi, side, skip_reason=extreme_skip)
-
-        oi = oi or self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
-        if not oi:
-            return make_rsi_alert(price, None, side, skip_reason="OI unavailable")
-
-        # OI history costs two extra requests, so only price it in once the
-        # stock is actually near the wall.
-        too_far = proximity_skip_reason(price, oi, side, thresholds["proximity_pct"])
-        if too_far:
-            print(f"  {price.symbol}: RSI {price.rsi:.1f} — {too_far}")
-            return make_rsi_alert(price, oi, side, skip_reason=too_far)
-
-        reference = "call" if side is SignalType.CALL_OI else "put"
-        if not align_snapshot_to_reference_strike(oi, reference):
-            reason = "CE/PE missing at reference strike"
-            print(f"  {price.symbol}: {side.value} skipped — {reason}")
-            return make_rsi_alert(price, oi, side, skip_reason=reason)
-
-        self.client.add_oi_changes(oi)
-
-        if side is SignalType.CALL_OI:
-            rejected = call_oi_flow_rejection(oi, **flow)
-        else:
-            rejected = put_oi_flow_rejection(oi, **flow)
-        if rejected:
-            print(f"  {price.symbol}: {side.value} skipped — {rejected}")
-            return make_rsi_alert(price, oi, side, skip_reason=rejected)
-
-        return evaluate_stock(price=price, oi=oi, **thresholds, **flow)
-
-    def _s1_watch(
-        self,
-        price: PriceSnapshot,
-        oi,
-        side: SignalType,
-        skip_reason: str | None = None,
-    ) -> ScanAlert:
-        alert = make_rsi_alert(price, oi, side, skip_reason=skip_reason)
-        alert.signal = (
-            SignalType.CALL_OI_S1 if side is SignalType.CALL_OI else SignalType.PUT_OI_S1
-        )
-        return alert
-
-    def _check_scenario1_candidate(
-        self,
-        price: PriceSnapshot,
-        oi,
-        *,
-        proximity_pct: float | None = None,
-        pcr_band_strikes: int | None = None,
-        log_tag: str = "S1",
-    ) -> ScanAlert | None:
-        """RSI+OI entry on an uncrossed wall, with S1 broken-wall fallback.
-
-        Always returns a CALL/PUT S1 row for Telegram. skip_reason is set when
-        we do not take the trade. Never open on a peak strike price has already
-        crossed — even if writing continues.
-        """
-        thresholds = self._rsi_thresholds()
-        if proximity_pct is not None:
-            thresholds["proximity_pct"] = proximity_pct
-        flow = self._oi_flow()
-        side = rsi_watch_side(
-            price, thresholds["rsi_call_threshold"], thresholds["rsi_put_threshold"]
-        )
-        if side is None:
-            return None
-
-        blocked = no_short_skip_reason(
-            price.symbol,
-            self.config.no_short_symbols,
-            is_short=side is SignalType.CALL_OI,
-        )
-        if blocked:
-            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {blocked}")
-            return self._s1_watch(price, oi, side, blocked)
-
-        if self.config.oi.skip_monthly_expiry:
-            expiry_skip = expiry_entry_skip_reason()
-            if expiry_skip:
-                return self._s1_watch(price, oi, side, expiry_skip)
-
-        extreme_skip = self._extreme_skip_reason(price.symbol, price.ltp)
-        if extreme_skip:
-            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {extreme_skip}")
-            return self._s1_watch(price, oi, side, extreme_skip)
-
-        if not oi or not oi.legs_by_strike:
-            return self._s1_watch(price, None, side, "OI unavailable")
-
-        s1 = copy_oi_snapshot(oi)
-        min_pct = self.config.oi.s1_min_fallback_oi_pct
-        peak_call, peak_put = select_active_oi_walls(s1.legs_by_strike, ltp=0)
-        active_call, active_put = select_active_oi_walls(s1.legs_by_strike, price.ltp)
-
-        if side is SignalType.CALL_OI and active_call and not is_substantial_fallback_wall(
-            active_call, peak_call, min_pct
-        ):
-            peak = peak_call[0] if peak_call else 0
-            reason = (
-                f"fallback ₹{active_call[0]:.0f} too thin vs peak ₹{peak:.0f} "
-                f"(need ≥ {min_pct:g}% of peak OI)"
-            )
-            print(f"  {price.symbol}: {log_tag} CALL skipped — {reason}")
-            return self._s1_watch(price, s1, side, reason)
-        if side is SignalType.PUT_OI and active_put and not is_substantial_fallback_wall(
-            active_put, peak_put, min_pct
-        ):
-            peak = peak_put[0] if peak_put else 0
-            reason = (
-                f"fallback ₹{active_put[0]:.0f} too thin vs peak ₹{peak:.0f} "
-                f"(need ≥ {min_pct:g}% of peak OI)"
-            )
-            print(f"  {price.symbol}: {log_tag} PUT skipped — {reason}")
-            return self._s1_watch(price, s1, side, reason)
-
-        call_wall = choose_s1_entry_wall(
-            s1.legs_by_strike, price.ltp, "call", min_pct
-        )
-        put_wall = choose_s1_entry_wall(
-            s1.legs_by_strike, price.ltp, "put", min_pct
-        )
-        if call_wall:
-            apply_oi_wall(s1, call_wall, "call")
-        else:
-            s1.max_call_oi_strike = 0.0
-            s1.max_call_oi = 0
-            s1.max_call_token = ""
-        if put_wall:
-            apply_oi_wall(s1, put_wall, "put")
-        else:
-            s1.max_put_oi_strike = 0.0
-            s1.max_put_oi = 0
-            s1.max_put_token = ""
-
-        too_far = proximity_skip_reason(price, s1, side, thresholds["proximity_pct"])
-        if too_far:
-            print(f"  {price.symbol}: {log_tag} — {too_far}")
-            return self._s1_watch(price, s1, side, too_far)
-
-        reference = "call" if side is SignalType.CALL_OI else "put"
-        if not align_snapshot_to_reference_strike(s1, reference):
-            reason = "CE/PE missing at reference strike"
-            print(f"  {price.symbol}: {log_tag} skipped — {reason}")
-            return self._s1_watch(price, s1, side, reason)
-
-        self.client.add_oi_changes(s1)
-        if pcr_band_strikes:
-            wall = (
-                s1.max_call_oi_strike
-                if side is SignalType.CALL_OI
-                else s1.max_put_oi_strike
-            )
-            self.client.add_band_oi_changes(
-                s1, wall, n_below=pcr_band_strikes, n_above=pcr_band_strikes
-            )
-            flow = {**flow, "require_change_pcr": True}
-
-        if side is SignalType.CALL_OI:
-            rejected = call_oi_flow_rejection(s1, **flow)
-        else:
-            rejected = put_oi_flow_rejection(s1, **flow)
-        if rejected:
-            print(f"  {price.symbol}: {log_tag} {side.value} skipped — {rejected}")
-            return self._s1_watch(price, s1, side, rejected)
-
-        if side is SignalType.CALL_OI and call_wall and peak_call and call_wall[0] != peak_call[0]:
-            print(
-                f"  {price.symbol}: {log_tag} CALL using uncrossed ₹{call_wall[0]:.0f} "
-                f"(peak ₹{peak_call[0]:.0f} already through price)"
-            )
-        if side is SignalType.PUT_OI and put_wall and peak_put and put_wall[0] != peak_put[0]:
-            print(
-                f"  {price.symbol}: {log_tag} PUT using uncrossed ₹{put_wall[0]:.0f} "
-                f"(peak ₹{peak_put[0]:.0f} already through price)"
-            )
-
-        alert = evaluate_stock(price=price, oi=s1, **thresholds, **flow)
-        if alert is None:
-            return self._s1_watch(price, s1, side, "did not qualify")
-        alert.signal = (
-            SignalType.CALL_OI_S1 if side is SignalType.CALL_OI else SignalType.PUT_OI_S1
-        )
-        return alert
-
-    def _check_supertrend_candidate(
-        self,
-        symbol: str,
-        ltp: float,
-        st_value: float,
-        side: str,
-        already_alerted: set[str],
-    ) -> ScanAlert | None:
-        """OI confirmation at the Supertrend strike for a near-ST name."""
-        if symbol in already_alerted:
-            return None
-
-        st_cfg = self.config.supertrend
-        distance = abs(ltp - st_value) / st_value * 100
-        if distance > st_cfg.proximity_pct:
-            return None
-        if side == "below" and ltp >= st_value:
-            return None
-        if side == "above" and ltp <= st_value:
-            return None
-
-        if self.config.oi.skip_monthly_expiry:
-            expiry_skip = expiry_entry_skip_reason()
-            if expiry_skip:
-                print(f"  {symbol}: ST skipped — {expiry_skip}")
-                return make_supertrend_watch(
-                    symbol=symbol,
-                    ltp=ltp,
-                    supertrend=st_value,
-                    side=side,
-                    oi=None,
-                    skip_reason=expiry_skip,
-                )
-
-        blocked = no_short_skip_reason(
-            symbol,
-            self.config.no_short_symbols,
-            is_short=side == "below",
-        )
-        if blocked:
-            print(f"  {symbol}: ST short skipped — {blocked}")
-            return make_supertrend_watch(
-                symbol=symbol,
-                ltp=ltp,
-                supertrend=st_value,
-                side=side,
-                oi=None,
-                skip_reason=blocked,
-            )
-
-        extreme_skip = self._extreme_skip_reason(symbol, ltp)
-        if extreme_skip:
-            print(f"  {symbol}: ST skipped — {extreme_skip}")
-            return make_supertrend_watch(
-                symbol=symbol,
-                ltp=ltp,
-                supertrend=st_value,
-                side=side,
-                oi=None,
-                skip_reason=extreme_skip,
-            )
-
-        oi = self.client.get_oi_at_price(symbol, target_price=st_value, ltp=ltp)
-        if not oi:
-            reason = "OI unavailable"
-            print(f"  {symbol}: near ST ₹{st_value:,.2f} — {reason}")
-            return make_supertrend_watch(
-                symbol=symbol,
-                ltp=ltp,
-                supertrend=st_value,
-                side=side,
-                oi=None,
-                skip_reason=reason,
-            )
-        self.client.add_oi_changes(oi)
-
-        if side == "below":
-            rejected = call_oi_flow_rejection(oi, **self._oi_flow())
-        else:
-            rejected = put_oi_flow_rejection(oi, **self._oi_flow())
-        if rejected:
-            print(
-                f"  {symbol}: near ST ₹{st_value:,.2f} ({side}, {distance:.2f}%) — {rejected}"
-            )
-            return make_supertrend_watch(
-                symbol=symbol,
-                ltp=ltp,
-                supertrend=st_value,
-                side=side,
-                oi=oi,
-                skip_reason=rejected,
-            )
-
-        return evaluate_supertrend_oi(
-            symbol=symbol,
-            ltp=ltp,
-            supertrend=st_value,
-            side=side,
-            oi=oi,
-            st_config=st_cfg,
-            oi_config=self.config.oi,
-        )
+        return paper.futures_month if paper else 3
 
     def _apply_futures_expiry(self, alerts: list[ScanAlert], month: int | None = None) -> None:
-        """Point paper entries at this book's futures month (RSI_CandlePattern: 2nd)."""
-        month = month if month is not None else self.config.paper_trading.futures_month
+        """Point paper entries at this book's futures month (3rd-month stock futures)."""
+        month = month if month is not None else self._default_futures_month()
         for alert in alerts:
             contract = self.client.futures_contract(alert.symbol, month_index=month)
             if not contract:
@@ -561,9 +122,9 @@ class OIRsiScanner:
             if lot > 0:
                 alert.lot_size = lot
 
-    def _align_open_futures_expiry(self, book: PaperBook | None = None) -> None:
+    def _align_open_futures_expiry(self, book: PaperBook) -> None:
         """Roll open paper positions onto the configured futures month."""
-        target = book if book is not None else self.book
+        target = book
         if not target:
             return
 
@@ -667,7 +228,9 @@ class OIRsiScanner:
         bar has closed back through SMMA 21. Both sides of that comparison are
         therefore on the same cash basis as `_smma_levels_for_book`.
         """
-        if not book.config.final_lot_smma_cross_exit:
+        if not (
+            book.config.final_lot_smma_cross_exit or book.config.smma_reversal_exit
+        ):
             return None
         today = f"{date.today():%Y-%m-%d}"
         bars: dict[str, Candle] = {}
@@ -712,226 +275,6 @@ class OIRsiScanner:
                 )
         return book.rebase_entries_to_futures(restated)
 
-    def _exit_s1_broken_walls(
-        self,
-        book: PaperBook,
-        equity_prices: dict[str, float],
-        fut_prices: dict[str, float],
-        rsi_values: dict[str, float],
-    ) -> list:
-        """Close at 15:15 IST only if cash is through the *entry* strike
-        and OI flow is broken there (calls unwind + puts write for shorts).
-
-        A later peak Call/Put OI (e.g. short at 110, then max Call OI at 102
-        with price 103) is not a break of the position we took.
-        """
-        events = []
-        for position in list(book.positions):
-            if not position.is_open or position.strike <= 0:
-                continue
-            price = equity_prices.get(position.symbol)
-            if not price:
-                continue
-
-            oi = self.client.get_oi_at_price(
-                position.symbol, target_price=position.strike, ltp=price
-            )
-            if not oi:
-                continue
-            self.client.add_oi_changes(oi)
-            oi.max_call_oi_strike = position.strike
-            oi.max_put_oi_strike = position.strike
-
-            if position.direction == "LONG":
-                broken = support_is_broken(oi, price)
-                label = "support"
-            else:
-                broken = resistance_is_broken(oi, price)
-                label = "resistance"
-
-            if not broken:
-                continue
-
-            fill = fut_prices.get(position.symbol)
-            if not fill:
-                print(
-                    f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
-                    "no NSE fut LTP, not exiting on cash"
-                )
-                continue
-            lots = position.lots_open
-            event = book.close_on_broken_wall(
-                position, fill, rsi_values.get(position.symbol)
-            )
-            events.append(event)
-            print(
-                f"  {position.symbol}: S1 {label} ₹{position.strike:.0f} broken — "
-                f"exiting {lots} lot {position.direction} @ ₹{fill:,.2f} (fut)"
-            )
-        return events
-
-    def _exit_s1_oi_flow_walls(
-        self,
-        book: PaperBook,
-        equity_prices: dict[str, float],
-        fut_prices: dict[str, float],
-        rsi_values: dict[str, float],
-    ) -> list:
-        """Every scan: two consecutive OI-flow breaks at the entry strike.
-
-        Short: Call ΔOI ≤ 0 and Put ΔOI > 0. Long: Put ΔOI ≤ 0 and Call ΔOI > 0.
-        Cash through the strike is not required. Missing ΔOI neither confirms
-        nor clears. Fill is 3rd-month NSE futures. 15:15 price-through exit
-        still runs separately.
-        """
-        events = []
-        for position in list(book.positions):
-            if not position.is_open or position.strike <= 0:
-                continue
-            cash = equity_prices.get(position.symbol)
-            if not cash:
-                continue
-
-            oi = self.client.get_oi_at_price(
-                position.symbol, target_price=position.strike, ltp=cash
-            )
-            if oi:
-                self.client.add_oi_changes(oi)
-                call_d, put_d = oi.call_oi_change, oi.put_oi_change
-            else:
-                call_d = put_d = None
-
-            broken = s1_oi_flow_broken(
-                position.direction,
-                call_oi_change=call_d,
-                put_oi_change=put_d,
-            )
-            why = "wall_broken" if broken else None
-            wall_valid = s1_oi_flow_observed(call_d, put_d) and not broken
-            previous = position.s2_invalid_pending
-            position.s2_invalid_pending, confirmed = s2_confirm_invalidation(
-                previous, why, wall_valid=wall_valid
-            )
-            if not confirmed:
-                if why and not previous:
-                    print(
-                        f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
-                        "first scan, holding for confirm"
-                    )
-                elif not why and previous and wall_valid:
-                    print(
-                        f"  {position.symbol}: S1 OI wall valid again ₹{position.strike:.0f} — "
-                        f"cleared {previous}"
-                    )
-                continue
-
-            fill = fut_prices.get(position.symbol)
-            if not fill:
-                print(
-                    f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
-                    "confirmed, no NSE fut LTP, not exiting on cash"
-                )
-                continue
-            lots = position.lots_open
-            event = book.close_on_broken_wall(
-                position, fill, rsi_values.get(position.symbol)
-            )
-            events.append(event)
-            print(
-                f"  {position.symbol}: S1 OI flow broken ₹{position.strike:.0f} — "
-                f"confirmed, exiting {lots} lot {position.direction} "
-                f"@ ₹{fill:,.2f} (fut)"
-            )
-        return events
-
-    def _exit_s2_invalid_strikes(
-        self,
-        book: PaperBook,
-        equity_prices: dict[str, float],
-        fut_prices: dict[str, float],
-        rsi_values: dict[str, float],
-    ) -> list:
-        """OI is the primary stop, confirmed on two consecutive scans:
-        cash through the entry strike or writing gone at that strike.
-        A single invalid print is stored on the position and ignored.
-        Fill is 3rd-month NSE futures, never cash. The 3% futures stop
-        in update() is a single-scan backup if the wall is still valid.
-        """
-        reasons = {
-            "strike_through": ExitReason.STRIKE_THROUGH,
-            "writing_gone": ExitReason.WRITING_GONE,
-        }
-        events = []
-        for position in list(book.positions):
-            if not position.is_open or position.strike <= 0:
-                continue
-            cash = equity_prices.get(position.symbol)
-            if not cash:
-                continue
-
-            oi = self.client.get_oi_at_price(
-                position.symbol, target_price=position.strike, ltp=cash
-            )
-            if oi:
-                self.client.add_oi_changes(oi)
-                call_d, put_d = oi.call_oi_change, oi.put_oi_change
-            else:
-                call_d = put_d = None
-
-            why = s2_invalidation_reason(
-                position.direction,
-                position.strike,
-                cash,
-                call_oi_change=call_d,
-                put_oi_change=put_d,
-            )
-            wall_valid = s2_wall_still_valid(
-                position.direction,
-                position.strike,
-                cash,
-                call_oi_change=call_d,
-                put_oi_change=put_d,
-            )
-            previous = position.s2_invalid_pending
-            position.s2_invalid_pending, confirmed = s2_confirm_invalidation(
-                previous, why, wall_valid=wall_valid
-            )
-            if not confirmed:
-                if why and not previous:
-                    print(
-                        f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
-                        "first scan, holding for confirm"
-                    )
-                elif not why and previous:
-                    print(
-                        f"  {position.symbol}: S2 wall valid again ₹{position.strike:.0f} — "
-                        f"cleared {previous}"
-                    )
-                continue
-
-            fill = fut_prices.get(position.symbol)
-            if not fill:
-                print(
-                    f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
-                    "confirmed, no NSE fut LTP, not exiting on cash"
-                )
-                continue
-            lots = position.lots_open
-            event = book.close_remaining(
-                position,
-                fill,
-                reasons[why],
-                rsi_values.get(position.symbol),
-                trigger=f"S2 {why} at entry strike ₹{position.strike:,.0f}",
-            )
-            events.append(event)
-            print(
-                f"  {position.symbol}: S2 {why} ₹{position.strike:.0f} — "
-                f"confirmed, exiting {lots} lot {position.direction} "
-                f"@ ₹{fill:,.2f} (fut)"
-            )
-        return events
-
     def _run_one_paper_book(
         self,
         book: PaperBook,
@@ -965,37 +308,55 @@ class OIRsiScanner:
                 alert.ltp = fut_prices[alert.symbol]
                 paper_alerts.append(alert)
 
-        # S2: confirmed OI invalidation is the primary stop (two consecutive
-        # scans). Run it before the 3% futures cap so a dead wall is booked
-        # as strike_through / writing_gone, not stop_loss.
-        # S1: two consecutive OI-flow breaks (price optional) before the 4%
-        # cap, so a dead wall is booked as wall_broken, not stop_loss.
-        if book is self.s2_book:
-            events += self._exit_s2_invalid_strikes(
-                book, prices, fut_prices, rsi_values
-            )
-        if book is self.s1_book:
-            events += self._exit_s1_oi_flow_walls(
-                book, prices, fut_prices, rsi_values
-            )
         smma_levels = self._smma_levels_for_book(book, fut_prices)
         cash_slot = is_cash_stop_slot()
         skip_candle = book.config.cash_close_stop and not cash_slot
         stop_prices = prices if book.config.cash_close_stop and cash_slot else None
+        cash_for_bars = dict(prices)
+        want_reversal = (
+            book.config.smma_reversal_exit and is_candle_entry_window()
+        )
+        if want_reversal:
+            missing = [
+                p.symbol
+                for p in book.positions
+                if p.is_open and p.symbol not in cash_for_bars
+            ]
+            if missing:
+                cash_for_bars.update(self.client.get_ltps(missing))
+        if want_reversal:
+            candles = self._candles_for_book(book, cash_for_bars)
+        elif cash_slot:
+            candles = self._candles_for_book(book, prices)
+        else:
+            candles = None
+        reversal_smma = None
+        reversal_smma_prev = None
+        if want_reversal and candles is not None:
+            period = book.config.smma_reversal or 9
+            reversal_smma = {}
+            reversal_smma_prev = {}
+            for position in book.positions:
+                if not position.is_open:
+                    continue
+                bar = candles.get(position.symbol)
+                live = bar.close if bar else cash_for_bars.get(position.symbol)
+                today_v, prev_v = self.client.get_smma_pair(
+                    position.symbol, period, live
+                )
+                reversal_smma[position.symbol] = today_v
+                reversal_smma_prev[position.symbol] = prev_v
         events += book.update(
             fut_prices,
             rsi_values=rsi_values,
             smma_levels=smma_levels,
             skip_candle_stop=skip_candle,
             stop_prices=stop_prices,
-            # A candle "closing" through SMMA 21 only means anything once the
-            # bar is all but final, so read it in the cash-close slot only.
-            candles=self._candles_for_book(book, prices) if cash_slot else None,
+            # Live book still reads the SMMA 21 runner only at cash close.
+            candles=candles,
+            reversal_smma=reversal_smma,
+            reversal_smma_prev=reversal_smma_prev,
         )
-        if book is self.s1_book and is_s1_wall_exit_slot():
-            events += self._exit_s1_broken_walls(
-                book, prices, fut_prices, rsi_values
-            )
         if book.config.skip_new_entries:
             print(f"  {book.config.name}: marking open P&L — no new entries")
         elif not is_close_pnl_slot():
@@ -1058,47 +419,21 @@ class OIRsiScanner:
         prices: dict[str, float],
         rsi_values: dict[str, float],
     ) -> None:
-        rsi_alerts = [
+        candle_alerts = [
             a
             for a in alerts
             if a.signal
-            in (
-                SignalType.CALL_OI,
-                SignalType.PUT_OI,
-                SignalType.RSI_CANDLE_SHORT,
-                SignalType.RSI_CANDLE_LONG,
-            )
+            in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
             and not a.skip_reason
         ]
-        st_alerts = [
-            a
-            for a in alerts
-            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
-            and not a.skip_reason
-        ]
-
-        if self.book:
-            self._run_one_paper_book(self.book, rsi_alerts, prices, rsi_values)
-        if self.s1_book:
-            s1_alerts = [
-                a
-                for a in alerts
-                if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
-                and not a.skip_reason
-            ]
-            self._run_one_paper_book(self.s1_book, s1_alerts, prices, rsi_values)
-        if self.s2_book:
-            s2_alerts = [
-                a
-                for a in alerts
-                if a.signal in (SignalType.CALL_OI_S2, SignalType.PUT_OI_S2)
-                and not a.skip_reason
-            ]
-            self._run_one_paper_book(self.s2_book, s2_alerts, prices, rsi_values)
-        if self.st_book:
-            self._run_one_paper_book(self.st_book, st_alerts, prices, rsi_values)
         if self.two_week_book:
-            self._run_one_paper_book(self.two_week_book, rsi_alerts, prices, rsi_values)
+            self._run_one_paper_book(
+                self.two_week_book, candle_alerts, prices, rsi_values
+            )
+        if self.three_lot_book:
+            self._run_one_paper_book(
+                self.three_lot_book, candle_alerts, prices, rsi_values
+            )
 
     def _bars_to_candles(
         self, rows: list[tuple[str, float, float, float, float]]
@@ -1125,7 +460,7 @@ class OIRsiScanner:
     ) -> ScanAlert:
         paper = self.config.rsi_candle_2w_paper_trading
         shown_stop = stop_price
-        if not paper.candle_stop:
+        if paper is None or not paper.candle_stop:
             stop_price = None
             shown_stop = None
         elif stop_price is not None:
@@ -1182,7 +517,7 @@ class OIRsiScanner:
 
         Next-day: yesterday's stretch + today's reversal candle.
         Same-day: RSI tagged 70/30 today and the bar already reversed.
-        Live price is 2nd-month futures, never cash.
+        Live price is 3rd-month futures, never cash.
         """
         try:
             rows = self.client.daily_full_ohlc(symbol)
@@ -1281,13 +616,7 @@ class OIRsiScanner:
 
     def _open_paper_symbols(self) -> list[str]:
         names: set[str] = set()
-        for book in (
-            self.book,
-            self.two_week_book,
-            self.s1_book,
-            self.s2_book,
-            self.st_book,
-        ):
+        for book in (self.two_week_book, self.three_lot_book):
             if not book:
                 continue
             names.update(p.symbol for p in book.positions if p.is_open)
@@ -1326,19 +655,18 @@ class OIRsiScanner:
             return self._mark_open_books()
 
         prices: dict[str, float] = {}
-        if self.s1_book or self.s2_book or self.st_book or self.config.supertrend.enabled:
-            prices = self.client.get_ltps(symbols)
+        open_names = self._open_paper_symbols()
+        if open_names and is_cash_stop_slot():
+            prices = self.client.get_ltps(open_names)
 
-        fut_month = self.config.paper_trading.futures_month
-        fut_scan: dict[str, float] = {}
-        if self.book:
-            fut_scan = self.client.get_futures_ltps(symbols, month_index=fut_month)
-            print(
-                f"  RSI_CandlePattern: month-{fut_month} futures LTP "
-                f"on {len(fut_scan)}/{len(symbols)} names — cash not used for fills"
-            )
-            if not is_candle_entry_window():
-                print("  RSI_CandlePattern: before 15:15 IST — no new entries")
+        fut_month = self._default_futures_month()
+        fut_scan = self.client.get_futures_ltps(symbols, month_index=fut_month)
+        print(
+            f"  RSI_CandlePattern: month-{fut_month} futures LTP "
+            f"on {len(fut_scan)}/{len(symbols)} names — cash not used for fills"
+        )
+        if not is_candle_entry_window():
+            print("  RSI_CandlePattern: before 15:15 IST — no new entries")
 
         rsi_values: dict[str, float] = {}
         alerts: list[ScanAlert] = []
@@ -1361,7 +689,7 @@ class OIRsiScanner:
         waiting_short = waiting_long = 0
         hits = 0
         for index, symbol in enumerate(symbols, 1):
-            ltp = fut_scan.get(symbol) if self.book else prices.get(symbol)
+            ltp = fut_scan.get(symbol)
             if not ltp:
                 continue
             rsi = self.client.get_rsi(symbol, ltp)
@@ -1392,102 +720,16 @@ class OIRsiScanner:
             "— not longing until a reversal candle"
         )
 
-        if self.s1_book or self.s2_book:
-            candidates = [
-                PriceSnapshot(symbol=symbol, ltp=prices[symbol], rsi=rsi_values[symbol])
-                for symbol in symbols
-                if symbol in prices
-                and symbol in rsi_values
-                and (
-                    rsi_values[symbol] >= call_th or rsi_values[symbol] <= put_th
-                )
-            ]
-            for price in candidates:
-                oi = self.client.get_oi_snapshot(price.symbol, ltp=price.ltp)
-                s1_oi = copy_oi_snapshot(oi) if oi else None
-                if self.s1_book:
-                    s1_alert = self._check_scenario1_candidate(price, s1_oi)
-                    if s1_alert:
-                        alerts.append(s1_alert)
-                if self.s2_book:
-                    s2_src = self._check_scenario1_candidate(
-                        price,
-                        copy_oi_snapshot(oi) if oi else None,
-                        proximity_pct=self.config.oi.s2_proximity_pct,
-                        pcr_band_strikes=self.config.oi.s2_pcr_strikes,
-                        log_tag="S2",
-                    )
-                    if s2_src:
-                        alerts.append(retag_s1_alert_as_s2(s2_src))
-
-        rsi_batch = [
+        candle_batch = [
             a
             for a in alerts
             if a.signal
-            in (
-                SignalType.RSI_CANDLE_SHORT,
-                SignalType.RSI_CANDLE_LONG,
-                SignalType.CALL_OI,
-                SignalType.PUT_OI,
-                SignalType.CALL_OI_S1,
-                SignalType.PUT_OI_S1,
-                SignalType.CALL_OI_S2,
-                SignalType.PUT_OI_S2,
-            )
+            in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
         ]
         if is_close_pnl_slot():
-            print("  15:45 close — skipping RSI/ST signal Telegram; sending closing P&L")
+            print("  15:45 close — skipping signal Telegram; sending closing P&L")
         else:
-            self._emit_telegram(rsi_batch, "RSI_CandlePattern")
-
-        if self.config.supertrend.enabled:
-            st_cfg = self.config.supertrend
-            print(
-                f"\nSupertrend scan ({st_cfg.atr_period}, {st_cfg.multiplier}) — "
-                f"proximity {st_cfg.proximity_pct}%"
-            )
-            try:
-                st_map = fetch_supertrends(
-                    symbols,
-                    prices,
-                    atr_period=st_cfg.atr_period,
-                    multiplier=st_cfg.multiplier,
-                )
-            except Exception as exc:
-                print(f"  Supertrend Yahoo download failed: {exc}")
-                st_map = {}
-            near = []
-            for symbol, (st_value, side) in st_map.items():
-                ltp = prices.get(symbol)
-                if not ltp:
-                    continue
-                distance = abs(ltp - st_value) / st_value * 100
-                if distance <= st_cfg.proximity_pct:
-                    if side == "below" and ltp < st_value:
-                        near.append((symbol, ltp, st_value, side, distance))
-                    elif side == "above" and ltp > st_value:
-                        near.append((symbol, ltp, st_value, side, distance))
-
-            print(f"  {len(near)} name(s) within {st_cfg.proximity_pct}% of Supertrend")
-            st_hits = 0
-            st_alerted: set[str] = set()
-            for symbol, ltp, st_value, side, _distance in near:
-                alert = self._check_supertrend_candidate(
-                    symbol, ltp, st_value, side, st_alerted
-                )
-                if alert:
-                    alerts.append(alert)
-                    st_alerted.add(symbol)
-                    st_hits += 1
-            print(f"  {st_hits} Supertrend + OI alert(s)")
-
-        st_batch = [
-            a
-            for a in alerts
-            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
-        ]
-        if not is_close_pnl_slot():
-            self._emit_telegram(st_batch, "Supertrend+OI")
+            self._emit_telegram(candle_batch, "RSI_CandlePattern")
 
         if not alerts:
             print("\nNo alerts this scan.")

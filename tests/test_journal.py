@@ -126,6 +126,7 @@ def test_summary_row_contains_half_hour_portfolio_totals():
     assert row["Time"] == "14:30"
     assert row["Total number of positions taken"] == 3
     assert row["Capital used in positions"] == 1_234_567
+    assert row["Capital free"] == 0
     assert row["Profit or loss"] == 40_000
     assert row["Total realised profit or loss"] == 50_000
     assert row["Unrealised profit or loss"] == -10_001

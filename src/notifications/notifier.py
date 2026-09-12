@@ -119,22 +119,16 @@ class Notifier:
 
     def _send_console(self, alert: ScanAlert) -> None:
         labels = {
-            SignalType.CALL_OI: "CALL OI ALERT",
-            SignalType.PUT_OI: "PUT OI ALERT",
-            SignalType.CALL_OI_S1: "CALL OI S1 ALERT",
-            SignalType.PUT_OI_S1: "PUT OI S1 ALERT",
-            SignalType.CALL_OI_S2: "CALL OI S2 ALERT",
-            SignalType.PUT_OI_S2: "PUT OI S2 ALERT",
-            SignalType.ST_BEARISH: "ST BEARISH ALERT",
-            SignalType.ST_BULLISH: "ST BULLISH ALERT",
             SignalType.RSI_CANDLE_SHORT: "RSI CANDLE SHORT",
             SignalType.RSI_CANDLE_LONG: "RSI CANDLE LONG",
+            SignalType.CALL_OI: "CALL OI ALERT",
+            SignalType.PUT_OI: "PUT OI ALERT",
         }
         tag = labels.get(alert.signal, "ALERT")
         print(f"\n[{tag}] {alert.message}")
 
     def _digest(self, alerts: list[ScanAlert], *, title: str, sections: list[tuple]) -> str:
-        """One message per strategy reads better than mixing RSI and Supertrend."""
+        """One Telegram message per strategy."""
         lines = [f"{title} — {datetime.now():%d %b %Y %H:%M}"]
 
         for signal, heading in sections:
@@ -196,36 +190,6 @@ class Notifier:
             sections=[
                 (SignalType.CALL_OI, "CALL OI (RSI ≥ 70)"),
                 (SignalType.PUT_OI, "PUT OI (RSI ≤ 31)"),
-            ],
-        )
-
-    def _scenario1_digest(self, alerts: list[ScanAlert]) -> str:
-        return self._digest(
-            alerts,
-            title="RSI + OI Scenario 1 alerts",
-            sections=[
-                (SignalType.CALL_OI_S1, "CALL OI S1 (RSI ≥ 70)"),
-                (SignalType.PUT_OI_S1, "PUT OI S1 (RSI ≤ 31)"),
-            ],
-        )
-
-    def _scenario2_digest(self, alerts: list[ScanAlert]) -> str:
-        return self._digest(
-            alerts,
-            title="RSI + OI Scenario 2 alerts",
-            sections=[
-                (SignalType.CALL_OI_S2, "CALL OI S2 (RSI ≥ 70)"),
-                (SignalType.PUT_OI_S2, "PUT OI S2 (RSI ≤ 31)"),
-            ],
-        )
-
-    def _supertrend_digest(self, alerts: list[ScanAlert]) -> str:
-        return self._digest(
-            alerts,
-            title="Supertrend + OI alerts",
-            sections=[
-                (SignalType.ST_BEARISH, "BEARISH (below ST, bearish ΔOI)"),
-                (SignalType.ST_BULLISH, "BULLISH (above ST, bullish ΔOI)"),
             ],
         )
 
@@ -325,24 +289,10 @@ class Notifier:
             for alert in fresh:
                 self._send_console(alert)
 
-        rsi_alerts = [
-            a for a in alerts if a.signal in (SignalType.CALL_OI, SignalType.PUT_OI)
-        ]
         candle_alerts = [
             a
             for a in alerts
             if a.signal in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
-        ]
-        s1_alerts = [
-            a for a in alerts if a.signal in (SignalType.CALL_OI_S1, SignalType.PUT_OI_S1)
-        ]
-        s2_alerts = [
-            a for a in alerts if a.signal in (SignalType.CALL_OI_S2, SignalType.PUT_OI_S2)
-        ]
-        st_alerts = [
-            a
-            for a in alerts
-            if a.signal in (SignalType.ST_BEARISH, SignalType.ST_BULLISH)
         ]
 
         if self.config.telegram:
@@ -352,30 +302,6 @@ class Notifier:
                     delivered = self.send_message(self._rsi_candle_digest(candle_alerts))
                     print(
                         f"\nSent {len(candle_alerts)} RSI_CandlePattern row(s) to Telegram "
-                        f"({delivered}/{recipients})."
-                    )
-                if rsi_alerts:
-                    delivered = self.send_message(self._rsi_digest(rsi_alerts))
-                    print(
-                        f"\nSent {len(rsi_alerts)} RSI+OI row(s) to Telegram "
-                        f"({delivered}/{recipients})."
-                    )
-                if s1_alerts:
-                    delivered = self.send_message(self._scenario1_digest(s1_alerts))
-                    print(
-                        f"\nSent {len(s1_alerts)} RSI+OI S1 row(s) to Telegram "
-                        f"({delivered}/{recipients})."
-                    )
-                if s2_alerts:
-                    delivered = self.send_message(self._scenario2_digest(s2_alerts))
-                    print(
-                        f"\nSent {len(s2_alerts)} RSI+OI S2 row(s) to Telegram "
-                        f"({delivered}/{recipients})."
-                    )
-                if st_alerts:
-                    delivered = self.send_message(self._supertrend_digest(st_alerts))
-                    print(
-                        f"\nSent {len(st_alerts)} Supertrend row(s) to Telegram "
                         f"({delivered}/{recipients})."
                     )
             elif not self._warned_missing:

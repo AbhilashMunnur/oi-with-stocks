@@ -1,16 +1,24 @@
-# OI + RSI Stock Scanner
+# RSI + candle stock scanner
 
-Scans NSE F&O stocks on **live Angel One data** and alerts when:
+Scans NSE F&O stocks on **live Angel One data** and takes a 3rd-month stock-futures paper trade when RSI tags **70 / 30** and a reversal candle prints:
 
-1. **Call OI alert** — RSI is **at or above 70** and price is **near the highest Call OI strike still at or above price** (resistance)
-2. **Put OI alert** — RSI is **at or below 32** and price is **near the highest Put OI strike still at or below price** (support)
-3. **RSI + OI Scenario 1** — same RSI + uncrossed-wall **entries** as RSI+OI (never open on a peak price has already crossed, even if writing continues). If the peak is through price, the next uncrossed wall is used only when it is within 1%, writing/ΔPCR still qualify, and its OI is at least **50%** of the peak. After entry, remaining lots close after **two consecutive** scans of OI-flow death at the **entry** strike (calls unwind + puts write for shorts, vice versa for longs; cash through the strike is **not** required). The **15:15 IST** scan still exits on a single print if cash is through that strike **and** the same OI pattern. A later peak OI strike does not count. 3 lots at 6% / 10% / 14%. Own paper book.
-4. **Supertrend + OI** — daily Supertrend **(20, 4.5)**; price within **0.5%** of the ST line
-   from below/above with confirming Call/Put ΔOI at the ST strike → short/long
-   3rd-month futures (2 lots)
+- **Short** — inverted hammer / weak middle body / strong red
+- **Long** — hammer / weak middle body / strong green
 
-Live prices, RSI, Supertrend OHLC and option-chain OI all come from Angel One SmartAPI, which is free
-with an Angel One account — no data subscription, historical data included.
+Either next-day (yesterday tagged, today reverses) or same-day (from **15:15 IST**, today's bar already reversed) qualifies. Cash is never the fill.
+
+Two paper books share those entries:
+
+| Book | Entry RSI | Stop | Ledger |
+|------|-----------|------|--------|
+| **RSI_CandlePattern** (live) | 70 / 30 | Farther of the reversal-bar high/low and 2% | `data/rsi_candle_3m_2w_paper_book.json` |
+| **RSI_Candle_3Lot** (final) | 70 / 30 | Flat 1.5% | `data/rsi_candle_3lot_paper_book.json` |
+
+The scanner screens every name at the global `rsi.call_threshold` / `put_threshold` (70/30). A book may optionally set its own `rsi_call_threshold` / `rsi_put_threshold` and then only takes the alerts whose entry RSI clears its level; neither book does today.
+
+Both books: ₹4 Cr, 3 lots. Lot 1 books at 5% or SMMA 21; lot 2 at 12% or SMMA 50; the runner exits on RSI 30/70 or a strong close back through SMMA 21. Telegram sends the reversal list plus a PNG dashboard per book.
+
+Live prices, RSI and candles come from Angel One SmartAPI.
 
 ## Setup
 
@@ -63,10 +71,9 @@ Edit `config.yaml`:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `rsi.call_threshold` | 70 | RSI must be at or above this for a Call OI alert |
-| `rsi.put_threshold` | 31 | RSI must be at or below this for a Put OI alert |
-| `oi.proximity_pct` | 1.0 | Price must be within this % of the max OI strike |
-| `data.history_days` | 400 | Daily candles for RSI + Supertrend |
+| `rsi.call_threshold` | 70 | Stretch bar that can set up a short |
+| `rsi.put_threshold` | 30 | Stretch bar that can set up a long |
+| `data.history_days` | 400 | Daily candles for RSI and SMMA |
 | `watchlist` | `all` | `all` for every F&O stock, or an explicit list of symbols |
 | `schedule.interval_minutes` | 30 | How often to scan during market hours |
 | `notifications.cooldown_minutes` | 30 | Minimum gap before repeating the same alert |
@@ -143,25 +150,16 @@ python scripts/setup_telegram.py
 It asks for the bot token from [@BotFather](https://t.me/BotFather), finds your chat
 ID automatically, sends a test message and writes both values to `.env`.
 
-Each scan sends **three** grouped messages (RSI+OI, RSI+OI S1, Supertrend). Every
-RSI ≥ 70 / ≤ 31 name is listed on the first two; Supertrend lists names within
-0.5% of the ST line. A `Not taking` line is added when that book does not trade:
+Each 15:15 scan sends an **RSI_CandlePattern** list of names that qualified,
+then a **PNG dashboard** for each paper book (open lots, P&L, today's events).
+Half-hour mark-only slots skip the 210-name screen and only refresh those
+dashboards.
 
 ```
-RSI + OI alerts — 10 Aug 2026 15:45
+RSI_CandlePattern alerts — 12 Sep 2026 15:15
 
-CALL OI (RSI ≥ 70)
-• TITAN: RSI 74.3 | ₹5,090.00 vs strike ₹5,100 (0.20% away)
-    Call ΔOI +111 | Put ΔOI −1  (contracts)
-• HDFCBANK: RSI 71.4 | ₹1,650.00 vs strike ₹1,720 (4.07% away)
-    Not taking — 4.07% from max Call OI (need ≤ 1%)
-• LTM: RSI 72.1 | ₹4,795.00 vs strike ₹4,800 (0.10% away)
-    Call ΔOI +0 | Put ΔOI +0  (contracts)
-    Not taking — Call ΔOI +0 shares (call unwinding/flat — skip short)
-
-PUT OI (RSI ≤ 31)
-• LICHSGFIN: RSI 30.0 | ₹500.00 vs strike ₹500 (0.00% away)
-    Call ΔOI +200 | Put ΔOI +410 | ΔPCR 2.05  (contracts)
+SHORT (after RSI ≥ 70 strong bull)
+• TITAN: RSI 74.3 | ₹5,090.00 | inverted hammer
 ```
 
 Telegram is enabled in `config.yaml` but only used when both values are present,
@@ -211,93 +209,38 @@ session’s values.
 ## How it works
 
 ```
-1. Fetch live LTP for every stock      (batched 50 per request)
-2. Compute RSI from cached daily closes + live LTP
-3. Keep only stocks with RSI >= 70 or <= 35
-4. For those candidates only, fetch the option chain
-5. Alert when price sits near the max Call OI (high RSI)
-   or max Put OI (low RSI) strike
+1. At 15:15 IST, fetch 3rd-month futures LTP for every F&O name
+2. Read daily OHLC + RSI (cached closes + live futures as today's close)
+3. Take a trade if either next-day or same-day reversal qualifies
+4. Open / mark both paper books and send Telegram
 ```
 
-Step 3 is what makes a full scan practical. Angel One's option chain has to be
-rebuilt per stock from the instrument master, costing several requests each, so
-fetching it for all 208 stocks would take around 17 minutes. Screening on RSI first
-narrows it to a handful of candidates and cuts a full scan to about a minute.
-
-Daily closes are fetched once per day and cached in `.cache/`, so only the first
-run of the day pays for candles. RSI then uses the live LTP as today's close, which
-keeps the indicator moving through the session instead of freezing at yesterday's
-close.
-
-Typical timings for the full 208-stock universe:
-
-| Run | Time |
-|-----|------|
-| First scan of the day (fetches candles) | ~2m 20s |
-| Later scans (candle cache warm) | ~1m |
-
-## Open interest change and the change PCR
-
-Alerts also carry how open interest moved since the previous session's close, at
-**one shared reference strike**:
-
-- **RSI ≥ 70 (CALL)** — reference = highest Call OI among strikes **≥ spot**.
-  Broken call walls below price are ignored. Both **Call ΔOI** and **Put ΔOI**
-  are measured on the CE and PE at that same strike.
-- **RSI ≤ 31 (PUT)** — reference = highest Put OI among strikes **≤ spot**.
-  Broken put walls above price are ignored. Both legs again at that same strike.
-- Positive ΔOI means writing; negative means unwinding. The two legs are never
-  summed together.
-- **Change PCR** — Put ΔOI / Call ΔOI at that shared strike. Above 1 means puts
-  are building faster than calls there.
-- **Entry filter** — shorts require **ΔPCR < 0.75**; longs require
-  **ΔPCR > 1.00**.
-
-The ratio is deliberately **only shown when both sides are adding** positions. If
-either side is unwinding, the division flips sign and stops meaning anything, so
-the scanner shows the two signed changes and omits the ratio rather than printing
-a misleading number.
-
-Angel One's quote feed has no change-in-OI field, so this comes from its historical
-OI endpoint, costing two extra requests per alerting stock. Those requests are only
-made once a stock has already qualified, which keeps a full scan around a minute.
+Half-hour slots before 15:15 only mark open paper to futures LTP and send the
+dashboard. Daily closes are cached in `.cache/` and seeded from
+`data/daily_closes_seed.json` on hosted runners so they do not refetch 208
+candle series.
 
 ## Paper trading
 
-Every alert is also taken as a simulated stock-futures trade on the **3rd
-month** contract (e.g. in August that is the October future), tracked in
-`data/paper_book.json`. The strategy treats the signal as a **reversal**: the max
-OI strikes are read as resistance and support.
-
-| Signal | Position |
-|--------|----------|
-| RSI ≥ 70 near max Call OI still above price | **SHORT** 2 lots — selling into resistance |
-| RSI ≤ 31 near max Put OI still below price | **LONG** 2 lots — buying at support |
-
-Exits, checked on every scan:
+Every qualifying candle alert is taken as a simulated **3rd-month** stock-futures
+trade. Settings live under `rsi_candle_2w_paper_trading` (live book — do not
+change stops on names already open) and `rsi_candle_3lot_paper_trading` (final
+book: flat 1.5% stop) in `config.yaml`.
 
 | Rule | Action |
 |------|--------|
-| 6% move in our favour | Close 1 lot |
-| 11% move in our favour | Close the remaining lot |
-| 4% move against us (before first target) | Close everything |
-| After 1st lot booked, 1% against entry | Close remaining lots |
-| **All books:** cash within **2%** of 52-week or all-time high/low, or **2 sessions** after those levels are crossed | No new entries (open trades are left alone) |
-| Expiry reached | Close everything at market |
-| **S1 only:** 3 lots — 1 at **6%**, 1 at **10%**, 1 at **14%** | Scale out in the trade's favour |
-| **S1 only:** every scan, **two consecutive** prints of Call unwind + Put writing (shorts) or Put unwind + Call writing (longs) at the **entry** strike | Close remaining lots. **Cash through the strike is not required.** Flat ΔOI counts as unwind |
-| **S1 only:** at **15:15 IST**, long if the **entry** Put strike is still broken, or short if the **entry** Call strike is still broken (cash through **and** the same OI pattern) | Close remaining lots at market |
-| **S2 only:** same uncrossed-wall entry as S1, cash within **1%**, ΔPCR from **1 strike below + wall + 1 above**, writing still required at the wall | Own ledger (`rsi_s2_paper_trading`) |
-| **S2 only:** every scan, cash **through the entry strike** *or* **writing gone** at that strike | **Primary stop.** Close remaining lots at the 3rd-month future. **3%** is only a backup if the wall is still valid |
-| **S2 only:** no new entries on stock monthly expiry; no same-day re-entry after stop/invalidation | Avoids front-month unwind and stop-then-reopen noise |
-
-The original RSI+OI book does not use the wall-break exit. Supertrend has its own
-ledger. Settings live under `paper_trading` / `rsi_s1_paper_trading` /
-`rsi_s2_paper_trading` / `supertrend_paper_trading` in `config.yaml`.
+| 5% in our favour, or SMMA 21 | Close lot 1 |
+| 12% in our favour, or SMMA 50 | Close lot 2 |
+| RSI 30 (shorts) / 70 (longs), or a strong close back through SMMA 21 | Close the runner |
+| Live book: farther of candle high/low and 2% | Stop remaining lots (except the runner) |
+| Final book: flat 1.5% | Stop remaining lots (except the runner) |
+| Last-Tuesday stock monthly expiry | No new entries |
+| Laboratory names | Never short; longs still allowed |
 
 ### The trade journal
 
-Every closed trade is appended to `data/paper_trades.csv`, one row per lot exited,
+Every closed trade is appended to that book's CSV (`data/rsi_candle_3m_2w_paper_trades.csv`
+or `data/rsi_candle_3lot_paper_trades.csv`), one row per lot exited,
 so a scale-out produces two rows:
 
 ```
@@ -326,11 +269,9 @@ Set `google_sheet_id` and `google_worksheet` in `config.yaml`, then:
 Without those credentials the CSV is still written; only the mirroring is skipped.
 A Sheets failure never blocks the local record.
 
-The RSI+OI book also appends a row to **RSI Portfolio Summary** after every
-completed half-hour scan. The S1 book does the same on **RSI S1 Paper trades**
-and **RSI S1 Portfolio Summary** (same spreadsheet, separate tabs, same columns).
-Each snapshot records date, time, open-position count, blocked capital, total P&L,
-cumulative realised P&L, and current unrealised P&L.
+Each book also appends a row to its **Portfolio Summary** tab after every
+completed half-hour scan. Each snapshot records date, time, open-position count,
+blocked capital, total P&L, cumulative realised P&L, and current unrealised P&L.
 
 ### What the simulation assumes
 

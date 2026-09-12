@@ -88,6 +88,7 @@ def test_portfolio_summary_reports_open_positions_margin_and_pnl(config):
 
     assert row["Total number of positions taken"] == 1
     assert row["Capital used in positions"] == 350_000
+    assert row["Capital free"] == config.capital - 350_000
     assert row["Profit or loss"] == 35_000
     assert row["Total realised profit or loss"] == 0
     assert row["Unrealised profit or loss"] == 35_000
@@ -1124,3 +1125,152 @@ def test_the_first_two_lots_still_carry_the_percent_stop(tmp_path):
 
     assert not any(p.is_open for p in book.positions)
     assert book._pending_rows[-1]["Exit reason"] == "stop_loss"
+
+
+def _candle_alert(signal, rsi, symbol="TITAN"):
+    made = alert(signal=signal, symbol=symbol, ltp=100.0, lot_size=100)
+    made.rsi = rsi
+    return made
+
+
+def test_book_rsi_gate_skips_shallow_stretches_only_for_that_book(tmp_path):
+    gated = PaperBook(
+        replace(_three_lot_config(tmp_path), rsi_call_threshold=75, rsi_put_threshold=30)
+    )
+    alerts = [
+        _candle_alert(SignalType.RSI_CANDLE_SHORT, 72.4, "TITAN"),
+        _candle_alert(SignalType.RSI_CANDLE_SHORT, 75.0, "TRENT"),
+        _candle_alert(SignalType.RSI_CANDLE_LONG, 31.2, "ITC"),
+        _candle_alert(SignalType.RSI_CANDLE_LONG, 28.0, "DABUR"),
+    ]
+    gated.open_from_alerts(alerts)
+    assert sorted(p.symbol for p in gated.positions) == ["DABUR", "TRENT"]
+
+    # No gate configured (the live book) → every alert is taken.
+    ungated = PaperBook(_three_lot_config(tmp_path / "live"))
+    ungated.open_from_alerts(alerts)
+    assert len(ungated.positions) == 4
+
+
+def _smma9_book(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "src.paper_trading.book.now_stamp", lambda: "2026-09-10 15:15:00"
+    )
+    cfg = replace(
+        _three_lot_config(tmp_path),
+        smma_reversal=9,
+        smma_reversal_exit=True,
+    )
+    book = PaperBook(cfg)
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    return book
+
+
+def test_smma9_reversal_without_a_cross_books_all_three_on_a_short(tmp_path, monkeypatch):
+    book = _smma9_book(tmp_path, monkeypatch)
+    # Low tags SMMA 9 at 91; green close stays above it.
+    book.update(
+        {"TITAN": 93.0},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 91.0},
+        reversal_smma_prev={"TITAN": 90.4},
+        candles={"TITAN": Candle("2026-09-11", 92.0, 94.0, 90.8, 93.0)},
+    )
+    assert not any(position.is_open for position in book.positions)
+    assert book._pending_rows[-1]["Exit reason"] == "smma_reversal"
+    assert "*3" in book._pending_rows[-1]["Capital needed"]
+
+
+def test_smma9_bounce_while_slope_still_down_holds_the_short(tmp_path, monkeypatch):
+    book = _smma9_book(tmp_path, monkeypatch)
+    book.update(
+        {"TITAN": 98.0},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 91.0},
+        reversal_smma_prev={"TITAN": 91.6},
+        candles={"TITAN": Candle("2026-09-11", 92.0, 94.0, 90.8, 93.0)},
+    )
+    assert book.positions[0].is_open
+    assert book.positions[0].lots_open == 3
+
+
+def test_smma9_cross_by_1515_holds_the_short(tmp_path, monkeypatch):
+    book = _smma9_book(tmp_path, monkeypatch)
+    # Close through SMMA 9, but only 2.5% in profit — ladder does not peel yet.
+    book.update(
+        {"TITAN": 97.5},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 98.0},
+        candles={"TITAN": Candle("2026-09-11", 99.0, 99.2, 97.2, 97.5)},
+    )
+    assert book.positions[0].is_open
+    assert book.positions[0].lots_open == 3
+
+
+def test_smma9_reversal_without_a_cross_books_all_three_on_a_long(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "src.paper_trading.book.now_stamp", lambda: "2026-09-10 15:15:00"
+    )
+    book = PaperBook(replace(
+        _three_lot_config(tmp_path),
+        smma_reversal=9,
+        smma_reversal_exit=True,
+    ))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+    book.update(
+        {"TITAN": 108.0},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 110.0},
+        reversal_smma_prev={"TITAN": 110.8},
+        candles={"TITAN": Candle("2026-09-11", 109.0, 110.4, 107.5, 108.0)},
+    )
+    assert not any(position.is_open for position in book.positions)
+    assert book._pending_rows[-1]["Exit reason"] == "smma_reversal"
+
+
+def test_smma9_does_not_book_on_the_entry_session(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "src.paper_trading.book.now_stamp", lambda: "2026-09-11 15:15:00"
+    )
+    book = PaperBook(replace(
+        _three_lot_config(tmp_path),
+        smma_reversal=9,
+        smma_reversal_exit=True,
+    ))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.update(
+        {"TITAN": 98.0},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 91.0},
+        candles={"TITAN": Candle("2026-09-11", 92.0, 94.0, 90.8, 93.0)},
+    )
+    assert book.positions[0].is_open
+    assert book.positions[0].lots_open == 3
+
+
+def test_live_two_week_book_ignores_the_smma9_reversal(tmp_path, monkeypatch):
+    from src.config import load_config
+
+    live = replace(
+        load_config("config.yaml").rsi_candle_2w_paper_trading,
+        capital=5_000_000,
+        ledger_path=str(tmp_path / "live.json"),
+        journal_csv=str(tmp_path / "live.csv"),
+        google_sheet_id="",
+    )
+    assert live.smma_reversal_exit is False
+    monkeypatch.setattr(
+        "src.paper_trading.book.now_stamp", lambda: "2026-09-10 15:15:00"
+    )
+    book = PaperBook(live)
+    book.open_from_alerts([
+        alert(signal=SignalType.RSI_CANDLE_SHORT, ltp=100.0, lot_size=100)
+    ])
+    book.update(
+        {"TITAN": 98.0},
+        today=date(2026, 9, 11),
+        reversal_smma={"TITAN": 91.0},
+        candles={"TITAN": Candle("2026-09-11", 92.0, 94.0, 90.8, 93.0)},
+    )
+    assert book.positions[0].is_open
+    assert book.positions[0].lots_open == live.lots_per_trade

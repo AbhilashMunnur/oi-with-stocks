@@ -20,7 +20,7 @@ logzero.loglevel(logging.WARNING)
 from src.data.base import CACHE_DIR, CredentialsError, download_cached
 from src.data.models import OISnapshot
 from src.data.option_expiry import select_scan_oi_expiry
-from src.indicators import calculate_rsi, calculate_smma
+from src.indicators import calculate_rsi, calculate_smma, calculate_smma_series
 from src.oi_analyzer import select_active_oi_walls, strikes_around_wall
 from src.paper_trading.futures_expiry import target_futures_year_month
 
@@ -920,6 +920,20 @@ class AngelOneClient:
         if not closes:
             return None
         return calculate_smma(pd.Series(closes, dtype=float), period=period)
+
+    def get_smma_pair(
+        self, symbol: str, period: int, ltp: float | None = None
+    ) -> tuple[float | None, float | None]:
+        """Today's SMMA and yesterday's, so the 3-lot book can read the slope."""
+        closes = self._closes_with_live(symbol, ltp)
+        series = calculate_smma_series(pd.Series(closes, dtype=float), period)
+        if series is None or len(series) < 2:
+            return None, None
+        today, prev = series.iloc[-1], series.iloc[-2]
+        return (
+            None if pd.isna(today) else float(today),
+            None if pd.isna(prev) else float(prev),
+        )
 
     def completed_rsi(self, symbol: str) -> float | None:
         """RSI on the last finished session — not mixed with today's live LTP."""

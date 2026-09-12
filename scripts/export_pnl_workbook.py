@@ -48,6 +48,7 @@ REASON_LABEL = {
     "third_target": "Third target",
     "rsi_target": "Final lot — RSI 30 / 70",
     "smma_cross": "Final lot — strong candle back through SMMA 21",
+    "smma_reversal": "All lots — SMMA 9 reversal + slope turn, did not cross",
     "stop_loss": "Stopped out",
     "expiry": "Contract expiry",
     "wall_broken": "OI wall broken",

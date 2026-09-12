@@ -39,15 +39,6 @@ class CandleConfig:
 
 
 @dataclass
-class SupertrendConfig:
-    enabled: bool = True
-    atr_period: int = 20
-    multiplier: float = 4.5
-    # Price must be within this % of the Supertrend line (0–0.5% by default).
-    proximity_pct: float = 0.5
-
-
-@dataclass
 class OIConfig:
     proximity_pct: float
     # CALL shorts: require Call ΔOI > 0 at the max Call OI strike
@@ -154,6 +145,19 @@ class PaperTradingConfig:
     #   final_lot_no_stop — carry no stop on the runner at all.
     final_lot_smma_cross_exit: bool = False
     final_lot_no_stop: bool = False
+    # Separate 3-lot book: book every remaining lot only when price reverses
+    # at this SMMA *and* the SMMA slope has turned against the trade
+    # (short: 9 rising; long: 9 falling) without closing through the line
+    # by 15:15. A close through the line, or a bounce while the 9 still
+    # slopes with the trade, means hold.
+    smma_reversal: int | None = None
+    smma_reversal_exit: bool = False
+    # Per-book RSI gate on candle entries. The scanner screens every name at
+    # the global rsi.call_threshold / put_threshold; a book with its own
+    # levels only takes shorts whose entry RSI is at or above rsi_call_threshold
+    # and longs at or below rsi_put_threshold. None = use the global level.
+    rsi_call_threshold: float | None = None
+    rsi_put_threshold: float | None = None
 
 
 @dataclass
@@ -165,17 +169,12 @@ class AppConfig:
     watchlist: list[str] | str
     schedule: ScheduleConfig
     notifications: NotificationConfig
-    paper_trading: PaperTradingConfig
+    paper_trading: PaperTradingConfig | None = None
     candles: CandleConfig = field(default_factory=CandleConfig)
-    supertrend: SupertrendConfig = field(default_factory=SupertrendConfig)
-    # Separate capital / ledger / journal from the RSI+OI paper book.
-    supertrend_paper_trading: PaperTradingConfig | None = None
-    # RSI+OI with Scenario 1 wall filter (broken = unwind + opposite add).
-    rsi_s1_paper_trading: PaperTradingConfig | None = None
-    # Same S1 entry; OI exit after two consecutive invalid scans.
-    rsi_s2_paper_trading: PaperTradingConfig | None = None
-    # 19 Aug–2 Sep 3rd-month names still open — mark and Telegram only.
+    # Live book: candle / wider-of 2% stop. Do not change stops on open names.
     rsi_candle_2w_paper_trading: PaperTradingConfig | None = None
+    # Final strategy: 3 lots, Rs 4 Cr, flat 2% stop. Same RSI+candle entries.
+    rsi_candle_3lot_paper_trading: PaperTradingConfig | None = None
     # Laboratory names: never short on any scanner; longs still allowed.
     no_short_symbols: list[str] = field(default_factory=list)
 
@@ -192,11 +191,8 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         oi_raw["skip_monthly_expiry"] = oi_raw.pop("s2_skip_monthly_expiry")
     else:
         oi_raw.pop("s2_skip_monthly_expiry", None)
-    st_raw = raw.get("supertrend") or {}
-    st_paper_raw = raw.get("supertrend_paper_trading")
-    s1_paper_raw = raw.get("rsi_s1_paper_trading")
-    s2_paper_raw = raw.get("rsi_s2_paper_trading")
     two_week_raw = raw.get("rsi_candle_2w_paper_trading")
+    three_lot_raw = raw.get("rsi_candle_3lot_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -206,19 +202,16 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         no_short_symbols=no_short,
         schedule=ScheduleConfig(**raw["schedule"]),
         notifications=NotificationConfig(**raw["notifications"]),
-        paper_trading=PaperTradingConfig(**raw["paper_trading"]),
+        paper_trading=(
+            PaperTradingConfig(**raw["paper_trading"])
+            if raw.get("paper_trading")
+            else None
+        ),
         candles=CandleConfig(**(raw.get("candles") or {})),
-        supertrend=SupertrendConfig(**st_raw),
-        supertrend_paper_trading=(
-            PaperTradingConfig(**st_paper_raw) if st_paper_raw else None
-        ),
-        rsi_s1_paper_trading=(
-            PaperTradingConfig(**s1_paper_raw) if s1_paper_raw else None
-        ),
-        rsi_s2_paper_trading=(
-            PaperTradingConfig(**s2_paper_raw) if s2_paper_raw else None
-        ),
         rsi_candle_2w_paper_trading=(
             PaperTradingConfig(**two_week_raw) if two_week_raw else None
+        ),
+        rsi_candle_3lot_paper_trading=(
+            PaperTradingConfig(**three_lot_raw) if three_lot_raw else None
         ),
     )

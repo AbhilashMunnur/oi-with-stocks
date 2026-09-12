@@ -530,6 +530,44 @@ class PaperBook:
             return is_strong_bull(candle, self.candle_cfg) and candle.close > fast
         return is_strong_bear(candle, self.candle_cfg) and candle.close < fast
 
+    def _smma_reversal_books_all(
+        self,
+        position: Position,
+        candle: Candle | None,
+        smma9: float | None,
+        smma9_prev: float | None = None,
+    ) -> bool:
+        """True when SMMA 9 rejected *and* its slope turned against the trade.
+
+        Short: low reached SMMA 9, green close stayed above it, and the 9
+        is rising vs yesterday. Long: high reached SMMA 9, red close stayed
+        below it, and the 9 is falling. A close through the line, or a
+        bounce while the 9 still slopes with the trade, means hold.
+        Not checked on the entry session.
+        """
+        if not self.config.smma_reversal_exit:
+            return False
+        if smma9 is None or smma9_prev is None or candle is None or candle.span <= 0:
+            return False
+        if position.entry_time[:10] >= candle.date:
+            return False
+        slope = smma9 - smma9_prev
+        if position.direction == Direction.SHORT:
+            if position.entry_price <= smma9:
+                return False
+            reached = candle.low <= smma9 + TRIGGER_TOLERANCE
+            crossed = candle.close <= smma9 + TRIGGER_TOLERANCE
+            reversed_ = candle.close > candle.open
+            slope_turned = slope > TRIGGER_TOLERANCE
+            return reached and reversed_ and not crossed and slope_turned
+        if position.entry_price >= smma9:
+            return False
+        reached = candle.high >= smma9 - TRIGGER_TOLERANCE
+        crossed = candle.close >= smma9 - TRIGGER_TOLERANCE
+        reversed_ = candle.close < candle.open
+        slope_turned = slope < -TRIGGER_TOLERANCE
+        return reached and reversed_ and not crossed and slope_turned
+
     def _candle_stop_fill(self, position: Position, price: float) -> float | None:
         """Both lots share this cash-bar stop when it was stored at entry."""
         stop = position.stop_price
@@ -554,6 +592,8 @@ class PaperBook:
         skip_candle_stop: bool = False,
         stop_prices: dict[str, float] | None = None,
         candle: Candle | None = None,
+        reversal_smma: float | None = None,
+        reversal_smma_prev: float | None = None,
     ) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         move = position.move_pct(price)
@@ -620,6 +660,26 @@ class PaperBook:
                 )
                 return events
 
+        if self._smma_reversal_books_all(
+            position, candle, reversal_smma, reversal_smma_prev
+        ):
+            period = self.config.smma_reversal or 9
+            tilt = "up" if reversal_smma > reversal_smma_prev else "down"
+            events.append(
+                self._close_lots(
+                    position,
+                    position.lots_open,
+                    price,
+                    ExitReason.SMMA_REVERSAL,
+                    rsi,
+                    trigger=(
+                        f"all lots booked — reversal at SMMA {period} "
+                        f"₹{reversal_smma:,.2f} (slope {tilt}, did not cross by 15:15)"
+                    ),
+                )
+            )
+            return events
+
         if self._uses_smma_targets():
             events.extend(
                 self._apply_smma_exits(position, price, rsi, smma_levels, candle)
@@ -671,12 +731,16 @@ class PaperBook:
         skip_candle_stop: bool = False,
         stop_prices: dict[str, float] | None = None,
         candles: dict[str, Candle] | None = None,
+        reversal_smma: dict[str, float | None] | None = None,
+        reversal_smma_prev: dict[str, float | None] | None = None,
     ) -> list[TradeEvent]:
         """Mark open positions to market and run the exit rules."""
         today = today or date.today()
         rsi_values = rsi_values or {}
         smma_levels = smma_levels or {}
         candles = candles or {}
+        reversal_smma = reversal_smma or {}
+        reversal_smma_prev = reversal_smma_prev or {}
         events: list[TradeEvent] = []
 
         for position in list(self.positions):
@@ -693,6 +757,8 @@ class PaperBook:
                     skip_candle_stop=skip_candle_stop,
                     stop_prices=stop_prices,
                     candle=candles.get(position.symbol),
+                    reversal_smma=reversal_smma.get(position.symbol),
+                    reversal_smma_prev=reversal_smma_prev.get(position.symbol),
                 )
             )
 
@@ -831,6 +897,24 @@ class PaperBook:
             return Direction.SHORT
         return Direction.LONG
 
+    def _below_rsi_gate(self, alert: ScanAlert, direction: Direction) -> bool:
+        """True when this book wants a deeper RSI stretch than the alert has.
+
+        Only candle entries carry the gate. The scanner screens at the global
+        70/30; a book set to 75 skips shorts whose entry RSI sits in 70–75
+        (and longs above its put level), so other books are unaffected.
+        """
+        if alert.signal not in (
+            SignalType.RSI_CANDLE_SHORT,
+            SignalType.RSI_CANDLE_LONG,
+        ):
+            return False
+        if direction is Direction.SHORT:
+            level = self.config.rsi_call_threshold
+            return level is not None and alert.rsi < level
+        level = self.config.rsi_put_threshold
+        return level is not None and alert.rsi > level
+
     def open_from_alerts(self, alerts: list[ScanAlert]) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         held = {p.symbol for p in self.positions if p.is_open}
@@ -856,6 +940,8 @@ class PaperBook:
                 continue
 
             direction = self._direction_for(alert)
+            if self._below_rsi_gate(alert, direction):
+                continue
             blocked = no_short_skip_reason(
                 alert.symbol,
                 self.no_short_symbols,
@@ -941,14 +1027,20 @@ class PaperBook:
         self._roll_day()
         return self.day_realised_pnl + self.unrealised(prices)
 
-    def portfolio_summary_row(self, prices: dict[str, float]) -> dict:
-        """Current RSI+OI book state for the half-hour Google Sheets log."""
+    def portfolio_summary_row(
+        self,
+        prices: dict[str, float],
+        recorded_at=None,
+    ) -> dict:
+        """Current book state for the half-hour Google Sheets log."""
         open_pnl = self.unrealised(prices)
         return build_summary_row(
             positions=len([position for position in self.positions if position.is_open]),
             capital_used=self.margin_blocked,
             realised_pnl=self.realised_pnl,
             unrealised_pnl=open_pnl,
+            capital_free=self.free_capital,
+            recorded_at=recorded_at,
         )
 
     def summary(self, prices: dict[str, float]) -> str:

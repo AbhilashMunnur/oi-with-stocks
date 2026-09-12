@@ -32,13 +32,11 @@ def main() -> None:
     load_dotenv(ROOT / ".env")
     config = load_config(ROOT / "config.yaml")
 
-    books = [("RSI_CandlePattern", config.paper_trading)]
-    if config.rsi_s1_paper_trading:
-        books.append(("RSI+OI S1", config.rsi_s1_paper_trading))
-    if config.rsi_s2_paper_trading:
-        books.append(("RSI+OI S2", config.rsi_s2_paper_trading))
-    if config.supertrend_paper_trading:
-        books.append(("Supertrend", config.supertrend_paper_trading))
+    books = []
+    if config.rsi_candle_2w_paper_trading:
+        books.append(("RSI_CandlePattern", config.rsi_candle_2w_paper_trading))
+    if config.rsi_candle_3lot_paper_trading:
+        books.append(("RSI_Candle_3Lot", config.rsi_candle_3lot_paper_trading))
 
     raw = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     if not raw:

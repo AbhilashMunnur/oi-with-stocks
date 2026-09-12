@@ -20,3 +20,6 @@ data/RSI_CandlePattern_PnL_*.xlsx
 data/RSI_CandlePattern_backtests_*.xlsx
 .pytest_cache/
 .DS_Store
+
+data/RSI_CandlePattern_from_Jun1*.xlsx
+data/RSI_Candle_3Lot_from_Aug1*.xlsx

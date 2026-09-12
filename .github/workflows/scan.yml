@@ -127,10 +127,10 @@ jobs:
           # Add each path alone — one missing file must not abort the whole add.
           for path in \
             data/last_scan_slot.txt \
-            data/paper_book.json \
             data/rsi_candle_3m_2w_paper_book.json \
-            data/paper_trades.csv \
-            data/rsi_candle_3m_2w_paper_trades.csv
+            data/rsi_candle_3m_2w_paper_trades.csv \
+            data/rsi_candle_3lot_paper_book.json \
+            data/rsi_candle_3lot_paper_trades.csv
           do
             if [ -e "$path" ]; then
               git add -- "$path"

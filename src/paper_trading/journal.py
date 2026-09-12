@@ -31,6 +31,7 @@ SUMMARY_COLUMNS = [
     "Time",
     "Total number of positions taken",
     "Capital used in positions",
+    "Capital free",
     "Profit or loss",
     "Total realised profit or loss",
     "Unrealised profit or loss",
@@ -91,6 +92,7 @@ def build_summary_row(
     capital_used: float,
     realised_pnl: float,
     unrealised_pnl: float,
+    capital_free: float = 0.0,
     recorded_at: datetime | None = None,
 ) -> dict:
     recorded_at = recorded_at or datetime.now()
@@ -99,6 +101,7 @@ def build_summary_row(
         "Time": recorded_at.strftime("%H:%M"),
         "Total number of positions taken": positions,
         "Capital used in positions": round(capital_used),
+        "Capital free": round(capital_free),
         "Profit or loss": round(realised_pnl + unrealised_pnl),
         "Total realised profit or loss": round(realised_pnl),
         "Unrealised profit or loss": round(unrealised_pnl),
@@ -180,9 +183,26 @@ class TradeJournal:
         existing = sheet.get_all_values()
         if not existing:
             sheet.append_row(columns)
-        elif existing[0] != columns and existing[0][:3] != columns[:3]:
-            sheet.insert_row(columns, 1)
+        elif existing[0] != columns:
+            if existing[0][:3] == columns[:3]:
+                sheet.update("A1", [columns])
+            else:
+                sheet.insert_row(columns, 1)
         return sheet
+
+    def replace_worksheet(self, name: str, columns: list[str], rows: list[dict]) -> None:
+        """Clear one tab and write headers plus rows in one go."""
+        if not self.sheet_id:
+            raise RuntimeError("google_sheet_id is empty")
+        import gspread
+
+        client = gspread.authorize(self._credentials())
+        spreadsheet = client.open_by_key(self.sheet_id)
+        sheet = self._ensure_worksheet(spreadsheet, name, columns)
+        sheet.clear()
+        sheet.append_row(columns)
+        if rows:
+            sheet.append_rows([[row.get(column, "") for column in columns] for row in rows])
 
     def ensure_trade_sheet(self) -> None:
         """Create the closed-trades tab with headers if it is missing."""
