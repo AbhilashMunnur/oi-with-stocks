@@ -1087,6 +1087,9 @@ class OIRsiScanner:
         detail: str,
         stop_price: float | None = None,
     ) -> ScanAlert:
+        if not self.config.rsi_candle_2w_paper_trading.candle_stop:
+            # Without a stored bar stop the book falls back to the percent stop.
+            stop_price = None
         blocked = no_short_skip_reason(
             symbol,
             self.config.no_short_symbols,

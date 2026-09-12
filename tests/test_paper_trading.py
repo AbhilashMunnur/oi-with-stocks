@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import date
 
 import pytest
@@ -987,3 +988,27 @@ def test_trigger_names_the_expiry_date(config):
 
 
 
+def test_live_config_stops_a_short_two_percent_above_entry(tmp_path):
+    """The shipped RSI_CandlePattern stop: flat 2% from entry, no bar stop."""
+    from src.config import load_config
+
+    live = load_config("config.yaml").rsi_candle_2w_paper_trading
+    assert live.candle_stop is False, "percent stop only fires without a bar stop"
+    config = replace(
+        live,
+        capital=5_000_000,
+        ledger_path=str(tmp_path / "book.json"),
+        journal_csv=str(tmp_path / "trades.csv"),
+        google_sheet_id="",
+    )
+
+    book = PaperBook(config)
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+
+    book.update({"TITAN": 101.9})
+    assert book.positions[0].is_open
+
+    book.update({"TITAN": 102.1})
+    assert not any(position.is_open for position in book.positions)
+    assert book._pending_rows[-1]["Exit reason"] == "stop_loss"
+    assert book._pending_rows[-1]["Exit trigger"] == "2% stop ₹102.00"
