@@ -23,6 +23,7 @@ COLUMNS = [
     "Capital needed",
     "Profit/loss",
     "Exit reason",
+    "Exit trigger",
 ]
 
 SUMMARY_COLUMNS = [
@@ -62,6 +63,7 @@ def build_row(
     margin_per_lot: float,
     pnl: float,
     reason: str,
+    trigger: str = "",
 ) -> dict:
     entry_dt = datetime.strptime(entry_time, "%Y-%m-%d %H:%M:%S")
     exit_dt = datetime.strptime(exit_time, "%Y-%m-%d %H:%M:%S")
@@ -79,6 +81,7 @@ def build_row(
         "Capital needed": capital_needed(margin_per_lot, lots),
         "Profit/loss": round(pnl),
         "Exit reason": reason,
+        "Exit trigger": trigger,
     }
 
 

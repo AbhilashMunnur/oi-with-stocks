@@ -909,4 +909,81 @@ def test_qualify_skip_survives_ledger_reload(tmp_path, monkeypatch):
     assert loaded_again.qualify_skips["TITAN"] == 2
 
 
+# --------------------------------------------------------------------- #
+# Exit trigger: the journal has to say *why* a leg was booked, not just
+# which bucket it fell into.
+# --------------------------------------------------------------------- #
+
+
+def test_trigger_names_the_percent_target_that_won_the_race(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+
+    book.update({"TITAN": 106.0}, smma_levels={"TITAN": (108.0, 115.0)})
+
+    assert book._pending_rows[0]["Exit trigger"] == "lot 1 booked — 5% target ₹105.00"
+
+
+def test_trigger_names_the_smma_that_won_the_race(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(signal=SignalType.PUT_OI, ltp=100.0, lot_size=100)])
+
+    book.update({"TITAN": 103.0}, smma_levels={"TITAN": (102.0, 112.0)})
+
+    assert book._pending_rows[0]["Exit trigger"] == "lot 1 booked — SMMA 21 ₹102.00"
+
+
+def test_trigger_explains_a_cash_close_candle_stop(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    row = alert(ltp=100.0, lot_size=100)
+    row.stop_price = 108.0
+    book.open_from_alerts([row])
+
+    book.update(
+        {"TITAN": 102.0},
+        stop_prices={"TITAN": 109.0},
+        smma_levels={"TITAN": (90.0, 80.0)},
+    )
+
+    trigger = book._pending_rows[0]["Exit trigger"]
+    assert trigger == (
+        "candle stop — cash closed 109.00 above the entry-candle stop ₹108.00"
+    )
+
+
+def test_trigger_flags_the_tightened_stop_after_lot_one(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert()])
+    book.update({"TITAN": 4700.0})
+
+    book.update({"TITAN": 5050.0})
+
+    assert "tightened after lot 1 booked" in book._pending_rows[-1]["Exit trigger"]
+
+
+def test_trigger_records_the_rsi_level_that_booked_the_last_lot(tmp_path):
+    book = PaperBook(_smma_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 96.0}, smma_levels={"TITAN": (98.0, 80.0)})
+
+    book.update(
+        {"TITAN": 90.0},
+        rsi_values={"TITAN": 29.0},
+        smma_levels={"TITAN": (93.0, 80.0)},
+    )
+
+    assert book._pending_rows[-1]["Exit trigger"] == (
+        "final lot booked — RSI 29.0 reached 30"
+    )
+
+
+def test_trigger_names_the_expiry_date(config):
+    book = PaperBook(config)
+    book.open_from_alerts([alert(expiry="2026-08-25")])
+
+    book.update({"TITAN": 4990.0}, today=date(2026, 8, 25))
+
+    assert book._pending_rows[0]["Exit trigger"] == "contract expiry 2026-08-25"
+
+
 

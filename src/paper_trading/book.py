@@ -148,6 +148,7 @@ class PaperBook:
         price: float,
         reason: ExitReason,
         exit_rsi: float | None = None,
+        trigger: str = "",
     ) -> TradeEvent:
         pnl = position.pnl_for(lots, price)
         exit_time = now_stamp()
@@ -188,6 +189,7 @@ class PaperBook:
                 margin_per_lot=margin_per_lot,
                 pnl=pnl,
                 reason=reason.value,
+                trigger=trigger,
             )
         )
 
@@ -208,7 +210,9 @@ class PaperBook:
             kind=reason.value,
             detail=(
                 f"{position.direction} {lots} lot(s) @ ₹{price:,.2f} "
-                f"(entry ₹{position.entry_price:,.2f})"
+                f"(entry ₹{position.entry_price:,.2f}"
+                + (f", {trigger}" if trigger else "")
+                + ")"
             ),
             pnl=pnl,
         )
@@ -335,27 +339,41 @@ class PaperBook:
         *,
         pct: float | None,
         smma: float | None,
-    ) -> float | None:
+        smma_name: str = "SMMA",
+    ) -> tuple[float, str] | None:
         """Whichever favourable level is nearer to entry and already reached.
 
         Used so 5% can book before SMMA 21 (or vice versa), and 12% before
-        SMMA 50 (or vice versa), on a single scan snapshot.
+        SMMA 50 (or vice versa), on a single scan snapshot. Returns the fill
+        price and a label naming which level won the race.
         """
-        candidates: list[tuple[float, float]] = []
+        candidates: list[tuple[float, float, str]] = []
         if pct is not None and pct > 0:
             level = position.price_at_move(pct)
             if self._level_reached(position, price, level):
-                candidates.append((abs(level - position.entry_price), level))
+                candidates.append(
+                    (
+                        abs(level - position.entry_price),
+                        level,
+                        f"{pct:g}% target ₹{level:,.2f}",
+                    )
+                )
         if (
             smma is not None
             and self._level_is_profit(position, smma)
             and self._level_reached(position, price, smma)
         ):
-            candidates.append((abs(smma - position.entry_price), smma))
+            candidates.append(
+                (
+                    abs(smma - position.entry_price),
+                    smma,
+                    f"{smma_name} ₹{smma:,.2f}",
+                )
+            )
         if not candidates:
             return None
         candidates.sort(key=lambda item: item[0])
-        return candidates[0][1]
+        return candidates[0][1], candidates[0][2]
 
     def _apply_smma_exits(
         self,
@@ -369,15 +387,24 @@ class PaperBook:
         fast, slow = smma_levels if smma_levels is not None else (None, None)
 
         if position.lots_open == position.lots_total:
-            fill = self._race_target_fill(
+            won = self._race_target_fill(
                 position,
                 price,
                 pct=self.config.first_target_pct,
                 smma=fast,
+                smma_name=f"SMMA {self.config.smma_fast}",
             )
-            if fill is not None:
+            if won is not None:
+                fill, label = won
                 events.append(
-                    self._close_lots(position, 1, fill, ExitReason.FIRST_TARGET, rsi)
+                    self._close_lots(
+                        position,
+                        1,
+                        fill,
+                        ExitReason.FIRST_TARGET,
+                        rsi,
+                        trigger=f"lot 1 booked — {label}",
+                    )
                 )
             if position.lots_open == position.lots_total:
                 return events
@@ -385,13 +412,15 @@ class PaperBook:
         if not position.is_open:
             return events
 
-        fill = self._race_target_fill(
+        won = self._race_target_fill(
             position,
             price,
             pct=self.config.second_target_pct,
             smma=slow,
+            smma_name=f"SMMA {self.config.smma_slow}",
         )
-        if fill is not None:
+        if won is not None:
+            fill, label = won
             events.append(
                 self._close_lots(
                     position,
@@ -399,11 +428,17 @@ class PaperBook:
                     fill,
                     ExitReason.SECOND_TARGET,
                     rsi,
+                    trigger=f"final lot booked — {label}",
                 )
             )
             return events
 
         if self._rsi_second_lot_hit(position, rsi):
+            threshold = (
+                self.config.second_lot_rsi_short
+                if position.direction == Direction.SHORT
+                else self.config.second_lot_rsi_long
+            )
             events.append(
                 self._close_lots(
                     position,
@@ -411,6 +446,11 @@ class PaperBook:
                     price,
                     ExitReason.RSI_TARGET,
                     rsi,
+                    trigger=(
+                        f"final lot booked — RSI {rsi:.1f} reached {threshold:g}"
+                        if rsi is not None
+                        else f"final lot booked — RSI {threshold:g}"
+                    ),
                 )
             )
         return events
@@ -458,6 +498,15 @@ class PaperBook:
             # fill at the futures LTP — the cash stop price may never have
             # traded on the futures contract.
             fill = price if stop_prices is not None else candle_stop
+            side = "above" if position.direction == Direction.SHORT else "below"
+            if stop_prices is not None:
+                cash_close = stop_prices.get(position.symbol)
+                where = (
+                    f"cash closed {cash_close:,.2f} {side} the entry-candle stop "
+                    f"₹{candle_stop:,.2f}"
+                )
+            else:
+                where = f"price {side} the entry-candle stop ₹{candle_stop:,.2f}"
             events.append(
                 self._close_lots(
                     position,
@@ -465,6 +514,7 @@ class PaperBook:
                     fill,
                     ExitReason.STOP_LOSS,
                     rsi,
+                    trigger=f"candle stop — {where}",
                 )
             )
             return events
@@ -473,9 +523,22 @@ class PaperBook:
             stop_pct = self._stop_pct(position)
             if move <= -stop_pct + TRIGGER_TOLERANCE:
                 stop_price = position.price_at_move(-stop_pct)
+                tightened = position.lots_open < position.lots_total
                 events.append(
                     self._close_lots(
-                        position, position.lots_open, stop_price, ExitReason.STOP_LOSS, rsi
+                        position,
+                        position.lots_open,
+                        stop_price,
+                        ExitReason.STOP_LOSS,
+                        rsi,
+                        trigger=(
+                            f"{stop_pct:g}% stop ₹{stop_price:,.2f}"
+                            + (
+                                " (tightened after lot 1 booked)"
+                                if tightened
+                                else ""
+                            )
+                        ),
                     )
                 )
                 return events
@@ -493,19 +556,28 @@ class PaperBook:
                 if already_closed != index:
                     continue
                 lots = position.lots_open if index == len(targets) - 1 else 1
+                level = position.price_at_move(pct)
                 events.append(
                     self._close_lots(
                         position,
                         lots,
-                        position.price_at_move(pct),
+                        level,
                         reason,
                         rsi,
+                        trigger=f"{pct:g}% target ₹{level:,.2f}",
                     )
                 )
 
         if position.is_open and position.expiry and str(today) >= position.expiry:
             events.append(
-                self._close_lots(position, position.lots_open, price, ExitReason.EXPIRY, rsi)
+                self._close_lots(
+                    position,
+                    position.lots_open,
+                    price,
+                    ExitReason.EXPIRY,
+                    rsi,
+                    trigger=f"contract expiry {position.expiry}",
+                )
             )
 
         return events
@@ -582,10 +654,11 @@ class PaperBook:
         price: float,
         reason: ExitReason,
         exit_rsi: float | None = None,
+        trigger: str = "",
     ) -> TradeEvent:
         """Exit remaining lots at the given futures price for a named reason."""
         event = self._close_lots(
-            position, position.lots_open, price, reason, exit_rsi
+            position, position.lots_open, price, reason, exit_rsi, trigger=trigger
         )
         self.positions = [item for item in self.positions if item.is_open]
         return event
@@ -598,7 +671,11 @@ class PaperBook:
     ) -> TradeEvent:
         """Exit remaining lots after the entry support/resistance wall is broken."""
         return self.close_remaining(
-            position, price, ExitReason.WALL_BROKEN, exit_rsi
+            position,
+            price,
+            ExitReason.WALL_BROKEN,
+            exit_rsi,
+            trigger=f"entry OI wall ₹{position.strike:,.0f} broken",
         )
 
     def flush_journal(self) -> int:

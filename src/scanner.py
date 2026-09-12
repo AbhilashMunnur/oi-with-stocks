@@ -889,6 +889,7 @@ class OIRsiScanner:
                 fill,
                 reasons[why],
                 rsi_values.get(position.symbol),
+                trigger=f"S2 {why} at entry strike ₹{position.strike:,.0f}",
             )
             events.append(event)
             print(
