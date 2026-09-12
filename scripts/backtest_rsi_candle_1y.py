@@ -322,7 +322,14 @@ def main() -> None:
     args = parser.parse_args()
 
     config = load_config(ROOT / "config.yaml")
-    base = config.rsi_candle_2w_paper_trading
+    # Pin every structural field rather than inheriting it, so a variant named
+    # "2 lot 2Cr" stays that whatever config.yaml happens to say today.
+    base = replace(
+        config.rsi_candle_2w_paper_trading,
+        capital=20_000_000, lots_per_trade=2,
+        stop_loss_pct=4.0, second_lot_stop_pct=1.0,
+        final_lot_smma_cross_exit=False, final_lot_no_stop=False,
+    )
     client = AngelOneClient(
         rsi_period=config.rsi.period,
         history_days=config.data.history_days,
