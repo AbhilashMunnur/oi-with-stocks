@@ -11,3 +11,6 @@ scanner.log
 # One-off no-stop experiment — not the live strategy
 data/*nostop*
 data/rsi_candle_3m_2w_nostop_*
+
+# Generated Excel exports of the paper book
+data/RSI_CandlePattern_paper_book_*.xlsx
