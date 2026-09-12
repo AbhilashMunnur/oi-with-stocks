@@ -125,14 +125,20 @@ paper_trading:
 rsi_candle_2w_paper_trading:
   enabled: true
   name: "RSI_CandlePattern"
-  capital: 20000000
-  lots_per_trade: 2
+  capital: 40000000
+  # Three lots: 1 at 5% or SMMA 21, 1 at 12% or SMMA 50, and a runner that waits
+  # for RSI 30/70. Two lots on this capital only ever deploy Rs 2.5 Cr of it.
+  lots_per_trade: 3
   first_target_pct: 5.0
   second_target_pct: 12.0
   smma_fast: 21
   smma_slow: 50
   second_lot_rsi_short: 30
   second_lot_rsi_long: 70
+  # The runner also exits when a strong-bodied candle closes back through
+  # SMMA 21, and carries no stop — the two lots ahead of it banked the trade.
+  final_lot_smma_cross_exit: true
+  final_lot_no_stop: true
   # Flat 2% from entry, both before and after lot 1 books. A one-year test over
   # 210 F&O names had the reversal-bar stop at -63% and this at +40%; see
   # scripts/backtest_rsi_candle_1y.py.

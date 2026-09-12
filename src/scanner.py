@@ -130,6 +130,7 @@ class OIRsiScanner:
                 two_week,
                 journal=two_week_journal,
                 no_short_symbols=config.no_short_symbols,
+                candle_cfg=config.candles,
             )
 
     def close(self) -> None:
@@ -654,6 +655,37 @@ class OIRsiScanner:
             )
         return levels
 
+    def _candles_for_book(
+        self,
+        book: PaperBook,
+        cash_prices: dict[str, float],
+    ) -> dict[str, Candle] | None:
+        """Today's cash bar for open paper names, last close = cash LTP.
+
+        Only the three-lot runner reads these, and only to ask whether a strong
+        bar has closed back through SMMA 21. Both sides of that comparison are
+        therefore on the same cash basis as `_smma_levels_for_book`.
+        """
+        if not book.config.final_lot_smma_cross_exit:
+            return None
+        today = f"{date.today():%Y-%m-%d}"
+        bars: dict[str, Candle] = {}
+        for position in book.positions:
+            if not position.is_open:
+                continue
+            try:
+                rows = self.client.daily_full_ohlc(position.symbol)
+            except Exception:
+                continue
+            candles = self._bars_to_candles(rows)
+            if not candles or candles[-1].date != today:
+                continue
+            ltp = cash_prices.get(position.symbol)
+            bars[position.symbol] = (
+                with_live_close(candles[-1], ltp) if ltp else candles[-1]
+            )
+        return bars
+
     def _restate_cash_entries(self, book: PaperBook) -> list:
         """Rewrite cash fills to the 3rd-month future print at entry time."""
         restated: dict[str, float] = {}
@@ -955,6 +987,9 @@ class OIRsiScanner:
             smma_levels=smma_levels,
             skip_candle_stop=skip_candle,
             stop_prices=stop_prices,
+            # A candle "closing" through SMMA 21 only means anything once the
+            # bar is all but final, so read it in the cash-close slot only.
+            candles=self._candles_for_book(book, prices) if cash_slot else None,
         )
         if book is self.s1_book and is_s1_wall_exit_slot():
             events += self._exit_s1_broken_walls(
