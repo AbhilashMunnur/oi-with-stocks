@@ -3,6 +3,7 @@ from datetime import date
 
 import pytest
 
+from src.candle_patterns import Candle
 from src.config import PaperTradingConfig, SignalType
 from src.oi_analyzer import ScanAlert
 from src.paper_trading import PaperBook, ExitReason
@@ -1012,3 +1013,96 @@ def test_live_config_stops_a_short_two_percent_above_entry(tmp_path):
     assert not any(position.is_open for position in book.positions)
     assert book._pending_rows[-1]["Exit reason"] == "stop_loss"
     assert book._pending_rows[-1]["Exit trigger"] == "2% stop ₹102.00"
+
+
+def _three_lot_config(tmp_path):
+    """The proposed book: 3 lots, a runner with no stop and an SMMA 21 exit."""
+    return replace(
+        _smma_config(tmp_path),
+        capital=40_000_000,
+        lots_per_trade=3,
+        candle_stop=False,
+        stop_loss_pct=2.0,
+        second_lot_stop_pct=2.0,
+        final_lot_smma_cross_exit=True,
+        final_lot_no_stop=True,
+    )
+
+
+def _short_three_lot(tmp_path):
+    """A short with lot 1 booked at SMMA 21 and lot 2 booked at SMMA 50."""
+    book = PaperBook(_three_lot_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+    book.update({"TITAN": 94.0}, smma_levels={"TITAN": (95.0, 90.0)})
+    book.update({"TITAN": 89.0}, smma_levels={"TITAN": (95.0, 90.0)})
+    return book
+
+
+def test_three_lots_book_in_sequence_and_leave_a_runner(tmp_path):
+    book = _short_three_lot(tmp_path)
+
+    position = book.positions[0]
+    assert position.lots_open == 1
+    assert [leg.reason for leg in position.closed_legs] == [
+        "first_target", "second_target"
+    ]
+    assert book._pending_rows[-1]["Exit trigger"] == "lot 2 booked — SMMA 50 ₹90.00"
+
+
+def test_the_runner_books_when_rsi_reaches_30_on_a_short(tmp_path):
+    book = _short_three_lot(tmp_path)
+
+    book.update({"TITAN": 82.0}, rsi_values={"TITAN": 28.4})
+
+    assert not any(p.is_open for p in book.positions)
+    assert book._pending_rows[-1]["Exit trigger"] == (
+        "final lot booked — RSI 28.4 reached 30"
+    )
+
+
+def test_a_strong_candle_back_through_smma_21_ends_the_run(tmp_path):
+    book = _short_three_lot(tmp_path)
+
+    # Strong green bar: body is 80% of the range and it closes above SMMA 21.
+    book.update(
+        {"TITAN": 97.0},
+        smma_levels={"TITAN": (95.0, 90.0)},
+        candles={"TITAN": Candle("2026-09-11", 89.0, 97.5, 88.5, 97.0)},
+    )
+
+    assert not any(p.is_open for p in book.positions)
+    assert book._pending_rows[-1]["Exit reason"] == "smma_cross"
+    assert book._pending_rows[-1]["Exit trigger"] == (
+        "final lot booked — strong candle closed 97.00 above SMMA 21 ₹95.00"
+    )
+
+
+def test_a_weak_candle_through_smma_21_does_not_end_the_run(tmp_path):
+    book = _short_three_lot(tmp_path)
+
+    # Closes above SMMA 21 but the body is only a fifth of the range.
+    book.update(
+        {"TITAN": 97.0},
+        smma_levels={"TITAN": (95.0, 90.0)},
+        candles={"TITAN": Candle("2026-09-11", 96.0, 101.0, 91.0, 97.0)},
+    )
+
+    assert book.positions[0].lots_open == 1
+
+
+def test_the_runner_carries_no_stop(tmp_path):
+    book = _short_three_lot(tmp_path)
+
+    book.update({"TITAN": 130.0}, smma_levels={"TITAN": (95.0, 90.0)})
+
+    assert book.positions[0].lots_open == 1
+
+
+def test_the_first_two_lots_still_carry_the_percent_stop(tmp_path):
+    book = PaperBook(_three_lot_config(tmp_path))
+    book.open_from_alerts([alert(ltp=100.0, lot_size=100)])
+
+    book.update({"TITAN": 102.5})
+
+    assert not any(p.is_open for p in book.positions)
+    assert book._pending_rows[-1]["Exit reason"] == "stop_loss"

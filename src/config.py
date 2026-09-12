@@ -146,6 +146,13 @@ class PaperTradingConfig:
     # Store the reversal bar's high/low as the stop. Turn this off to fall back
     # to stop_loss_pct / second_lot_stop_pct measured from the entry price.
     candle_stop: bool = True
+    # Three-lot books: once every other lot is booked, the last lot rides for
+    # RSI 30/70. These two govern how that runner behaves.
+    #   final_lot_smma_cross_exit — also close it when a strong-bodied candle
+    #     closes back through SMMA fast, i.e. the move it was riding is over.
+    #   final_lot_no_stop — carry no stop on the runner at all.
+    final_lot_smma_cross_exit: bool = False
+    final_lot_no_stop: bool = False
 
 
 @dataclass

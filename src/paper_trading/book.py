@@ -4,7 +4,8 @@ import json
 from datetime import date
 from pathlib import Path
 
-from src.config import PaperTradingConfig, SignalType
+from src.candle_patterns import Candle, is_strong_bear, is_strong_bull
+from src.config import CandleConfig, PaperTradingConfig, SignalType
 from src.data.option_expiry import opened_on_stock_monthly_expiry
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading.journal import TradeJournal, build_row, build_summary_row
@@ -38,8 +39,10 @@ class PaperBook:
         path: str | Path | None = None,
         journal: TradeJournal | None = None,
         no_short_symbols: list[str] | None = None,
+        candle_cfg: CandleConfig | None = None,
     ):
         self.config = config
+        self.candle_cfg = candle_cfg or CandleConfig()
         self.path = Path(path or config.ledger_path)
         self.journal = journal
         self.no_short_symbols = {s.upper() for s in (no_short_symbols or [])}
@@ -381,8 +384,13 @@ class PaperBook:
         price: float,
         rsi: float | None,
         smma_levels: tuple[float | None, float | None] | None,
+        candle: Candle | None = None,
     ) -> list[TradeEvent]:
-        """Lot 1: 5% or SMMA 21 (first). Lot 2: 12% or SMMA 50, else RSI 30/70."""
+        """Lot 1: 5% or SMMA 21 (first). Lot 2: 12% or SMMA 50, else RSI 30/70.
+
+        On a three-lot book the SMMA 50 booking releases only one lot; the
+        runner then waits for RSI 30/70 or a strong close back through SMMA 21.
+        """
         events: list[TradeEvent] = []
         fast, slow = smma_levels if smma_levels is not None else (None, None)
 
@@ -412,25 +420,36 @@ class PaperBook:
         if not position.is_open:
             return events
 
-        won = self._race_target_fill(
-            position,
-            price,
-            pct=self.config.second_target_pct,
-            smma=slow,
-            smma_name=f"SMMA {self.config.smma_slow}",
-        )
-        if won is not None:
-            fill, label = won
-            events.append(
-                self._close_lots(
-                    position,
-                    position.lots_open,
-                    fill,
-                    ExitReason.SECOND_TARGET,
-                    rsi,
-                    trigger=f"final lot booked — {label}",
-                )
+        # Two-lot books close out here. Three-lot books release one lot and
+        # leave a runner, which the block below manages.
+        if position.lots_open == position.lots_total - 1:
+            won = self._race_target_fill(
+                position,
+                price,
+                pct=self.config.second_target_pct,
+                smma=slow,
+                smma_name=f"SMMA {self.config.smma_slow}",
             )
+            if won is not None:
+                fill, label = won
+                runner = position.lots_total > 2
+                events.append(
+                    self._close_lots(
+                        position,
+                        1 if runner else position.lots_open,
+                        fill,
+                        ExitReason.SECOND_TARGET,
+                        rsi,
+                        trigger=(
+                            f"lot 2 booked — {label}" if runner
+                            else f"final lot booked — {label}"
+                        ),
+                    )
+                )
+                if not runner:
+                    return events
+
+        if not position.is_open:
             return events
 
         if self._rsi_second_lot_hit(position, rsi):
@@ -453,7 +472,58 @@ class PaperBook:
                     ),
                 )
             )
+            return events
+
+        if self._smma_cross_ends_the_run(position, fast, candle):
+            side = "above" if position.direction == Direction.SHORT else "below"
+            events.append(
+                self._close_lots(
+                    position,
+                    position.lots_open,
+                    price,
+                    ExitReason.SMMA_CROSS,
+                    rsi,
+                    trigger=(
+                        f"final lot booked — strong candle closed {candle.close:,.2f} "
+                        f"{side} SMMA {self.config.smma_fast} ₹{fast:,.2f}"
+                    ),
+                )
+            )
         return events
+
+    def _runner_is_unstopped(self, position: Position) -> bool:
+        """The last lot of a three-lot position rides without a stop.
+
+        Everything it can still lose was already banked by the two lots that
+        booked ahead of it, so it exits on RSI 30/70, an SMMA cross, or expiry.
+        """
+        return (
+            self.config.final_lot_no_stop
+            and position.lots_total >= 3
+            and position.lots_open == 1
+        )
+
+    def _smma_cross_ends_the_run(
+        self,
+        position: Position,
+        fast: float | None,
+        candle: Candle | None,
+    ) -> bool:
+        """The runner's trend is over: a strong bar closed back through SMMA fast.
+
+        Only the last lot of a three-lot position is managed this way, and only
+        once the earlier lots have booked — before that, SMMA fast is still a
+        profit target rather than an exit signal.
+        """
+        if not self.config.final_lot_smma_cross_exit:
+            return False
+        if position.lots_total < 3 or position.lots_open != 1:
+            return False
+        if fast is None or candle is None or candle.span <= 0:
+            return False
+        if position.direction == Direction.SHORT:
+            return is_strong_bull(candle, self.candle_cfg) and candle.close > fast
+        return is_strong_bear(candle, self.candle_cfg) and candle.close < fast
 
     def _candle_stop_fill(self, position: Position, price: float) -> float | None:
         """Both lots share this cash-bar stop when it was stored at entry."""
@@ -478,13 +548,15 @@ class PaperBook:
         *,
         skip_candle_stop: bool = False,
         stop_prices: dict[str, float] | None = None,
+        candle: Candle | None = None,
     ) -> list[TradeEvent]:
         events: list[TradeEvent] = []
         move = position.move_pct(price)
 
         # Stop first: on a 30-minute snapshot we cannot know the intrabar order,
         # so assume the adverse level was reached before any target.
-        if skip_candle_stop:
+        unstopped = self._runner_is_unstopped(position)
+        if skip_candle_stop or unstopped:
             candle_stop = None
         elif stop_prices is not None:
             cash = stop_prices.get(position.symbol)
@@ -519,7 +591,7 @@ class PaperBook:
             )
             return events
 
-        if position.stop_price is None:
+        if position.stop_price is None and not unstopped:
             stop_pct = self._stop_pct(position)
             if move <= -stop_pct + TRIGGER_TOLERANCE:
                 stop_price = position.price_at_move(-stop_pct)
@@ -544,7 +616,9 @@ class PaperBook:
                 return events
 
         if self._uses_smma_targets():
-            events.extend(self._apply_smma_exits(position, price, rsi, smma_levels))
+            events.extend(
+                self._apply_smma_exits(position, price, rsi, smma_levels, candle)
+            )
         else:
             targets = self._scale_targets()
             for index, (pct, reason) in enumerate(targets):
@@ -591,11 +665,13 @@ class PaperBook:
         *,
         skip_candle_stop: bool = False,
         stop_prices: dict[str, float] | None = None,
+        candles: dict[str, Candle] | None = None,
     ) -> list[TradeEvent]:
         """Mark open positions to market and run the exit rules."""
         today = today or date.today()
         rsi_values = rsi_values or {}
         smma_levels = smma_levels or {}
+        candles = candles or {}
         events: list[TradeEvent] = []
 
         for position in list(self.positions):
@@ -611,6 +687,7 @@ class PaperBook:
                     smma_levels.get(position.symbol),
                     skip_candle_stop=skip_candle_stop,
                     stop_prices=stop_prices,
+                    candle=candles.get(position.symbol),
                 )
             )
 
