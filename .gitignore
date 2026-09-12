@@ -17,3 +17,4 @@ data/RSI_CandlePattern_paper_book_*.xlsx
 data/backtests/rsi_candle_1y/ohlc_*.json
 data/backtests/rsi_candle_1y/book_*.json
 data/RSI_CandlePattern_PnL_*.xlsx
+data/RSI_CandlePattern_backtests_*.xlsx
