@@ -50,17 +50,23 @@ class CandleConfig:
 class HeikinAshiConfig:
     """Heikin_Ashi book: RSI 70/30 tag, then strong → weak → opposite HA candle.
 
-    Shorts: RSI ≥ 70 within ``rsi_lookback_sessions``; a strong green HA
-    candle (body ≥ strong_body_pct of its range), then at least
-    ``min_weak_candles`` weak HA candles (body ≤ weak_body_pct, any colour),
-    then today's HA candle turns red with a real body, and today's normal
-    candle is one of the usual bearish reversal shapes. Longs mirror.
+    Shorts: RSI ≥ 70 within ``rsi_lookback_sessions``; on the Heikin-Ashi
+    chart a strong green candle (body ≥ strong_body_pct of its range), then
+    ``min_weak_candles`` or more weak candles (body ≤ weak_body_pct, any
+    colour), then today's HA candle turns red — any body size unless
+    ``opposite_needs_body``. ``require_normal_candle`` additionally asks for
+    one of the normal-candle reversal shapes that day. Longs mirror.
+
+    Names whose HA chart is still in the weak-candle base (no opposite colour
+    yet) are reported as "base forming" and not traded.
     """
 
     strong_body_pct: float = 50.0
     weak_body_pct: float = 40.0
-    min_weak_candles: int = 1
+    min_weak_candles: int = 0
     rsi_lookback_sessions: int = 10
+    opposite_needs_body: bool = False
+    require_normal_candle: bool = False
 
 
 @dataclass

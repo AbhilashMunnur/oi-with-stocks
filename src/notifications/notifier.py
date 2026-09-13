@@ -144,6 +144,14 @@ class Notifier:
                 key=lambda a: (bool(a.skip_reason), a.distance_pct, -(a.rsi or 0)),
             )
             for alert in group:
+                if alert.skip_reason and alert.skip_reason.startswith("base forming"):
+                    # Heikin_Ashi watch list: RSI stretched, HA weak candles,
+                    # no opposite-colour candle yet.
+                    lines.append(
+                        f"• {alert.symbol}: stretch RSI {alert.rsi:.1f} | ₹{alert.ltp:,.2f} "
+                        f"| {alert.skip_reason}"
+                    )
+                    continue
                 if alert.supertrend is not None:
                     lines.append(
                         f"• {alert.symbol}: ₹{alert.ltp:,.2f} vs ST ₹{alert.supertrend:,.2f} "
@@ -190,8 +198,8 @@ class Notifier:
             alerts,
             title="Heikin_Ashi alerts",
             sections=[
-                (SignalType.HA_SHORT, "SHORT (RSI ≥ 70 tag, HA strong → weak → red)"),
-                (SignalType.HA_LONG, "LONG (RSI ≤ 30 tag, HA strong → weak → green)"),
+                (SignalType.HA_SHORT, "SHORT (RSI ≥ 70 tag, HA strong run → red candle)"),
+                (SignalType.HA_LONG, "LONG (RSI ≤ 30 tag, HA strong run → green candle)"),
             ],
         )
 

@@ -1,15 +1,21 @@
 from src.candle_patterns import Candle
 from src.config import CandleConfig, HeikinAshiConfig, SignalType, load_config
 from src.heikin_ashi import (
+    ha_base_forming,
     ha_reversal_setup,
     ha_sequence,
+    ha_watch_setup,
     heikin_ashi,
     is_strong,
     is_weak,
+    make_ha_alert,
     rsi_tagged,
 )
 
-HA = HeikinAshiConfig()
+HA = HeikinAshiConfig()  # min_weak 0, any opposite body, no normal candle
+STRICT = HeikinAshiConfig(
+    min_weak_candles=1, opposite_needs_body=True, require_normal_candle=True
+)
 NORMAL = CandleConfig()
 
 
@@ -40,37 +46,62 @@ def test_strong_and_weak_shapes():
     assert not is_weak(strong_green, HA)
 
 
-def _short_sequence_ha():
-    """Strong green → two weak → solid red (already Heikin-Ashi values)."""
-    return [
-        Candle("2026-07-01", 100, 110, 100, 109),
-        Candle("2026-07-02", 108, 114, 104, 110),  # weak, body 20%
-        Candle("2026-07-03", 110, 115, 105, 111),  # weak, body 10%
-        Candle("2026-07-04", 111, 112, 100, 102),  # red, body 75%
-    ]
+STRONG_GREEN = Candle("2026-07-01", 100, 110, 100, 109)
+WEAK_1 = Candle("2026-07-02", 108, 114, 104, 110)  # body 20%
+WEAK_2 = Candle("2026-07-03", 110, 115, 105, 111)  # body 10%
+SOLID_RED = Candle("2026-07-04", 111, 112, 100, 102)  # body 75%
+WEAK_RED = Candle("2026-07-04", 111, 115, 105, 110)  # body 10%
 
 
-def test_ha_sequence_short_needs_strong_then_weak_then_red():
-    seq = ha_sequence(_short_sequence_ha(), HA, short=True)
+def test_short_sequence_strong_then_weak_then_red():
+    seq = ha_sequence([STRONG_GREEN, WEAK_1, WEAK_2, SOLID_RED], HA, short=True)
     assert seq is not None
     assert seq.strong_date == "2026-07-01"
     assert seq.weak_count == 2
+    assert seq.describe() == "HA strong 2026-07-01 → 2 weak → opposite body 75%"
     # Same candles do not qualify as a long.
-    assert ha_sequence(_short_sequence_ha(), HA, short=False) is None
+    assert ha_sequence([STRONG_GREEN, WEAK_1, WEAK_2, SOLID_RED], HA, short=False) is None
 
 
-def test_ha_sequence_rejects_missing_weak_run_or_weak_opposite():
-    no_weak = [
-        Candle("a", 100, 110, 100, 109),
-        Candle("b", 109, 112, 100, 102),
-    ]
-    assert ha_sequence(no_weak, HA, short=True) is None
+def test_default_rule_takes_a_weak_red_and_needs_no_weak_run():
+    # Weak opposite-colour candle is the entry (Bosch 24 Aug / 1 Sep case).
+    seq = ha_sequence([STRONG_GREEN, WEAK_1, WEAK_RED], HA, short=True)
+    assert seq is not None and seq.weak_count == 1
+    # Strong run straight into a red candle also fires.
+    seq = ha_sequence([STRONG_GREEN, SOLID_RED], HA, short=True)
+    assert seq is not None and seq.weak_count == 0
+    assert seq.describe() == "HA strong 2026-07-01 → opposite body 75%"
+    # Two strong greens then red: the walk-back lands on the last strong one.
+    seq = ha_sequence([STRONG_GREEN, Candle("2026-07-02", 109, 120, 109, 119), SOLID_RED], HA, short=True)
+    assert seq is not None and seq.strong_date == "2026-07-02"
 
-    weak_red_today = _short_sequence_ha()[:-1] + [Candle("d", 111, 115, 105, 110)]
-    assert ha_sequence(weak_red_today, HA, short=True) is None
 
-    stricter = HeikinAshiConfig(min_weak_candles=3)
-    assert ha_sequence(_short_sequence_ha(), stricter, short=True) is None
+def test_strict_rule_rejects_weak_red_and_missing_weak_run():
+    assert ha_sequence([STRONG_GREEN, WEAK_1, WEAK_RED], STRICT, short=True) is None
+    assert ha_sequence([STRONG_GREEN, SOLID_RED], STRICT, short=True) is None
+    assert ha_sequence([STRONG_GREEN, WEAK_1, SOLID_RED], STRICT, short=True) is not None
+
+
+def test_no_strong_run_means_no_sequence():
+    weak_only = [WEAK_1, WEAK_2, SOLID_RED]
+    assert ha_sequence(weak_only, HA, short=True) is None
+    # A strong RED before the run is the wrong colour for a short.
+    strong_red_first = [Candle("a", 110, 110, 100, 101), WEAK_1, SOLID_RED]
+    assert ha_sequence(strong_red_first, HA, short=True) is None
+
+
+def test_base_forming_is_the_watch_state():
+    reason = ha_base_forming([STRONG_GREEN, WEAK_1, WEAK_2], HA, short=True)
+    assert reason == (
+        "base forming — 2 weak HA candle(s) after strong 2026-07-01, "
+        "waiting for a red HA candle"
+    )
+    # Once the candle is red (even weak) it is an entry, not a base.
+    assert ha_base_forming([STRONG_GREEN, WEAK_1, WEAK_RED], HA, short=True) is None
+    # Still strong → no base yet.
+    assert ha_base_forming([STRONG_GREEN, Candle("b", 109, 120, 109, 119)], HA, short=True) is None
+    # Weak candles with no strong run behind them are not a base.
+    assert ha_base_forming([WEAK_1, WEAK_2], HA, short=True) is None
 
 
 def test_rsi_tagged_returns_the_stretch_inside_the_window():
@@ -79,55 +110,61 @@ def test_rsi_tagged_returns_the_stretch_inside_the_window():
     assert rsi_tagged([35.0, 28.4, 26.1], threshold=30, above=False) == 26.1
 
 
-def test_ha_reversal_setup_short_requires_normal_reversal_candle_too():
-    ha = _short_sequence_ha()
-    # Normal bars: last one is a strong red body (a bearish reversal shape).
-    bars = [
+def _normal_bars():
+    return [
         bar(1, 100, 110, 99, 109),
         bar(2, 109, 114, 106, 111),
         bar(3, 111, 116, 108, 112),
-        bar(4, 112, 113, 100, 101),
+        bar(4, 112, 118, 111, 117),  # strong green normal candle — no bearish shape
     ]
+
+
+def test_ha_reversal_setup_default_ignores_the_normal_candle():
+    ha = [STRONG_GREEN, WEAK_1, WEAK_2, SOLID_RED]
     setup = ha_reversal_setup(
-        bars, ha, [66.0, 72.5, 69.0, 64.0],
+        _normal_bars(), ha, [66.0, 72.5, 69.0, 64.0],
         call_threshold=70, put_threshold=30, ha_cfg=HA, candle_cfg=NORMAL,
     )
     assert setup is not None
-    signal, pattern, stretch = setup
+    signal, label, stretch = setup
     assert signal is SignalType.HA_SHORT
-    assert pattern.startswith("strong red body + HA strong 2026-07-01")
+    assert label == "HA strong 2026-07-01 → 2 weak → opposite body 75%"
     assert stretch == 72.5
-
-    # Same HA picture but a strong green normal candle → no short.
-    bars_green = bars[:-1] + [bar(4, 100, 113, 99, 112)]
-    assert (
-        ha_reversal_setup(
-            bars_green, ha, [66.0, 72.5, 69.0, 64.0],
-            call_threshold=70, put_threshold=30, ha_cfg=HA, candle_cfg=NORMAL,
-        )
-        is None
-    )
     # No RSI tag in the window → no trade.
     assert (
         ha_reversal_setup(
-            bars, ha, [66.0, 68.5, 69.0, 64.0],
+            _normal_bars(), ha, [66.0, 68.5, 69.0, 64.0],
             call_threshold=70, put_threshold=30, ha_cfg=HA, candle_cfg=NORMAL,
         )
         is None
     )
+
+
+def test_ha_reversal_setup_strict_requires_the_normal_candle_too():
+    ha = [STRONG_GREEN, WEAK_1, WEAK_2, SOLID_RED]
+    assert (
+        ha_reversal_setup(
+            _normal_bars(), ha, [66.0, 72.5, 69.0, 64.0],
+            call_threshold=70, put_threshold=30, ha_cfg=STRICT, candle_cfg=NORMAL,
+        )
+        is None
+    )
+    bars = _normal_bars()[:-1] + [bar(4, 112, 113, 100, 101)]  # strong red body
+    setup = ha_reversal_setup(
+        bars, ha, [66.0, 72.5, 69.0, 64.0],
+        call_threshold=70, put_threshold=30, ha_cfg=STRICT, candle_cfg=NORMAL,
+    )
+    assert setup is not None
+    assert setup[1].startswith("strong red body + HA strong 2026-07-01")
 
 
 def test_ha_reversal_setup_long_mirrors():
     ha = [
         Candle("a", 110, 110, 100, 101),  # strong red
         Candle("b", 102, 106, 98, 101),  # weak
-        Candle("c", 100, 101, 90, 108) if False else Candle("c", 100, 110, 99, 109),  # solid green
+        Candle("c", 100, 110, 99, 109),  # green
     ]
-    bars = [
-        bar(1, 110, 111, 100, 101),
-        bar(2, 101, 105, 97, 100),
-        bar(3, 100, 110, 99, 109),  # strong green body
-    ]
+    bars = [bar(1, 110, 111, 100, 101), bar(2, 101, 105, 97, 100), bar(3, 100, 110, 99, 109)]
     setup = ha_reversal_setup(
         bars, ha, [33.0, 27.9, 31.0],
         call_threshold=70, put_threshold=30, ha_cfg=HA, candle_cfg=NORMAL,
@@ -137,10 +174,28 @@ def test_ha_reversal_setup_long_mirrors():
     assert setup[2] == 27.9
 
 
+def test_ha_watch_setup_and_alert_are_not_tradeable():
+    watch = ha_watch_setup(
+        [STRONG_GREEN, WEAK_1, WEAK_2], [66.0, 72.5, 69.0],
+        call_threshold=70, put_threshold=30, ha_cfg=HA,
+    )
+    assert watch is not None
+    signal, reason, stretch = watch
+    assert signal is SignalType.HA_SHORT and stretch == 72.5
+    alert = make_ha_alert(
+        symbol="BOSCHLTD", ltp=48_385.0, rsi=stretch, signal=signal, pattern="", skip_reason=reason
+    )
+    assert alert.skip_reason.startswith("base forming")
+    assert alert.candle_pattern == ""
+    assert "watch" in alert.message
+
+
 def test_config_loads_the_heikin_ashi_book():
     config = load_config("config.yaml")
     assert config.heikin_ashi.rsi_lookback_sessions == 10
-    assert config.heikin_ashi.min_weak_candles == 1
+    assert config.heikin_ashi.min_weak_candles == 0
+    assert config.heikin_ashi.opposite_needs_body is False
+    assert config.heikin_ashi.require_normal_candle is False
     book = config.heikin_ashi_paper_trading
     assert book is not None and book.enabled
     assert book.name == "Heikin_Ashi"

@@ -22,7 +22,12 @@ from src.config import (
 )
 from src.data.angelone_client import AngelOneClient
 from src.data.option_expiry import expiry_entry_skip_reason, oi_scan_reason
-from src.heikin_ashi import ha_reversal_setup, heikin_ashi, make_ha_alert
+from src.heikin_ashi import (
+    ha_reversal_setup,
+    ha_watch_setup,
+    heikin_ashi,
+    make_ha_alert,
+)
 from src.indicators import calculate_rsi_series
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
@@ -645,17 +650,39 @@ class OIRsiScanner:
         ha_cfg = self.config.heikin_ashi
         recent_rsi = self._recent_completed_rsi(symbol, ha_cfg.rsi_lookback_sessions)
         recent_rsi.append(self.client.get_rsi(symbol, ltp))
+        ha = heikin_ashi(bars)
+        call_th = self.config.rsi.call_threshold
+        put_th = self.config.rsi.put_threshold
         setup = ha_reversal_setup(
             bars,
-            heikin_ashi(bars),
+            ha,
             recent_rsi,
-            call_threshold=self.config.rsi.call_threshold,
-            put_threshold=self.config.rsi.put_threshold,
+            call_threshold=call_th,
+            put_threshold=put_th,
             ha_cfg=ha_cfg,
             candle_cfg=self.config.candles,
         )
         if not setup:
-            return None
+            watch = ha_watch_setup(
+                ha,
+                recent_rsi,
+                call_threshold=call_th,
+                put_threshold=put_th,
+                ha_cfg=ha_cfg,
+            )
+            if not watch:
+                return None
+            signal, reason, stretch = watch
+            print(f"  {symbol}: Heikin_Ashi {signal.value} {reason}")
+            # Reported in the digest, never traded (skip_reason set).
+            return make_ha_alert(
+                symbol=symbol,
+                ltp=ltp,
+                rsi=stretch,
+                signal=signal,
+                pattern="",
+                skip_reason=reason,
+            )
         signal, pattern, stretch = setup
         skip = no_short_skip_reason(
             symbol,
@@ -757,7 +784,7 @@ class OIRsiScanner:
         )
 
         waiting_short = waiting_long = 0
-        hits = ha_hits = 0
+        hits = ha_hits = ha_watch = 0
         for index, symbol in enumerate(symbols, 1):
             ltp = fut_scan.get(symbol)
             if not ltp:
@@ -776,7 +803,10 @@ class OIRsiScanner:
             ha_alert = self._check_heikin_ashi(symbol, ltp)
             if ha_alert:
                 alerts.append(ha_alert)
-                ha_hits += 1
+                if ha_alert.skip_reason and ha_alert.skip_reason.startswith("base forming"):
+                    ha_watch += 1
+                else:
+                    ha_hits += 1
             if index % 25 == 0:
                 print(f"  screened {index}/{len(symbols)} symbols...")
                 self.client._save_ohlc_cache()
@@ -786,7 +816,9 @@ class OIRsiScanner:
         self.client._save_closes_cache()
         print(f"  {hits} reversal signal(s)")
         if self.ha_book:
-            print(f"  {ha_hits} Heikin_Ashi signal(s)")
+            print(
+                f"  {ha_hits} Heikin_Ashi signal(s), {ha_watch} name(s) base forming"
+            )
         print(
             f"  {waiting_short} name(s) RSI ≥ {call_th:g} strong bull "
             "— not shorting until a reversal candle"

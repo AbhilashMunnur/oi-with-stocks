@@ -17,16 +17,19 @@ candles:
   hammer_long_wick_pct: 50.0
   hammer_short_wick_pct: 15.0
 
-# Heikin_Ashi book entries: RSI tagged 70/30 inside the lookback, then on
-# Heikin-Ashi candles a strong trend-colour candle (body >= strong_body_pct),
-# at least min_weak_candles weak candles (body <= weak_body_pct), then today's
-# HA candle turns the opposite colour with a real body — and today's normal
-# candle is one of the usual reversal shapes above.
+# Heikin_Ashi book entries: RSI (normal OHLC) tagged 70/30 inside the
+# lookback, then on the Heikin-Ashi chart a strong trend-colour candle (body
+# >= strong_body_pct), zero or more weak candles (body <= weak_body_pct),
+# then today's HA candle turns the opposite colour — any body size. Names
+# still in the weak-candle base are sent to Telegram as "base forming".
+# The normal candle shape is not required (require_normal_candle: false).
 heikin_ashi:
   strong_body_pct: 50.0
   weak_body_pct: 40.0
-  min_weak_candles: 1
+  min_weak_candles: 0
   rsi_lookback_sessions: 10
+  opposite_needs_body: false
+  require_normal_candle: false
 
 oi:
   proximity_pct: 1.0
