@@ -13,9 +13,17 @@ from src.candle_patterns import (
     waiting_reason,
     with_live_close,
 )
-from src.config import AppConfig, SignalType
+from src.config import (
+    CANDLE_SIGNALS,
+    HA_SIGNALS,
+    AppConfig,
+    PaperTradingConfig,
+    SignalType,
+)
 from src.data.angelone_client import AngelOneClient
 from src.data.option_expiry import expiry_entry_skip_reason, oi_scan_reason
+from src.heikin_ashi import ha_reversal_setup, heikin_ashi, make_ha_alert
+from src.indicators import calculate_rsi_series
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading import PaperBook
@@ -37,38 +45,34 @@ class OIRsiScanner:
             extreme_history_days=config.data.extreme_history_days,
         )
         self.notifier = Notifier(config.notifications)
-        self.two_week_book = None
-        self.three_lot_book = None
+        # RSI + normal-candle books share the candle alerts; the Heikin_Ashi
+        # book takes only HA alerts.
+        self.two_week_book = self._build_book(config.rsi_candle_2w_paper_trading)
+        self.three_lot_book = self._build_book(config.rsi_candle_3lot_paper_trading)
+        self.ha_book = self._build_book(config.heikin_ashi_paper_trading)
 
-        two_week = config.rsi_candle_2w_paper_trading
-        if two_week and two_week.enabled:
-            two_week_journal = TradeJournal(
-                csv_path=two_week.journal_csv,
-                sheet_id=two_week.google_sheet_id,
-                worksheet=two_week.google_worksheet,
-                summary_worksheet=two_week.google_summary_worksheet,
-            )
-            self.two_week_book = PaperBook(
-                two_week,
-                journal=two_week_journal,
-                no_short_symbols=config.no_short_symbols,
-                candle_cfg=config.candles,
-            )
+    def _build_book(self, paper: PaperTradingConfig | None) -> PaperBook | None:
+        if not paper or not paper.enabled:
+            return None
+        journal = TradeJournal(
+            csv_path=paper.journal_csv,
+            sheet_id=paper.google_sheet_id,
+            worksheet=paper.google_worksheet,
+            summary_worksheet=paper.google_summary_worksheet,
+        )
+        return PaperBook(
+            paper,
+            journal=journal,
+            no_short_symbols=self.config.no_short_symbols,
+            candle_cfg=self.config.candles,
+        )
 
-        three_lot = config.rsi_candle_3lot_paper_trading
-        if three_lot and three_lot.enabled:
-            three_lot_journal = TradeJournal(
-                csv_path=three_lot.journal_csv,
-                sheet_id=three_lot.google_sheet_id,
-                worksheet=three_lot.google_worksheet,
-                summary_worksheet=three_lot.google_summary_worksheet,
-            )
-            self.three_lot_book = PaperBook(
-                three_lot,
-                journal=three_lot_journal,
-                no_short_symbols=config.no_short_symbols,
-                candle_cfg=config.candles,
-            )
+    def _books(self) -> list[PaperBook]:
+        return [
+            book
+            for book in (self.two_week_book, self.three_lot_book, self.ha_book)
+            if book
+        ]
 
     def close(self) -> None:
         self.client.close()
@@ -100,11 +104,8 @@ class OIRsiScanner:
         return [symbol.upper() for symbol in watchlist]
 
     def _default_futures_month(self) -> int:
-        paper = (
-            self.config.rsi_candle_2w_paper_trading
-            or self.config.rsi_candle_3lot_paper_trading
-        )
-        return paper.futures_month if paper else 3
+        books = self.config.candle_books()
+        return books[0].futures_month if books else 3
 
     def _apply_futures_expiry(self, alerts: list[ScanAlert], month: int | None = None) -> None:
         """Point paper entries at this book's futures month (3rd-month stock futures)."""
@@ -420,11 +421,10 @@ class OIRsiScanner:
         rsi_values: dict[str, float],
     ) -> None:
         candle_alerts = [
-            a
-            for a in alerts
-            if a.signal
-            in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
-            and not a.skip_reason
+            a for a in alerts if a.signal in CANDLE_SIGNALS and not a.skip_reason
+        ]
+        ha_alerts = [
+            a for a in alerts if a.signal in HA_SIGNALS and not a.skip_reason
         ]
         if self.two_week_book:
             self._run_one_paper_book(
@@ -434,6 +434,8 @@ class OIRsiScanner:
             self._run_one_paper_book(
                 self.three_lot_book, candle_alerts, prices, rsi_values
             )
+        if self.ha_book:
+            self._run_one_paper_book(self.ha_book, ha_alerts, prices, rsi_values)
 
     def _bars_to_candles(
         self, rows: list[tuple[str, float, float, float, float]]
@@ -616,11 +618,79 @@ class OIRsiScanner:
 
     def _open_paper_symbols(self) -> list[str]:
         names: set[str] = set()
-        for book in (self.two_week_book, self.three_lot_book):
-            if not book:
-                continue
+        for book in self._books():
             names.update(p.symbol for p in book.positions if p.is_open)
         return sorted(names)
+
+    def _check_heikin_ashi(self, symbol: str, ltp: float) -> ScanAlert | None:
+        """Heikin_Ashi book: RSI tag in the lookback, strong → weak → opposite HA.
+
+        Entry from 15:15 IST on the day the HA candle turns, with the live
+        price folded into today's bar. The normal candle must also be one of
+        the reversal shapes.
+        """
+        if not self.ha_book or not is_candle_entry_window():
+            return None
+        try:
+            rows = self.client.daily_full_ohlc(symbol)
+        except Exception as exc:
+            print(f"  {symbol}: candles unavailable for Heikin_Ashi ({exc})")
+            return None
+        bars = self._bars_to_candles(rows)
+        today = f"{date.today():%Y-%m-%d}"
+        if len(bars) < 3 or bars[-1].date != today:
+            return None
+        bars[-1] = with_live_close(bars[-1], ltp)
+
+        ha_cfg = self.config.heikin_ashi
+        recent_rsi = self._recent_completed_rsi(symbol, ha_cfg.rsi_lookback_sessions)
+        recent_rsi.append(self.client.get_rsi(symbol, ltp))
+        setup = ha_reversal_setup(
+            bars,
+            heikin_ashi(bars),
+            recent_rsi,
+            call_threshold=self.config.rsi.call_threshold,
+            put_threshold=self.config.rsi.put_threshold,
+            ha_cfg=ha_cfg,
+            candle_cfg=self.config.candles,
+        )
+        if not setup:
+            return None
+        signal, pattern, stretch = setup
+        skip = no_short_skip_reason(
+            symbol,
+            self.config.no_short_symbols,
+            is_short=signal is SignalType.HA_SHORT,
+        )
+        if not skip and self.config.oi.skip_monthly_expiry:
+            skip = expiry_entry_skip_reason()
+        if skip:
+            print(f"  {symbol}: Heikin_Ashi {pattern} skipped — {skip}")
+        else:
+            print(f"  {symbol}: {signal.value} {pattern} (stretch RSI {stretch:.1f})")
+        return make_ha_alert(
+            symbol=symbol,
+            ltp=ltp,
+            rsi=stretch,
+            signal=signal,
+            pattern=pattern,
+            skip_reason=skip,
+        )
+
+    def _recent_completed_rsi(self, symbol: str, sessions: int) -> list[float | None]:
+        """RSI on the last ``sessions`` finished days (excludes today)."""
+        import pandas as pd
+
+        series = self.client.daily_closes(symbol)
+        today = f"{date.today():%Y-%m-%d}"
+        closes = [close for day, close in series if day < today]
+        if len(closes) < self.config.rsi.period + 2:
+            return []
+        rsi = calculate_rsi_series(pd.Series(closes, dtype=float), self.config.rsi.period)
+        if rsi is None:
+            return []
+        tail = rsi.iloc[-sessions:]
+        return [None if pd.isna(v) else float(v) for v in tail]
 
     def _mark_open_books(self) -> list[ScanAlert]:
         """Mark open paper to futures LTP and Telegram P&L — no 210-name screen.
@@ -687,7 +757,7 @@ class OIRsiScanner:
         )
 
         waiting_short = waiting_long = 0
-        hits = 0
+        hits = ha_hits = 0
         for index, symbol in enumerate(symbols, 1):
             ltp = fut_scan.get(symbol)
             if not ltp:
@@ -703,6 +773,10 @@ class OIRsiScanner:
             if alert:
                 alerts.append(alert)
                 hits += 1
+            ha_alert = self._check_heikin_ashi(symbol, ltp)
+            if ha_alert:
+                alerts.append(ha_alert)
+                ha_hits += 1
             if index % 25 == 0:
                 print(f"  screened {index}/{len(symbols)} symbols...")
                 self.client._save_ohlc_cache()
@@ -711,6 +785,8 @@ class OIRsiScanner:
         self.client._save_ohlc_cache()
         self.client._save_closes_cache()
         print(f"  {hits} reversal signal(s)")
+        if self.ha_book:
+            print(f"  {ha_hits} Heikin_Ashi signal(s)")
         print(
             f"  {waiting_short} name(s) RSI ≥ {call_th:g} strong bull "
             "— not shorting until a reversal candle"
@@ -720,16 +796,13 @@ class OIRsiScanner:
             "— not longing until a reversal candle"
         )
 
-        candle_batch = [
-            a
-            for a in alerts
-            if a.signal
-            in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
-        ]
+        candle_batch = [a for a in alerts if a.signal in CANDLE_SIGNALS]
+        ha_batch = [a for a in alerts if a.signal in HA_SIGNALS]
         if is_close_pnl_slot():
             print("  15:45 close — skipping signal Telegram; sending closing P&L")
         else:
             self._emit_telegram(candle_batch, "RSI_CandlePattern")
+            self._emit_telegram(ha_batch, "Heikin_Ashi")
 
         if not alerts:
             print("\nNo alerts this scan.")

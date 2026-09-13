@@ -16,7 +16,9 @@ Two paper books share those entries:
 
 The scanner screens every name at the global `rsi.call_threshold` / `put_threshold` (70/30). A book may optionally set its own `rsi_call_threshold` / `rsi_put_threshold` and then only takes the alerts whose entry RSI clears its level; neither book does today.
 
-Both books: ₹4 Cr, 3 lots. Lot 1 books at 5% or SMMA 21; lot 2 at 12% or SMMA 50; the runner exits on RSI 30/70 or a strong close back through SMMA 21. Telegram sends the reversal list plus a PNG dashboard per book.
+A third book, **Heikin_Ashi** (`data/heikin_ashi_paper_book.json`, flat 1.5% stop), uses the same ladder but its own entries. After RSI has tagged 70/30 within the last 10 sessions, the Heikin-Ashi candles must print a strong trend-colour candle (body ≥ 50% of range), then at least one weak candle (body ≤ 40%, sticks either side), then today's HA candle turns the opposite colour with a real body — and today's *normal* candle must also be one of the reversal shapes above. Entries from 15:15 IST with the live price folded into today's bar. Settings under `heikin_ashi:` and `heikin_ashi_paper_trading:`.
+
+All books: ₹4 Cr, 3 lots. Lot 1 books at 5% or SMMA 21; lot 2 at 12% or SMMA 50; the runner exits on RSI 30/70 or a strong close back through SMMA 21. Telegram sends the reversal lists (RSI_CandlePattern and Heikin_Ashi separately) plus a PNG dashboard per book.
 
 Live prices, RSI and candles come from Angel One SmartAPI.
 

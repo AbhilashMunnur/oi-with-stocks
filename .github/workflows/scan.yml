@@ -130,7 +130,9 @@ jobs:
             data/rsi_candle_3m_2w_paper_book.json \
             data/rsi_candle_3m_2w_paper_trades.csv \
             data/rsi_candle_3lot_paper_book.json \
-            data/rsi_candle_3lot_paper_trades.csv
+            data/rsi_candle_3lot_paper_trades.csv \
+            data/heikin_ashi_paper_book.json \
+            data/heikin_ashi_paper_trades.csv
           do
             if [ -e "$path" ]; then
               git add -- "$path"

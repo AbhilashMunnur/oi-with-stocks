@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Seed the final 3-lot book from 1 Jul 2026 and replace its Google Sheet tabs.
+"""Seed a paper book from 1 Jul 2026 and replace its Google Sheet tabs.
+
+``--book 3lot`` (default) is the final RSI + normal-candle book;
+``--book heikin_ashi`` is the Heikin_Ashi book (same ladder, HA entries).
 
 Uses the live PaperBook rules from config.yaml (flat percent stop, the
 book's own RSI entry gate, 5%/12% or SMMA 21/50, runner on RSI 30/70 or a
@@ -14,6 +17,7 @@ every half hour after this seed.
 Does not touch the live RSI_CandlePattern ledger.
 
     .venv/bin/python scripts/seed_3lot_from_july.py
+    .venv/bin/python scripts/seed_3lot_from_july.py --book heikin_ashi
     .venv/bin/python scripts/seed_3lot_from_july.py --skip-sheets
 """
 
@@ -47,6 +51,7 @@ from src.candle_patterns import (
 from src.config import SignalType, load_config
 from src.data.angelone_client import AngelOneClient
 from src.data.option_expiry import expiry_entry_skip_reason, last_tuesday
+from src.heikin_ashi import ha_reversal_setup, heikin_ashi, make_ha_alert
 from src.indicators import calculate_rsi_series, calculate_smma_series
 from src.oi_analyzer import no_short_skip_reason
 from src.paper_trading.book import PaperBook
@@ -198,6 +203,92 @@ def build_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -> l
     return out
 
 
+def build_ha_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -> list[dict]:
+    """Heikin_Ashi entries, one per (day, symbol), mirroring the live screen.
+
+    Today's daily close stands in for the 15:15 live price, so today's HA
+    candle and normal candle are the completed bars. The RSI window is the
+    last ``rsi_lookback_sessions`` finished days plus today.
+    """
+    ha_cfg = config.heikin_ashi
+    call_th, put_th = config.rsi.call_threshold, config.rsi.put_threshold
+    window = 40  # enough history for the weak run walk-back
+    out: list[dict] = []
+
+    for symbol, rows in data.items():
+        if lot_sizes.get(symbol, 0) <= 0:
+            continue
+        bars = [Candle(r[0], r[1], r[2], r[3], r[4]) for r in rows]
+        ha = heikin_ashi(bars)
+        closes = pd.Series([b.close for b in bars], dtype=float)
+        rsi_series = calculate_rsi_series(closes, PERIOD)
+        if rsi_series is None:
+            continue
+        for i in range(PERIOD + 3, len(bars)):
+            lo = max(0, i - ha_cfg.rsi_lookback_sessions)
+            recent = [
+                None if pd.isna(v) else float(v)
+                for v in rsi_series.iloc[lo : i + 1]
+            ]
+            setup = ha_reversal_setup(
+                bars[max(0, i - window) : i + 1],
+                ha[max(0, i - window) : i + 1],
+                recent,
+                call_threshold=call_th,
+                put_threshold=put_th,
+                ha_cfg=ha_cfg,
+                candle_cfg=config.candles,
+            )
+            if not setup:
+                continue
+            signal, pattern, stretch = setup
+            if no_short_skip_reason(
+                symbol,
+                config.no_short_symbols,
+                is_short=signal is SignalType.HA_SHORT,
+            ):
+                continue
+            out.append(
+                {
+                    "day": bars[i].date,
+                    "symbol": symbol,
+                    "signal": signal.value,
+                    "pattern": pattern,
+                    "stop": None,
+                    "entry": bars[i].close,
+                    "rsi": round(stretch, 2),
+                }
+            )
+    out.sort(key=lambda row: (row["day"], row["symbol"]))
+    return out
+
+
+BOOKS = {
+    "3lot": ("rsi_candle_3lot_paper_trading", build_signals),
+    "heikin_ashi": ("heikin_ashi_paper_trading", build_ha_signals),
+}
+
+
+def alert_for(row: dict):
+    signal = SignalType(row["signal"])
+    if signal in (SignalType.HA_SHORT, SignalType.HA_LONG):
+        return make_ha_alert(
+            symbol=row["symbol"],
+            ltp=row["entry"],
+            rsi=row["rsi"],
+            signal=signal,
+            pattern=row["pattern"],
+        )
+    return make_candle_alert(
+        symbol=row["symbol"],
+        ltp=row["entry"],
+        rsi=row["rsi"],
+        signal=signal,
+        pattern=row["pattern"],
+        stop_price=None,
+    )
+
+
 def write_csv(path: Path, columns: list[str], rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -211,12 +302,19 @@ def main() -> None:
     parser.add_argument("--days", type=int, default=220)
     parser.add_argument("--start", default=START)
     parser.add_argument("--skip-sheets", action="store_true")
+    parser.add_argument(
+        "--book",
+        choices=sorted(BOOKS),
+        default="3lot",
+        help="Which book to seed: 3lot (RSI + normal candle) or heikin_ashi",
+    )
     args = parser.parse_args()
 
     config = load_config(ROOT / "config.yaml")
-    paper = config.rsi_candle_3lot_paper_trading
+    attr, signal_builder = BOOKS[args.book]
+    paper = getattr(config, attr)
     if paper is None or not paper.enabled:
-        raise SystemExit("rsi_candle_3lot_paper_trading is not enabled")
+        raise SystemExit(f"{attr} is not enabled")
 
     client = AngelOneClient(
         rsi_period=config.rsi.period,
@@ -240,7 +338,9 @@ def main() -> None:
         f"({len(trade_days)} sessions)"
     )
 
-    signals = [row for row in build_signals(data, config, lot_sizes) if row["day"] >= args.start]
+    signals = [
+        row for row in signal_builder(data, config, lot_sizes) if row["day"] >= args.start
+    ]
     print(f"  {len(signals)} qualifying signal(s)")
 
     ledger = ROOT / paper.ledger_path
@@ -307,15 +407,7 @@ def main() -> None:
 
         if not expiry_entry_skip_reason(day):
             for row in by_day.get(day_s, []):
-                signal = SignalType(row["signal"])
-                alert = make_candle_alert(
-                    symbol=row["symbol"],
-                    ltp=row["entry"],
-                    rsi=row["rsi"],
-                    signal=signal,
-                    pattern=row["pattern"],
-                    stop_price=None,
-                )
+                alert = alert_for(row)
                 alert.expiry = futures_expiry(day)
                 alert.lot_size = lot_sizes.get(row["symbol"], 0)
                 set_clock(day_s, "15:15:00")
@@ -353,7 +445,7 @@ def main() -> None:
 
     last_row = summaries[-1] if summaries else {}
     print(
-        f"\nSeeded RSI_Candle_3Lot {args.start} → {last}\n"
+        f"\nSeeded {paper.name} {args.start} → {last}\n"
         f"  entries {opened}  closed legs {len(legs)}  "
         f"still open {len([p for p in book.positions if p.is_open])}\n"
         f"  realised ₹{book.realised_pnl:+,.0f}  "

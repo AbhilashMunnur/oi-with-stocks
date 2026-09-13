@@ -17,6 +17,17 @@ candles:
   hammer_long_wick_pct: 50.0
   hammer_short_wick_pct: 15.0
 
+# Heikin_Ashi book entries: RSI tagged 70/30 inside the lookback, then on
+# Heikin-Ashi candles a strong trend-colour candle (body >= strong_body_pct),
+# at least min_weak_candles weak candles (body <= weak_body_pct), then today's
+# HA candle turns the opposite colour with a real body — and today's normal
+# candle is one of the usual reversal shapes above.
+heikin_ashi:
+  strong_body_pct: 50.0
+  weak_body_pct: 40.0
+  min_weak_candles: 1
+  rsi_lookback_sessions: 10
+
 oi:
   proximity_pct: 1.0
   skip_monthly_expiry: true
@@ -120,3 +131,35 @@ rsi_candle_3lot_paper_trading:
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "RSI 3Lot Paper trades"
   google_summary_worksheet: "RSI 3Lot Portfolio Summary"
+
+# Heikin_Ashi strategy: same 3-lot ladder and flat 1.5% stop as the final
+# book, but entries come from the Heikin-Ashi sequence (see heikin_ashi:).
+heikin_ashi_paper_trading:
+  enabled: true
+  name: "Heikin_Ashi"
+  capital: 40000000
+  lots_per_trade: 3
+  first_target_pct: 5.0
+  second_target_pct: 12.0
+  smma_fast: 21
+  smma_slow: 50
+  second_lot_rsi_short: 30
+  second_lot_rsi_long: 70
+  final_lot_smma_cross_exit: true
+  final_lot_no_stop: true
+  stop_loss_pct: 1.5
+  second_lot_stop_pct: 1.5
+  candle_stop: false
+  margin_pct: 20.0
+  futures_month: 3
+  skip_new_entries: false
+  mark_entry_contract: true
+  cash_close_stop: true
+  loss_streak_count: 3
+  loss_streak_sessions: 10
+  skip_qualifies_after_streak: 3
+  ledger_path: data/heikin_ashi_paper_book.json
+  journal_csv: data/heikin_ashi_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "Heikin Ashi Paper trades"
+  google_summary_worksheet: "Heikin Ashi Portfolio Summary"

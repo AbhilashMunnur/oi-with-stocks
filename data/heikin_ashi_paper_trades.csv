@@ -1,0 +1,105 @@
+Symbol,Buy/Sell,Entry date,Entry price,Entry RSI,Exit date,Exit price,Exit RSI,Holding trading period,Capital needed,Profit/loss,Exit reason,Exit trigger
+DRREDDY,Sell,01-Jul-26,1339.9,73.8,03-Jul-26,1360.0,67.0,2,167488*3,-37685,stop_loss,"1.5% stop ₹1,360.00"
+TCS,Buy,03-Jul-26,2093.5,29.3,06-Jul-26,2062.1,40.2,1,94208*3,-21197,stop_loss,"1.5% stop ₹2,062.10"
+HCLTECH,Buy,03-Jul-26,1139.0,26.3,07-Jul-26,1159.82,55.7,2,91120*1,8329,first_target,"lot 1 booked — SMMA 21 ₹1,159.82"
+MAHABANK,Sell,03-Jul-26,88.53,72.8,07-Jul-26,84.29,42.6,2,115089*1,27583,first_target,lot 1 booked — SMMA 21 ₹84.29
+PERSISTENT,Buy,03-Jul-26,4682.7,29.1,07-Jul-26,4867.37,52.6,2,117068*1,23083,first_target,"lot 1 booked — SMMA 21 ₹4,867.37"
+WIPRO,Buy,03-Jul-26,176.08,27.7,07-Jul-26,173.44,36.0,2,105648*3,-23771,stop_loss,1.5% stop ₹173.44
+ASTRAL,Buy,06-Jul-26,1389.0,26.8,07-Jul-26,1368.16,33.5,1,118065*3,-26565,stop_loss,"1.5% stop ₹1,368.16"
+UPL,Buy,03-Jul-26,607.4,26.9,08-Jul-26,598.29,40.3,3,164605*3,-37036,stop_loss,1.5% stop ₹598.29
+DLF,Sell,08-Jul-26,634.0,70.7,09-Jul-26,643.51,60.3,1,120460*3,-27103,stop_loss,1.5% stop ₹643.51
+INDIGO,Sell,08-Jul-26,5124.0,78.4,09-Jul-26,5200.86,58.4,1,153720*3,-34587,stop_loss,"1.5% stop ₹5,200.86"
+PRESTIGE,Sell,08-Jul-26,1635.3,77.1,09-Jul-26,1659.83,67.6,1,147177*3,-33115,stop_loss,"1.5% stop ₹1,659.83"
+SHRIRAMFIN,Sell,08-Jul-26,1014.4,71.8,09-Jul-26,1029.62,56.4,1,167376*3,-37660,stop_loss,"1.5% stop ₹1,029.62"
+PERSISTENT,Buy,03-Jul-26,4682.7,29.1,10-Jul-26,4963.61,57.6,5,117068*1,35113,second_target,"lot 2 booked — SMMA 50 ₹4,963.61"
+BAJFINANCE,Sell,09-Jul-26,1003.8,74.8,10-Jul-26,1018.86,63.0,1,150570*3,-33878,stop_loss,"1.5% stop ₹1,018.86"
+BHARATFORG,Sell,07-Jul-26,2111.6,75.2,13-Jul-26,2143.27,61.7,4,211160*3,-47511,stop_loss,"1.5% stop ₹2,143.27"
+GMRAIRPORT,Sell,09-Jul-26,111.83,72.0,13-Jul-26,113.51,65.3,2,156003*3,-35101,stop_loss,1.5% stop ₹113.51
+INDUSTOWER,Buy,09-Jul-26,398.15,26.1,13-Jul-26,407.87,55.5,2,135371*1,16526,first_target,lot 1 booked — SMMA 21 ₹407.87
+TATASTEEL,Buy,10-Jul-26,191.19,25.4,13-Jul-26,188.32,36.7,1,105154*3,-23660,stop_loss,1.5% stop ₹188.32
+OIL,Buy,01-Jul-26,419.8,27.7,14-Jul-26,440.79,54.8,9,117544*1,29386,first_target,lot 1 booked — 5% target ₹440.79
+KPITTECH,Buy,13-Jul-26,573.45,17.9,14-Jul-26,564.85,25.9,1,88885*3,-19999,stop_loss,1.5% stop ₹564.85
+SUPREMEIND,Buy,10-Jul-26,3319.6,27.1,15-Jul-26,3434.18,55.5,3,116186*1,20052,first_target,"lot 1 booked — SMMA 21 ₹3,434.18"
+ETERNAL,Sell,13-Jul-26,285.2,74.1,15-Jul-26,289.48,70.2,2,138322*3,-31122,stop_loss,1.5% stop ₹289.48
+INDUSINDBK,Sell,14-Jul-26,997.35,72.2,16-Jul-26,1012.31,63.8,2,139629*3,-31417,stop_loss,"1.5% stop ₹1,012.31"
+DLF,Sell,16-Jul-26,648.1,70.7,17-Jul-26,657.82,58.0,1,123139*3,-27706,stop_loss,1.5% stop ₹657.82
+PRESTIGE,Sell,16-Jul-26,1641.7,77.1,17-Jul-26,1666.33,62.1,1,147753*3,-33244,stop_loss,"1.5% stop ₹1,666.33"
+TORNTPHARM,Sell,17-Jul-26,4763.0,80.6,20-Jul-26,4834.44,65.3,1,119075*3,-26792,stop_loss,"1.5% stop ₹4,834.44"
+HCLTECH,Buy,03-Jul-26,1139.0,26.3,21-Jul-26,1232.79,63.0,12,91120*1,37517,second_target,"lot 2 booked — SMMA 50 ₹1,232.79"
+DRREDDY,Sell,09-Jul-26,1269.5,73.8,21-Jul-26,1206.02,32.8,8,158688*1,39672,first_target,"lot 1 booked — 5% target ₹1,206.02"
+IRFC,Buy,13-Jul-26,89.75,28.6,21-Jul-26,88.4,35.5,6,97379*3,-21910,stop_loss,1.5% stop ₹88.40
+AUROPHARMA,Sell,14-Jul-26,1552.8,70.8,21-Jul-26,1576.09,58.9,5,170808*3,-38432,stop_loss,"1.5% stop ₹1,576.09"
+NYKAA,Sell,17-Jul-26,323.05,78.0,21-Jul-26,327.9,68.5,2,201906*3,-45429,stop_loss,1.5% stop ₹327.90
+DRREDDY,Sell,09-Jul-26,1269.5,73.8,22-Jul-26,1182.8,29.5,9,158688*2,108375,rsi_target,final lot booked — RSI 29.5 reached 30
+UNITDSPR,Sell,09-Jul-26,1381.2,71.2,22-Jul-26,1401.92,59.7,9,110496*3,-24862,stop_loss,"1.5% stop ₹1,401.92"
+ASTRAL,Buy,14-Jul-26,1358.5,26.8,22-Jul-26,1426.42,52.9,6,115472*1,28868,first_target,"lot 1 booked — 5% target ₹1,426.42"
+OFSS,Sell,21-Jul-26,11632.0,75.6,22-Jul-26,11050.4,48.4,1,232640*1,58160,first_target,"lot 1 booked — 5% target ₹11,050.40"
+OIL,Buy,01-Jul-26,419.8,27.7,23-Jul-26,456.13,61.4,16,117544*1,50858,second_target,lot 2 booked — SMMA 50 ₹456.13
+MAHABANK,Sell,03-Jul-26,88.53,72.8,23-Jul-26,78.94,38.7,14,115089*1,62340,second_target,lot 2 booked — SMMA 50 ₹78.94
+INDUSTOWER,Buy,09-Jul-26,398.15,26.1,23-Jul-26,392.18,38.9,10,135371*2,-20306,stop_loss,1.5% stop ₹392.18 (tightened after lot 1 booked)
+BOSCHLTD,Sell,14-Jul-26,41460.0,75.3,23-Jul-26,42081.9,66.5,7,207300*3,-46642,stop_loss,"1.5% stop ₹42,081.90"
+TATAPOWER,Buy,10-Jul-26,381.3,27.5,24-Jul-26,375.58,38.2,10,110577*3,-24880,stop_loss,1.5% stop ₹375.58
+LUPIN,Sell,23-Jul-26,2396.3,70.0,24-Jul-26,2395.81,43.6,1,203686*1,208,first_target,"lot 1 booked — SMMA 21 ₹2,395.81"
+GODREJPROP,Sell,23-Jul-26,2041.0,76.3,27-Jul-26,2071.61,58.3,2,132665*3,-29850,stop_loss,"1.5% stop ₹2,071.61"
+LODHA,Sell,23-Jul-26,1146.4,85.3,27-Jul-26,1163.6,67.2,2,143300*3,-32242,stop_loss,"1.5% stop ₹1,163.60"
+NAUKRI,Sell,23-Jul-26,1169.95,78.7,27-Jul-26,1187.5,65.3,2,128694*3,-28956,stop_loss,"1.5% stop ₹1,187.50"
+HCLTECH,Buy,03-Jul-26,1139.0,26.3,28-Jul-26,1318.6,72.3,17,91120*1,71840,rsi_target,final lot booked — RSI 72.3 reached 70
+PGEL,Sell,22-Jul-26,575.4,73.1,28-Jul-26,584.03,55.2,4,109326*3,-24598,stop_loss,1.5% stop ₹584.03
+LUPIN,Sell,23-Jul-26,2396.3,70.0,29-Jul-26,2432.24,53.5,4,203686*2,-30553,stop_loss,"1.5% stop ₹2,432.24 (tightened after lot 1 booked)"
+KPITTECH,Buy,27-Jul-26,585.2,25.4,29-Jul-26,614.46,58.7,2,90706*1,22676,first_target,lot 1 booked — 5% target ₹614.46
+ICICIGI,Buy,24-Jul-26,1661.8,29.4,31-Jul-26,1636.87,38.4,5,108017*3,-24304,stop_loss,"1.5% stop ₹1,636.87"
+TORNTPHARM,Sell,29-Jul-26,4878.5,80.6,31-Jul-26,4951.68,64.1,2,121962*3,-27442,stop_loss,"1.5% stop ₹4,951.68"
+ICICIBANK,Sell,23-Jul-26,1434.6,73.7,03-Aug-26,1456.12,65.8,7,200844*3,-45190,stop_loss,"1.5% stop ₹1,456.12"
+TATAELXSI,Buy,27-Jul-26,3554.4,29.8,03-Aug-26,3732.12,54.5,5,88860*1,22215,first_target,"lot 1 booked — 5% target ₹3,732.12"
+BSE,Buy,31-Jul-26,3646.2,29.1,03-Aug-26,3591.51,42.2,1,145848*3,-32816,stop_loss,"1.5% stop ₹3,591.51"
+UNIONBANK,Buy,13-Jul-26,170.39,28.7,05-Aug-26,170.44,58.8,17,150795*1,214,first_target,lot 1 booked — SMMA 21 ₹170.44
+UNIONBANK,Buy,13-Jul-26,170.39,28.7,05-Aug-26,172.57,58.8,17,150795*1,9650,second_target,lot 2 booked — SMMA 50 ₹172.57
+DIXON,Sell,03-Aug-26,13892.0,73.6,05-Aug-26,14100.38,62.7,2,138920*3,-31257,stop_loss,"1.5% stop ₹14,100.38"
+GODREJPROP,Sell,04-Aug-26,2033.6,71.4,05-Aug-26,2064.1,56.0,1,132184*3,-29741,stop_loss,"1.5% stop ₹2,064.10"
+TCS,Sell,06-Aug-26,2373.0,72.3,07-Aug-26,2408.59,62.8,1,106785*3,-24027,stop_loss,"1.5% stop ₹2,408.59"
+OFSS,Sell,21-Jul-26,11632.0,75.6,10-Aug-26,11806.48,64.9,14,232640*2,-34896,stop_loss,"1.5% stop ₹11,806.48 (tightened after lot 1 booked)"
+DRREDDY,Buy,03-Aug-26,1180.0,23.7,10-Aug-26,1162.3,35.7,5,147500*3,-33188,stop_loss,"1.5% stop ₹1,162.30"
+BAJAJHLDNG,Sell,07-Aug-26,11263.0,73.5,10-Aug-26,11431.94,64.9,1,168945*3,-38013,stop_loss,"1.5% stop ₹11,431.94"
+BAJFINANCE,Sell,07-Aug-26,1078.0,75.1,10-Aug-26,1094.17,57.2,1,161700*3,-36382,stop_loss,"1.5% stop ₹1,094.17"
+NAUKRI,Sell,07-Aug-26,1225.3,72.0,10-Aug-26,1243.68,67.7,1,134783*3,-30326,stop_loss,"1.5% stop ₹1,243.68"
+MAHABANK,Sell,03-Jul-26,88.53,72.8,12-Aug-26,81.87,54.1,28,115089*1,43290,smma_cross,final lot booked — strong candle closed 81.87 above SMMA 21 ₹81.10
+BSE,Buy,11-Aug-26,3605.0,29.1,12-Aug-26,3550.92,43.6,1,144200*3,-32445,stop_loss,"1.5% stop ₹3,550.92"
+ASTRAL,Buy,14-Jul-26,1358.5,26.8,13-Aug-26,1494.06,72.9,22,115472*1,57613,second_target,"lot 2 booked — SMMA 50 ₹1,494.06"
+ASTRAL,Buy,14-Jul-26,1358.5,26.8,13-Aug-26,1592.0,72.9,22,115472*1,99238,rsi_target,final lot booked — RSI 72.9 reached 70
+SUPREMEIND,Buy,10-Jul-26,3319.6,27.1,14-Aug-26,3535.94,58.8,25,116186*1,37860,second_target,"lot 2 booked — SMMA 50 ₹3,535.94"
+HAVELLS,Sell,12-Aug-26,1265.0,72.3,14-Aug-26,1283.97,67.0,2,126500*3,-28462,stop_loss,"1.5% stop ₹1,283.97"
+UNIONBANK,Buy,13-Jul-26,170.39,28.7,17-Aug-26,188.9,70.2,25,150795*1,81907,rsi_target,final lot booked — RSI 70.2 reached 70
+LICI,Buy,12-Aug-26,417.0,28.3,17-Aug-26,410.75,46.8,3,116760*3,-26271,stop_loss,1.5% stop ₹410.75
+UNOMINDA,Sell,12-Aug-26,1232.4,79.9,17-Aug-26,1250.89,66.7,3,135564*3,-30502,stop_loss,"1.5% stop ₹1,250.89"
+JIOFIN,Sell,10-Aug-26,254.0,70.9,18-Aug-26,246.62,46.7,6,119380*1,17334,first_target,lot 1 booked — SMMA 21 ₹246.62
+JSWSTEEL,Sell,11-Aug-26,1283.4,70.3,18-Aug-26,1268.4,48.4,5,173259*1,10128,first_target,"lot 1 booked — SMMA 21 ₹1,268.40"
+SONACOMS,Sell,12-Aug-26,804.5,85.9,18-Aug-26,816.57,71.8,4,197102*3,-44348,stop_loss,1.5% stop ₹816.57
+HINDZINC,Sell,14-Aug-26,561.9,74.4,18-Aug-26,560.14,48.6,2,137666*1,2157,first_target,lot 1 booked — SMMA 21 ₹560.14
+BANDHANBNK,Buy,30-Jul-26,172.72,27.9,19-Aug-26,170.13,35.6,14,124358*3,-27981,stop_loss,1.5% stop ₹170.13
+JIOFIN,Sell,10-Aug-26,254.0,70.9,19-Aug-26,244.28,44.1,7,119380*1,22833,second_target,lot 2 booked — SMMA 50 ₹244.28
+COFORGE,Sell,18-Aug-26,1773.0,74.4,19-Aug-26,1799.59,66.4,1,168435*3,-37898,stop_loss,"1.5% stop ₹1,799.59"
+HINDZINC,Sell,14-Aug-26,561.9,74.4,20-Aug-26,570.33,55.6,4,137666*2,-20650,stop_loss,1.5% stop ₹570.33 (tightened after lot 1 booked)
+FEDERALBNK,Sell,06-Aug-26,353.55,78.0,21-Aug-26,358.85,59.9,11,176775*3,-39774,stop_loss,1.5% stop ₹358.85
+LODHA,Sell,03-Aug-26,1239.8,76.6,24-Aug-26,1258.4,60.9,15,154975*3,-34869,stop_loss,"1.5% stop ₹1,258.40"
+JSWSTEEL,Sell,11-Aug-26,1283.4,70.3,24-Aug-26,1302.65,63.8,9,173259*2,-25989,stop_loss,"1.5% stop ₹1,302.65 (tightened after lot 1 booked)"
+SIEMENS,Sell,17-Aug-26,3943.0,74.5,24-Aug-26,4002.14,69.5,5,138005*3,-31051,stop_loss,"1.5% stop ₹4,002.14"
+NYKAA,Sell,06-Aug-26,331.95,74.7,26-Aug-26,336.93,61.7,14,207469*3,-46680,stop_loss,1.5% stop ₹336.93
+ASHOKLEY,Sell,11-Aug-26,174.83,72.1,26-Aug-26,177.45,64.5,11,174830*3,-39337,stop_loss,1.5% stop ₹177.45
+TVSMOTOR,Sell,12-Aug-26,4375.0,82.2,26-Aug-26,4440.62,69.0,10,153125*3,-34453,stop_loss,"1.5% stop ₹4,440.62"
+COALINDIA,Buy,24-Aug-26,406.9,26.6,27-Aug-26,400.8,32.0,3,109863*3,-24719,stop_loss,1.5% stop ₹400.80
+NBCC,Buy,21-Aug-26,88.88,27.1,28-Aug-26,87.55,32.7,5,115544*3,-25997,stop_loss,1.5% stop ₹87.55
+SUPREMEIND,Buy,10-Jul-26,3319.6,27.1,04-Sep-26,3475.0,44.8,40,116186*1,27195,smma_cross,"final lot booked — strong candle closed 3,475.00 below SMMA 21 ₹3,517.23"
+KPITTECH,Buy,27-Jul-26,585.2,25.4,04-Sep-26,576.42,40.6,29,90706*2,-13606,stop_loss,1.5% stop ₹576.42 (tightened after lot 1 booked)
+IDEA,Sell,31-Aug-26,14.33,72.7,04-Sep-26,14.54,63.0,4,204847*3,-46091,stop_loss,1.5% stop ₹14.54
+TATAELXSI,Buy,27-Jul-26,3554.4,29.8,07-Sep-26,3501.08,35.8,30,88860*2,-13329,stop_loss,"1.5% stop ₹3,501.08 (tightened after lot 1 booked)"
+BAJAJFINSV,Sell,07-Aug-26,2008.9,76.8,07-Sep-26,1963.85,40.5,21,120534*1,13514,first_target,"lot 1 booked — SMMA 21 ₹1,963.85"
+JUBLFOOD,Sell,27-Aug-26,504.0,71.8,07-Sep-26,478.8,45.8,7,126000*1,31500,first_target,lot 1 booked — 5% target ₹478.80
+JSWENERGY,Buy,03-Sep-26,539.5,29.1,07-Sep-26,531.41,40.7,2,115992*3,-26098,stop_loss,1.5% stop ₹531.41
+GMRAIRPORT,Buy,04-Sep-26,97.45,21.8,07-Sep-26,95.99,35.7,1,135943*3,-30587,stop_loss,1.5% stop ₹95.99
+MCX,Sell,02-Sep-26,3286.0,74.9,08-Sep-26,3335.29,63.2,4,147870*3,-33271,stop_loss,"1.5% stop ₹3,335.29"
+PIIND,Buy,04-Sep-26,2465.0,27.7,08-Sep-26,2428.03,36.1,2,86275*3,-19412,stop_loss,"1.5% stop ₹2,428.03"
+RVNL,Buy,04-Sep-26,212.49,27.1,08-Sep-26,209.3,34.0,2,81809*3,-18407,stop_loss,1.5% stop ₹209.30
+PERSISTENT,Buy,03-Jul-26,4682.7,29.1,09-Sep-26,5419.0,44.6,48,117068*1,92038,smma_cross,"final lot booked — strong candle closed 5,419.00 below SMMA 21 ₹5,465.35"
+INOXWIND,Buy,03-Sep-26,74.0,29.9,09-Sep-26,76.51,58.2,4,94720*1,16072,first_target,lot 1 booked — SMMA 21 ₹76.51
+BANDHANBNK,Buy,04-Sep-26,164.95,29.8,10-Sep-26,173.2,53.0,4,118764*1,29691,first_target,lot 1 booked — 5% target ₹173.20
+SAIL,Sell,07-Sep-26,187.9,74.5,11-Sep-26,181.16,44.6,4,176626*1,31669,first_target,lot 1 booked — SMMA 21 ₹181.16

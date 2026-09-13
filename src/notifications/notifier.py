@@ -121,6 +121,8 @@ class Notifier:
         labels = {
             SignalType.RSI_CANDLE_SHORT: "RSI CANDLE SHORT",
             SignalType.RSI_CANDLE_LONG: "RSI CANDLE LONG",
+            SignalType.HA_SHORT: "HEIKIN ASHI SHORT",
+            SignalType.HA_LONG: "HEIKIN ASHI LONG",
             SignalType.CALL_OI: "CALL OI ALERT",
             SignalType.PUT_OI: "PUT OI ALERT",
         }
@@ -180,6 +182,16 @@ class Notifier:
             sections=[
                 (SignalType.RSI_CANDLE_SHORT, "SHORT (after RSI ≥ 70 strong bull)"),
                 (SignalType.RSI_CANDLE_LONG, "LONG (after RSI ≤ 30 strong bear)"),
+            ],
+        )
+
+    def _ha_digest(self, alerts: list[ScanAlert]) -> str:
+        return self._digest(
+            alerts,
+            title="Heikin_Ashi alerts",
+            sections=[
+                (SignalType.HA_SHORT, "SHORT (RSI ≥ 70 tag, HA strong → weak → red)"),
+                (SignalType.HA_LONG, "LONG (RSI ≤ 30 tag, HA strong → weak → green)"),
             ],
         )
 
@@ -294,6 +306,9 @@ class Notifier:
             for a in alerts
             if a.signal in (SignalType.RSI_CANDLE_SHORT, SignalType.RSI_CANDLE_LONG)
         ]
+        ha_alerts = [
+            a for a in alerts if a.signal in (SignalType.HA_SHORT, SignalType.HA_LONG)
+        ]
 
         if self.config.telegram:
             if self.telegram_ready:
@@ -302,6 +317,12 @@ class Notifier:
                     delivered = self.send_message(self._rsi_candle_digest(candle_alerts))
                     print(
                         f"\nSent {len(candle_alerts)} RSI_CandlePattern row(s) to Telegram "
+                        f"({delivered}/{recipients})."
+                    )
+                if ha_alerts:
+                    delivered = self.send_message(self._ha_digest(ha_alerts))
+                    print(
+                        f"\nSent {len(ha_alerts)} Heikin_Ashi row(s) to Telegram "
                         f"({delivered}/{recipients})."
                     )
             elif not self._warned_missing:

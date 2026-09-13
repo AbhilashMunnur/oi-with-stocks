@@ -893,6 +893,7 @@ class PaperBook:
             SignalType.CALL_OI_S1,
             SignalType.CALL_OI_S2,
             SignalType.RSI_CANDLE_SHORT,
+            SignalType.HA_SHORT,
         ):
             return Direction.SHORT
         return Direction.LONG
@@ -907,6 +908,8 @@ class PaperBook:
         if alert.signal not in (
             SignalType.RSI_CANDLE_SHORT,
             SignalType.RSI_CANDLE_LONG,
+            SignalType.HA_SHORT,
+            SignalType.HA_LONG,
         ):
             return False
         if direction is Direction.SHORT:

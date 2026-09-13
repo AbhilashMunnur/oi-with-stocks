@@ -18,6 +18,14 @@ class SignalType(str, Enum):
     ST_BULLISH = "ST_BULLISH"  # Above Supertrend, bullish OI at ST strike → long
     RSI_CANDLE_SHORT = "RSI_CANDLE_SHORT"
     RSI_CANDLE_LONG = "RSI_CANDLE_LONG"
+    # Heikin-Ashi strong → weak → opposite-colour sequence + normal reversal candle.
+    HA_SHORT = "HA_SHORT"
+    HA_LONG = "HA_LONG"
+
+
+SHORT_SIGNALS = frozenset({"RSI_CANDLE_SHORT", "HA_SHORT"})
+CANDLE_SIGNALS = frozenset({"RSI_CANDLE_SHORT", "RSI_CANDLE_LONG"})
+HA_SIGNALS = frozenset({"HA_SHORT", "HA_LONG"})
 
 
 @dataclass
@@ -36,6 +44,23 @@ class CandleConfig:
     side_wick_pct: float = 20.0
     hammer_long_wick_pct: float = 50.0
     hammer_short_wick_pct: float = 15.0
+
+
+@dataclass
+class HeikinAshiConfig:
+    """Heikin_Ashi book: RSI 70/30 tag, then strong → weak → opposite HA candle.
+
+    Shorts: RSI ≥ 70 within ``rsi_lookback_sessions``; a strong green HA
+    candle (body ≥ strong_body_pct of its range), then at least
+    ``min_weak_candles`` weak HA candles (body ≤ weak_body_pct, any colour),
+    then today's HA candle turns red with a real body, and today's normal
+    candle is one of the usual bearish reversal shapes. Longs mirror.
+    """
+
+    strong_body_pct: float = 50.0
+    weak_body_pct: float = 40.0
+    min_weak_candles: int = 1
+    rsi_lookback_sessions: int = 10
 
 
 @dataclass
@@ -175,8 +200,22 @@ class AppConfig:
     rsi_candle_2w_paper_trading: PaperTradingConfig | None = None
     # Final strategy: 3 lots, Rs 4 Cr, flat 2% stop. Same RSI+candle entries.
     rsi_candle_3lot_paper_trading: PaperTradingConfig | None = None
+    # Heikin_Ashi book: same ladder as the 3-lot book, HA-sequence entries.
+    heikin_ashi: HeikinAshiConfig = field(default_factory=HeikinAshiConfig)
+    heikin_ashi_paper_trading: PaperTradingConfig | None = None
     # Laboratory names: never short on any scanner; longs still allowed.
     no_short_symbols: list[str] = field(default_factory=list)
+
+    def candle_books(self) -> list[PaperTradingConfig]:
+        return [
+            book
+            for book in (
+                self.rsi_candle_2w_paper_trading,
+                self.rsi_candle_3lot_paper_trading,
+                self.heikin_ashi_paper_trading,
+            )
+            if book is not None
+        ]
 
 
 def load_config(path: str | Path = "config.yaml") -> AppConfig:
@@ -193,6 +232,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         oi_raw.pop("s2_skip_monthly_expiry", None)
     two_week_raw = raw.get("rsi_candle_2w_paper_trading")
     three_lot_raw = raw.get("rsi_candle_3lot_paper_trading")
+    ha_raw = raw.get("heikin_ashi_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -213,5 +253,9 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         ),
         rsi_candle_3lot_paper_trading=(
             PaperTradingConfig(**three_lot_raw) if three_lot_raw else None
+        ),
+        heikin_ashi=HeikinAshiConfig(**(raw.get("heikin_ashi") or {})),
+        heikin_ashi_paper_trading=(
+            PaperTradingConfig(**ha_raw) if ha_raw else None
         ),
     )

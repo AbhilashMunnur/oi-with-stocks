@@ -121,3 +121,48 @@ def test_live_and_final_books_do_not_share_positions(tmp_path):
     assert final_book.positions[0].lots_open == 3
     assert live_book.free_capital < live_cfg.capital
     assert final_book.free_capital < final_cfg.capital
+
+
+def test_scanner_routes_ha_alerts_only_to_the_heikin_ashi_book(tmp_path, monkeypatch):
+    from src import scanner as scanner_mod
+
+    config = load_config()
+    for paper, stem in (
+        (config.rsi_candle_2w_paper_trading, "live"),
+        (config.rsi_candle_3lot_paper_trading, "final"),
+        (config.heikin_ashi_paper_trading, "ha"),
+    ):
+        paper.ledger_path = str(tmp_path / f"{stem}.json")
+        paper.journal_csv = str(tmp_path / f"{stem}.csv")
+        paper.google_sheet_id = ""
+
+    monkeypatch.setattr(scanner_mod, "AngelOneClient", lambda **_: object())
+    monkeypatch.setattr(scanner_mod, "Notifier", lambda _cfg: object())
+    scanner = scanner_mod.OIRsiScanner(config)
+
+    seen: dict[str, list[str]] = {}
+
+    def fake_run(book, alerts, prices, rsi_values):
+        seen[book.config.name] = sorted(a.symbol for a in alerts)
+
+    monkeypatch.setattr(scanner, "_run_one_paper_book", fake_run)
+    scanner._run_paper_trading(
+        [
+            _alert(SignalType.RSI_CANDLE_SHORT, "TITAN"),
+            _alert(SignalType.HA_SHORT, "TRENT"),
+            _alert(SignalType.HA_LONG, "ITC"),
+        ],
+        {},
+        {},
+    )
+
+    assert seen["RSI_CandlePattern"] == ["TITAN"]
+    assert seen["RSI_Candle_3Lot"] == ["TITAN"]
+    assert seen["Heikin_Ashi"] == ["ITC", "TRENT"]
+
+    ha_book = scanner.ha_book
+    ha_book.open_from_alerts([_alert(SignalType.HA_SHORT, "TRENT"), _alert(SignalType.HA_LONG, "ITC")])
+    assert {p.symbol: p.direction for p in ha_book.positions} == {
+        "TRENT": "SHORT",
+        "ITC": "LONG",
+    }

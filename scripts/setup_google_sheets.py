@@ -37,6 +37,8 @@ def main() -> None:
         books.append(("RSI_CandlePattern", config.rsi_candle_2w_paper_trading))
     if config.rsi_candle_3lot_paper_trading:
         books.append(("RSI_Candle_3Lot", config.rsi_candle_3lot_paper_trading))
+    if config.heikin_ashi_paper_trading:
+        books.append(("Heikin_Ashi", config.heikin_ashi_paper_trading))
 
     raw = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     if not raw:
