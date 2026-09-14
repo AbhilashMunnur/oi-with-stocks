@@ -71,9 +71,13 @@ def test_default_rule_takes_a_weak_red_and_needs_no_weak_run():
     seq = ha_sequence([STRONG_GREEN, SOLID_RED], HA, short=True)
     assert seq is not None and seq.weak_count == 0
     assert seq.describe() == "HA strong 2026-07-01 → opposite body 75%"
-    # Two strong greens then red: the walk-back lands on the last strong one.
+    # Two strong greens then red: the walk-back lands on the strongest (here the later one).
     seq = ha_sequence([STRONG_GREEN, Candle("2026-07-02", 109, 120, 109, 119), SOLID_RED], HA, short=True)
     assert seq is not None and seq.strong_date == "2026-07-02"
+    # A later 70% green after a 90% green is already the base, not a broken chain.
+    later_smaller_strong = Candle("2026-07-02", 109, 119, 108, 116)  # ~73% body
+    seq = ha_sequence([STRONG_GREEN, later_smaller_strong, SOLID_RED], HA, short=True)
+    assert seq is not None and seq.strong_date == "2026-07-01" and seq.weak_count == 1
 
 
 def test_strict_rule_rejects_weak_red_and_missing_weak_run():
@@ -90,10 +94,25 @@ def test_no_strong_run_means_no_sequence():
     assert ha_sequence(strong_red_first, HA, short=True) is None
 
 
+def test_mid_body_after_a_stronger_run_is_still_the_base():
+    """Kotak 31 Aug / 1 Sep: 43–45% greens after an 83% green, then a red."""
+    mid_43 = Candle("2026-07-02", 100, 110, 100, 104.3)  # body 43%
+    mid_45 = Candle("2026-07-03", 100, 110, 100, 104.5)  # body 45%
+    seq = ha_sequence([STRONG_GREEN, mid_43, mid_45, WEAK_RED], HA, short=True)
+    assert seq is not None
+    assert seq.strong_date == "2026-07-01"
+    assert seq.weak_count == 2
+    # Those mid candles are also a watch state (bodies smaller than the run).
+    reason = ha_base_forming([STRONG_GREEN, mid_43, mid_45], HA, short=True)
+    assert reason is not None and "2 smaller" in reason
+    # Fixed 40% buckets used to drop this; mid-only with no strong run still fails.
+    assert ha_sequence([mid_43, mid_45, WEAK_RED], HA, short=True) is None
+
+
 def test_base_forming_is_the_watch_state():
     reason = ha_base_forming([STRONG_GREEN, WEAK_1, WEAK_2], HA, short=True)
     assert reason == (
-        "base forming — 2 weak HA candle(s) after strong 2026-07-01, "
+        "base forming — 2 smaller HA candle(s) after strong 2026-07-01, "
         "waiting for a red HA candle"
     )
     # Once the candle is red (even weak) it is an entry, not a base.

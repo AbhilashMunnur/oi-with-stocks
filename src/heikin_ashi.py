@@ -1,4 +1,4 @@
-"""Heikin_Ashi strategy: RSI 70/30 tag → strong HA run → (weak HA) → opposite colour.
+"""Heikin_Ashi strategy: RSI 70/30 tag → HA bodies shrink vs the run → opposite colour.
 
 Heikin-Ashi smooths each session into
     ha_close = (open + high + low + close) / 4
@@ -6,10 +6,11 @@ Heikin-Ashi smooths each session into
     ha_high  = max(high, ha_open, ha_close)
     ha_low   = min(low, ha_open, ha_close)
 so a trend prints a run of one-colour candles with little wick against it.
-Exhaustion shows as the bodies shrinking and wicks growing on both sides
-("base forming" — reported, not traded); the first candle of the opposite
-colour after the run is the entry. The normal OHLC chart supplies the RSI
-and, only if configured, a confirming reversal candle.
+The strongest trend-colour candle in that run is the reference; later
+trend-colour candles with a smaller body are the base ("base forming" —
+reported, not traded), even when they sit in the old 40–50% gap. The
+first opposite-colour candle after that is the entry. The normal OHLC
+chart supplies the RSI and, only if configured, a confirming reversal candle.
 """
 
 from __future__ import annotations
@@ -77,21 +78,62 @@ class HASequence:
         )
 
 
-def _weak_run_back_to_strong(
-    ha: list[Candle], cfg: HeikinAshiConfig, *, short: bool, start: int
-) -> tuple[int, int] | None:
-    """From index ``start`` walk back over weak candles to a strong trend candle.
+def _is_trend_colour(bar: Candle, *, short: bool) -> bool:
+    """Green or doji before a short; red or doji before a long.
 
-    Returns (index of the strong candle, weak count) or None.
+    An opposite-colour candle ends the run. A doji continues the base.
     """
-    weak = 0
-    i = start
-    while i >= 0 and is_weak(ha[i], cfg):
-        weak += 1
+    if short:
+        return not is_red(bar)
+    return not is_green(bar)
+
+
+def _trend_run(
+    ha: list[Candle], cfg: HeikinAshiConfig, *, short: bool, end: int
+) -> list[int]:
+    """Indices of the current trend-colour run ending at ``end`` (inclusive).
+
+    Walks back until an opposite-colour candle or ``rsi_lookback_sessions``.
+    Returned oldest-first.
+    """
+    indices: list[int] = []
+    i = end
+    while i >= 0 and len(indices) < cfg.rsi_lookback_sessions:
+        if not _is_trend_colour(ha[i], short=short):
+            break
+        indices.append(i)
         i -= 1
-    if i < 0 or not is_strong(ha[i], cfg, green=short):
+    indices.reverse()
+    return indices
+
+
+def _reference_strong(
+    ha: list[Candle],
+    indices: list[int],
+    cfg: HeikinAshiConfig,
+    *,
+    short: bool,
+) -> tuple[int, int] | None:
+    """Strongest trend-colour candle in the run, then how many follow it.
+
+    The reference must itself be strong (body ≥ ``strong_body_pct``). On a
+    tie take the later bar so an equally-strong later candle is not counted
+    as the base. Every later trend-colour candle is "weak" relative to this
+    reference, including the old 40–50% gap.
+    """
+    best_i: int | None = None
+    best_pct = -1.0
+    for i in indices:
+        bar = ha[i]
+        if not is_strong(bar, cfg, green=short):
+            continue
+        pct = bar.pct(bar.body)
+        if pct >= best_pct:
+            best_pct = pct
+            best_i = i
+    if best_i is None:
         return None
-    return i, weak
+    return best_i, sum(1 for i in indices if i > best_i)
 
 
 def ha_sequence(
@@ -99,10 +141,10 @@ def ha_sequence(
 ) -> HASequence | None:
     """Today (``ha[-1]``) is the opposite-colour candle closing the sequence.
 
-    Walk back from yesterday over weak candles (any colour, at least
-    ``min_weak_candles``); the candle before them must be a strong candle in
-    the trend colour (green before a short, red before a long). Today may be
-    any size unless ``opposite_needs_body`` is set.
+    The strongest trend-colour candle in the run behind today is the
+    reference; at least ``min_weak_candles`` later (smaller-bodied)
+    trend-colour candles may sit between them. Today may be any size
+    unless ``opposite_needs_body`` is set.
     """
     if len(ha) < 2:
         return None
@@ -116,7 +158,9 @@ def ha_sequence(
     if cfg.opposite_needs_body and is_weak(today, cfg):
         return None
 
-    found = _weak_run_back_to_strong(ha, cfg, short=short, start=len(ha) - 2)
+    found = _reference_strong(
+        ha, _trend_run(ha, cfg, short=short, end=len(ha) - 2), cfg, short=short
+    )
     if found is None:
         return None
     strong_i, weak = found
@@ -132,28 +176,28 @@ def ha_sequence(
 def ha_base_forming(
     ha: list[Candle], cfg: HeikinAshiConfig, *, short: bool
 ) -> str | None:
-    """Watch state: strong trend run, then weak candles, no opposite colour yet.
+    """Watch state: run is shrinking vs the strongest candle, no opposite colour yet.
 
-    Today must itself be weak and still the trend colour (or a doji); the
-    weak run walks back to a strong candle in the trend colour.
+    Today must still be the trend colour (or a doji) and sit after a strong
+    reference — body size is measured against that reference, not a fixed
+    40% bucket.
     """
     if len(ha) < 2:
         return None
     today = ha[-1]
-    if today.span <= 0 or not is_weak(today, cfg):
+    if today.span <= 0 or not _is_trend_colour(today, short=short):
         return None
-    # A weak opposite-colour candle is already the entry, not the base.
-    if short and is_red(today):
-        return None
-    if not short and is_green(today):
-        return None
-    found = _weak_run_back_to_strong(ha, cfg, short=short, start=len(ha) - 1)
+    found = _reference_strong(
+        ha, _trend_run(ha, cfg, short=short, end=len(ha) - 1), cfg, short=short
+    )
     if found is None:
         return None
     strong_i, weak = found
+    if weak < 1:
+        return None
     side = "red" if short else "green"
     return (
-        f"base forming — {weak} weak HA candle(s) after strong {ha[strong_i].date}, "
+        f"base forming — {weak} smaller HA candle(s) after strong {ha[strong_i].date}, "
         f"waiting for a {side} HA candle"
     )
 
