@@ -195,3 +195,4 @@ ALKEM,Buy,10-Sep-26,5200.5,31.4,11-Sep-26,5167.5,35.0,1,130012*2,-8250,stop_loss
 HAVELLS,Buy,10-Sep-26,1110.2,23.5,11-Sep-26,1102.9,21.3,1,111020*2,-7300,stop_loss,"candle stop — cash closed through the entry-candle low, filled ₹1,102.90 (-0.7%)"
 KEI,Buy,10-Sep-26,4625.5,30.2,11-Sep-26,4569.0,28.8,1,161892*2,-19775,stop_loss,"candle stop — cash closed through the entry-candle low, filled ₹4,569.00 (-1.2%)"
 TATACONSUM,Buy,10-Sep-26,1011.0,31.4,11-Sep-26,1001.6,32.5,1,111210*2,-10340,stop_loss,"candle stop — cash closed through the entry-candle low, filled ₹1,001.60 (-0.9%)"
+NBCC,Buy,11-Sep-26,84.11,29.7,14-Sep-26,84.11,,1,109343*2,0,stop_loss,candle stop — cash closed 82.90 below the entry-candle stop ₹83.20

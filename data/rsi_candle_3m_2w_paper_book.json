@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
   "realised_pnl": 108199.29,
-  "closed_count": 185,
+  "closed_count": 186,
   "day_date": "2026-09-14",
   "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-14 15:32:52",
+  "updated_at": "2026-09-14 15:44:57",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -226,6 +226,11 @@
       "symbol": "NBCC",
       "exit_date": "2026-08-18",
       "pnl": -30290.0
+    },
+    {
+      "symbol": "NBCC",
+      "exit_date": "2026-09-14",
+      "pnl": 0.0
     },
     {
       "symbol": "IRFC",
@@ -1798,23 +1803,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 2222.0
-    },
-    {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 84.11,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 6500,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.7,
-      "strike": 0.0,
-      "margin_blocked": 218686.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 83.2
     },
     {
       "symbol": "OIL",
