@@ -2,9 +2,9 @@
   "capital": 40000000,
   "realised_pnl": -114079.73,
   "closed_count": 195,
-  "day_date": "2026-09-13",
-  "day_realised_pnl": -114079.73,
-  "updated_at": "2026-09-11 15:15:00",
+  "day_date": "2026-09-15",
+  "day_realised_pnl": 0.0,
+  "updated_at": "2026-09-15 09:31:08",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -58,7 +58,8 @@
     "2026-09-09",
     "2026-09-10",
     "2026-09-11",
-    "2026-09-13"
+    "2026-09-13",
+    "2026-09-15"
   ],
   "closed_results": [
     {
