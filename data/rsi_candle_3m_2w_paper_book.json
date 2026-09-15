@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 164536.79,
-  "closed_count": 186,
+  "realised_pnl": 269530.79,
+  "closed_count": 187,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 56337.5,
-  "updated_at": "2026-09-15 10:00:51",
+  "day_realised_pnl": 161331.5,
+  "updated_at": "2026-09-15 10:30:48",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -302,6 +302,11 @@
       "symbol": "BAJFINANCE",
       "exit_date": "2026-08-05",
       "pnl": -8400.0
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "exit_date": "2026-09-15",
+      "pnl": 148741.5
     },
     {
       "symbol": "ASHOKLEY",
@@ -1254,31 +1259,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1141.7
-    },
-    {
-      "symbol": "BAJFINANCE",
-      "direction": "SHORT",
-      "entry_price": 1166.6,
-      "entry_time": "2026-08-06 15:15:00",
-      "lot_size": 750,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 74.98,
-      "strike": 0.0,
-      "margin_blocked": 174989.99999999997,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1108.27,
-          "exit_time": "2026-08-07 15:15:00",
-          "reason": "first_target",
-          "pnl": 43747.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1166.0
     },
     {
       "symbol": "BAJAJFINSV",
