@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 258792.56,
-  "closed_count": 261,
+  "realised_pnl": 277179.44,
+  "closed_count": 262,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 294320.21,
-  "updated_at": "2026-09-15 14:30:13",
+  "day_realised_pnl": 312707.09,
+  "updated_at": "2026-09-15 15:00:53",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1058,6 +1058,11 @@
       "symbol": "PAGEIND",
       "exit_date": "2026-08-18",
       "pnl": -33624.0
+    },
+    {
+      "symbol": "PAGEIND",
+      "exit_date": "2026-09-15",
+      "pnl": -31954.5
     },
     {
       "symbol": "POWERGRID",
@@ -2328,23 +2333,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PAGEIND",
-      "direction": "LONG",
-      "entry_price": 35505.0,
-      "entry_time": "2026-08-20 15:15:00",
-      "lot_size": 20,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 27.23,
-      "strike": 0.0,
-      "margin_blocked": 426060.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PNBHOUSING",
       "direction": "SHORT",
       "entry_price": 1175.5,
@@ -2392,13 +2380,21 @@
       "entry_price": 821.9,
       "entry_time": "2026-08-20 15:15:00",
       "lot_size": 1225,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 71.54,
       "strike": 0.0,
-      "margin_blocked": 604096.5,
-      "closed_legs": [],
+      "margin_blocked": 402731.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 780.8,
+          "exit_time": "2026-09-15 15:00:53",
+          "reason": "first_target",
+          "pnl": 50341.38
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
