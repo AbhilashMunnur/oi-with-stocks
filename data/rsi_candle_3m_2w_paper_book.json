@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 525568.84,
-  "closed_count": 191,
+  "realised_pnl": 637804.84,
+  "closed_count": 192,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 417369.55,
-  "updated_at": "2026-09-15 14:00:48",
+  "day_realised_pnl": 529605.55,
+  "updated_at": "2026-09-15 14:30:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -592,6 +592,11 @@
       "symbol": "CDSL",
       "exit_date": "2026-09-15",
       "pnl": 64985.92
+    },
+    {
+      "symbol": "SAIL",
+      "exit_date": "2026-09-15",
+      "pnl": 159001.0
     }
   ],
   "qualify_skips": {
@@ -817,31 +822,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 323.5
-    },
-    {
-      "symbol": "SAIL",
-      "direction": "SHORT",
-      "entry_price": 199.0,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 4700,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 74.48324875620168,
-      "strike": 0.0,
-      "margin_blocked": 187060.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 189.05,
-          "exit_time": "2026-09-07 15:15:00",
-          "reason": "first_target",
-          "pnl": 46765.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 200.96
     },
     {
       "symbol": "TATAPOWER",
