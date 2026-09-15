@@ -398,3 +398,4 @@ IEX,Buy,09-Sep-26,117.95,28.3,11-Sep-26,116.18,26.8,2,102616*3,-23089,stop_loss,
 MARUTI,Buy,09-Sep-26,12618.0,27.4,11-Sep-26,12428.73,23.5,2,126180*3,-28391,stop_loss,"1.5% stop ₹12,428.73"
 PHOENIXLTD,Sell,14-Jul-26,2132.5,73.9,15-Sep-26,1878.96,,45,149275*1,88738,second_target,"lot 2 booked — SMMA 50 ₹1,878.96"
 BAJAJFINSV,Sell,07-Aug-26,2008.9,73.1,15-Sep-26,1894.97,,27,120534*1,34180,second_target,"lot 2 booked — SMMA 50 ₹1,894.97"
+CDSL,Sell,14-Jul-26,1428.5,70.1,15-Sep-26,1327.23,,45,135708*1,48102,second_target,"lot 2 booked — SMMA 50 ₹1,327.23"

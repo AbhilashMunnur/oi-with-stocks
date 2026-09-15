@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -7366.9,
-  "closed_count": 195,
+  "realised_pnl": 3622.69,
+  "closed_count": 196,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 106712.83,
-  "updated_at": "2026-09-15 11:01:07",
+  "day_realised_pnl": 117702.42,
+  "updated_at": "2026-09-15 11:31:02",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -818,6 +818,11 @@
       "pnl": 247530.1
     },
     {
+      "symbol": "PAGEIND",
+      "exit_date": "2026-09-15",
+      "pnl": -32220.0
+    },
+    {
       "symbol": "JUBLFOOD",
       "exit_date": "2026-08-14",
       "pnl": -27264.37
@@ -1170,12 +1175,12 @@
       "entry_price": 1418.2,
       "entry_time": "2026-07-17 15:15:00",
       "lot_size": 475,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-09-29",
       "rsi_at_entry": 70.12,
       "strike": 0.0,
-      "margin_blocked": 269458.0,
+      "margin_blocked": 134729.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -1183,6 +1188,13 @@
           "exit_time": "2026-07-22 15:15:00",
           "reason": "first_target",
           "pnl": 33682.25
+        },
+        {
+          "lots": 1,
+          "exit_price": 1327.23,
+          "exit_time": "2026-09-15 11:31:02",
+          "reason": "second_target",
+          "pnl": 43209.59
         }
       ],
       "priced_on": "futures",
@@ -1684,23 +1696,6 @@
           "pnl": 21950.14
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PAGEIND",
-      "direction": "LONG",
-      "entry_price": 35800.0,
-      "entry_time": "2026-08-27 15:15:00",
-      "lot_size": 20,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 27.23,
-      "strike": 0.0,
-      "margin_blocked": 429600.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
