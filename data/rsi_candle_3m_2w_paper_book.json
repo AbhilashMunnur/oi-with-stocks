@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 350678.5,
-  "closed_count": 189,
+  "realised_pnl": 525568.84,
+  "closed_count": 191,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 242479.21,
-  "updated_at": "2026-09-15 13:30:49",
+  "day_realised_pnl": 417369.55,
+  "updated_at": "2026-09-15 14:00:48",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -534,6 +534,11 @@
       "pnl": -27000.0
     },
     {
+      "symbol": "SOLARINDS",
+      "exit_date": "2026-09-15",
+      "pnl": 191547.5
+    },
+    {
       "symbol": "MARUTI",
       "exit_date": "2026-09-08",
       "pnl": -10600.0
@@ -582,6 +587,11 @@
       "symbol": "JUBLFOOD",
       "exit_date": "2026-09-15",
       "pnl": 69373.12
+    },
+    {
+      "symbol": "CDSL",
+      "exit_date": "2026-09-15",
+      "pnl": 64985.92
     }
   ],
   "qualify_skips": {
@@ -1145,31 +1155,6 @@
       "stop_price": 119.5
     },
     {
-      "symbol": "CDSL",
-      "direction": "SHORT",
-      "entry_price": 1410.8,
-      "entry_time": "2026-08-27 15:15:00",
-      "lot_size": 475,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 61.61986361176485,
-      "strike": 0.0,
-      "margin_blocked": 134026.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1357.53,
-          "exit_time": "2026-09-02 15:15:00",
-          "reason": "first_target",
-          "pnl": 25305.58
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1445.0
-    },
-    {
       "symbol": "KOTAKBANK",
       "direction": "SHORT",
       "entry_price": 423.7,
@@ -1540,31 +1525,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 538.5
-    },
-    {
-      "symbol": "SOLARINDS",
-      "direction": "SHORT",
-      "entry_price": 22535.0,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 50,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 75.54,
-      "strike": 0.0,
-      "margin_blocked": 225350.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 21408.25,
-          "exit_time": "2026-09-15 10:00:51",
-          "reason": "first_target",
-          "pnl": 56337.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 22625.0
     },
     {
       "symbol": "ULTRACEMCO",
