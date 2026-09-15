@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 308930.38,
-  "closed_count": 188,
+  "realised_pnl": 350678.5,
+  "closed_count": 189,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 200731.09,
-  "updated_at": "2026-09-15 13:00:51",
+  "day_realised_pnl": 242479.21,
+  "updated_at": "2026-09-15 13:30:49",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -577,6 +577,11 @@
       "symbol": "BAJAJFINSV",
       "exit_date": "2026-09-15",
       "pnl": 58250.47
+    },
+    {
+      "symbol": "JUBLFOOD",
+      "exit_date": "2026-09-15",
+      "pnl": 69373.12
     }
   ],
   "qualify_skips": {
@@ -751,31 +756,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 5092.0
-    },
-    {
-      "symbol": "JUBLFOOD",
-      "direction": "SHORT",
-      "entry_price": 497.3,
-      "entry_time": "2026-08-26 15:15:00",
-      "lot_size": 1250,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 58.32832844900363,
-      "strike": 0.0,
-      "margin_blocked": 124325.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 475.2,
-          "exit_time": "2026-09-07 15:15:00",
-          "reason": "first_target",
-          "pnl": 27625.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 527.85
     },
     {
       "symbol": "PAGEIND",
