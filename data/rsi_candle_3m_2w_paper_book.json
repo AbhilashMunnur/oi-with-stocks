@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 269530.79,
-  "closed_count": 187,
+  "realised_pnl": 308930.38,
+  "closed_count": 188,
   "day_date": "2026-09-15",
-  "day_realised_pnl": 161331.5,
-  "updated_at": "2026-09-15 10:30:48",
+  "day_realised_pnl": 200731.09,
+  "updated_at": "2026-09-15 11:00:51",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -572,6 +572,11 @@
       "symbol": "TATACONSUM",
       "exit_date": "2026-09-11",
       "pnl": -10340.0
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "exit_date": "2026-09-15",
+      "pnl": 58250.47
     }
   ],
   "qualify_skips": {
@@ -1259,31 +1264,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1141.7
-    },
-    {
-      "symbol": "BAJAJFINSV",
-      "direction": "SHORT",
-      "entry_price": 2026.3,
-      "entry_time": "2026-08-07 15:15:00",
-      "lot_size": 300,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 73.07,
-      "strike": 0.0,
-      "margin_blocked": 121578.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1963.46,
-          "exit_time": "2026-09-08 15:15:00",
-          "reason": "first_target",
-          "pnl": 18850.88
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2103.0
     },
     {
       "symbol": "ZYDUSLIFE",

@@ -198,3 +198,4 @@ TATACONSUM,Buy,10-Sep-26,1011.0,31.4,11-Sep-26,1001.6,32.5,1,111210*2,-10340,sto
 NBCC,Buy,11-Sep-26,84.11,29.7,14-Sep-26,84.11,,1,109343*2,0,stop_loss,candle stop — cash closed 82.90 below the entry-candle stop ₹83.20
 SOLARINDS,Sell,10-Sep-26,22535.0,75.5,15-Sep-26,21408.25,,3,225350*1,56338,first_target,"lot 1 booked — 5% target ₹21,408.25"
 BAJFINANCE,Sell,06-Aug-26,1166.6,75.0,15-Sep-26,1026.61,,28,174990*1,104994,second_target,"final lot booked — 12% target ₹1,026.61"
+BAJAJFINSV,Sell,07-Aug-26,2026.3,73.1,15-Sep-26,1894.97,,27,121578*1,39400,second_target,"final lot booked — SMMA 50 ₹1,894.97"
