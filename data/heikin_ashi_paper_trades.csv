@@ -295,3 +295,4 @@ CDSL,Sell,17-Jul-26,1418.2,70.1,15-Sep-26,1327.23,,42,134729*1,43210,second_targ
 PAGEIND,Buy,27-Aug-26,35800.0,27.2,15-Sep-26,35263.0,,13,143200*3,-32220,stop_loss,"1.5% stop ₹35,263.00"
 HAL,Sell,20-Aug-26,4998.0,77.0,15-Sep-26,4748.1,,18,149940*1,37485,first_target,"lot 1 booked — 5% target ₹4,748.10"
 MOTHERSON,Sell,14-Aug-26,168.3,76.3,16-Sep-26,159.88,,23,207009*1,51752,first_target,lot 1 booked — 5% target ₹159.88
+SONACOMS,Sell,21-Aug-26,817.6,77.9,16-Sep-26,776.72,,18,200312*1,50078,first_target,lot 1 booked — 5% target ₹776.72
