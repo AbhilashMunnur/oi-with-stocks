@@ -93,6 +93,67 @@ def test_futures_contract_never_uses_bse_bfo():
     assert client.futures_contract("TITAN", month_index=3, as_of=date(2026, 8, 10)) is None
 
 
+def test_expiring_lookup_falls_back_to_same_month_nfo_when_day_differs():
+    from src.data.angelone_client import AngelOneClient
+
+    client = AngelOneClient.__new__(AngelOneClient)
+    client._equity_tokens = {"BOSCHLTD": "1"}
+    client._option_rows = {}
+    client._futures_rows = {
+        "BOSCHLTD": [
+            # Seed stores last Tuesday 24 Nov; Angel NFO expires 26 Nov.
+            {
+                "symbol": "BOSCHLTD26NOVFUT",
+                "expiry": "26NOV2026",
+                "lotsize": "15",
+                "token": "nov",
+                "exch_seg": "NFO",
+            },
+            {
+                "symbol": "BOSCHLTD26NOVFUT",
+                "expiry": "24NOV2026",
+                "lotsize": "15",
+                "token": "bse",
+                "exch_seg": "BFO",
+            },
+        ]
+    }
+    client._refresh_for_new_day = lambda: None
+
+    exact = client.futures_contract_expiring("BOSCHLTD", "2026-11-26")
+    assert exact is not None and exact.token == "nov"
+    fallback = client.futures_contract_expiring("BOSCHLTD", "2026-11-24")
+    assert fallback is not None and fallback.token == "nov"
+    assert fallback.expiry == "2026-11-26"
+
+
+def test_get_futures_ltps_for_expiries_uses_the_month_fallback():
+    from src.data.angelone_client import AngelOneClient
+
+    client = AngelOneClient.__new__(AngelOneClient)
+    client._equity_tokens = {"DABUR": "1"}
+    client._option_rows = {}
+    client._futures_rows = {
+        "DABUR": [
+            {
+                "symbol": "DABUR26NOVFUT",
+                "expiry": "26NOV2026",
+                "lotsize": "500",
+                "token": "dab",
+                "exch_seg": "NFO",
+            }
+        ]
+    }
+    client._refresh_for_new_day = lambda: None
+    client._quote_throttle = object()
+    client._call = lambda *_args, **_kwargs: {
+        "status": True,
+        "data": {"fetched": [{"symbolToken": "dab", "ltp": 381.5}]},
+    }
+    prices = client.get_futures_ltps_for_expiries([("DABUR", "2026-11-24")])
+    assert prices == {"DABUR": 381.5}
+
+
 def test_get_futures_ltps_quotes_the_nfo_token():
     from src.data.angelone_client import AngelOneClient
 

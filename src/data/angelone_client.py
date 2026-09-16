@@ -274,32 +274,18 @@ class AngelOneClient:
 
         as_of = as_of or date.today()
         target_year, target_month = target_futures_year_month(as_of, month_index)
-        nfo: list[dict] = []
-
-        for row in rows:
-            try:
-                expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
-            except (KeyError, ValueError):
-                continue
-            if (expiry.year, expiry.month) != (target_year, target_month):
-                continue
-            if str(row.get("exch_seg") or "NFO").upper() != "NFO":
-                continue
-            nfo.append(row)
-
-        if not nfo:
-            return None
-
-        def expiry_of(row: dict) -> date:
-            return datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
-
-        row = max(nfo, key=expiry_of)
-        return self._stock_future_from_row(row)
+        return self._nfo_future_in_month(rows, target_year, target_month)
 
     def futures_contract_expiring(
         self, symbol: str, expiry: str
     ) -> StockFuture | None:
-        """The NFO stock future that expires on this calendar date."""
+        """The NFO stock future for this stored expiry.
+
+        Exact calendar date first. If the seed stored last-Tuesday and Angel's
+        NFO contract in that month expires on a different day, quote that
+        same-month NFO future instead of returning nothing (the 10:00 boards
+        then freeze at entry).
+        """
         self._load_instruments()
         rows = (self._futures_rows or {}).get(symbol.upper())
         if not rows:
@@ -319,7 +305,29 @@ class AngelOneClient:
             if str(row.get("exch_seg") or "NFO").upper() != "NFO":
                 continue
             return self._stock_future_from_row(row)
-        return None
+        return self._nfo_future_in_month(rows, want.year, want.month)
+
+    def _nfo_future_in_month(
+        self, rows: list[dict], year: int, month: int
+    ) -> StockFuture | None:
+        nfo: list[dict] = []
+        for row in rows:
+            try:
+                expiry = datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+            except (KeyError, ValueError):
+                continue
+            if (expiry.year, expiry.month) != (year, month):
+                continue
+            if str(row.get("exch_seg") or "NFO").upper() != "NFO":
+                continue
+            nfo.append(row)
+        if not nfo:
+            return None
+
+        def expiry_of(row: dict) -> date:
+            return datetime.strptime(str(row["expiry"]), "%d%b%Y").date()
+
+        return self._stock_future_from_row(max(nfo, key=expiry_of))
 
     @staticmethod
     def _stock_future_from_row(row: dict) -> StockFuture:
