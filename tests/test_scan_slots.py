@@ -33,6 +33,20 @@ def test_weekend_is_closed():
     assert active_slot(datetime(2026, 8, 15, 10, 0, tzinfo=IST)) is None  # Saturday
 
 
+def test_nse_fo_holiday_is_closed(tmp_path):
+    # Ganesh Chaturthi 2026 — weekday, but F&O is shut.
+    now = datetime(2026, 9, 14, 10, 2, tzinfo=IST)
+    assert active_slot(now) is None
+    run, reason, slot = should_run_slot(now=now, path=tmp_path / "last_scan_slot.txt")
+    assert run is False
+    assert slot is None
+    assert "holiday" in reason.lower()
+
+
+def test_gandhi_jayanti_is_closed():
+    assert active_slot(datetime(2026, 10, 2, 15, 15, tzinfo=IST)) is None
+
+
 def test_slot_guard_skips_duplicate(tmp_path):
     marker = tmp_path / "last_scan_slot.txt"
     now = datetime(2026, 8, 11, 9, 40, tzinfo=IST)

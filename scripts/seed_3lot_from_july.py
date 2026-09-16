@@ -96,7 +96,12 @@ def rsi_at(
     return 100 - 100 / (1 + up / down)
 
 
-def futures_expiry(as_of: date) -> str:
+def futures_expiry(as_of: date, symbol: str | None = None, client=None) -> str:
+    """Actual NFO far-month expiry on ``as_of``, else last Tuesday of that month."""
+    if client is not None and symbol:
+        contract = client.futures_contract(symbol, month_index=3, as_of=as_of)
+        if contract:
+            return contract.expiry
     year, month = target_futures_year_month(as_of, 3)
     return last_tuesday(year, month).isoformat()
 
@@ -408,7 +413,7 @@ def main() -> None:
         if not expiry_entry_skip_reason(day):
             for row in by_day.get(day_s, []):
                 alert = alert_for(row)
-                alert.expiry = futures_expiry(day)
+                alert.expiry = futures_expiry(day, row["symbol"], client)
                 alert.lot_size = lot_sizes.get(row["symbol"], 0)
                 set_clock(day_s, "15:15:00")
                 if any(event.kind == "entry" for event in book.open_from_alerts([alert])):

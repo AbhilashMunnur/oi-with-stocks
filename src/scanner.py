@@ -29,6 +29,7 @@ from src.heikin_ashi import (
     make_ha_alert,
 )
 from src.indicators import calculate_rsi_series
+from src.nse_calendar import is_nse_fo_session
 from src.notifications.notifier import Notifier
 from src.oi_analyzer import ScanAlert, no_short_skip_reason
 from src.paper_trading import PaperBook
@@ -94,7 +95,7 @@ class OIRsiScanner:
 
     def is_market_hours(self, now: datetime | None = None) -> bool:
         now = now or datetime.now()
-        if now.weekday() >= 5:
+        if not is_nse_fo_session(now):
             return False
 
         start = self._parse_hhmm(self.config.schedule.market_start)
@@ -182,6 +183,16 @@ class OIRsiScanner:
                     f"{', '.join(missing[:8])}"
                     + ("…" if len(missing) > 8 else "")
                 )
+            # Keep the Angel NFO expiry on the position so the next quote is
+            # an exact token match (seed last-Tuesday vs listed day).
+            for position in book.positions:
+                if not position.is_open or not position.expiry:
+                    continue
+                contract = self.client.futures_contract_expiring(
+                    position.symbol, position.expiry
+                )
+                if contract and contract.expiry != position.expiry:
+                    position.expiry = contract.expiry
             return fut
 
         symbols = {position.symbol for position in book.positions if position.is_open}

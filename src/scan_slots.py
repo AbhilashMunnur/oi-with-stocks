@@ -4,6 +4,8 @@ from datetime import datetime, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from src.nse_calendar import is_nse_fo_holiday, is_nse_fo_session
+
 IST = ZoneInfo("Asia/Kolkata")
 FIRST_SLOT = time(9, 30)
 LAST_SLOT = time(15, 30)
@@ -34,7 +36,7 @@ def active_slot(now: datetime | None = None) -> datetime | None:
     already started — at 09:45 that is 09:30; at 15:50, 15:45.
     """
     current = now_ist(now)
-    if current.weekday() >= 5:
+    if not is_nse_fo_session(current):
         return None
 
     clock = current.time()
@@ -76,7 +78,7 @@ def is_cash_stop_slot(now: datetime | None = None) -> bool:
     if slot is not None:
         return slot.time() in (CASH_CLOSE, CLOSE_PNL_SLOT)
     current = now_ist(now)
-    return current.weekday() < 5 and current.time() >= CASH_CLOSE
+    return is_nse_fo_session(current) and current.time() >= CASH_CLOSE
 
 
 def is_candle_entry_window(now: datetime | None = None) -> bool:
@@ -86,7 +88,7 @@ def is_candle_entry_window(now: datetime | None = None) -> bool:
     valid through the rest of that calendar day (15:30 is a backup).
     """
     current = now_ist(now)
-    if current.weekday() >= 5:
+    if not is_nse_fo_session(current):
         return False
     return current.time() >= S1_WALL_EXIT_SLOT
 
@@ -167,12 +169,16 @@ def should_run_slot(
     path: Path = DEFAULT_MARKER,
 ) -> tuple[bool, str, datetime | None]:
     """Return (run, reason, slot)."""
+    current = now_ist(now)
+    if not force and is_nse_fo_holiday(current):
+        return False, f"NSE F&O holiday {current:%d %b %Y} — no scan", None
+
     if force:
         slot = active_slot(now)
         if slot is None:
             current = now_ist(now)
             # Manual / late catch-up after the session: treat as 15:45 close.
-            if current.weekday() < 5 and current.time() >= CLOSE_PNL_SLOT:
+            if is_nse_fo_session(current) and current.time() >= CLOSE_PNL_SLOT:
                 slot = current.replace(
                     hour=15, minute=45, second=0, microsecond=0
                 )
@@ -217,7 +223,7 @@ def seconds_until_next_slot(now: datetime | None = None) -> int | None:
     Used by GitHub Actions to self-chain half-hour runs when cron goes quiet.
     """
     current = now_ist(now)
-    if current.weekday() >= 5:
+    if not is_nse_fo_session(current):
         return None
 
     for slot in iter_slots_for_day(current):

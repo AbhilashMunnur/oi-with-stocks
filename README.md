@@ -205,8 +205,7 @@ minutes** and a slot guard runs each half-hour slot exactly once (a missed
 3. Open the **Actions** tab, pick **OI + RSI scan**, and use **Run workflow** to
    trigger a scan by hand and confirm the alert reaches your phone
 
-Exchange holidays are not detected, so a holiday scan may report the previous
-session’s values.
+Exchange holidays (NSE equity/F&O 2026 calendar) skip the scan — no Telegram, no marks, no new fills.
 
 ## How it works
 

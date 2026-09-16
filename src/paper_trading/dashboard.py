@@ -349,11 +349,14 @@ def render_positions_image(
     # Footer stripe
     y = height - 40
     draw.rectangle((0, y, WIDTH, height), fill=HEADER)
+    unmarked = sum(1 for p in open_positions if p.symbol not in prices)
     footer = (
         f"{book_name}  ·  NSE Oct futures closing P&L  ·  not live orders"
         if closing
         else f"{book_name} paper book  ·  NSE stock futures  ·  not live orders"
     )
+    if unmarked:
+        footer = f"{unmarked} unmarked (no NFO LTP)  ·  {book_name}"
     fw = draw.textlength(footer, font=small_font)
     draw.text(((WIDTH - fw) / 2, y + 12), footer, fill=MUTED, font=small_font)
 
