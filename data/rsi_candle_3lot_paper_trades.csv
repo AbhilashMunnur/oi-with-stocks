@@ -404,3 +404,25 @@ LTF,Sell,07-Jul-26,334.2,78.5,15-Sep-26,299.18,,50,150390*1,78802,second_target,
 PAGEIND,Buy,20-Aug-26,35505.0,27.2,15-Sep-26,34972.43,,18,142020*3,-31954,stop_loss,"1.5% stop ₹34,972.43"
 SONACOMS,Sell,20-Aug-26,821.9,71.5,15-Sep-26,780.8,,18,201366*1,50341,first_target,lot 1 booked — 5% target ₹780.80
 GLENMARK,Sell,31-Aug-26,2480.0,73.5,16-Sep-26,2356.0,,12,186000*1,46500,first_target,"lot 1 booked — 5% target ₹2,356.00"
+COFORGE,Sell,31-Aug-26,1985.3,77.6,16-Sep-26,1747.06,,12,188604*1,113162,second_target,"lot 2 booked — 12% target ₹1,747.06"
+MCX,Sell,01-Sep-26,3303.0,72.7,16-Sep-26,3137.85,,11,148635*1,37159,first_target,"lot 1 booked — 5% target ₹3,137.85"
+RECLTD,Buy,02-Sep-26,316.45,28.6,16-Sep-26,311.7,,10,99682*3,-22428,stop_loss,1.5% stop ₹311.70
+RVNL,Buy,02-Sep-26,206.0,28.9,16-Sep-26,202.91,,10,79310*3,-17845,stop_loss,1.5% stop ₹202.91
+WAAREEENER,Buy,02-Sep-26,2581.1,31.9,16-Sep-26,2542.38,,10,90338*3,-20326,stop_loss,"1.5% stop ₹2,542.38"
+ATHERENERG,Sell,03-Sep-26,1638.9,72.5,16-Sep-26,1556.95,,9,122918*1,30729,first_target,"lot 1 booked — 5% target ₹1,556.95"
+GMRAIRPORT,Buy,03-Sep-26,96.87,23.9,16-Sep-26,95.42,,9,135134*3,-30405,stop_loss,1.5% stop ₹95.42
+CROMPTON,Buy,04-Sep-26,232.4,28.9,16-Sep-26,228.91,,8,99932*3,-22485,stop_loss,1.5% stop ₹228.91
+ASIANPAINT,Buy,07-Sep-26,2500.9,29.2,16-Sep-26,2463.39,,7,125045*3,-28135,stop_loss,"1.5% stop ₹2,463.39"
+CUMMINSIND,Buy,07-Sep-26,5030.0,31.2,16-Sep-26,4954.55,,7,201200*3,-45270,stop_loss,"1.5% stop ₹4,954.55"
+HAVELLS,Buy,10-Sep-26,1116.0,23.5,16-Sep-26,1099.26,,4,111600*3,-25110,stop_loss,"1.5% stop ₹1,099.26"
+PGEL,Buy,10-Sep-26,542.0,30.7,16-Sep-26,533.87,,4,102980*3,-23170,stop_loss,1.5% stop ₹533.87
+SOLARINDS,Sell,10-Sep-26,22370.0,75.5,16-Sep-26,21251.5,,4,223700*1,55925,first_target,"lot 1 booked — 5% target ₹21,251.50"
+SOLARINDS,Sell,10-Sep-26,22370.0,75.5,16-Sep-26,19685.6,,4,223700*1,134220,second_target,"lot 2 booked — 12% target ₹19,685.60"
+AMBUJACEM,Buy,11-Sep-26,391.85,31.2,16-Sep-26,385.97,,3,94044*3,-21160,stop_loss,1.5% stop ₹385.97
+BDL,Buy,11-Sep-26,1190.0,29.6,16-Sep-26,1172.15,,3,101150*3,-22759,stop_loss,"1.5% stop ₹1,172.15"
+DIXON,Buy,11-Sep-26,13425.0,35.0,16-Sep-26,13223.62,,3,134250*3,-30206,stop_loss,"1.5% stop ₹13,223.62"
+IRFC,Buy,11-Sep-26,81.09,25.3,16-Sep-26,79.87,,3,87983*3,-19796,stop_loss,1.5% stop ₹79.87
+KEI,Buy,11-Sep-26,4578.0,29.0,16-Sep-26,4509.33,,3,160230*3,-36052,stop_loss,"1.5% stop ₹4,509.33"
+NBCC,Buy,11-Sep-26,82.9,29.7,16-Sep-26,81.66,,3,107770*3,-24248,stop_loss,1.5% stop ₹81.66
+SHREECEM,Buy,11-Sep-26,22570.0,28.5,16-Sep-26,22231.45,,3,112850*3,-25391,stop_loss,"1.5% stop ₹22,231.45"
+SUZLON,Buy,11-Sep-26,44.12,29.8,16-Sep-26,43.46,,3,112065*3,-25215,stop_loss,1.5% stop ₹43.46

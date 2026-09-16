@@ -296,3 +296,8 @@ PAGEIND,Buy,27-Aug-26,35800.0,27.2,15-Sep-26,35263.0,,13,143200*3,-32220,stop_lo
 HAL,Sell,20-Aug-26,4998.0,77.0,15-Sep-26,4748.1,,18,149940*1,37485,first_target,"lot 1 booked — 5% target ₹4,748.10"
 MOTHERSON,Sell,14-Aug-26,168.3,76.3,16-Sep-26,159.88,,23,207009*1,51752,first_target,lot 1 booked — 5% target ₹159.88
 SONACOMS,Sell,21-Aug-26,817.6,77.9,16-Sep-26,776.72,,18,200312*1,50078,first_target,lot 1 booked — 5% target ₹776.72
+MCX,Sell,01-Sep-26,3303.0,74.9,16-Sep-26,3137.85,,11,148635*1,37159,first_target,"lot 1 booked — 5% target ₹3,137.85"
+ADANIGREEN,Buy,02-Sep-26,1296.0,29.3,16-Sep-26,1276.56,,10,155520*3,-34992,stop_loss,"1.5% stop ₹1,276.56"
+ATHERENERG,Sell,03-Sep-26,1638.9,78.7,16-Sep-26,1556.95,,9,122918*1,30729,first_target,"lot 1 booked — 5% target ₹1,556.95"
+GMRAIRPORT,Buy,03-Sep-26,96.87,21.8,16-Sep-26,95.42,,9,135134*3,-30405,stop_loss,1.5% stop ₹95.42
+CROMPTON,Buy,04-Sep-26,232.4,28.9,16-Sep-26,228.91,,8,99932*3,-22485,stop_loss,1.5% stop ₹228.91
