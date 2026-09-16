@@ -204,3 +204,5 @@ CDSL,Sell,27-Aug-26,1410.8,61.6,15-Sep-26,1327.26,,13,134026*1,39680,second_targ
 SOLARINDS,Sell,10-Sep-26,22535.0,75.5,15-Sep-26,19830.8,,3,225350*1,135210,second_target,"final lot booked — 12% target ₹19,830.80"
 SAIL,Sell,31-Aug-26,199.0,74.5,15-Sep-26,175.12,,11,187060*1,112236,second_target,final lot booked — 12% target ₹175.12
 TITAN,Sell,31-Aug-26,5187.3,71.7,15-Sep-26,4927.93,,11,181556*1,45389,first_target,"lot 1 booked — 5% target ₹4,927.93"
+MCX,Sell,27-Aug-26,3315.0,71.7,16-Sep-26,3149.25,,14,149175*1,37294,first_target,"lot 1 booked — 5% target ₹3,149.25"
+GLENMARK,Sell,31-Aug-26,2513.9,73.5,16-Sep-26,2388.2,,12,188542*1,47136,first_target,"lot 1 booked — 5% target ₹2,388.20"
