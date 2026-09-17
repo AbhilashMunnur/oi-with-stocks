@@ -145,6 +145,9 @@ class AngelOneClient:
     def login(self) -> None:
         """Open a fresh session. Tokens expire daily, so long runs re-login."""
         self.client = SmartConnect(api_key=self._api_key)
+        # SDK default read timeout is 7s — Angel candle calls often need longer
+        # on hosted runners, and a short timeout poisons the 15:15 screen.
+        self.client.timeout = 30
         session = self.client.generateSession(
             self.client_code, self._pin, pyotp.TOTP(self._totp_secret).now()
         )
@@ -594,6 +597,15 @@ class AngelOneClient:
             except Exception as exc:
                 last_error = exc
                 text = str(exc).lower()
+                if "timed out" in text or "timeout" in text:
+                    if attempt >= 2:
+                        raise
+                    delay = RETRY_BACKOFF_SECONDS[
+                        min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)
+                    ]
+                    print(f"  {method_name} timed out; retrying in {delay}s")
+                    time.sleep(delay)
+                    continue
                 if "access rate" in text or "too many" in text:
                     delay = RATE_LIMIT_BACKOFF_SECONDS[
                         min(rate_hits, len(RATE_LIMIT_BACKOFF_SECONDS) - 1)
@@ -860,12 +872,12 @@ class AngelOneClient:
         """Daily (date, open, high, low, close) from Angel One, cached once per day."""
         symbol = symbol.upper()
         cache = self._load_ohlc_cache()
-        if symbol in cache:
-            return cache[symbol]
+        cached = cache.get(symbol)
+        if cached:
+            return cached
 
         candles = self._request_candles(symbol)
         if not candles:
-            cache[symbol] = []
             return []
 
         series = self._ingest_candles(symbol, candles)

@@ -93,6 +93,38 @@ def is_candle_entry_window(now: datetime | None = None) -> bool:
     return current.time() >= S1_WALL_EXIT_SLOT
 
 
+def _todays_paid_slot(
+    now: datetime | None = None, path: Path = DEFAULT_MARKER
+) -> datetime | None:
+    """Today's last completed slot stamp, or None if none / a different day."""
+    last = read_last_slot(path)
+    if not last:
+        return None
+    try:
+        stamp = datetime.fromisoformat(last)
+    except ValueError:
+        return None
+    current = now_ist(now)
+    if stamp.tzinfo is None:
+        stamp = stamp.replace(tzinfo=current.tzinfo)
+    else:
+        stamp = stamp.astimezone(current.tzinfo)
+    if stamp.date() != current.date():
+        return None
+    return stamp
+
+
+def is_fifteen_fifteen_complete(
+    now: datetime | None = None, path: Path = DEFAULT_MARKER
+) -> bool:
+    """True once today's 15:15 entry screen (or a later wrap-up) has been paid.
+
+    A failed 15:15 must not write this marker — otherwise 15:30 cannot retry.
+    """
+    stamp = _todays_paid_slot(now, path)
+    return stamp is not None and stamp.time() >= S1_WALL_EXIT_SLOT
+
+
 def is_candle_screen_slot(
     now: datetime | None = None, path: Path = DEFAULT_MARKER
 ) -> bool:
@@ -106,17 +138,28 @@ def is_candle_screen_slot(
     """
     if not is_candle_entry_window(now):
         return False
-    current = now_ist(now)
-    fifteen = current.replace(hour=15, minute=15, second=0, microsecond=0)
-    last = read_last_slot(path)
     slot = active_slot(now)
+    paid = is_fifteen_fifteen_complete(now, path)
     if slot is None:
-        return last != fifteen.isoformat()
+        return not paid
     if slot.time() == S1_WALL_EXIT_SLOT:
         return True
     if slot.time() == LAST_SLOT:
-        return last != fifteen.isoformat()
+        return not paid
     return False
+
+
+def paper_run_flags(
+    now: datetime | None = None, path: Path = DEFAULT_MARKER
+) -> tuple[bool, bool]:
+    """Freeze (open_new_paper, closing_mark) at the start of a run.
+
+    A 15:15 or 15:30 backup that overruns into 15:45 must still take new
+    paper. The dedicated 15:45 slot never opens.
+    """
+    open_new = is_candle_screen_slot(now, path)
+    closing = is_close_pnl_slot(now) and not open_new
+    return open_new, closing
 
 
 def is_same_day_reversal_window(now: datetime | None = None) -> bool:
@@ -177,11 +220,17 @@ def should_run_slot(
         slot = active_slot(now)
         if slot is None:
             current = now_ist(now)
-            # Manual / late catch-up after the session: treat as 15:45 close.
+            # Manual / late catch-up after the session: take unpaid 15:15
+            # entries first. Only mark 15:45 close when that screen is done.
             if is_nse_fo_session(current) and current.time() >= CLOSE_PNL_SLOT:
-                slot = current.replace(
-                    hour=15, minute=45, second=0, microsecond=0
-                )
+                if not is_fifteen_fifteen_complete(now, path):
+                    slot = current.replace(
+                        hour=15, minute=15, second=0, microsecond=0
+                    )
+                else:
+                    slot = current.replace(
+                        hour=15, minute=45, second=0, microsecond=0
+                    )
         return True, "forced", slot
 
     slot = target_scan_slot(now=now, path=path)

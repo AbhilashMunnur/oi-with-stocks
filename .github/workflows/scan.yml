@@ -19,7 +19,7 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 50
     concurrency:
       group: oi-rsi-scan
       # Do not cancel a running scan. Slot guard skips duplicates instead.
@@ -101,25 +101,32 @@ jobs:
           ls -lah .cache | head -20
 
       - name: Run scan
+        id: scan
         if: steps.slot.outputs.run == 'true'
-        timeout-minutes: 25
+        timeout-minutes: 40
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger
         if: always() && steps.slot.outputs.run == 'true'
         env:
           SLOT_ISO: ${{ steps.slot.outputs.slot }}
+          SCAN_OK: ${{ steps.scan.outcome }}
         run: |
           set -euo pipefail
-          # Persist the paid slot even if the books did not move. Without this,
-          # a duplicate kick re-sends the same half-hour Telegram.
-          if [ -n "${SLOT_ISO:-}" ]; then
+          # Only pay the slot after a finished scan. A timed-out 15:15 that
+          # still writes last_scan_slot.txt blocks the 15:30 backup from
+          # taking new paper.
+          if [ "${SCAN_OK}" = "success" ] && [ -n "${SLOT_ISO:-}" ]; then
             printf '%s' "$SLOT_ISO" > data/last_scan_slot.txt
             echo "Slot marker → $SLOT_ISO"
+          else
+            echo "Scan did not succeed (outcome=${SCAN_OK}) — leaving last_scan_slot unpaid so 15:30 can still take new paper."
           fi
           echo "Working tree (data):"
           git status --porcelain -- data || true
-          echo "marker file: $(cat data/last_scan_slot.txt)"
+          if [ -f data/last_scan_slot.txt ]; then
+            echo "marker file: $(cat data/last_scan_slot.txt)"
+          fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -146,9 +153,11 @@ jobs:
           fi
           git commit -m "Update paper trading ledger [skip ci]"
 
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             if git push; then exit 0; fi
+            echo "Push attempt ${attempt} failed; rebase onto origin/main and retry."
+            git fetch origin main
             git pull --rebase --autostash origin main || true
           done
-          echo "Could not push the ledger after 3 attempts."
+          echo "Could not push the ledger after 5 attempts."
           exit 1

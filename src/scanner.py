@@ -36,9 +36,8 @@ from src.paper_trading import PaperBook
 from src.paper_trading.journal import TradeJournal
 from src.scan_slots import (
     is_cash_stop_slot,
-    is_candle_screen_slot,
-    is_close_pnl_slot,
     is_candle_entry_window,
+    paper_run_flags,
 )
 
 
@@ -56,6 +55,10 @@ class OIRsiScanner:
         self.two_week_book = self._build_book(config.rsi_candle_2w_paper_trading)
         self.three_lot_book = self._build_book(config.rsi_candle_3lot_paper_trading)
         self.ha_book = self._build_book(config.heikin_ashi_paper_trading)
+        # Frozen at the start of each run_once so a 15:15 screen that
+        # overruns into 15:45 still opens new paper.
+        self._open_new_paper = False
+        self._closing_mark = False
 
     def _build_book(self, paper: PaperTradingConfig | None) -> PaperBook | None:
         if not paper or not paper.enabled:
@@ -376,10 +379,12 @@ class OIRsiScanner:
         )
         if book.config.skip_new_entries:
             print(f"  {book.config.name}: marking open P&L — no new entries")
-        elif not is_close_pnl_slot():
+        elif self._open_new_paper:
             events += book.open_from_alerts(paper_alerts)
-        else:
+        elif self._closing_mark:
             print(f"  {book.config.name}: 15:45 close — marking P&L, not opening new paper")
+        else:
+            print(f"  {book.config.name}: marking open P&L — no new entries")
         book.save()
 
         logged = book.flush_journal()
@@ -398,7 +403,7 @@ class OIRsiScanner:
         print()
         print(book.summary(fut_prices))
 
-        closing = is_close_pnl_slot()
+        closing = self._closing_mark
         send_dash = self.notifier.telegram_ready and (
             events or book.positions or closing
         )
@@ -759,7 +764,8 @@ class OIRsiScanner:
         # series and blow the Angel One rate limit.
         self.client.seed_closes_cache_from_repo()
 
-        if not is_candle_screen_slot():
+        self._open_new_paper, self._closing_mark = paper_run_flags()
+        if not self._open_new_paper:
             return self._mark_open_books()
 
         prices: dict[str, float] = {}
@@ -841,7 +847,7 @@ class OIRsiScanner:
 
         candle_batch = [a for a in alerts if a.signal in CANDLE_SIGNALS]
         ha_batch = [a for a in alerts if a.signal in HA_SIGNALS]
-        if is_close_pnl_slot():
+        if self._closing_mark:
             print("  15:45 close — skipping signal Telegram; sending closing P&L")
         else:
             self._emit_telegram(candle_batch, "RSI_CandlePattern")
