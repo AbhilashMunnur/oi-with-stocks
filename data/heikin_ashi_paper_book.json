@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 103284.92,
-  "closed_count": 200,
-  "day_date": "2026-09-16",
-  "day_realised_pnl": 62177.23,
-  "updated_at": "2026-09-16 15:02:23",
+  "realised_pnl": 61049.72,
+  "closed_count": 201,
+  "day_date": "2026-09-17",
+  "day_realised_pnl": -42235.2,
+  "updated_at": "2026-09-17 09:30:31",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -60,7 +60,8 @@
     "2026-09-11",
     "2026-09-13",
     "2026-09-15",
-    "2026-09-16"
+    "2026-09-16",
+    "2026-09-17"
   ],
   "closed_results": [
     {
@@ -1062,6 +1063,11 @@
       "symbol": "VOLTAS",
       "exit_date": "2026-09-16",
       "pnl": -19659.37
+    },
+    {
+      "symbol": "PNB",
+      "exit_date": "2026-09-17",
+      "pnl": -42235.2
     }
   ],
   "qualify_skips": {
@@ -1567,23 +1573,6 @@
           "pnl": 51752.25
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PNB",
-      "direction": "SHORT",
-      "entry_price": 117.32,
-      "entry_time": "2026-08-17 15:15:00",
-      "lot_size": 8000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 73.75,
-      "strike": 0.0,
-      "margin_blocked": 563136.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
