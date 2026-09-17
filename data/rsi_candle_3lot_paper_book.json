@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 191141.11,
-  "closed_count": 281,
+  "realised_pnl": 149050.47,
+  "closed_count": 282,
   "day_date": "2026-09-17",
-  "day_realised_pnl": -42332.4,
-  "updated_at": "2026-09-17 09:30:19",
+  "day_realised_pnl": -84423.04,
+  "updated_at": "2026-09-17 10:00:45",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -570,6 +570,11 @@
       "symbol": "ADANIENSOL",
       "exit_date": "2026-09-01",
       "pnl": 427573.35
+    },
+    {
+      "symbol": "ADANIENSOL",
+      "exit_date": "2026-09-17",
+      "pnl": -42090.64
     },
     {
       "symbol": "TATAELXSI",
@@ -2871,23 +2876,6 @@
       "rsi_at_entry": 15.8,
       "strike": 0.0,
       "margin_blocked": 269724.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ADANIENSOL",
-      "direction": "LONG",
-      "entry_price": 1385.7,
-      "entry_time": "2026-09-03 15:15:00",
-      "lot_size": 675,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.69,
-      "strike": 0.0,
-      "margin_blocked": 561208.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
