@@ -209,3 +209,19 @@ GLENMARK,Sell,31-Aug-26,2513.9,73.5,16-Sep-26,2388.2,,12,188542*1,47136,first_ta
 COFORGE,Sell,31-Aug-26,1994.4,77.6,16-Sep-26,1755.07,,12,189468*1,113681,second_target,"final lot booked — 12% target ₹1,755.07"
 LICHSGFIN,Sell,04-Sep-26,572.0,69.5,16-Sep-26,543.4,,8,114400*1,28600,first_target,lot 1 booked — 5% target ₹543.40
 PATANJALI,Buy,02-Sep-26,346.0,36.2,16-Sep-26,363.3,,10,74390*1,18598,first_target,lot 1 booked — 5% target ₹363.30
+PAGEIND,Buy,26-Aug-26,35675.0,32.0,17-Sep-26,35010.0,28.8,16,142700*2,-26600,stop_loss,"candle stop — cash closed 35,020.00 below the entry-candle stop ₹35,100.00"
+JSWENERGY,Buy,01-Sep-26,526.5,35.5,17-Sep-26,518.0,30.1,12,113198*2,-18275,stop_loss,candle stop — cash closed 512.00 below the entry-candle stop ₹514.45
+CROMPTON,Buy,02-Sep-26,232.12,33.4,17-Sep-26,229.0,30.0,11,99812*2,-13416,stop_loss,candle stop — cash closed 225.10 below the entry-candle stop ₹226.05
+RVNL,Buy,02-Sep-26,208.2,28.8,17-Sep-26,202.98,25.1,11,80157*2,-20097,stop_loss,candle stop — cash closed 201.70 below the entry-candle stop ₹203.83
+M&M,Buy,08-Sep-26,3199.0,34.0,17-Sep-26,3127.3,34.1,7,127960*2,-28680,stop_loss,"candle stop — cash closed 3,076.50 below the entry-candle stop ₹3,096.30"
+VOLTAS,Buy,09-Sep-26,1151.4,30.3,17-Sep-26,1148.0,28.0,6,86355*2,-2550,stop_loss,"candle stop — cash closed 1,135.00 below the entry-candle stop ₹1,136.00"
+PGEL,Buy,10-Sep-26,554.75,30.7,17-Sep-26,537.5,30.6,5,105402*2,-32775,stop_loss,candle stop — cash closed 529.35 below the entry-candle stop ₹538.50
+ULTRACEMCO,Buy,10-Sep-26,11083.0,29.3,17-Sep-26,10935.0,29.1,5,110830*2,-14800,stop_loss,"candle stop — cash closed 10,764.00 below the entry-candle stop ₹10,860.00"
+UNITDSPR,Buy,10-Sep-26,1421.6,30.0,17-Sep-26,1400.0,35.4,5,113728*2,-17280,stop_loss,"candle stop — cash closed 1,390.00 below the entry-candle stop ₹1,391.40"
+AMBUJACEM,Buy,11-Sep-26,398.0,31.2,17-Sep-26,390.1,30.9,4,95520*2,-18960,stop_loss,candle stop — cash closed 383.25 below the entry-candle stop ₹387.65
+BDL,Buy,11-Sep-26,1171.3,29.6,17-Sep-26,1137.6,31.9,4,99560*2,-28645,stop_loss,"candle stop — cash closed 1,151.90 below the entry-candle stop ₹1,165.00"
+BIOCON,Buy,11-Sep-26,396.85,31.9,17-Sep-26,384.35,27.1,4,198425*2,-62500,stop_loss,candle stop — cash closed 380.00 below the entry-candle stop ₹384.65
+IRFC,Buy,11-Sep-26,80.93,25.3,17-Sep-26,79.11,20.7,4,87809*2,-19747,stop_loss,candle stop — cash closed 79.31 below the entry-candle stop ₹80.76
+SHREECEM,Buy,11-Sep-26,22500.0,28.5,17-Sep-26,22200.0,19.2,4,112500*2,-15000,stop_loss,"candle stop — cash closed 21,960.00 below the entry-candle stop ₹22,370.00"
+SUZLON,Buy,11-Sep-26,44.99,29.8,17-Sep-26,43.36,25.6,4,114275*2,-41402,stop_loss,candle stop — cash closed 42.54 below the entry-candle stop ₹44.10
+WAAREEENER,Buy,11-Sep-26,2621.7,47.3,17-Sep-26,2479.2,25.4,4,91759*2,-49875,stop_loss,"candle stop — cash closed 2,473.00 below the entry-candle stop ₹2,515.10"

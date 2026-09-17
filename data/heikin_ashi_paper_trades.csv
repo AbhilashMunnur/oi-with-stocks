@@ -304,3 +304,6 @@ CROMPTON,Buy,04-Sep-26,232.4,28.9,16-Sep-26,228.91,,8,99932*3,-22485,stop_loss,1
 VOLTAS,Buy,11-Sep-26,1165.0,27.8,16-Sep-26,1147.53,,3,87375*3,-19659,stop_loss,"1.5% stop ₹1,147.53"
 PNB,Sell,17-Aug-26,117.32,73.8,17-Sep-26,119.08,,23,187712*3,-42235,stop_loss,1.5% stop ₹119.08
 ICICIPRULI,Buy,11-Sep-26,471.5,29.9,17-Sep-26,495.08,,4,87228*1,21807,first_target,lot 1 booked — 5% target ₹495.08
+TITAN,Sell,31-Aug-26,5102.4,71.7,17-Sep-26,4924.99,50.0,13,178584*1,31047,first_target,"lot 1 booked — SMMA 21 ₹4,924.99"
+JINDALSTEL,Sell,01-Sep-26,1160.0,70.5,17-Sep-26,1141.3,60.8,12,145000*1,11688,smma_cross,"final lot booked — strong candle closed 1,128.40 above SMMA 21 ₹1,125.41"
+TATAPOWER,Buy,02-Sep-26,364.0,19.2,17-Sep-26,371.7,39.1,11,105560*1,11163,first_target,lot 1 booked — SMMA 21 ₹371.70
