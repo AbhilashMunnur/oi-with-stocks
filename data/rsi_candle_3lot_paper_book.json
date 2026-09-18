@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 451905.16,
-  "closed_count": 285,
-  "day_date": "2026-09-17",
-  "day_realised_pnl": 218431.65,
-  "updated_at": "2026-09-17 19:17:21",
+  "realised_pnl": 429306.16,
+  "closed_count": 286,
+  "day_date": "2026-09-18",
+  "day_realised_pnl": -22599.0,
+  "updated_at": "2026-09-18 09:30:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -63,7 +63,8 @@
     "2026-09-14",
     "2026-09-15",
     "2026-09-16",
-    "2026-09-17"
+    "2026-09-17",
+    "2026-09-18"
   ],
   "closed_results": [
     {
@@ -1435,6 +1436,11 @@
       "symbol": "WIPRO",
       "exit_date": "2026-09-09",
       "pnl": 10207.8
+    },
+    {
+      "symbol": "WIPRO",
+      "exit_date": "2026-09-18",
+      "pnl": -22599.0
     },
     {
       "symbol": "HDFCBANK",
@@ -3215,23 +3221,6 @@
           "pnl": 24088.0
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "WIPRO",
-      "direction": "LONG",
-      "entry_price": 167.4,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 3000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.66,
-      "strike": 0.0,
-      "margin_blocked": 301320.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

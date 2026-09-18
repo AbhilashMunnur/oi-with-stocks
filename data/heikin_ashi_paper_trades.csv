@@ -307,3 +307,4 @@ ICICIPRULI,Buy,11-Sep-26,471.5,29.9,17-Sep-26,495.08,,4,87228*1,21807,first_targ
 TITAN,Sell,31-Aug-26,5102.4,71.7,17-Sep-26,4924.99,50.0,13,178584*1,31047,first_target,"lot 1 booked — SMMA 21 ₹4,924.99"
 JINDALSTEL,Sell,01-Sep-26,1160.0,70.5,17-Sep-26,1141.3,60.8,12,145000*1,11688,smma_cross,"final lot booked — strong candle closed 1,128.40 above SMMA 21 ₹1,125.41"
 TATAPOWER,Buy,02-Sep-26,364.0,19.2,17-Sep-26,371.7,39.1,11,105560*1,11163,first_target,lot 1 booked — SMMA 21 ₹371.70
+TMPV,Buy,17-Sep-26,318.25,27.9,18-Sep-26,313.48,,1,101840*3,-22914,stop_loss,1.5% stop ₹313.48
