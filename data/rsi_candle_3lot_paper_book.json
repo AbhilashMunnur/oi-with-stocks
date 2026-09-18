@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 506326.92,
-  "closed_count": 286,
+  "realised_pnl": 478145.67,
+  "closed_count": 287,
   "day_date": "2026-09-18",
-  "day_realised_pnl": 54421.76,
-  "updated_at": "2026-09-18 13:32:12",
+  "day_realised_pnl": 26240.51,
+  "updated_at": "2026-09-18 14:01:42",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1418,6 +1418,11 @@
       "pnl": -28390.5
     },
     {
+      "symbol": "MARUTI",
+      "exit_date": "2026-09-18",
+      "pnl": -28181.25
+    },
+    {
       "symbol": "VOLTAS",
       "exit_date": "2026-09-08",
       "pnl": -19878.75
@@ -1503,6 +1508,7 @@
     "BAJAJ-AUTO": 1,
     "ICICIGI": 1,
     "KALYANKJIL": 1,
+    "MARUTI": 3,
     "TVSMOTOR": 1,
     "VBL": 3
   },
@@ -3456,23 +3462,6 @@
       "rsi_at_entry": 19.507434403490947,
       "strike": 0.0,
       "margin_blocked": 257503.05,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 12525.0,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.322952395043217,
-      "strike": 0.0,
-      "margin_blocked": 375750.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
