@@ -1,12 +1,13 @@
 {
   "capital": 40000000,
-  "realised_pnl": 582481.32,
-  "closed_count": 210,
+  "realised_pnl": 540481.32,
+  "closed_count": 215,
   "day_date": "2026-09-18",
-  "day_realised_pnl": 64581.93,
-  "updated_at": "2026-09-18 15:43:43",
+  "day_realised_pnl": 22581.93,
+  "updated_at": "2026-09-18 16:09:00",
   "blocked_reentry": [],
   "session_dates": [
+    "2026-08-20",
     "2026-09-03",
     "2026-09-04",
     "2026-09-07",
@@ -37,6 +38,11 @@
       "pnl": -12325.0
     },
     {
+      "symbol": "LUPIN",
+      "exit_date": "2026-09-18",
+      "pnl": -15470.0
+    },
+    {
       "symbol": "SBILIFE",
       "exit_date": "2026-09-03",
       "pnl": -30750.0
@@ -55,6 +61,11 @@
       "symbol": "ICICIGI",
       "exit_date": "2026-09-02",
       "pnl": -16900.0
+    },
+    {
+      "symbol": "ICICIGI",
+      "exit_date": "2026-09-18",
+      "pnl": 3770.0
     },
     {
       "symbol": "IDEA",
@@ -130,6 +141,11 @@
       "symbol": "VOLTAS",
       "exit_date": "2026-09-17",
       "pnl": -2550.0
+    },
+    {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-18",
+      "pnl": 0.0
     },
     {
       "symbol": "HINDPETRO",
@@ -597,6 +613,11 @@
       "pnl": -22100.0
     },
     {
+      "symbol": "MARUTI",
+      "exit_date": "2026-09-18",
+      "pnl": -30300.0
+    },
+    {
       "symbol": "TECHM",
       "exit_date": "2026-09-09",
       "pnl": 91773.19
@@ -690,11 +711,17 @@
       "symbol": "BIOCON",
       "exit_date": "2026-09-17",
       "pnl": -62500.0
+    },
+    {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-09-18",
+      "pnl": 0.0
     }
   ],
   "qualify_skips": {
     "ALKEM": 3,
     "ASIANPAINT": 2,
+    "MARUTI": 3,
     "RECLTD": 3
   },
   "positions": [
@@ -1478,23 +1505,6 @@
       "stop_price": 346.95
     },
     {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 2120.9,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 425,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.91,
-      "strike": 0.0,
-      "margin_blocked": 360553.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2090.0
-    },
-    {
       "symbol": "COLPAL",
       "direction": "LONG",
       "entry_price": 1797.3,
@@ -1544,23 +1554,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 3650.0
-    },
-    {
-      "symbol": "ICICIGI",
-      "direction": "LONG",
-      "entry_price": 1471.0,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 325,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 19.52,
-      "strike": 0.0,
-      "margin_blocked": 191230.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1459.1
     },
     {
       "symbol": "MANKIND",
@@ -1903,23 +1896,6 @@
       "stop_price": 3047.0
     },
     {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 12525.0,
-      "entry_time": "2026-09-17 19:17:11",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.322952395043217,
-      "strike": 0.0,
-      "margin_blocked": 375750.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 12159.0
-    },
-    {
       "symbol": "NBCC",
       "direction": "LONG",
       "entry_price": 83.56,
@@ -2107,23 +2083,6 @@
       "stop_price": 1332.8
     },
     {
-      "symbol": "TATAELXSI",
-      "direction": "LONG",
-      "entry_price": 3341.0,
-      "entry_time": "2026-09-18 15:43:43",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.53190643883397,
-      "strike": 0.0,
-      "margin_blocked": 250575.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 3266.7
-    },
-    {
       "symbol": "UNITDSPR",
       "direction": "LONG",
       "entry_price": 1396.7,
@@ -2139,23 +2098,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1368.766
-    },
-    {
-      "symbol": "VOLTAS",
-      "direction": "LONG",
-      "entry_price": 1141.0,
-      "entry_time": "2026-09-18 15:43:43",
-      "lot_size": 375,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 36.45358144567123,
-      "strike": 0.0,
-      "margin_blocked": 256725.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1110.9
     }
   ]
 }

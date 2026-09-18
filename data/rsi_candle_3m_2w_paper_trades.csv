@@ -229,3 +229,8 @@ COALINDIA,Sell,10-Sep-26,438.35,68.2,18-Sep-26,420.58,,6,118354*1,23986,first_ta
 COALINDIA,Sell,10-Sep-26,438.35,68.2,18-Sep-26,430.29,,6,118354*1,10878,second_target,final lot booked — SMMA 50 ₹430.29
 HDFCBANK,Buy,10-Sep-26,702.7,29.4,18-Sep-26,737.84,,6,91351*1,22838,first_target,lot 1 booked — 5% target ₹737.84
 DRREDDY,Buy,03-Aug-26,1169.7,28.5,18-Sep-26,1180.71,45.7,34,146212*1,6880,first_target,"lot 1 booked — SMMA 21 ₹1,180.71"
+LUPIN,Buy,10-Sep-26,2120.9,24.9,18-Sep-26,2102.7,,6,180276*2,-15470,stop_loss,"candle stop — cash closed 2,083.00 below the entry-candle stop ₹2,090.00"
+ICICIGI,Buy,11-Sep-26,1471.0,19.5,18-Sep-26,1476.8,,5,95615*2,3770,stop_loss,"candle stop — cash closed 1,458.10 below the entry-candle stop ₹1,459.10"
+MARUTI,Buy,17-Sep-26,12525.0,20.3,18-Sep-26,12323.0,,1,125250*3,-30300,stop_loss,"candle stop — cash closed 12,103.00 below the entry-candle stop ₹12,159.00"
+TATAELXSI,Buy,18-Sep-26,3341.0,33.5,18-Sep-26,3341.0,,0,83525*3,0,stop_loss,"candle stop — cash closed 3,266.70 below the entry-candle stop ₹3,266.70"
+VOLTAS,Buy,18-Sep-26,1141.0,36.5,18-Sep-26,1141.0,,0,85575*3,0,stop_loss,"candle stop — cash closed 1,110.90 below the entry-candle stop ₹1,110.90"
