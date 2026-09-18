@@ -441,3 +441,8 @@ WIPRO,Buy,11-Sep-26,167.4,32.7,18-Sep-26,164.89,,5,100440*3,-22599,stop_loss,1.5
 ADANIGREEN,Buy,01-Sep-26,1265.0,29.3,18-Sep-26,1328.25,,13,151800*1,37950,first_target,"lot 1 booked — 5% target ₹1,328.25"
 ADANIGREEN,Buy,01-Sep-26,1265.0,29.3,18-Sep-26,1330.12,,13,151800*1,39071,second_target,"lot 2 booked — SMMA 50 ₹1,330.12"
 MARUTI,Buy,17-Sep-26,12525.0,20.3,18-Sep-26,12337.12,,1,125250*3,-28181,stop_loss,"1.5% stop ₹12,337.12"
+LTF,Sell,07-Jul-26,334.2,78.5,18-Sep-26,309.9,49.1,53,150390*1,54675,smma_cross,final lot booked — strong candle closed 312.80 above SMMA 21 ₹309.96
+CDSL,Sell,14-Jul-26,1428.5,70.1,18-Sep-26,1390.3,63.2,48,135708*1,18145,smma_cross,"final lot booked — strong candle closed 1,390.00 above SMMA 21 ₹1,360.40"
+DRREDDY,Buy,24-Jul-26,1151.7,27.4,18-Sep-26,1180.75,45.7,40,143962*1,18157,first_target,"lot 1 booked — SMMA 21 ₹1,180.75"
+COALINDIA,Buy,20-Aug-26,402.5,26.6,18-Sep-26,415.3,52.8,21,108675*1,17280,smma_cross,final lot booked — strong candle closed 409.90 below SMMA 21 ₹418.32
+COFORGE,Sell,31-Aug-26,1985.3,77.6,18-Sep-26,1805.4,57.6,14,188604*1,85452,smma_cross,"final lot booked — strong candle closed 1,841.00 above SMMA 21 ₹1,794.73"
