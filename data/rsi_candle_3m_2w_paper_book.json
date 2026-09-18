@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 517899.39,
-  "closed_count": 209,
+  "realised_pnl": 552763.63,
+  "closed_count": 210,
   "day_date": "2026-09-18",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-18 10:00:07",
+  "day_realised_pnl": 34864.24,
+  "updated_at": "2026-09-18 10:30:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-09-03",
@@ -150,6 +150,11 @@
       "symbol": "COALINDIA",
       "exit_date": "2026-08-19",
       "pnl": -29295.0
+    },
+    {
+      "symbol": "COALINDIA",
+      "exit_date": "2026-09-18",
+      "pnl": 34864.24
     },
     {
       "symbol": "ADANIGREEN",
@@ -1421,23 +1426,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 681.0
-    },
-    {
-      "symbol": "COALINDIA",
-      "direction": "SHORT",
-      "entry_price": 438.35,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 1350,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 68.21,
-      "strike": 0.0,
-      "margin_blocked": 236709.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 436.3
     },
     {
       "symbol": "HDFCBANK",
