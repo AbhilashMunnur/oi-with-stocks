@@ -227,3 +227,4 @@ SUZLON,Buy,11-Sep-26,44.99,29.8,17-Sep-26,43.36,25.6,4,114275*2,-41402,stop_loss
 WAAREEENER,Buy,11-Sep-26,2621.7,47.3,17-Sep-26,2479.2,25.4,4,91759*2,-49875,stop_loss,"candle stop — cash closed 2,473.00 below the entry-candle stop ₹2,515.10"
 COALINDIA,Sell,10-Sep-26,438.35,68.2,18-Sep-26,420.58,,6,118354*1,23986,first_target,lot 1 booked — SMMA 21 ₹420.58
 COALINDIA,Sell,10-Sep-26,438.35,68.2,18-Sep-26,430.29,,6,118354*1,10878,second_target,final lot booked — SMMA 50 ₹430.29
+HDFCBANK,Buy,10-Sep-26,702.7,29.4,18-Sep-26,737.84,,6,91351*1,22838,first_target,lot 1 booked — 5% target ₹737.84
