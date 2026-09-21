@@ -315,3 +315,5 @@ CDSL,Sell,17-Jul-26,1418.2,70.1,18-Sep-26,1390.3,63.2,45,134729*1,13253,smma_cro
 COALINDIA,Buy,21-Aug-26,405.2,26.6,18-Sep-26,415.3,52.8,20,109404*1,13635,smma_cross,final lot booked — strong candle closed 409.90 below SMMA 21 ₹418.32
 HDFCBANK,Buy,11-Sep-26,708.25,29.4,18-Sep-26,728.56,47.8,5,92072*1,13204,first_target,lot 1 booked — SMMA 21 ₹728.56
 ETERNAL,Sell,28-Aug-26,328.0,70.7,21-Sep-26,332.92,,16,159080*3,-35793,stop_loss,1.5% stop ₹332.92
+OBEROIRLTY,Buy,17-Sep-26,1750.0,26.8,21-Sep-26,1824.09,,2,122500*1,25931,first_target,"lot 1 booked — SMMA 21 ₹1,824.09"
+OBEROIRLTY,Buy,17-Sep-26,1750.0,26.8,21-Sep-26,1756.29,,2,122500*1,2200,second_target,"lot 2 booked — SMMA 50 ₹1,756.29"
