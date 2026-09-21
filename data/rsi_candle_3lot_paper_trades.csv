@@ -453,3 +453,4 @@ COLPAL,Buy,11-Sep-26,1797.4,31.6,21-Sep-26,1887.27,,6,98857*1,24714,first_target
 MANKIND,Buy,11-Sep-26,2280.0,37.6,21-Sep-26,2394.0,,6,114000*1,28500,first_target,"lot 1 booked — 5% target ₹2,394.00"
 MANKIND,Buy,11-Sep-26,2280.0,37.6,21-Sep-26,2400.11,,6,114000*1,30027,second_target,"lot 2 booked — SMMA 50 ₹2,400.11"
 BANDHANBNK,Buy,01-Sep-26,162.9,31.0,21-Sep-26,182.45,,14,117288*1,70373,second_target,lot 2 booked — 12% target ₹182.45
+LICHSGFIN,Sell,04-Sep-26,562.05,69.5,21-Sep-26,570.48,,11,112410*3,-25292,stop_loss,1.5% stop ₹570.48

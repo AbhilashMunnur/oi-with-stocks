@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 852969.2,
-  "closed_count": 292,
+  "realised_pnl": 827676.95,
+  "closed_count": 293,
   "day_date": "2026-09-21",
-  "day_realised_pnl": 181114.31,
-  "updated_at": "2026-09-21 10:30:57",
+  "day_realised_pnl": 155822.06,
+  "updated_at": "2026-09-21 11:00:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1247,6 +1247,11 @@
       "symbol": "LICHSGFIN",
       "exit_date": "2026-08-24",
       "pnl": -22590.0
+    },
+    {
+      "symbol": "LICHSGFIN",
+      "exit_date": "2026-09-21",
+      "pnl": -25292.25
     },
     {
       "symbol": "COLPAL",
@@ -2774,23 +2779,6 @@
           "pnl": 30729.38
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LICHSGFIN",
-      "direction": "SHORT",
-      "entry_price": 562.05,
-      "entry_time": "2026-09-04 15:15:00",
-      "lot_size": 1000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 69.46,
-      "strike": 0.0,
-      "margin_blocked": 337230.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

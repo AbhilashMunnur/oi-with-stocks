@@ -237,3 +237,5 @@ VOLTAS,Buy,18-Sep-26,1141.0,36.5,18-Sep-26,1141.0,,0,85575*3,0,stop_loss,"candle
 RVNL,Buy,17-Sep-26,202.98,25.3,21-Sep-26,213.13,,2,78147*1,19537,first_target,lot 1 booked — 5% target ₹213.13
 PATANJALI,Buy,02-Sep-26,346.0,36.2,21-Sep-26,387.52,,13,74390*1,44634,second_target,final lot booked — 12% target ₹387.52
 COLPAL,Buy,11-Sep-26,1797.3,31.6,21-Sep-26,1887.16,,6,98852*1,24713,first_target,"lot 1 booked — 5% target ₹1,887.16"
+MANKIND,Buy,11-Sep-26,2306.8,37.6,21-Sep-26,2422.14,,6,115340*1,28835,first_target,"lot 1 booked — 5% target ₹2,422.14"
+MANKIND,Buy,11-Sep-26,2306.8,37.6,21-Sep-26,2400.87,,6,115340*1,23518,second_target,"final lot booked — SMMA 50 ₹2,400.87"

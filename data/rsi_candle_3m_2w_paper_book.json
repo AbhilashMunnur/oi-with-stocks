@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 629365.02,
-  "closed_count": 216,
+  "realised_pnl": 681717.65,
+  "closed_count": 217,
   "day_date": "2026-09-21",
-  "day_realised_pnl": 88883.71,
-  "updated_at": "2026-09-21 10:30:49",
+  "day_realised_pnl": 141236.34,
+  "updated_at": "2026-09-21 11:00:02",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-20",
@@ -722,6 +722,11 @@
       "symbol": "PATANJALI",
       "exit_date": "2026-09-21",
       "pnl": 63231.5
+    },
+    {
+      "symbol": "MANKIND",
+      "exit_date": "2026-09-21",
+      "pnl": 52352.63
     }
   ],
   "qualify_skips": {
@@ -1543,23 +1548,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 3650.0
-    },
-    {
-      "symbol": "MANKIND",
-      "direction": "LONG",
-      "entry_price": 2306.8,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 250,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 37.57,
-      "strike": 0.0,
-      "margin_blocked": 230680.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2222.0
     },
     {
       "symbol": "OIL",
