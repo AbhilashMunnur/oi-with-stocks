@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 116119.79,
-  "closed_count": 208,
+  "realised_pnl": 278813.65,
+  "closed_count": 210,
   "day_date": "2026-09-21",
-  "day_realised_pnl": -7662.21,
-  "updated_at": "2026-09-21 15:00:15",
+  "day_realised_pnl": 155031.65,
+  "updated_at": "2026-09-21 16:09:57",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -230,6 +230,11 @@
       "symbol": "PHOENIXLTD",
       "exit_date": "2026-07-09",
       "pnl": -31854.37
+    },
+    {
+      "symbol": "PHOENIXLTD",
+      "exit_date": "2026-09-21",
+      "pnl": 161506.74
     },
     {
       "symbol": "PRESTIGE",
@@ -1105,6 +1110,11 @@
       "symbol": "CDSL",
       "exit_date": "2026-09-18",
       "pnl": 90144.34
+    },
+    {
+      "symbol": "HEROMOTOCO",
+      "exit_date": "2026-09-21",
+      "pnl": 169282.93
     }
   ],
   "qualify_skips": {
@@ -1195,38 +1205,6 @@
           "exit_time": "2026-09-09 15:15:00",
           "reason": "second_target",
           "pnl": 65341.13
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PHOENIXLTD",
-      "direction": "SHORT",
-      "entry_price": 2086.2,
-      "entry_time": "2026-07-16 15:15:00",
-      "lot_size": 350,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-09-29",
-      "rsi_at_entry": 80.09,
-      "strike": 0.0,
-      "margin_blocked": 146034.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1981.89,
-          "exit_time": "2026-07-29 15:15:00",
-          "reason": "first_target",
-          "pnl": 36508.5
-        },
-        {
-          "lots": 1,
-          "exit_price": 1878.96,
-          "exit_time": "2026-09-15 10:01:07",
-          "reason": "second_target",
-          "pnl": 72533.24
         }
       ],
       "priced_on": "futures",
@@ -1519,38 +1497,6 @@
           "exit_time": "2026-09-02 15:15:00",
           "reason": "first_target",
           "pnl": 25824.27
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HEROMOTOCO",
-      "direction": "SHORT",
-      "entry_price": 5790.0,
-      "entry_time": "2026-08-14 15:15:00",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 78.34,
-      "strike": 0.0,
-      "margin_blocked": 173700.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 5500.5,
-          "exit_time": "2026-08-31 15:15:00",
-          "reason": "first_target",
-          "pnl": 43425.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 5305.45,
-          "exit_time": "2026-09-02 15:15:00",
-          "reason": "second_target",
-          "pnl": 72682.93
         }
       ],
       "priced_on": "futures",
@@ -1914,12 +1860,12 @@
       "entry_price": 164.23,
       "entry_time": "2026-09-03 15:15:00",
       "lot_size": 3600,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 29.75,
       "strike": 0.0,
-      "margin_blocked": 236491.2,
+      "margin_blocked": 118245.6,
       "closed_legs": [
         {
           "lots": 1,
@@ -1927,6 +1873,13 @@
           "exit_time": "2026-09-10 15:15:00",
           "reason": "first_target",
           "pnl": 29561.4
+        },
+        {
+          "lots": 1,
+          "exit_price": 180.08,
+          "exit_time": "2026-09-21 16:09:57",
+          "reason": "second_target",
+          "pnl": 57053.86
         }
       ],
       "priced_on": "futures",

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 827676.95,
-  "closed_count": 293,
+  "realised_pnl": 1129016.95,
+  "closed_count": 297,
   "day_date": "2026-09-21",
-  "day_realised_pnl": 155822.06,
-  "updated_at": "2026-09-21 15:00:09",
+  "day_realised_pnl": 457162.06,
+  "updated_at": "2026-09-21 16:07:43",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -904,6 +904,11 @@
       "pnl": 11694.0
     },
     {
+      "symbol": "KAYNES",
+      "exit_date": "2026-09-21",
+      "pnl": 152113.58
+    },
+    {
       "symbol": "UPL",
       "exit_date": "2026-08-05",
       "pnl": 4260.63
@@ -972,6 +977,11 @@
       "symbol": "HEROMOTOCO",
       "exit_date": "2026-08-07",
       "pnl": -37465.87
+    },
+    {
+      "symbol": "HEROMOTOCO",
+      "exit_date": "2026-09-21",
+      "pnl": 192499.18
     },
     {
       "symbol": "HINDZINC",
@@ -1324,6 +1334,11 @@
       "pnl": -48251.25
     },
     {
+      "symbol": "SOLARINDS",
+      "exit_date": "2026-09-21",
+      "pnl": 335395.0
+    },
+    {
       "symbol": "RECLTD",
       "exit_date": "2026-08-27",
       "pnl": -23151.32
@@ -1532,6 +1547,11 @@
       "symbol": "CDSL",
       "exit_date": "2026-09-18",
       "pnl": 100173.96
+    },
+    {
+      "symbol": "ADANIGREEN",
+      "exit_date": "2026-09-21",
+      "pnl": 108820.76
     }
   ],
   "qualify_skips": {
@@ -2150,38 +2170,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HEROMOTOCO",
-      "direction": "SHORT",
-      "entry_price": 5865.5,
-      "entry_time": "2026-08-11 15:15:00",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 75.93,
-      "strike": 0.0,
-      "margin_blocked": 175965.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 5572.22,
-          "exit_time": "2026-08-27 15:15:00",
-          "reason": "first_target",
-          "pnl": 43991.25
-        },
-        {
-          "lots": 1,
-          "exit_price": 5305.45,
-          "exit_time": "2026-09-02 15:15:00",
-          "reason": "second_target",
-          "pnl": 84007.93
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "MOTHERSON",
       "direction": "SHORT",
       "entry_price": 169.26,
@@ -2438,38 +2426,6 @@
       "stop_price": null
     },
     {
-      "symbol": "KAYNES",
-      "direction": "SHORT",
-      "entry_price": 4018.8,
-      "entry_time": "2026-08-27 15:15:00",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 66.68,
-      "strike": 0.0,
-      "margin_blocked": 120564.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 3817.86,
-          "exit_time": "2026-08-31 15:15:00",
-          "reason": "first_target",
-          "pnl": 30141.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 3604.25,
-          "exit_time": "2026-09-01 15:15:00",
-          "reason": "second_target",
-          "pnl": 62182.58
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "KOTAKBANK",
       "direction": "SHORT",
       "entry_price": 423.7,
@@ -2629,38 +2585,6 @@
           "exit_time": "2026-09-17 19:17:21",
           "reason": "first_target",
           "pnl": 31047.29
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ADANIGREEN",
-      "direction": "LONG",
-      "entry_price": 1265.0,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 600,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.28,
-      "strike": 0.0,
-      "margin_blocked": 151800.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1328.25,
-          "exit_time": "2026-09-18 13:32:12",
-          "reason": "first_target",
-          "pnl": 37950.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 1330.12,
-          "exit_time": "2026-09-18 13:32:12",
-          "reason": "second_target",
-          "pnl": 39070.76
         }
       ],
       "priced_on": "futures",
@@ -2940,38 +2864,6 @@
       "strike": 0.0,
       "margin_blocked": 529839.0000000001,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SOLARINDS",
-      "direction": "SHORT",
-      "entry_price": 22370.0,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 50,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 75.53,
-      "strike": 0.0,
-      "margin_blocked": 223700.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 21251.5,
-          "exit_time": "2026-09-16 10:30:16",
-          "reason": "first_target",
-          "pnl": 55925.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 19685.6,
-          "exit_time": "2026-09-16 10:30:16",
-          "reason": "second_target",
-          "pnl": 134220.0
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
