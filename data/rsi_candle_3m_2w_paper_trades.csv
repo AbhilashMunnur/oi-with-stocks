@@ -234,3 +234,4 @@ ICICIGI,Buy,11-Sep-26,1471.0,19.5,18-Sep-26,1476.8,,5,95615*2,3770,stop_loss,"ca
 MARUTI,Buy,17-Sep-26,12525.0,20.3,18-Sep-26,12323.0,,1,125250*3,-30300,stop_loss,"candle stop — cash closed 12,103.00 below the entry-candle stop ₹12,159.00"
 TATAELXSI,Buy,18-Sep-26,3341.0,33.5,18-Sep-26,3341.0,,0,83525*3,0,stop_loss,"candle stop — cash closed 3,266.70 below the entry-candle stop ₹3,266.70"
 VOLTAS,Buy,18-Sep-26,1141.0,36.5,18-Sep-26,1141.0,,0,85575*3,0,stop_loss,"candle stop — cash closed 1,110.90 below the entry-candle stop ₹1,110.90"
+RVNL,Buy,17-Sep-26,202.98,25.3,21-Sep-26,213.13,,2,78147*1,19537,first_target,lot 1 booked — 5% target ₹213.13

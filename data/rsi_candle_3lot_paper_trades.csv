@@ -446,3 +446,4 @@ CDSL,Sell,14-Jul-26,1428.5,70.1,18-Sep-26,1390.3,63.2,48,135708*1,18145,smma_cro
 DRREDDY,Buy,24-Jul-26,1151.7,27.4,18-Sep-26,1180.75,45.7,40,143962*1,18157,first_target,"lot 1 booked — SMMA 21 ₹1,180.75"
 COALINDIA,Buy,20-Aug-26,402.5,26.6,18-Sep-26,415.3,52.8,21,108675*1,17280,smma_cross,final lot booked — strong candle closed 409.90 below SMMA 21 ₹418.32
 COFORGE,Sell,31-Aug-26,1985.3,77.6,18-Sep-26,1805.4,57.6,14,188604*1,85452,smma_cross,"final lot booked — strong candle closed 1,841.00 above SMMA 21 ₹1,794.73"
+RVNL,Buy,17-Sep-26,202.98,25.3,21-Sep-26,213.13,,2,78147*1,19537,first_target,lot 1 booked — 5% target ₹213.13
