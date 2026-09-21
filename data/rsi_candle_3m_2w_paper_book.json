@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 560018.14,
-  "closed_count": 215,
+  "realised_pnl": 629365.02,
+  "closed_count": 216,
   "day_date": "2026-09-21",
-  "day_realised_pnl": 19536.83,
-  "updated_at": "2026-09-21 09:30:07",
+  "day_realised_pnl": 88883.71,
+  "updated_at": "2026-09-21 10:00:43",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-20",
@@ -717,6 +717,11 @@
       "symbol": "TATAELXSI",
       "exit_date": "2026-09-18",
       "pnl": 0.0
+    },
+    {
+      "symbol": "PATANJALI",
+      "exit_date": "2026-09-21",
+      "pnl": 63231.5
     }
   ],
   "qualify_skips": {
@@ -1120,31 +1125,6 @@
       "stop_price": 159.24
     },
     {
-      "symbol": "PATANJALI",
-      "direction": "LONG",
-      "entry_price": 346.0,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 1075,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 36.17455133454474,
-      "strike": 0.0,
-      "margin_blocked": 74390.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 363.3,
-          "exit_time": "2026-09-16 13:31:52",
-          "reason": "first_target",
-          "pnl": 18597.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 339.1
-    },
-    {
       "symbol": "GODREJCP",
       "direction": "LONG",
       "entry_price": 882.0,
@@ -1511,13 +1491,21 @@
       "entry_price": 1797.3,
       "entry_time": "2026-09-11 15:15:00",
       "lot_size": 275,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 2,
       "expiry": "2026-11-23",
       "rsi_at_entry": 31.58,
       "strike": 0.0,
-      "margin_blocked": 197703.0,
-      "closed_legs": [],
+      "margin_blocked": 98851.5,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1887.16,
+          "exit_time": "2026-09-21 10:00:43",
+          "reason": "first_target",
+          "pnl": 24712.88
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1782.1
