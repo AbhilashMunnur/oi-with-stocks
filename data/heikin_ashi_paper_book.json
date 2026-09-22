@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 251589.21,
-  "closed_count": 211,
+  "realised_pnl": 229648.62,
+  "closed_count": 212,
   "day_date": "2026-09-22",
-  "day_realised_pnl": -27224.44,
-  "updated_at": "2026-09-22 11:31:05",
+  "day_realised_pnl": -49165.03,
+  "updated_at": "2026-09-22 12:01:34",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1016,6 +1016,11 @@
       "symbol": "IREDA",
       "exit_date": "2026-09-02",
       "pnl": 5909.81
+    },
+    {
+      "symbol": "IREDA",
+      "exit_date": "2026-09-22",
+      "pnl": -21940.59
     },
     {
       "symbol": "HAVELLS",
@@ -2631,23 +2636,6 @@
       "rsi_at_entry": 19.488841304033627,
       "strike": 0.0,
       "margin_blocked": 330750.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IREDA",
-      "direction": "LONG",
-      "entry_price": 107.75,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 4525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.804209375389377,
-      "strike": 0.0,
-      "margin_blocked": 292541.25,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
