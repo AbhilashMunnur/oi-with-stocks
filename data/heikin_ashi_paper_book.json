@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 71739.68,
-  "closed_count": 217,
+  "realised_pnl": 49632.3,
+  "closed_count": 218,
   "day_date": "2026-09-22",
-  "day_realised_pnl": -207073.96,
-  "updated_at": "2026-09-22 14:30:21",
+  "day_realised_pnl": -229181.34,
+  "updated_at": "2026-09-22 15:00:16",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1101,6 +1101,11 @@
       "symbol": "CROMPTON",
       "exit_date": "2026-09-16",
       "pnl": -22484.7
+    },
+    {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-09-22",
+      "pnl": -22107.38
     },
     {
       "symbol": "VOLTAS",
@@ -2525,23 +2530,6 @@
       "rsi_at_entry": 29.936622955187048,
       "strike": 0.0,
       "margin_blocked": 328584.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 228.5,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.90533180822203,
-      "strike": 0.0,
-      "margin_blocked": 294765.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
