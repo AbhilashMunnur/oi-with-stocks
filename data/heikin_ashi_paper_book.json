@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 229648.62,
-  "closed_count": 212,
+  "realised_pnl": 173062.92,
+  "closed_count": 214,
   "day_date": "2026-09-22",
-  "day_realised_pnl": -49165.03,
-  "updated_at": "2026-09-22 12:31:07",
+  "day_realised_pnl": -105750.73,
+  "updated_at": "2026-09-22 13:01:48",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1126,6 +1126,16 @@
       "symbol": "HEROMOTOCO",
       "exit_date": "2026-09-21",
       "pnl": 169282.93
+    },
+    {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-09-22",
+      "pnl": -28440.0
+    },
+    {
+      "symbol": "M&M",
+      "exit_date": "2026-09-22",
+      "pnl": -28145.7
     }
   ],
   "qualify_skips": {
@@ -2151,23 +2161,6 @@
       "stop_price": null
     },
     {
-      "symbol": "BRITANNIA",
-      "direction": "LONG",
-      "entry_price": 5056.0,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.519933090725118,
-      "strike": 0.0,
-      "margin_blocked": 379200.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "CUMMINSIND",
       "direction": "LONG",
       "entry_price": 5076.0,
@@ -2281,23 +2274,6 @@
       "rsi_at_entry": 22.596206134554762,
       "strike": 0.0,
       "margin_blocked": 537642.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 3127.3,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.663899553174062,
-      "strike": 0.0,
-      "margin_blocked": 375276.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
