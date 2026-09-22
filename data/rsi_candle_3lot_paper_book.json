@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1129037.19,
-  "closed_count": 300,
+  "realised_pnl": 1046765.94,
+  "closed_count": 302,
   "day_date": "2026-09-22",
-  "day_realised_pnl": 20.24,
-  "updated_at": "2026-09-22 13:31:37",
+  "day_realised_pnl": -82251.01,
+  "updated_at": "2026-09-22 14:01:03",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -563,6 +563,11 @@
       "symbol": "PGEL",
       "exit_date": "2026-09-16",
       "pnl": -23170.5
+    },
+    {
+      "symbol": "PGEL",
+      "exit_date": "2026-09-22",
+      "pnl": -22978.12
     },
     {
       "symbol": "TORNTPHARM",
@@ -1568,6 +1573,11 @@
       "symbol": "ADANIGREEN",
       "exit_date": "2026-09-21",
       "pnl": 108820.76
+    },
+    {
+      "symbol": "RBLBANK",
+      "exit_date": "2026-09-22",
+      "pnl": -59293.12
     }
   ],
   "qualify_skips": {
@@ -2741,23 +2751,6 @@
       "stop_price": null
     },
     {
-      "symbol": "RBLBANK",
-      "direction": "SHORT",
-      "entry_price": 415.0,
-      "entry_time": "2026-09-07 15:15:00",
-      "lot_size": 3175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 72.8,
-      "strike": 0.0,
-      "margin_blocked": 790575.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "GODREJCP",
       "direction": "LONG",
       "entry_price": 863.8,
@@ -3300,23 +3293,6 @@
       "rsi_at_entry": 27.015487382968644,
       "strike": 0.0,
       "margin_blocked": 325884.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PGEL",
-      "direction": "LONG",
-      "entry_price": 537.5,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 950,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.071443791262084,
-      "strike": 0.0,
-      "margin_blocked": 306375.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

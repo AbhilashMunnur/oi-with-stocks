@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 94717.81,
-  "closed_count": 216,
+  "realised_pnl": 71739.68,
+  "closed_count": 217,
   "day_date": "2026-09-22",
-  "day_realised_pnl": -184095.84,
-  "updated_at": "2026-09-22 13:31:46",
+  "day_realised_pnl": -207073.96,
+  "updated_at": "2026-09-22 14:01:18",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -691,6 +691,11 @@
       "symbol": "PGEL",
       "exit_date": "2026-07-28",
       "pnl": -24598.35
+    },
+    {
+      "symbol": "PGEL",
+      "exit_date": "2026-09-22",
+      "pnl": -22978.12
     },
     {
       "symbol": "KALYANKJIL",
@@ -2317,23 +2322,6 @@
           "pnl": 2200.01
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PGEL",
-      "direction": "LONG",
-      "entry_price": 537.5,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 950,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.195731349833892,
-      "strike": 0.0,
-      "margin_blocked": 306375.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
