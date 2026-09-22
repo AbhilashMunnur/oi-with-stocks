@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1148338.81,
-  "closed_count": 299,
+  "realised_pnl": 1129037.19,
+  "closed_count": 300,
   "day_date": "2026-09-22",
-  "day_realised_pnl": 19321.86,
-  "updated_at": "2026-09-22 13:01:40",
+  "day_realised_pnl": 20.24,
+  "updated_at": "2026-09-22 13:31:37",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1480,6 +1480,11 @@
       "pnl": -19878.75
     },
     {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-22",
+      "pnl": -19301.62
+    },
+    {
       "symbol": "HINDPETRO",
       "exit_date": "2026-09-08",
       "pnl": -32522.51
@@ -2764,23 +2769,6 @@
       "rsi_at_entry": 23.7,
       "strike": 0.0,
       "margin_blocked": 259140.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "VOLTAS",
-      "direction": "LONG",
-      "entry_price": 1143.8,
-      "entry_time": "2026-09-09 15:15:00",
-      "lot_size": 375,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 30.33,
-      "strike": 0.0,
-      "margin_blocked": 257355.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
