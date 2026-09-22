@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 278813.65,
-  "closed_count": 210,
-  "day_date": "2026-09-21",
-  "day_realised_pnl": 155031.65,
-  "updated_at": "2026-09-21 16:09:57",
+  "realised_pnl": 251589.21,
+  "closed_count": 211,
+  "day_date": "2026-09-22",
+  "day_realised_pnl": -27224.44,
+  "updated_at": "2026-09-22 09:31:12",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -63,7 +63,8 @@
     "2026-09-16",
     "2026-09-17",
     "2026-09-18",
-    "2026-09-21"
+    "2026-09-21",
+    "2026-09-22"
   ],
   "closed_results": [
     {
@@ -135,6 +136,11 @@
       "symbol": "ASTRAL",
       "exit_date": "2026-08-19",
       "pnl": -29070.0
+    },
+    {
+      "symbol": "ASTRAL",
+      "exit_date": "2026-09-22",
+      "pnl": -27224.44
     },
     {
       "symbol": "JINDALSTEL",
@@ -2506,23 +2512,6 @@
       "rsi_at_entry": 29.570801790116207,
       "strike": 0.0,
       "margin_blocked": 489810.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASTRAL",
-      "direction": "LONG",
-      "entry_price": 1423.5,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.554843454395808,
-      "strike": 0.0,
-      "margin_blocked": 362992.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

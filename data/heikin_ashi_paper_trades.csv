@@ -320,3 +320,4 @@ OBEROIRLTY,Buy,17-Sep-26,1750.0,26.8,21-Sep-26,1756.29,,2,122500*1,2200,second_t
 PHOENIXLTD,Sell,16-Jul-26,2086.2,80.1,21-Sep-26,1936.3,,47,146034*1,52465,smma_cross,"final lot booked — strong candle closed 1,929.00 above SMMA 21 ₹1,913.51"
 HEROMOTOCO,Sell,14-Aug-26,5790.0,78.3,21-Sep-26,5435.5,,26,173700*1,53175,smma_cross,"final lot booked — strong candle closed 5,419.00 above SMMA 21 ₹5,371.13"
 BANDHANBNK,Buy,03-Sep-26,164.23,29.8,21-Sep-26,180.08,,12,118246*1,57054,second_target,lot 2 booked — SMMA 50 ₹180.08
+ASTRAL,Buy,18-Sep-26,1423.5,28.6,22-Sep-26,1402.15,,2,120998*3,-27224,stop_loss,"1.5% stop ₹1,402.15"

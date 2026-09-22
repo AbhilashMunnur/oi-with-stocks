@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1129016.95,
-  "closed_count": 297,
-  "day_date": "2026-09-21",
-  "day_realised_pnl": 457162.06,
-  "updated_at": "2026-09-21 16:07:43",
+  "realised_pnl": 1136895.82,
+  "closed_count": 298,
+  "day_date": "2026-09-22",
+  "day_realised_pnl": 7878.87,
+  "updated_at": "2026-09-22 09:31:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -65,7 +65,8 @@
     "2026-09-16",
     "2026-09-17",
     "2026-09-18",
-    "2026-09-21"
+    "2026-09-21",
+    "2026-09-22"
   ],
   "closed_results": [
     {
@@ -602,6 +603,11 @@
       "symbol": "TATAELXSI",
       "exit_date": "2026-09-09",
       "pnl": 8845.0
+    },
+    {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-09-22",
+      "pnl": -18793.13
     },
     {
       "symbol": "BAJFINANCE",
@@ -3177,13 +3183,21 @@
       "entry_price": 1333.6,
       "entry_time": "2026-09-17 19:17:21",
       "lot_size": 400,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 29.936623189636265,
       "strike": 0.0,
-      "margin_blocked": 320064.0,
-      "closed_legs": [],
+      "margin_blocked": 213376.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1400.28,
+          "exit_time": "2026-09-22 09:31:05",
+          "reason": "first_target",
+          "pnl": 26672.0
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -3429,23 +3443,6 @@
       "rsi_at_entry": 36.53689781902239,
       "strike": 0.0,
       "margin_blocked": 412500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TATAELXSI",
-      "direction": "LONG",
-      "entry_price": 3341.0,
-      "entry_time": "2026-09-18 15:44:13",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.53190643883397,
-      "strike": 0.0,
-      "margin_blocked": 250575.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
