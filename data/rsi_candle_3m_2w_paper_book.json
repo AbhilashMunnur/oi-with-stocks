@@ -1,12 +1,13 @@
 {
   "capital": 40000000,
-  "realised_pnl": 797872.95,
-  "closed_count": 220,
+  "realised_pnl": 674820.45,
+  "closed_count": 225,
   "day_date": "2026-09-22",
-  "day_realised_pnl": 158165.3,
-  "updated_at": "2026-09-22 15:00:02",
+  "day_realised_pnl": 35112.8,
+  "updated_at": "2026-09-22 16:03:26",
   "blocked_reentry": [],
   "session_dates": [
+    "2026-08-07",
     "2026-08-20",
     "2026-09-03",
     "2026-09-04",
@@ -158,6 +159,11 @@
       "symbol": "RBLBANK",
       "exit_date": "2026-09-08",
       "pnl": -40322.5
+    },
+    {
+      "symbol": "RBLBANK",
+      "exit_date": "2026-09-22",
+      "pnl": -61912.5
     },
     {
       "symbol": "COALINDIA",
@@ -440,6 +446,11 @@
       "pnl": -28680.0
     },
     {
+      "symbol": "M&M",
+      "exit_date": "2026-09-22",
+      "pnl": -23400.0
+    },
+    {
       "symbol": "HEROMOTOCO",
       "exit_date": "2026-08-07",
       "pnl": -46950.0
@@ -630,6 +641,11 @@
       "pnl": -15040.0
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-09-22",
+      "pnl": -8320.0
+    },
+    {
       "symbol": "HINDALCO",
       "exit_date": "2026-09-11",
       "pnl": 61695.84
@@ -653,6 +669,11 @@
       "symbol": "BAJAJFINSV",
       "exit_date": "2026-09-15",
       "pnl": 58250.47
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "exit_date": "2026-09-22",
+      "pnl": -32220.0
     },
     {
       "symbol": "JUBLFOOD",
@@ -743,6 +764,11 @@
       "symbol": "BANDHANBNK",
       "exit_date": "2026-09-22",
       "pnl": 100415.42
+    },
+    {
+      "symbol": "CUMMINSIND",
+      "exit_date": "2026-09-22",
+      "pnl": 53100.0
     }
   ],
   "qualify_skips": {
@@ -1188,31 +1214,6 @@
       "stop_price": 427.7
     },
     {
-      "symbol": "CUMMINSIND",
-      "direction": "LONG",
-      "entry_price": 5030.0,
-      "entry_time": "2026-09-07 15:15:00",
-      "lot_size": 200,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 31.207484520899527,
-      "strike": 0.0,
-      "margin_blocked": 201200.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 5281.5,
-          "exit_time": "2026-09-10 15:00:47",
-          "reason": "first_target",
-          "pnl": 50300.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 4985.0
-    },
-    {
       "symbol": "POLYCAB",
       "direction": "LONG",
       "entry_price": 8261.0,
@@ -1397,23 +1398,6 @@
       "stop_price": 312.3
     },
     {
-      "symbol": "RBLBANK",
-      "direction": "SHORT",
-      "entry_price": 418.9,
-      "entry_time": "2026-09-09 15:15:00",
-      "lot_size": 3175,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 74.6,
-      "strike": 0.0,
-      "margin_blocked": 532003.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 419.1
-    },
-    {
       "symbol": "CAMS",
       "direction": "LONG",
       "entry_price": 720.65,
@@ -1557,23 +1541,6 @@
       "stop_price": 511.95
     },
     {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 306.25,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 1600,
-      "lots_open": 2,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.88,
-      "strike": 0.0,
-      "margin_blocked": 196000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 300.05
-    },
-    {
       "symbol": "360ONE",
       "direction": "LONG",
       "entry_price": 1064.8,
@@ -1657,23 +1624,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1357.6
-    },
-    {
-      "symbol": "BAJAJFINSV",
-      "direction": "LONG",
-      "entry_price": 1880.0,
-      "entry_time": "2026-09-17 19:17:11",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.767138097493003,
-      "strike": 0.0,
-      "margin_blocked": 338400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1832.9
     },
     {
       "symbol": "BIOCON",
@@ -1835,23 +1785,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 224.84
-    },
-    {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 3127.3,
-      "entry_time": "2026-09-17 19:17:11",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 39.46041788346204,
-      "strike": 0.0,
-      "margin_blocked": 375276.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 3047.0
     },
     {
       "symbol": "NBCC",

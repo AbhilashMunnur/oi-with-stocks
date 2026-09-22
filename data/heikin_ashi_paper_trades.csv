@@ -328,3 +328,4 @@ RBLBANK,Sell,10-Sep-26,410.8,74.6,22-Sep-26,416.96,,8,260858*3,-58693,stop_loss,
 IRFC,Buy,18-Sep-26,80.5,19.5,22-Sep-26,79.29,,2,87342*3,-19652,stop_loss,1.5% stop ₹79.29
 PGEL,Buy,17-Sep-26,537.5,25.2,22-Sep-26,529.44,,3,102125*3,-22978,stop_loss,1.5% stop ₹529.44
 CROMPTON,Buy,18-Sep-26,228.5,28.9,22-Sep-26,225.07,,2,98255*3,-22107,stop_loss,1.5% stop ₹225.07
+SAIL,Sell,02-Sep-26,196.5,74.5,22-Sep-26,175.86,,14,184710*1,96991,second_target,lot 2 booked — SMMA 50 ₹175.86

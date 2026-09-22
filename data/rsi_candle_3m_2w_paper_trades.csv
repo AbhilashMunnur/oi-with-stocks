@@ -245,3 +245,8 @@ COCHINSHIP,Buy,17-Sep-26,1333.6,29.9,22-Sep-26,1400.28,,3,106688*1,26672,first_t
 OIL,Sell,11-Sep-26,491.0,57.4,22-Sep-26,466.45,,7,137480*1,34370,first_target,lot 1 booked — 5% target ₹466.45
 VBL,Buy,01-Sep-26,414.1,28.8,22-Sep-26,434.81,,15,105596*1,26399,first_target,lot 1 booked — 5% target ₹434.81
 BANDHANBNK,Buy,02-Sep-26,164.95,35.2,22-Sep-26,184.6,,14,118764*1,70724,second_target,final lot booked — SMMA 50 ₹184.60
+CUMMINSIND,Buy,07-Sep-26,5030.0,31.2,22-Sep-26,5044.0,,11,201200*1,2800,stop_loss,"candle stop — cash closed 4,962.50 below the entry-candle stop ₹4,985.00"
+RBLBANK,Sell,09-Sep-26,418.9,74.6,22-Sep-26,428.65,,9,266002*2,-61912,stop_loss,candle stop — cash closed 423.20 above the entry-candle stop ₹419.10
+TMPV,Buy,11-Sep-26,306.25,27.9,22-Sep-26,303.65,,7,98000*2,-8320,stop_loss,candle stop — cash closed 300.05 below the entry-candle stop ₹300.05
+BAJAJFINSV,Buy,17-Sep-26,1880.0,27.8,22-Sep-26,1844.2,,3,112800*3,-32220,stop_loss,"candle stop — cash closed 1,823.40 below the entry-candle stop ₹1,832.90"
+M&M,Buy,17-Sep-26,3127.3,39.5,22-Sep-26,3088.3,,3,125092*3,-23400,stop_loss,"candle stop — cash closed 3,044.50 below the entry-candle stop ₹3,047.00"
