@@ -460,3 +460,4 @@ ADANIGREEN,Buy,01-Sep-26,1265.0,29.3,21-Sep-26,1318.0,,14,151800*1,31800,smma_cr
 SOLARINDS,Sell,10-Sep-26,22370.0,75.5,21-Sep-26,19465.0,,7,223700*1,145250,smma_cross,"final lot booked — strong candle closed 19,265.00 above SMMA 21 ₹18,830.54"
 COCHINSHIP,Buy,17-Sep-26,1333.6,29.9,22-Sep-26,1400.28,,3,106688*1,26672,first_target,"lot 1 booked — 5% target ₹1,400.28"
 TATAELXSI,Buy,18-Sep-26,3341.0,33.5,22-Sep-26,3290.88,,2,83525*3,-18793,stop_loss,"1.5% stop ₹3,290.88"
+MAZDOCK,Buy,18-Sep-26,2256.1,23.0,22-Sep-26,2222.26,,2,101524*3,-22843,stop_loss,"1.5% stop ₹2,222.26"

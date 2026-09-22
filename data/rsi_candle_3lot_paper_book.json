@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1136895.82,
-  "closed_count": 298,
+  "realised_pnl": 1114052.81,
+  "closed_count": 299,
   "day_date": "2026-09-22",
-  "day_realised_pnl": 7878.87,
-  "updated_at": "2026-09-22 10:01:01",
+  "day_realised_pnl": -14964.14,
+  "updated_at": "2026-09-22 10:31:00",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1303,6 +1303,11 @@
       "symbol": "MAZDOCK",
       "exit_date": "2026-08-25",
       "pnl": -26018.21
+    },
+    {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-09-22",
+      "pnl": -22843.01
     },
     {
       "symbol": "ONGC",
@@ -3409,23 +3414,6 @@
       "rsi_at_entry": 32.529175720280506,
       "strike": 0.0,
       "margin_blocked": 485100.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2256.1,
-      "entry_time": "2026-09-18 15:44:13",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.967372369413653,
-      "strike": 0.0,
-      "margin_blocked": 304573.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

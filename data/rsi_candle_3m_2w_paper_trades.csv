@@ -242,3 +242,4 @@ MANKIND,Buy,11-Sep-26,2306.8,37.6,21-Sep-26,2400.87,,6,115340*1,23518,second_tar
 ETERNAL,Sell,21-Aug-26,329.6,70.3,21-Sep-26,337.0,,21,159856*2,-35890,stop_loss,candle stop — cash closed 335.90 above the entry-candle stop ₹331.70
 WIPRO,Buy,11-Sep-26,164.52,32.7,21-Sep-26,163.5,,6,98712*2,-6120,stop_loss,candle stop — cash closed 164.55 below the entry-candle stop ₹165.16
 COCHINSHIP,Buy,17-Sep-26,1333.6,29.9,22-Sep-26,1400.28,,3,106688*1,26672,first_target,"lot 1 booked — 5% target ₹1,400.28"
+OIL,Sell,11-Sep-26,491.0,57.4,22-Sep-26,466.45,,7,137480*1,34370,first_target,lot 1 booked — 5% target ₹466.45
