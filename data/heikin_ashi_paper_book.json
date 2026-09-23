@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 146623.76,
-  "closed_count": 218,
-  "day_date": "2026-09-22",
-  "day_realised_pnl": -132189.88,
-  "updated_at": "2026-09-22 16:09:51",
+  "realised_pnl": 144989.19,
+  "closed_count": 219,
+  "day_date": "2026-09-23",
+  "day_realised_pnl": -1634.57,
+  "updated_at": "2026-09-23 09:31:21",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -64,7 +64,8 @@
     "2026-09-17",
     "2026-09-18",
     "2026-09-21",
-    "2026-09-22"
+    "2026-09-22",
+    "2026-09-23"
   ],
   "closed_results": [
     {
@@ -851,6 +852,11 @@
       "symbol": "SUZLON",
       "exit_date": "2026-09-02",
       "pnl": -26826.21
+    },
+    {
+      "symbol": "SUZLON",
+      "exit_date": "2026-09-23",
+      "pnl": -25134.57
     },
     {
       "symbol": "SBIN",
@@ -2075,13 +2081,21 @@
       "entry_price": 376.0,
       "entry_time": "2026-09-11 15:15:00",
       "lot_size": 1250,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 21.48,
       "strike": 0.0,
-      "margin_blocked": 282000.0,
-      "closed_legs": [],
+      "margin_blocked": 188000.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 394.8,
+          "exit_time": "2026-09-23 09:31:21",
+          "reason": "first_target",
+          "pnl": 23500.0
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2673,23 +2687,6 @@
       "rsi_at_entry": 29.146470233435693,
       "strike": 0.0,
       "margin_blocked": 502920.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 43.98,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.527461200246705,
-      "strike": 0.0,
-      "margin_blocked": 335127.6,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
