@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 144989.19,
-  "closed_count": 219,
+  "realised_pnl": 109242.32,
+  "closed_count": 220,
   "day_date": "2026-09-23",
-  "day_realised_pnl": -1634.57,
-  "updated_at": "2026-09-23 09:31:21",
+  "day_realised_pnl": -37381.44,
+  "updated_at": "2026-09-23 10:01:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -937,6 +937,11 @@
       "symbol": "MOTILALOFS",
       "exit_date": "2026-09-04",
       "pnl": -35433.0
+    },
+    {
+      "symbol": "MOTILALOFS",
+      "exit_date": "2026-09-23",
+      "pnl": -35746.88
     },
     {
       "symbol": "BAJAJ-AUTO",
@@ -2036,23 +2041,6 @@
       "rsi_at_entry": 74.77,
       "strike": 0.0,
       "margin_blocked": 506520.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MOTILALOFS",
-      "direction": "SHORT",
-      "entry_price": 1025.0,
-      "entry_time": "2026-09-09 15:15:00",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 75.3,
-      "strike": 0.0,
-      "margin_blocked": 476625.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
