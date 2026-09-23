@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 109242.32,
-  "closed_count": 220,
+  "realised_pnl": 86947.07,
+  "closed_count": 221,
   "day_date": "2026-09-23",
-  "day_realised_pnl": -37381.44,
-  "updated_at": "2026-09-23 13:01:02",
+  "day_realised_pnl": -59676.69,
+  "updated_at": "2026-09-23 13:31:01",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1167,6 +1167,11 @@
       "symbol": "RBLBANK",
       "exit_date": "2026-09-22",
       "pnl": -58693.05
+    },
+    {
+      "symbol": "MCX",
+      "exit_date": "2026-09-23",
+      "pnl": 14863.5
     }
   ],
   "qualify_skips": {
@@ -1743,31 +1748,6 @@
       "strike": 0.0,
       "margin_blocked": 555840.0,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MCX",
-      "direction": "SHORT",
-      "entry_price": 3303.0,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 225,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 74.92,
-      "strike": 0.0,
-      "margin_blocked": 297270.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 3137.85,
-          "exit_time": "2026-09-16 10:30:31",
-          "reason": "first_target",
-          "pnl": 37158.75
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

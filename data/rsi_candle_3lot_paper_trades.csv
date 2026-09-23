@@ -468,3 +468,4 @@ PGEL,Buy,17-Sep-26,537.5,29.1,22-Sep-26,529.44,,3,102125*3,-22978,stop_loss,1.5%
 DABUR,Buy,10-Sep-26,376.45,21.6,23-Sep-26,395.27,,9,94112*1,23528,first_target,lot 1 booked — 5% target ₹395.27
 SUZLON,Buy,17-Sep-26,43.36,22.5,23-Sep-26,42.71,,4,110134*3,-24780,stop_loss,1.5% stop ₹42.71
 DMART,Buy,11-Sep-26,3688.0,32.0,23-Sep-26,3872.4,,8,110640*1,27660,first_target,"lot 1 booked — 5% target ₹3,872.40"
+MCX,Sell,01-Sep-26,3303.0,72.7,23-Sep-26,3352.54,,16,148635*2,-22295,stop_loss,"1.5% stop ₹3,352.54 (tightened after lot 1 booked)"

@@ -332,3 +332,4 @@ SAIL,Sell,02-Sep-26,196.5,74.5,22-Sep-26,175.86,,14,184710*1,96991,second_target
 DABUR,Buy,11-Sep-26,376.0,21.5,23-Sep-26,394.8,,8,94000*1,23500,first_target,lot 1 booked — 5% target ₹394.80
 SUZLON,Buy,18-Sep-26,43.98,22.5,23-Sep-26,43.32,,3,111709*3,-25135,stop_loss,1.5% stop ₹43.32
 MOTILALOFS,Sell,09-Sep-26,1025.0,75.3,23-Sep-26,1040.38,,10,158875*3,-35747,stop_loss,"1.5% stop ₹1,040.38"
+MCX,Sell,01-Sep-26,3303.0,74.9,23-Sep-26,3352.54,,16,148635*2,-22295,stop_loss,"1.5% stop ₹3,352.54 (tightened after lot 1 booked)"
