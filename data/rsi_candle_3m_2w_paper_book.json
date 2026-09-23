@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 674820.45,
-  "closed_count": 225,
+  "realised_pnl": 656370.45,
+  "closed_count": 226,
   "day_date": "2026-09-23",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-23 15:00:49",
+  "day_realised_pnl": -18450.0,
+  "updated_at": "2026-09-23 16:10:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -770,6 +770,11 @@
       "symbol": "CUMMINSIND",
       "exit_date": "2026-09-22",
       "pnl": 53100.0
+    },
+    {
+      "symbol": "MCX",
+      "exit_date": "2026-09-23",
+      "pnl": 18843.75
     }
   ],
   "qualify_skips": {
@@ -928,31 +933,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 5092.0
-    },
-    {
-      "symbol": "MCX",
-      "direction": "SHORT",
-      "entry_price": 3315.0,
-      "entry_time": "2026-08-27 15:15:00",
-      "lot_size": 225,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 71.712990549295,
-      "strike": 0.0,
-      "margin_blocked": 149175.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 3149.25,
-          "exit_time": "2026-09-16 09:30:02",
-          "reason": "first_target",
-          "pnl": 37293.75
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 3362.0
     },
     {
       "symbol": "NTPC",

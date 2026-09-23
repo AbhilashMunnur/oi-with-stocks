@@ -250,3 +250,4 @@ RBLBANK,Sell,09-Sep-26,418.9,74.6,22-Sep-26,428.65,,9,266002*2,-61912,stop_loss,
 TMPV,Buy,11-Sep-26,306.25,27.9,22-Sep-26,303.65,,7,98000*2,-8320,stop_loss,candle stop — cash closed 300.05 below the entry-candle stop ₹300.05
 BAJAJFINSV,Buy,17-Sep-26,1880.0,27.8,22-Sep-26,1844.2,,3,112800*3,-32220,stop_loss,"candle stop — cash closed 1,823.40 below the entry-candle stop ₹1,832.90"
 M&M,Buy,17-Sep-26,3127.3,39.5,22-Sep-26,3088.3,,3,125092*3,-23400,stop_loss,"candle stop — cash closed 3,044.50 below the entry-candle stop ₹3,047.00"
+MCX,Sell,27-Aug-26,3315.0,71.7,23-Sep-26,3397.0,,19,149175*1,-18450,stop_loss,"candle stop — cash closed 3,374.00 above the entry-candle stop ₹3,362.00"

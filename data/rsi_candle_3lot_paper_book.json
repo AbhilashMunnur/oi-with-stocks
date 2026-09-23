@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1050878.57,
-  "closed_count": 304,
+  "realised_pnl": 1176595.59,
+  "closed_count": 306,
   "day_date": "2026-09-23",
-  "day_realised_pnl": 4112.63,
-  "updated_at": "2026-09-23 15:00:58",
+  "day_realised_pnl": 129829.65,
+  "updated_at": "2026-09-23 16:16:06",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -209,6 +209,11 @@
       "symbol": "PHOENIXLTD",
       "exit_date": "2026-07-10",
       "pnl": -32682.82
+    },
+    {
+      "symbol": "PHOENIXLTD",
+      "exit_date": "2026-09-23",
+      "pnl": 174181.99
     },
     {
       "symbol": "PRESTIGE",
@@ -1396,6 +1401,11 @@
       "pnl": -40819.5
     },
     {
+      "symbol": "SAIL",
+      "exit_date": "2026-09-23",
+      "pnl": 188195.15
+    },
+    {
       "symbol": "ADANIPORTS",
       "exit_date": "2026-08-31",
       "pnl": -35589.37
@@ -1659,38 +1669,6 @@
           "exit_time": "2026-09-11 15:15:00",
           "reason": "second_target",
           "pnl": 47038.43
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PHOENIXLTD",
-      "direction": "SHORT",
-      "entry_price": 2132.5,
-      "entry_time": "2026-07-14 15:15:00",
-      "lot_size": 350,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-09-29",
-      "rsi_at_entry": 73.89,
-      "strike": 0.0,
-      "margin_blocked": 149275.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2025.88,
-          "exit_time": "2026-07-24 15:15:00",
-          "reason": "first_target",
-          "pnl": 37318.75
-        },
-        {
-          "lots": 1,
-          "exit_price": 1878.96,
-          "exit_time": "2026-09-15 10:00:59",
-          "reason": "second_target",
-          "pnl": 88738.24
         }
       ],
       "priced_on": "futures",
@@ -2572,38 +2550,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SAIL",
-      "direction": "SHORT",
-      "entry_price": 195.0,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 4700,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 74.48,
-      "strike": 0.0,
-      "margin_blocked": 183300.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 185.25,
-          "exit_time": "2026-09-10 15:15:00",
-          "reason": "first_target",
-          "pnl": 45825.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 175.82,
-          "exit_time": "2026-09-17 19:17:21",
-          "reason": "second_target",
-          "pnl": 90153.15
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TITAN",
       "direction": "SHORT",
       "entry_price": 5102.4,
@@ -2894,13 +2840,28 @@
       "entry_price": 1400.0,
       "entry_time": "2026-09-10 15:15:00",
       "lot_size": 400,
-      "lots_open": 3,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 30.0,
       "strike": 0.0,
-      "margin_blocked": 336000.0,
-      "closed_legs": [],
+      "margin_blocked": 112000.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1445.64,
+          "exit_time": "2026-09-23 16:16:06",
+          "reason": "first_target",
+          "pnl": 18255.82
+        },
+        {
+          "lots": 1,
+          "exit_price": 1417.8,
+          "exit_time": "2026-09-23 16:16:06",
+          "reason": "second_target",
+          "pnl": 7119.2
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

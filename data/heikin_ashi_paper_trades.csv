@@ -335,3 +335,6 @@ MOTILALOFS,Sell,09-Sep-26,1025.0,75.3,23-Sep-26,1040.38,,10,158875*3,-35747,stop
 MCX,Sell,01-Sep-26,3303.0,74.9,23-Sep-26,3352.54,,16,148635*2,-22295,stop_loss,"1.5% stop ₹3,352.54 (tightened after lot 1 booked)"
 POLICYBZR,Sell,04-Sep-26,1836.0,73.6,23-Sep-26,1863.54,,13,128520*3,-28917,stop_loss,"1.5% stop ₹1,863.54"
 SONACOMS,Sell,21-Aug-26,817.6,77.9,23-Sep-26,829.86,,23,200312*2,-30047,stop_loss,1.5% stop ₹829.86 (tightened after lot 1 booked)
+SAIL,Sell,02-Sep-26,196.5,74.5,23-Sep-26,180.12,,15,184710*1,76986,smma_cross,final lot booked — strong candle closed 185.44 above SMMA 21 ₹179.64
+UNITDSPR,Buy,17-Sep-26,1400.0,25.8,23-Sep-26,1445.64,,4,112000*1,18256,first_target,"lot 1 booked — SMMA 21 ₹1,445.64"
+UNITDSPR,Buy,17-Sep-26,1400.0,25.8,23-Sep-26,1417.8,,4,112000*1,7119,second_target,"lot 2 booked — SMMA 50 ₹1,417.80"
