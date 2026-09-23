@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1070294.06,
-  "closed_count": 302,
+  "realised_pnl": 1045513.82,
+  "closed_count": 303,
   "day_date": "2026-09-23",
-  "day_realised_pnl": 23528.12,
-  "updated_at": "2026-09-23 10:00:56",
+  "day_realised_pnl": -1252.12,
+  "updated_at": "2026-09-23 10:31:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1264,6 +1264,11 @@
       "symbol": "SUZLON",
       "exit_date": "2026-09-16",
       "pnl": -25214.58
+    },
+    {
+      "symbol": "SUZLON",
+      "exit_date": "2026-09-23",
+      "pnl": -24780.24
     },
     {
       "symbol": "LICHSGFIN",
@@ -3361,23 +3366,6 @@
       "rsi_at_entry": 23.575254421481105,
       "strike": 0.0,
       "margin_blocked": 333000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 43.36,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.52746047743514,
-      "strike": 0.0,
-      "margin_blocked": 330403.2,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
