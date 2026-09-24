@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -219126.42,
-  "closed_count": 238,
+  "realised_pnl": -213396.17,
+  "closed_count": 241,
   "day_date": "2026-09-24",
-  "day_realised_pnl": -349470.71,
-  "updated_at": "2026-09-24 15:00:24",
+  "day_realised_pnl": -343740.46,
+  "updated_at": "2026-09-24 16:07:59",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -625,6 +625,11 @@
       "pnl": -27432.0
     },
     {
+      "symbol": "UNITDSPR",
+      "exit_date": "2026-09-24",
+      "pnl": 40615.02
+    },
+    {
       "symbol": "BOSCHLTD",
       "exit_date": "2026-07-23",
       "pnl": -46811.25
@@ -1015,6 +1020,11 @@
       "pnl": -26898.75
     },
     {
+      "symbol": "SHREECEM",
+      "exit_date": "2026-09-24",
+      "pnl": -25306.87
+    },
+    {
       "symbol": "NBCC",
       "exit_date": "2026-08-28",
       "pnl": -25997.4
@@ -1258,6 +1268,11 @@
       "symbol": "MARUTI",
       "exit_date": "2026-09-24",
       "pnl": -27726.75
+    },
+    {
+      "symbol": "360ONE",
+      "exit_date": "2026-09-24",
+      "pnl": -24480.0
     }
   ],
   "qualify_skips": {
@@ -1627,12 +1642,12 @@
       "entry_price": 11475.0,
       "entry_time": "2026-08-14 15:15:00",
       "lot_size": 75,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 73.52,
       "strike": 0.0,
-      "margin_blocked": 344250.0,
+      "margin_blocked": 172125.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -1640,6 +1655,13 @@
           "exit_time": "2026-09-02 15:15:00",
           "reason": "first_target",
           "pnl": 25824.27
+        },
+        {
+          "lots": 1,
+          "exit_price": 10937.97,
+          "exit_time": "2026-09-24 16:07:59",
+          "reason": "second_target",
+          "pnl": 40277.13
         }
       ],
       "priced_on": "futures",
@@ -2316,55 +2338,6 @@
       "stop_price": null
     },
     {
-      "symbol": "UNITDSPR",
-      "direction": "LONG",
-      "entry_price": 1400.0,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 400,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.84139434855031,
-      "strike": 0.0,
-      "margin_blocked": 112000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1445.64,
-          "exit_time": "2026-09-23 16:17:33",
-          "reason": "first_target",
-          "pnl": 18255.82
-        },
-        {
-          "lots": 1,
-          "exit_price": 1417.8,
-          "exit_time": "2026-09-23 16:17:33",
-          "reason": "second_target",
-          "pnl": 7119.2
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "360ONE",
-      "direction": "LONG",
-      "entry_price": 1088.0,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.294216289470683,
-      "strike": 0.0,
-      "margin_blocked": 326400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BIOCON",
       "direction": "LONG",
       "entry_price": 390.2,
@@ -2427,23 +2400,6 @@
       "rsi_at_entry": 27.467238831394965,
       "strike": 0.0,
       "margin_blocked": 485100.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SHREECEM",
-      "direction": "LONG",
-      "entry_price": 22495.0,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 25,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.57525372064302,
-      "strike": 0.0,
-      "margin_blocked": 337425.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

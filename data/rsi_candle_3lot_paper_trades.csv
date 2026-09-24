@@ -479,3 +479,6 @@ ADANIENSOL,Buy,17-Sep-26,1404.5,41.0,24-Sep-26,1383.43,,5,189608*3,-42662,stop_l
 ASIANPAINT,Buy,17-Sep-26,2471.4,26.1,24-Sep-26,2434.33,,5,123570*3,-27803,stop_loss,"1.5% stop ₹2,434.33"
 HAVELLS,Buy,17-Sep-26,1098.8,20.8,24-Sep-26,1082.32,,5,109880*3,-24723,stop_loss,"1.5% stop ₹1,082.32"
 IEX,Buy,17-Sep-26,114.6,23.8,24-Sep-26,112.88,,5,99702*3,-22433,stop_loss,1.5% stop ₹112.88
+BAJAJHLDNG,Sell,04-Aug-26,11475.0,73.5,24-Sep-26,10805.48,,37,172125*1,50214,second_target,"lot 2 booked — SMMA 50 ₹10,805.48"
+UNITDSPR,Buy,10-Sep-26,1400.0,30.0,24-Sep-26,1438.1,,10,112000*1,15240,smma_cross,"final lot booked — strong candle closed 1,423.30 below SMMA 21 ₹1,444.87"
+ASHOKLEY,Buy,17-Sep-26,160.54,29.6,24-Sep-26,158.13,,5,160540*3,-36121,stop_loss,1.5% stop ₹158.13

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1134781.7,
-  "closed_count": 311,
+  "realised_pnl": 1164114.48,
+  "closed_count": 313,
   "day_date": "2026-09-24",
-  "day_realised_pnl": -41813.89,
-  "updated_at": "2026-09-24 15:00:17",
+  "day_realised_pnl": -12481.11,
+  "updated_at": "2026-09-24 16:04:21",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -762,6 +762,11 @@
       "pnl": -27286.2
     },
     {
+      "symbol": "UNITDSPR",
+      "exit_date": "2026-09-24",
+      "pnl": 40615.02
+    },
+    {
       "symbol": "DRREDDY",
       "exit_date": "2026-07-24",
       "pnl": -33266.25
@@ -965,6 +970,11 @@
       "symbol": "ASHOKLEY",
       "exit_date": "2026-08-26",
       "pnl": -39651.75
+    },
+    {
+      "symbol": "ASHOKLEY",
+      "exit_date": "2026-09-24",
+      "pnl": -36121.5
     },
     {
       "symbol": "UNOMINDA",
@@ -1981,12 +1991,12 @@
       "entry_price": 11475.0,
       "entry_time": "2026-08-04 15:15:00",
       "lot_size": 75,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 73.52,
       "strike": 0.0,
-      "margin_blocked": 344250.0,
+      "margin_blocked": 172125.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -1994,6 +2004,13 @@
           "exit_time": "2026-09-02 15:15:00",
           "reason": "first_target",
           "pnl": 25824.27
+        },
+        {
+          "lots": 1,
+          "exit_price": 10805.48,
+          "exit_time": "2026-09-24 16:04:21",
+          "reason": "second_target",
+          "pnl": 50214.28
         }
       ],
       "priced_on": "futures",
@@ -2868,38 +2885,6 @@
       "stop_price": null
     },
     {
-      "symbol": "UNITDSPR",
-      "direction": "LONG",
-      "entry_price": 1400.0,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 400,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 30.0,
-      "strike": 0.0,
-      "margin_blocked": 112000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1445.64,
-          "exit_time": "2026-09-23 16:16:06",
-          "reason": "first_target",
-          "pnl": 18255.82
-        },
-        {
-          "lots": 1,
-          "exit_price": 1417.8,
-          "exit_time": "2026-09-23 16:16:06",
-          "reason": "second_target",
-          "pnl": 7119.2
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "COLPAL",
       "direction": "LONG",
       "entry_price": 1797.4,
@@ -3060,23 +3045,6 @@
       "rsi_at_entry": 25.381411168691216,
       "strike": 0.0,
       "margin_blocked": 280872.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASHOKLEY",
-      "direction": "LONG",
-      "entry_price": 160.54,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 5000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.570802485374728,
-      "strike": 0.0,
-      "margin_blocked": 481620.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

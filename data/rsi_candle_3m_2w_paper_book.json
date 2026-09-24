@@ -1,13 +1,14 @@
 {
   "capital": 40000000,
-  "realised_pnl": 656370.45,
-  "closed_count": 226,
+  "realised_pnl": 562644.45,
+  "closed_count": 227,
   "day_date": "2026-09-24",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-24 15:00:09",
+  "day_realised_pnl": -93726.0,
+  "updated_at": "2026-09-24 15:59:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
+    "2026-08-10",
     "2026-08-20",
     "2026-09-03",
     "2026-09-04",
@@ -476,6 +477,11 @@
       "symbol": "SUZLON",
       "exit_date": "2026-09-17",
       "pnl": -41402.0
+    },
+    {
+      "symbol": "SUZLON",
+      "exit_date": "2026-09-24",
+      "pnl": -93726.0
     },
     {
       "symbol": "KEI",
@@ -1877,23 +1883,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 972.6
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 43.36,
-      "entry_time": "2026-09-17 19:17:11",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.52746047743514,
-      "strike": 0.0,
-      "margin_blocked": 330403.2,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 41.76
     },
     {
       "symbol": "ULTRACEMCO",
