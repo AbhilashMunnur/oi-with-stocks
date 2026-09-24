@@ -482,3 +482,6 @@ IEX,Buy,17-Sep-26,114.6,23.8,24-Sep-26,112.88,,5,99702*3,-22433,stop_loss,1.5% s
 BAJAJHLDNG,Sell,04-Aug-26,11475.0,73.5,24-Sep-26,10805.48,,37,172125*1,50214,second_target,"lot 2 booked — SMMA 50 ₹10,805.48"
 UNITDSPR,Buy,10-Sep-26,1400.0,30.0,24-Sep-26,1438.1,,10,112000*1,15240,smma_cross,"final lot booked — strong candle closed 1,423.30 below SMMA 21 ₹1,444.87"
 ASHOKLEY,Buy,17-Sep-26,160.54,29.6,24-Sep-26,158.13,,5,160540*3,-36121,stop_loss,1.5% stop ₹158.13
+PATANJALI,Buy,20-Jul-26,339.2,11.2,24-Sep-26,406.4,74.2,48,72928*1,72240,rsi_target,final lot booked — RSI 74.2 reached 70
+TRENT,Sell,06-Aug-26,3107.1,62.1,24-Sep-26,2722.1,27.6,35,139820*1,86625,rsi_target,final lot booked — RSI 27.6 reached 30
+BAJAJFINSV,Sell,07-Aug-26,2008.9,73.1,24-Sep-26,1773.5,28.9,34,120534*1,70620,rsi_target,final lot booked — RSI 28.9 reached 30

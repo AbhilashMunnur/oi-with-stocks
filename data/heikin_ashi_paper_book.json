@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -213396.17,
-  "closed_count": 241,
+  "realised_pnl": -110638.93,
+  "closed_count": 242,
   "day_date": "2026-09-24",
-  "day_realised_pnl": -343740.46,
-  "updated_at": "2026-09-24 16:07:59",
+  "day_realised_pnl": -240983.22,
+  "updated_at": "2026-09-24 18:09:45",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1273,6 +1273,11 @@
       "symbol": "360ONE",
       "exit_date": "2026-09-24",
       "pnl": -24480.0
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "exit_date": "2026-09-24",
+      "pnl": 118313.78
     }
   ],
   "qualify_skips": {
@@ -1534,38 +1539,6 @@
           "exit_time": "2026-08-26 15:15:00",
           "reason": "first_target",
           "pnl": 26509.97
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BAJAJFINSV",
-      "direction": "SHORT",
-      "entry_price": 2008.9,
-      "entry_time": "2026-08-07 15:15:00",
-      "lot_size": 300,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 76.81,
-      "strike": 0.0,
-      "margin_blocked": 120534.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1963.85,
-          "exit_time": "2026-09-07 15:15:00",
-          "reason": "first_target",
-          "pnl": 13514.19
-        },
-        {
-          "lots": 1,
-          "exit_price": 1894.97,
-          "exit_time": "2026-09-15 11:01:07",
-          "reason": "second_target",
-          "pnl": 34179.59
         }
       ],
       "priced_on": "futures",
@@ -1933,13 +1906,21 @@
       "entry_price": 11920.0,
       "entry_time": "2026-09-03 15:15:00",
       "lot_size": 75,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 73.13,
       "strike": 0.0,
-      "margin_blocked": 536400.0,
-      "closed_legs": [],
+      "margin_blocked": 357600.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 11491.5,
+          "exit_time": "2026-09-24 18:09:45",
+          "reason": "first_target",
+          "pnl": 32137.24
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2417,6 +2398,23 @@
       "rsi_at_entry": 27.66575112769732,
       "strike": 0.0,
       "margin_blocked": 333330.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "RBLBANK",
+      "direction": "SHORT",
+      "entry_price": 417.5,
+      "entry_time": "2026-09-24 18:09:45",
+      "lot_size": 3175,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 71.49168153378884,
+      "strike": 0.0,
+      "margin_blocked": 795337.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
