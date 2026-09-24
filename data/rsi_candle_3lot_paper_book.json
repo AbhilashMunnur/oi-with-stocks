@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1176595.59,
-  "closed_count": 306,
-  "day_date": "2026-09-23",
-  "day_realised_pnl": 129829.65,
-  "updated_at": "2026-09-23 16:16:06",
+  "realised_pnl": 1209740.9,
+  "closed_count": 308,
+  "day_date": "2026-09-24",
+  "day_realised_pnl": 33145.31,
+  "updated_at": "2026-09-24 09:30:52",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -67,7 +67,8 @@
     "2026-09-18",
     "2026-09-21",
     "2026-09-22",
-    "2026-09-23"
+    "2026-09-23",
+    "2026-09-24"
   ],
   "closed_results": [
     {
@@ -606,6 +607,11 @@
       "pnl": -42090.64
     },
     {
+      "symbol": "ADANIENSOL",
+      "exit_date": "2026-09-24",
+      "pnl": -42661.69
+    },
+    {
       "symbol": "TATAELXSI",
       "exit_date": "2026-07-15",
       "pnl": -20649.94
@@ -1039,6 +1045,11 @@
       "symbol": "M&M",
       "exit_date": "2026-09-11",
       "pnl": 169831.84
+    },
+    {
+      "symbol": "M&M",
+      "exit_date": "2026-09-24",
+      "pnl": -27963.0
     },
     {
       "symbol": "ZYDUSLIFE",
@@ -1891,12 +1902,12 @@
       "entry_price": 1153.0,
       "entry_time": "2026-08-03 15:15:00",
       "lot_size": 750,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 73.89,
       "strike": 0.0,
-      "margin_blocked": 345900.0,
+      "margin_blocked": 172950.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -1904,6 +1915,13 @@
           "exit_time": "2026-08-07 15:15:00",
           "reason": "first_target",
           "pnl": 43237.5
+        },
+        {
+          "lots": 1,
+          "exit_price": 1014.64,
+          "exit_time": "2026-09-24 09:30:52",
+          "reason": "second_target",
+          "pnl": 103770.0
         }
       ],
       "priced_on": "futures",
@@ -2917,23 +2935,6 @@
       "stop_price": null
     },
     {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 3107.0,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.79,
-      "strike": 0.0,
-      "margin_blocked": 372840.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "MANKIND",
       "direction": "LONG",
       "entry_price": 2280.0,
@@ -3027,23 +3028,6 @@
       "rsi_at_entry": 27.294216378648358,
       "strike": 0.0,
       "margin_blocked": 319440.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ADANIENSOL",
-      "direction": "LONG",
-      "entry_price": 1404.5,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 675,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 40.95787815482501,
-      "strike": 0.0,
-      "margin_blocked": 568822.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

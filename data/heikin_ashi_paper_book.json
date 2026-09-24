@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 130344.29,
-  "closed_count": 224,
-  "day_date": "2026-09-23",
-  "day_realised_pnl": -16279.47,
-  "updated_at": "2026-09-23 16:17:33",
+  "realised_pnl": 7781.35,
+  "closed_count": 228,
+  "day_date": "2026-09-24",
+  "day_realised_pnl": -122562.94,
+  "updated_at": "2026-09-24 09:31:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -65,7 +65,8 @@
     "2026-09-18",
     "2026-09-21",
     "2026-09-22",
-    "2026-09-23"
+    "2026-09-23",
+    "2026-09-24"
   ],
   "closed_results": [
     {
@@ -969,6 +970,11 @@
       "pnl": -39336.75
     },
     {
+      "symbol": "ASHOKLEY",
+      "exit_date": "2026-09-24",
+      "pnl": -36735.75
+    },
+    {
       "symbol": "TVSMOTOR",
       "exit_date": "2026-08-26",
       "pnl": -34453.12
@@ -1029,6 +1035,11 @@
       "pnl": -43232.74
     },
     {
+      "symbol": "ADANIENSOL",
+      "exit_date": "2026-09-24",
+      "pnl": -42661.69
+    },
+    {
       "symbol": "AXISBANK",
       "exit_date": "2026-09-01",
       "pnl": 58051.4
@@ -1077,6 +1088,11 @@
       "symbol": "SBILIFE",
       "exit_date": "2026-09-07",
       "pnl": -29953.12
+    },
+    {
+      "symbol": "SBILIFE",
+      "exit_date": "2026-09-24",
+      "pnl": -30081.38
     },
     {
       "symbol": "RVNL",
@@ -1187,6 +1203,11 @@
       "symbol": "SAIL",
       "exit_date": "2026-09-23",
       "pnl": 220154.96
+    },
+    {
+      "symbol": "ICICIPRULI",
+      "exit_date": "2026-09-24",
+      "pnl": 8722.76
     }
   ],
   "qualify_skips": {
@@ -2035,48 +2056,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ICICIPRULI",
-      "direction": "LONG",
-      "entry_price": 471.5,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 925,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.9,
-      "strike": 0.0,
-      "margin_blocked": 174455.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 495.08,
-          "exit_time": "2026-09-17 12:31:00",
-          "reason": "first_target",
-          "pnl": 21806.88
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ADANIENSOL",
-      "direction": "LONG",
-      "entry_price": 1404.5,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 675,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.6902491982016,
-      "strike": 0.0,
-      "margin_blocked": 568822.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ASIANPAINT",
       "direction": "LONG",
       "entry_price": 2471.4,
@@ -2279,23 +2258,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SBILIFE",
-      "direction": "LONG",
-      "entry_price": 1782.6,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 375,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.237575652774083,
-      "strike": 0.0,
-      "margin_blocked": 401085.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SBIN",
       "direction": "LONG",
       "entry_price": 999.4,
@@ -2407,23 +2369,6 @@
       "rsi_at_entry": 25.381410689352663,
       "strike": 0.0,
       "margin_blocked": 284796.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASHOKLEY",
-      "direction": "LONG",
-      "entry_price": 163.27,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 5000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.570801790116207,
-      "strike": 0.0,
-      "margin_blocked": 489810.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

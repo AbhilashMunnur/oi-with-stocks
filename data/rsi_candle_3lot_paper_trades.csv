@@ -473,3 +473,6 @@ PHOENIXLTD,Sell,14-Jul-26,2132.5,73.9,23-Sep-26,1995.0,,51,149275*1,48125,smma_c
 SAIL,Sell,31-Aug-26,195.0,74.5,23-Sep-26,183.89,,17,183300*1,52217,smma_cross,final lot booked — strong candle closed 185.44 above SMMA 21 ₹172.77
 UNITDSPR,Buy,10-Sep-26,1400.0,30.0,23-Sep-26,1445.64,,9,112000*1,18256,first_target,"lot 1 booked — SMMA 21 ₹1,445.64"
 UNITDSPR,Buy,10-Sep-26,1400.0,30.0,23-Sep-26,1417.8,,9,112000*1,7119,second_target,"lot 2 booked — SMMA 50 ₹1,417.80"
+BAJFINANCE,Sell,03-Aug-26,1153.0,73.9,24-Sep-26,1014.64,,38,172950*1,103770,second_target,"lot 2 booked — 12% target ₹1,014.64"
+M&M,Buy,11-Sep-26,3107.0,29.8,24-Sep-26,3060.39,,9,124280*3,-27963,stop_loss,"1.5% stop ₹3,060.39"
+ADANIENSOL,Buy,17-Sep-26,1404.5,41.0,24-Sep-26,1383.43,,5,189608*3,-42662,stop_loss,"1.5% stop ₹1,383.43"
