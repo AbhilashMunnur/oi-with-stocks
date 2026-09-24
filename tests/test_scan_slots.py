@@ -153,6 +153,9 @@ def test_candle_screen_only_at_three_fifteen_unless_missed(tmp_path):
     assert is_candle_screen_slot(
         datetime(2026, 8, 11, 15, 30, tzinfo=IST), path=marker
     ) is True
+    assert is_candle_screen_slot(
+        datetime(2026, 8, 11, 15, 45, tzinfo=IST), path=marker
+    ) is True
     write_last_slot(datetime(2026, 8, 11, 15, 15, tzinfo=IST), marker)
     assert is_candle_screen_slot(
         datetime(2026, 8, 11, 15, 30, tzinfo=IST), path=marker
@@ -177,7 +180,7 @@ def test_late_same_day_run_screens_if_fifteen_fifteen_was_missed(tmp_path):
     write_last_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST), marker)
     assert is_candle_screen_slot(
         datetime(2026, 8, 11, 16, 20, tzinfo=IST), path=marker
-    ) is False
+    ) is True
 
 
 def test_paper_run_flags_late_fifteen_thirty_still_opens(tmp_path):
@@ -202,6 +205,32 @@ def test_paper_run_flags_close_slot_does_not_open(tmp_path):
     )
     assert open_new is False
     assert closing is True
+
+
+def test_paper_run_flags_close_slot_opens_if_fifteen_was_missed(tmp_path):
+    from src.scan_slots import paper_run_flags, write_last_slot
+
+    marker = tmp_path / "last_scan_slot.txt"
+    write_last_slot(datetime(2026, 8, 11, 15, 0, tzinfo=IST), marker)
+    open_new, closing = paper_run_flags(
+        datetime(2026, 8, 11, 15, 46, tzinfo=IST), path=marker
+    )
+    assert open_new is True
+    assert closing is False
+
+
+def test_after_hours_cron_catches_up_unpaid_fifteen(tmp_path):
+    from src.scan_slots import should_run_slot, write_last_slot
+
+    marker = tmp_path / "last_scan_slot.txt"
+    write_last_slot(datetime(2026, 8, 11, 15, 45, tzinfo=IST), marker)
+    run, reason, slot = should_run_slot(
+        now=datetime(2026, 8, 11, 16, 5, tzinfo=IST), path=marker
+    )
+    assert run is True
+    assert "catch-up" in reason
+    assert slot is not None
+    assert slot.strftime("%H:%M") == "15:15"
 
 
 def test_forced_run_after_close_catches_up_unpaid_fifteen(tmp_path):

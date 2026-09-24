@@ -16,7 +16,7 @@ if str(ROOT) not in sys.path:
 
 from src.config import load_config
 from src.data.base import MarketDataError
-from src.scan_slots import SESSION_END, now_ist, should_run_slot, write_last_slot
+from src.scan_slots import now_ist, should_run_slot, write_last_slot
 from src.scanner import OIRsiScanner
 
 
@@ -112,12 +112,12 @@ def main() -> None:
                 scanner.run_once()
                 if args.slot_guard and slot is not None:
                     paid = slot
-                    clock = now_ist()
-                    # Same-day catch-up after 16:00: mark through the close slot
-                    # so 15:30/15:45 are not left unpaid overnight.
-                    if clock.time() >= SESSION_END:
-                        paid = clock.replace(
-                            hour=15, minute=45, second=0, microsecond=0
+                    # A finished 15:15 screen (including a late catch-up) must
+                    # keep the 15:15 stamp. Writing 15:45 here used to look
+                    # like the entry window was paid when it never ran.
+                    if getattr(scanner, "_open_new_paper", False):
+                        paid = now_ist().replace(
+                            hour=15, minute=15, second=0, microsecond=0
                         )
                     write_last_slot(paid)
                     print(f"Marked scan slot {paid:%Y-%m-%d %H:%M} IST complete.")

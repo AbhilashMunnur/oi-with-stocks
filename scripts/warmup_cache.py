@@ -22,12 +22,15 @@ def main() -> None:
     )
     try:
         symbols = client.fno_symbols()
-        print(f"Warming daily-close cache for {len(symbols)} symbols...")
+        print(f"Warming daily OHLC cache for {len(symbols)} symbols...")
         for index, symbol in enumerate(symbols, 1):
-            client.daily_closes(symbol)
+            # Full OHLC — 15:15 uses daily_full_ohlc, not closes-only.
+            client.daily_full_ohlc(symbol)
             if index % 25 == 0:
                 print(f"  cached {index}/{len(symbols)}")
+                client._save_ohlc_cache()
                 client._save_closes_cache()
+        client._save_ohlc_cache()
         client._save_closes_cache()
         print("Warmup complete.")
     finally:

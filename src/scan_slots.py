@@ -120,9 +120,11 @@ def is_fifteen_fifteen_complete(
     """True once today's 15:15 entry screen (or a later wrap-up) has been paid.
 
     A failed 15:15 must not write this marker — otherwise 15:30 cannot retry.
+    A 15:45 mark-only must not count either: that was marking the close
+    unpaid 15:15 screens as done and skipping the rest of the week.
     """
     stamp = _todays_paid_slot(now, path)
-    return stamp is not None and stamp.time() >= S1_WALL_EXIT_SLOT
+    return stamp is not None and stamp.time() in (S1_WALL_EXIT_SLOT, LAST_SLOT)
 
 
 def is_candle_screen_slot(
@@ -130,8 +132,8 @@ def is_candle_screen_slot(
 ) -> bool:
     """True only when this run should screen 210 names for new candle entries.
 
-    Morning slots mark open P&L. 15:15 takes new paper. 15:30 screens only if
-    15:15 never completed today. 15:45 is mark-only.
+    Morning slots mark open P&L. 15:15 takes new paper. 15:30 and 15:45
+    screen only if 15:15 never completed today.
 
     If GitHub skips 15:15/15:30, a same-day late run still screens once when
     today's 15:15 marker was never written.
@@ -144,7 +146,7 @@ def is_candle_screen_slot(
         return not paid
     if slot.time() == S1_WALL_EXIT_SLOT:
         return True
-    if slot.time() == LAST_SLOT:
+    if slot.time() in (LAST_SLOT, CLOSE_PNL_SLOT):
         return not paid
     return False
 
@@ -155,7 +157,7 @@ def paper_run_flags(
     """Freeze (open_new_paper, closing_mark) at the start of a run.
 
     A 15:15 or 15:30 backup that overruns into 15:45 must still take new
-    paper. The dedicated 15:45 slot never opens.
+    paper. 15:45 opens only when today's 15:15 screen never finished.
     """
     open_new = is_candle_screen_slot(now, path)
     closing = is_close_pnl_slot(now) and not open_new
@@ -238,6 +240,14 @@ def should_run_slot(
         current = active_slot(now)
         if current is not None and read_last_slot(path) == current.isoformat():
             return False, f"slot {current:%H:%M} IST already completed", current
+        clock = now_ist(now)
+        if (
+            is_nse_fo_session(clock)
+            and clock.time() >= SESSION_END
+            and not is_fifteen_fifteen_complete(now, path)
+        ):
+            fifteen = clock.replace(hour=15, minute=15, second=0, microsecond=0)
+            return True, "catch-up for unpaid 15:15 IST", fifteen
         return False, "outside 09:30–15:45 IST scan slots", None
 
     current = now_ist(now)

@@ -7,9 +7,11 @@ on:
   schedule:
     # Half-hour slots 09:30–15:00 IST, then 15:15 / 15:30 / 15:45.
     # RSI_CandlePattern entries are from 15:15. Earlier slots mark stops / SMMA.
+    # 16:05 IST is a last catch-up if 15:15 timed out and 15:30 was cancelled.
     - cron: "0,30 4-9 * * 1-5"
     - cron: "45 9 * * 1-5"
     - cron: "0,15 10 * * 1-5"
+    - cron: "35 10 * * 1-5"
   workflow_dispatch:
   repository_dispatch:
     # Old every-5-minute crons still POST "oi-scan" — ignore them.
@@ -19,7 +21,7 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 70
     concurrency:
       group: oi-rsi-scan
       # Do not cancel a running scan. Slot guard skips duplicates instead.
@@ -103,7 +105,7 @@ jobs:
       - name: Run scan
         id: scan
         if: steps.slot.outputs.run == 'true'
-        timeout-minutes: 40
+        timeout-minutes: 55
         run: python -u main.py --once --slot-guard
 
       - name: Save paper trading ledger
@@ -117,10 +119,20 @@ jobs:
           # still writes last_scan_slot.txt blocks the 15:30 backup from
           # taking new paper.
           if [ "${SCAN_OK}" = "success" ] && [ -n "${SLOT_ISO:-}" ]; then
-            printf '%s' "$SLOT_ISO" > data/last_scan_slot.txt
-            echo "Slot marker → $SLOT_ISO"
+            current=""
+            if [ -f data/last_scan_slot.txt ]; then
+              current=$(cat data/last_scan_slot.txt)
+            fi
+            # main.py stamps 15:15 after a finished entry screen. Do not let a
+            # 15:45 mark-only overwrite that, or look like 15:15 was paid.
+            if printf '%s' "$current" | grep -q 'T15:15:00'; then
+              echo "Keeping 15:15 entry-screen marker ($current)"
+            else
+              printf '%s' "$SLOT_ISO" > data/last_scan_slot.txt
+              echo "Slot marker → $SLOT_ISO"
+            fi
           else
-            echo "Scan did not succeed (outcome=${SCAN_OK}) — leaving last_scan_slot unpaid so 15:30 can still take new paper."
+            echo "Scan did not succeed (outcome=${SCAN_OK}) — leaving last_scan_slot unpaid so 15:30/15:45 can still take new paper."
           fi
           echo "Working tree (data):"
           git status --porcelain -- data || true
