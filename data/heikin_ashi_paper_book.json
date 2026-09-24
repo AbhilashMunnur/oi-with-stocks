@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -169270.13,
-  "closed_count": 236,
+  "realised_pnl": -219126.42,
+  "closed_count": 238,
   "day_date": "2026-09-24",
-  "day_realised_pnl": -299614.42,
-  "updated_at": "2026-09-24 14:01:07",
+  "day_realised_pnl": -349470.71,
+  "updated_at": "2026-09-24 14:31:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1248,6 +1248,16 @@
       "symbol": "AMBUJACEM",
       "exit_date": "2026-09-24",
       "pnl": -21359.7
+    },
+    {
+      "symbol": "BDL",
+      "exit_date": "2026-09-24",
+      "pnl": -22129.54
+    },
+    {
+      "symbol": "MARUTI",
+      "exit_date": "2026-09-24",
+      "pnl": -27726.75
     }
   ],
   "qualify_skips": {
@@ -2355,23 +2365,6 @@
       "stop_price": null
     },
     {
-      "symbol": "BDL",
-      "direction": "LONG",
-      "entry_price": 1157.1,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.61537375861505,
-      "strike": 0.0,
-      "margin_blocked": 295060.49999999994,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BIOCON",
       "direction": "LONG",
       "entry_price": 390.2,
@@ -2434,23 +2427,6 @@
       "rsi_at_entry": 27.467238831394965,
       "strike": 0.0,
       "margin_blocked": 485100.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 12323.0,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.32295075199974,
-      "strike": 0.0,
-      "margin_blocked": 369690.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
