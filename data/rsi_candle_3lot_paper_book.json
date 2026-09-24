@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1209740.9,
-  "closed_count": 308,
+  "realised_pnl": 1134781.7,
+  "closed_count": 311,
   "day_date": "2026-09-24",
-  "day_realised_pnl": 33145.31,
-  "updated_at": "2026-09-24 13:31:03",
+  "day_realised_pnl": -41813.89,
+  "updated_at": "2026-09-24 14:00:59",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1462,6 +1462,11 @@
       "pnl": -28135.13
     },
     {
+      "symbol": "ASIANPAINT",
+      "exit_date": "2026-09-24",
+      "pnl": -27803.25
+    },
+    {
       "symbol": "DABUR",
       "exit_date": "2026-09-02",
       "pnl": -21712.5
@@ -1480,6 +1485,11 @@
       "symbol": "HAVELLS",
       "exit_date": "2026-09-16",
       "pnl": -25110.0
+    },
+    {
+      "symbol": "HAVELLS",
+      "exit_date": "2026-09-24",
+      "pnl": -24723.0
     },
     {
       "symbol": "IDEA",
@@ -1570,6 +1580,11 @@
       "symbol": "IEX",
       "exit_date": "2026-09-11",
       "pnl": -23088.71
+    },
+    {
+      "symbol": "IEX",
+      "exit_date": "2026-09-24",
+      "pnl": -22432.95
     },
     {
       "symbol": "CUMMINSIND",
@@ -3068,23 +3083,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ASIANPAINT",
-      "direction": "LONG",
-      "entry_price": 2471.4,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.136039038988173,
-      "strike": 0.0,
-      "margin_blocked": 370710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ASTRAL",
       "direction": "LONG",
       "entry_price": 1404.0,
@@ -3172,40 +3170,6 @@
       "rsi_at_entry": 22.70919677937762,
       "strike": 0.0,
       "margin_blocked": 331617.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HAVELLS",
-      "direction": "LONG",
-      "entry_price": 1098.8,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.778892441613408,
-      "strike": 0.0,
-      "margin_blocked": 329640.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IEX",
-      "direction": "LONG",
-      "entry_price": 114.6,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 4350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.789113729101146,
-      "strike": 0.0,
-      "margin_blocked": 299106.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

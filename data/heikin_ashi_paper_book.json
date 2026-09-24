@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -30598.02,
-  "closed_count": 230,
+  "realised_pnl": -169270.13,
+  "closed_count": 236,
   "day_date": "2026-09-24",
-  "day_realised_pnl": -160942.31,
-  "updated_at": "2026-09-24 13:31:09",
+  "day_realised_pnl": -299614.42,
+  "updated_at": "2026-09-24 14:01:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -213,6 +213,11 @@
       "symbol": "GODREJPROP",
       "exit_date": "2026-09-11",
       "pnl": 204991.26
+    },
+    {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-09-24",
+      "pnl": -25153.54
     },
     {
       "symbol": "IDFCFIRSTB",
@@ -1110,6 +1115,11 @@
       "pnl": -18406.95
     },
     {
+      "symbol": "RVNL",
+      "exit_date": "2026-09-24",
+      "pnl": -18277.87
+    },
+    {
       "symbol": "PERSISTENT",
       "exit_date": "2026-09-09",
       "pnl": 181304.66
@@ -1218,6 +1228,26 @@
       "symbol": "ICICIPRULI",
       "exit_date": "2026-09-24",
       "pnl": 8722.76
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "exit_date": "2026-09-24",
+      "pnl": -27803.25
+    },
+    {
+      "symbol": "IEX",
+      "exit_date": "2026-09-24",
+      "pnl": -22432.95
+    },
+    {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-09-24",
+      "pnl": -23644.8
+    },
+    {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-09-24",
+      "pnl": -21359.7
     }
   ],
   "qualify_skips": {
@@ -2066,23 +2096,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ASIANPAINT",
-      "direction": "LONG",
-      "entry_price": 2471.4,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.024095039612106,
-      "strike": 0.0,
-      "margin_blocked": 370710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "CUMMINSIND",
       "direction": "LONG",
       "entry_price": 5076.0,
@@ -2171,23 +2184,6 @@
           "pnl": 24145.88
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IEX",
-      "direction": "LONG",
-      "entry_price": 114.6,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 4350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.789113729101146,
-      "strike": 0.0,
-      "margin_blocked": 299106.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2310,23 +2306,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2627.2,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.02962471823743,
-      "strike": 0.0,
-      "margin_blocked": 315264.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "UNITDSPR",
       "direction": "LONG",
       "entry_price": 1400.0,
@@ -2370,23 +2349,6 @@
       "rsi_at_entry": 27.294216289470683,
       "strike": 0.0,
       "margin_blocked": 326400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 395.55,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 1200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.381410689352663,
-      "strike": 0.0,
-      "margin_blocked": 284796.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2461,23 +2423,6 @@
       "stop_price": null
     },
     {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1719.9,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 21.80620870911521,
-      "strike": 0.0,
-      "margin_blocked": 335380.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "KEI",
       "direction": "LONG",
       "entry_price": 4620.0,
@@ -2506,23 +2451,6 @@
       "rsi_at_entry": 20.32295075199974,
       "strike": 0.0,
       "margin_blocked": 369690.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "RVNL",
-      "direction": "LONG",
-      "entry_price": 211.0,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 1925,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.289978782662672,
-      "strike": 0.0,
-      "margin_blocked": 243705.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
