@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -301432.14,
-  "closed_count": 244,
+  "realised_pnl": -369715.14,
+  "closed_count": 246,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -60825.21,
-  "updated_at": "2026-09-25 12:29:04",
+  "day_realised_pnl": -129108.21,
+  "updated_at": "2026-09-25 12:31:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -409,6 +409,11 @@
       "symbol": "TATAELXSI",
       "exit_date": "2026-09-09",
       "pnl": 8845.0
+    },
+    {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-09-16",
+      "pnl": -19350.0
     },
     {
       "symbol": "ETERNAL",
@@ -1006,6 +1011,11 @@
       "pnl": -44372.25
     },
     {
+      "symbol": "SOLARINDS",
+      "exit_date": "2026-09-22",
+      "pnl": -43312.5
+    },
+    {
       "symbol": "ZYDUSLIFE",
       "exit_date": "2026-08-27",
       "pnl": -16491.37
@@ -1186,6 +1196,11 @@
       "pnl": -19659.37
     },
     {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-22",
+      "pnl": -19272.94
+    },
+    {
       "symbol": "PNB",
       "exit_date": "2026-09-17",
       "pnl": -42235.2
@@ -1196,9 +1211,19 @@
       "pnl": -22914.0
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-09-24",
+      "pnl": -21859.2
+    },
+    {
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-18",
       "pnl": -31293.0
+    },
+    {
+      "symbol": "NESTLEIND",
+      "exit_date": "2026-09-22",
+      "pnl": -31162.5
     },
     {
       "symbol": "SAGILITY",
@@ -1291,39 +1316,24 @@
       "pnl": 118313.78
     },
     {
-      "symbol": "TATAELXSI",
-      "exit_date": "2026-09-16",
-      "pnl": -19350.0
-    },
-    {
-      "symbol": "SOLARINDS",
-      "exit_date": "2026-09-22",
-      "pnl": -43312.5
-    },
-    {
       "symbol": "TATACONSUM",
       "exit_date": "2026-09-22",
       "pnl": -24752.47
     },
     {
-      "symbol": "NESTLEIND",
-      "exit_date": "2026-09-22",
-      "pnl": -31162.5
-    },
-    {
-      "symbol": "VOLTAS",
-      "exit_date": "2026-09-22",
-      "pnl": -19272.94
-    },
-    {
-      "symbol": "TMPV",
-      "exit_date": "2026-09-24",
-      "pnl": -21859.2
-    },
-    {
       "symbol": "PREMIERENE",
       "exit_date": "2026-09-24",
       "pnl": -26907.07
+    },
+    {
+      "symbol": "CUMMINSIND",
+      "exit_date": "2026-09-25",
+      "pnl": -45684.0
+    },
+    {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-09-25",
+      "pnl": -22599.0
     }
   ],
   "qualify_skips": {
@@ -2138,23 +2148,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CUMMINSIND",
-      "direction": "LONG",
-      "entry_price": 5076.0,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.634541930820617,
-      "strike": 0.0,
-      "margin_blocked": 609120.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "GODFRYPHLP",
       "direction": "LONG",
       "entry_price": 1942.7,
@@ -2460,23 +2453,6 @@
           "pnl": 31921.15
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2232.0,
-      "entry_time": "2026-09-21 15:15:00",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.98,
-      "strike": 0.0,
-      "margin_blocked": 301320.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1271468.5,
-  "closed_count": 319,
+  "realised_pnl": 1248870.51,
+  "closed_count": 320,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -82353.97,
-  "updated_at": "2026-09-25 12:29:04",
+  "day_realised_pnl": -104951.96,
+  "updated_at": "2026-09-25 12:30:59",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -361,6 +361,11 @@
       "symbol": "PAYTM",
       "exit_date": "2026-09-04",
       "pnl": -53292.94
+    },
+    {
+      "symbol": "PAYTM",
+      "exit_date": "2026-09-16",
+      "pnl": -56441.25
     },
     {
       "symbol": "SONACOMS",
@@ -1373,6 +1378,11 @@
       "pnl": -22843.01
     },
     {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-09-25",
+      "pnl": -22597.99
+    },
+    {
       "symbol": "ONGC",
       "exit_date": "2026-08-26",
       "pnl": 10618.2
@@ -1558,6 +1568,11 @@
       "pnl": -28181.25
     },
     {
+      "symbol": "MARUTI",
+      "exit_date": "2026-09-24",
+      "pnl": -27517.5
+    },
+    {
       "symbol": "VOLTAS",
       "exit_date": "2026-09-08",
       "pnl": -19878.75
@@ -1618,6 +1633,11 @@
       "pnl": -28485.0
     },
     {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-09-22",
+      "pnl": -28122.19
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-11",
       "pnl": -23088.71
@@ -1668,16 +1688,6 @@
       "pnl": -59293.12
     },
     {
-      "symbol": "PAYTM",
-      "exit_date": "2026-09-16",
-      "pnl": -56441.25
-    },
-    {
-      "symbol": "BRITANNIA",
-      "exit_date": "2026-09-22",
-      "pnl": -28122.19
-    },
-    {
       "symbol": "EICHERMOT",
       "exit_date": "2026-09-24",
       "pnl": -33750.0
@@ -1686,11 +1696,6 @@
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-24",
       "pnl": -31151.25
-    },
-    {
-      "symbol": "MARUTI",
-      "exit_date": "2026-09-24",
-      "pnl": -27517.5
     }
   ],
   "qualify_skips": {
@@ -3435,23 +3440,6 @@
           "pnl": 24525.5
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2231.9,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.45,
-      "strike": 0.0,
-      "margin_blocked": 301306.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
