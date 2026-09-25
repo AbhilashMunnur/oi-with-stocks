@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1393599.48,
-  "closed_count": 316,
+  "realised_pnl": 1373370.18,
+  "closed_count": 317,
   "day_date": "2026-09-25",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-25 09:31:08",
+  "day_realised_pnl": -20229.3,
+  "updated_at": "2026-09-25 10:01:27",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1298,6 +1298,11 @@
       "pnl": -21235.5
     },
     {
+      "symbol": "PFC",
+      "exit_date": "2026-09-25",
+      "pnl": -20229.3
+    },
+    {
       "symbol": "SUZLON",
       "exit_date": "2026-08-21",
       "pnl": -27117.68
@@ -2588,23 +2593,6 @@
       "rsi_at_entry": 78.04,
       "strike": 0.0,
       "margin_blocked": 728250.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PFC",
-      "direction": "LONG",
-      "entry_price": 345.8,
-      "entry_time": "2026-09-01 15:15:00",
-      "lot_size": 1300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 15.8,
-      "strike": 0.0,
-      "margin_blocked": 269724.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
