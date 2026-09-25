@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1229557.78,
-  "closed_count": 321,
+  "realised_pnl": 1189219.78,
+  "closed_count": 322,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -124264.69,
-  "updated_at": "2026-09-25 13:00:10",
+  "day_realised_pnl": -164602.69,
+  "updated_at": "2026-09-25 13:30:56",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -191,6 +191,11 @@
       "symbol": "DELHIVERY",
       "exit_date": "2026-07-31",
       "pnl": 242014.25
+    },
+    {
+      "symbol": "DELHIVERY",
+      "exit_date": "2026-09-25",
+      "pnl": -40338.0
     },
     {
       "symbol": "GODREJPROP",
@@ -3033,23 +3038,6 @@
           "pnl": 26672.0
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "DELHIVERY",
-      "direction": "LONG",
-      "entry_price": 432.0,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 2075,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 38.46688544364428,
-      "strike": 0.0,
-      "margin_blocked": 537840.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
