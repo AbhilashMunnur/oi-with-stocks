@@ -487,3 +487,4 @@ TRENT,Sell,06-Aug-26,3107.1,62.1,24-Sep-26,2722.1,27.6,35,139820*1,86625,rsi_tar
 BAJAJFINSV,Sell,07-Aug-26,2008.9,73.1,24-Sep-26,1773.5,28.9,34,120534*1,70620,rsi_target,final lot booked — RSI 28.9 reached 30
 PFC,Buy,01-Sep-26,345.8,15.8,25-Sep-26,340.61,,18,89908*3,-20229,stop_loss,1.5% stop ₹340.61
 TMPV,Buy,11-Sep-26,301.1,27.9,25-Sep-26,296.58,,10,96352*2,-14453,stop_loss,1.5% stop ₹296.58 (tightened after lot 1 booked)
+CHOLAFIN,Buy,24-Sep-26,1695.0,32.7,25-Sep-26,1669.58,,1,211875*3,-47672,stop_loss,"1.5% stop ₹1,669.58"

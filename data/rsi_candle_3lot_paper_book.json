@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1358917.38,
-  "closed_count": 318,
+  "realised_pnl": 1311245.5,
+  "closed_count": 319,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -34682.1,
-  "updated_at": "2026-09-25 11:30:10",
+  "day_realised_pnl": -82353.97,
+  "updated_at": "2026-09-25 12:00:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -176,6 +176,11 @@
       "symbol": "CHOLAFIN",
       "exit_date": "2026-08-03",
       "pnl": 23167.5
+    },
+    {
+      "symbol": "CHOLAFIN",
+      "exit_date": "2026-09-25",
+      "pnl": -47671.87
     },
     {
       "symbol": "DELHIVERY",
@@ -3170,23 +3175,6 @@
       "rsi_at_entry": 32.89423673107822,
       "strike": 0.0,
       "margin_blocked": 370162.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CHOLAFIN",
-      "direction": "LONG",
-      "entry_price": 1695.0,
-      "entry_time": "2026-09-24 18:09:38",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.73557759007903,
-      "strike": 0.0,
-      "margin_blocked": 635625.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
