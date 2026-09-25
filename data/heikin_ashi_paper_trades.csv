@@ -373,3 +373,6 @@ PREMIERENE,Buy,21-Sep-26,919.9,24.1,24-Sep-26,906.1,34.0,3,119587*3,-26907,stop_
 CUMMINSIND,Buy,17-Sep-26,5076.0,29.6,25-Sep-26,4999.86,,6,203040*3,-45684,stop_loss,"1.5% stop ₹4,999.86"
 MAZDOCK,Buy,21-Sep-26,2232.0,23.0,25-Sep-26,2198.52,,4,100440*3,-22599,stop_loss,"1.5% stop ₹2,198.52"
 PAYTM,Sell,23-Sep-26,1775.0,71.3,25-Sep-26,1686.25,,2,257375*1,64344,first_target,"lot 1 booked — 5% target ₹1,686.25"
+FEDERALBNK,Sell,05-Aug-26,356.45,78.0,25-Sep-26,329.36,33.0,37,178225*1,67713,second_target,lot 2 booked — SMMA 50 ₹329.36
+KOTAKBANK,Sell,07-Sep-26,422.1,74.8,25-Sep-26,407.41,64.7,14,168840*1,29383,first_target,lot 1 booked — SMMA 21 ₹407.41
+ALKEM,Buy,15-Sep-26,5161.0,28.8,25-Sep-26,5340.0,45.1,8,129025*1,22375,smma_cross,"final lot booked — strong candle closed 5,250.50 below SMMA 21 ₹5,358.35"

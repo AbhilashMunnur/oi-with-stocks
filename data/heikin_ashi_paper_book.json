@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -305371.39,
-  "closed_count": 246,
+  "realised_pnl": -185901.09,
+  "closed_count": 247,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -64764.46,
-  "updated_at": "2026-09-25 15:00:59",
+  "day_realised_pnl": 54705.84,
+  "updated_at": "2026-09-25 15:53:38",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1334,6 +1334,11 @@
       "symbol": "MAZDOCK",
       "exit_date": "2026-09-25",
       "pnl": -22599.0
+    },
+    {
+      "symbol": "ALKEM",
+      "exit_date": "2026-09-25",
+      "pnl": 79023.08
     }
   ],
   "qualify_skips": {
@@ -1582,12 +1587,12 @@
       "entry_price": 356.45,
       "entry_time": "2026-08-05 15:15:00",
       "lot_size": 2500,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 78.0,
       "strike": 0.0,
-      "margin_blocked": 356450.0,
+      "margin_blocked": 178225.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -1595,6 +1600,13 @@
           "exit_time": "2026-08-26 15:15:00",
           "reason": "first_target",
           "pnl": 26509.97
+        },
+        {
+          "lots": 1,
+          "exit_price": 329.36,
+          "exit_time": "2026-09-25 15:53:38",
+          "reason": "second_target",
+          "pnl": 67712.75
         }
       ],
       "priced_on": "futures",
@@ -2069,13 +2081,21 @@
       "entry_price": 422.1,
       "entry_time": "2026-09-07 15:15:00",
       "lot_size": 2000,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 74.77,
       "strike": 0.0,
-      "margin_blocked": 506520.0,
-      "closed_legs": [],
+      "margin_blocked": 337680.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 407.41,
+          "exit_time": "2026-09-25 15:53:38",
+          "reason": "first_target",
+          "pnl": 29382.55
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2426,38 +2446,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ALKEM",
-      "direction": "LONG",
-      "entry_price": 5161.0,
-      "entry_time": "2026-09-15 15:15:00",
-      "lot_size": 125,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.75,
-      "strike": 0.0,
-      "margin_blocked": 129025.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 5358.82,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "first_target",
-          "pnl": 24726.93
-        },
-        {
-          "lots": 1,
-          "exit_price": 5416.37,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "second_target",
-          "pnl": 31921.15
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PAYTM",
       "direction": "SHORT",
       "entry_price": 1775.0,
@@ -2478,6 +2466,40 @@
           "pnl": 64343.75
         }
       ],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "ASTRAL",
+      "direction": "LONG",
+      "entry_price": 1407.0,
+      "entry_time": "2026-09-25 15:53:38",
+      "lot_size": 425,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 28.554842718117243,
+      "strike": 0.0,
+      "margin_blocked": 358785.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "IEX",
+      "direction": "LONG",
+      "entry_price": 114.15,
+      "entry_time": "2026-09-25 15:53:38",
+      "lot_size": 4350,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 23.789113548608356,
+      "strike": 0.0,
+      "margin_blocked": 297931.5,
+      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
