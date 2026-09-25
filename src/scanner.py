@@ -6,11 +6,13 @@ from datetime import date, datetime, time as dt_time
 from src.candle_patterns import (
     Candle,
     candle_stop_price,
+    fade_pct,
     make_candle_alert,
-    wider_of_candle_and_pct,
     reversal_setup,
     same_day_setup,
+    stretch_entry_ok,
     waiting_reason,
+    wider_of_candle_and_pct,
     with_live_close,
 )
 from src.config import (
@@ -55,6 +57,7 @@ class OIRsiScanner:
         self.two_week_book = self._build_book(config.rsi_candle_2w_paper_trading)
         self.three_lot_book = self._build_book(config.rsi_candle_3lot_paper_trading)
         self.ha_book = self._build_book(config.heikin_ashi_paper_trading)
+        self.stretch_book = self._build_book(config.rsi_stretch_paper_trading)
         # Frozen at the start of each run_once so a 15:15 screen that
         # overruns into 15:45 still opens new paper.
         self._open_new_paper = False
@@ -79,7 +82,12 @@ class OIRsiScanner:
     def _books(self) -> list[PaperBook]:
         return [
             book
-            for book in (self.two_week_book, self.three_lot_book, self.ha_book)
+            for book in (
+                self.two_week_book,
+                self.three_lot_book,
+                self.ha_book,
+                self.stretch_book,
+            )
             if book
         ]
 
@@ -457,6 +465,13 @@ class OIRsiScanner:
             )
         if self.ha_book:
             self._run_one_paper_book(self.ha_book, ha_alerts, prices, rsi_values)
+        if self.stretch_book:
+            self._run_one_paper_book(
+                self.stretch_book,
+                self._stretch_alerts(candle_alerts),
+                prices,
+                rsi_values,
+            )
 
     def _bars_to_candles(
         self, rows: list[tuple[str, float, float, float, float]]
@@ -524,7 +539,7 @@ class OIRsiScanner:
                 )
         stop_txt = f", stop ₹{shown_stop:,.2f}" if shown_stop else ""
         print(f"  {symbol}: {signal.value} {pattern} ({detail}{stop_txt})")
-        return make_candle_alert(
+        alert = make_candle_alert(
             symbol=symbol,
             ltp=ltp,
             rsi=rsi,
@@ -532,6 +547,35 @@ class OIRsiScanner:
             pattern=pattern,
             stop_price=stop_price,
         )
+        alert.entry_timing = "next-day" if detail.startswith("next-day") else "same-day"
+        return alert
+
+    def _stretch_alerts(self, alerts: list[ScanAlert]) -> list[ScanAlert]:
+        """Copy of the candle alerts that pass the fourth book's entry rule.
+
+        The other books keep every candle alert. This book needs a 3% move
+        over the last 5 cash closes, and a long must be next-day.
+        """
+        rule = self.config.rsi_stretch
+        kept: list[ScanAlert] = []
+        for alert in alerts:
+            if alert.entry_timing not in ("same-day", "next-day"):
+                continue
+            closes = [close for _day, close in self.client.daily_closes(alert.symbol)]
+            fade = fade_pct(
+                closes,
+                is_short=alert.signal is SignalType.RSI_CANDLE_SHORT,
+                sessions=rule.fade_sessions,
+            )
+            if not stretch_entry_ok(
+                is_short=alert.signal is SignalType.RSI_CANDLE_SHORT,
+                same_day=alert.entry_timing == "same-day",
+                fade=fade,
+                min_fade_pct=rule.min_fade_pct,
+            ):
+                continue
+            kept.append(alert)
+        return kept
 
     def _check_candle_reversal(
         self, symbol: str, ltp: float

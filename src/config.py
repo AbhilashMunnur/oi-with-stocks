@@ -29,6 +29,19 @@ HA_SIGNALS = frozenset({"HA_SHORT", "HA_LONG"})
 
 
 @dataclass
+class StretchConfig:
+    """Fourth book only. The other three books do not read this.
+
+    ``min_fade_pct`` is how far the last ``fade_sessions`` closes must already
+    have moved the way the trade fades (up before a short, down before a long).
+    Longs are next-day only; that rule lives with the entry check.
+    """
+
+    min_fade_pct: float = 3.0
+    fade_sessions: int = 5
+
+
+@dataclass
 class RSIConfig:
     period: int
     call_threshold: float
@@ -212,6 +225,9 @@ class AppConfig:
     # Heikin_Ashi book: same ladder as the 3-lot book, HA-sequence entries.
     heikin_ashi: HeikinAshiConfig = field(default_factory=HeikinAshiConfig)
     heikin_ashi_paper_trading: PaperTradingConfig | None = None
+    # Fourth book: same 3-lot ladder, entries only after a real 5-session stretch.
+    rsi_stretch: StretchConfig = field(default_factory=StretchConfig)
+    rsi_stretch_paper_trading: PaperTradingConfig | None = None
     # Laboratory names: never short on any scanner; longs still allowed.
     no_short_symbols: list[str] = field(default_factory=list)
 
@@ -222,6 +238,7 @@ class AppConfig:
                 self.rsi_candle_2w_paper_trading,
                 self.rsi_candle_3lot_paper_trading,
                 self.heikin_ashi_paper_trading,
+                self.rsi_stretch_paper_trading,
             )
             if book is not None
         ]
@@ -242,6 +259,7 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
     two_week_raw = raw.get("rsi_candle_2w_paper_trading")
     three_lot_raw = raw.get("rsi_candle_3lot_paper_trading")
     ha_raw = raw.get("heikin_ashi_paper_trading")
+    stretch_raw = raw.get("rsi_stretch_paper_trading")
 
     return AppConfig(
         rsi=RSIConfig(**raw["rsi"]),
@@ -266,5 +284,9 @@ def load_config(path: str | Path = "config.yaml") -> AppConfig:
         heikin_ashi=HeikinAshiConfig(**(raw.get("heikin_ashi") or {})),
         heikin_ashi_paper_trading=(
             PaperTradingConfig(**ha_raw) if ha_raw else None
+        ),
+        rsi_stretch=StretchConfig(**(raw.get("rsi_stretch") or {})),
+        rsi_stretch_paper_trading=(
+            PaperTradingConfig(**stretch_raw) if stretch_raw else None
         ),
     )

@@ -131,6 +131,7 @@ def test_scanner_routes_ha_alerts_only_to_the_heikin_ashi_book(tmp_path, monkeyp
         (config.rsi_candle_2w_paper_trading, "live"),
         (config.rsi_candle_3lot_paper_trading, "final"),
         (config.heikin_ashi_paper_trading, "ha"),
+        (config.rsi_stretch_paper_trading, "stretch"),
     ):
         paper.ledger_path = str(tmp_path / f"{stem}.json")
         paper.journal_csv = str(tmp_path / f"{stem}.csv")
@@ -159,6 +160,7 @@ def test_scanner_routes_ha_alerts_only_to_the_heikin_ashi_book(tmp_path, monkeyp
     assert seen["RSI_CandlePattern"] == ["TITAN"]
     assert seen["RSI_Candle_3Lot"] == ["TITAN"]
     assert seen["Heikin_Ashi"] == ["ITC", "TRENT"]
+    assert seen["RSI_Stretch"] == []
 
     ha_book = scanner.ha_book
     ha_book.open_from_alerts([_alert(SignalType.HA_SHORT, "TRENT"), _alert(SignalType.HA_LONG, "ITC")])
@@ -166,3 +168,29 @@ def test_scanner_routes_ha_alerts_only_to_the_heikin_ashi_book(tmp_path, monkeyp
         "TRENT": "SHORT",
         "ITC": "LONG",
     }
+
+
+def test_stretch_filter_keeps_a_next_day_long_after_a_drop(tmp_path, monkeypatch):
+    from src import scanner as scanner_mod
+
+    config = load_config()
+    for paper in config.candle_books():
+        paper.ledger_path = str(tmp_path / f"{paper.name}.json")
+        paper.journal_csv = str(tmp_path / f"{paper.name}.csv")
+        paper.google_sheet_id = ""
+
+    monkeypatch.setattr(scanner_mod, "AngelOneClient", lambda **_: object())
+    monkeypatch.setattr(scanner_mod, "Notifier", lambda _cfg: object())
+    scanner = scanner_mod.OIRsiScanner(config)
+    scanner.client = type(
+        "C",
+        (),
+        {"daily_closes": lambda self, symbol: [(f"d{i}", 100 - i) for i in range(8)]},
+    )()
+
+    long_next = _alert(SignalType.RSI_CANDLE_LONG, "SBIN")
+    long_next.entry_timing = "next-day"
+    long_same = _alert(SignalType.RSI_CANDLE_LONG, "TITAN")
+    long_same.entry_timing = "same-day"
+    kept = scanner._stretch_alerts([long_next, long_same])
+    assert [a.symbol for a in kept] == ["SBIN"]

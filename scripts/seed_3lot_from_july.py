@@ -44,9 +44,11 @@ import src.paper_trading.book as book_mod
 from src.candle_patterns import (
     Candle,
     candle_stop_price,
+    fade_pct,
     make_candle_alert,
     reversal_setup,
     same_day_setup,
+    stretch_entry_ok,
 )
 from src.config import SignalType, load_config
 from src.data.angelone_client import AngelOneClient
@@ -106,11 +108,17 @@ def futures_expiry(as_of: date, symbol: str | None = None, client=None) -> str:
     return last_tuesday(year, month).isoformat()
 
 
-def load_bars(client: AngelOneClient, symbols: list[str], days: int) -> dict[str, list]:
+def load_bars(
+    client: AngelOneClient,
+    symbols: list[str],
+    days: int,
+    cache_path: Path | None = None,
+) -> dict[str, list]:
     CACHE.mkdir(parents=True, exist_ok=True)
-    if OHLC_CACHE.exists():
-        data = json.loads(OHLC_CACHE.read_text())
-        print(f"  reusing cached bars for {len(data)} name(s)")
+    path = cache_path or OHLC_CACHE
+    if path.exists():
+        data = json.loads(path.read_text())
+        print(f"  reusing cached bars for {len(data)} name(s) from {path.name}")
         return data
 
     data: dict[str, list] = {}
@@ -159,7 +167,9 @@ def build_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -> l
                 cfg=cfg,
             )
             rsi_val = y_rsi
+            timing = "same-day"
             if setup:
+                timing = "next-day"
                 stop = candle_stop_price(
                     setup[0], reversal=today, prior=yesterday, same_day=False
                 )
@@ -202,9 +212,35 @@ def build_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -> l
                     "stop": stop,
                     "entry": cur[4],
                     "rsi": round(float(rsi_val or 0), 2),
+                    "timing": timing,
                 }
             )
     out.sort(key=lambda row: (row["day"], row["symbol"]))
+    return out
+
+
+def build_stretch_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -> list[dict]:
+    """RSI candle entries that also pass the stretch rule.
+
+    Same signals as the 3-lot book, then drop a trade whose last 5 closes
+    have not already moved ``min_fade_pct`` the way it fades. Longs must
+    be next-day. The other books are not filtered here.
+    """
+    rule = config.rsi_stretch
+    out: list[dict] = []
+    for row in build_signals(data, config, lot_sizes):
+        rows = data.get(row["symbol"]) or []
+        closes = [r[4] for r in rows if r[0] <= row["day"]]
+        is_short = str(row["signal"]).endswith("SHORT")
+        fade = fade_pct(closes, is_short=is_short, sessions=rule.fade_sessions)
+        if not stretch_entry_ok(
+            is_short=is_short,
+            same_day=row.get("timing") == "same-day",
+            fade=fade,
+            min_fade_pct=rule.min_fade_pct,
+        ):
+            continue
+        out.append(row)
     return out
 
 
@@ -271,6 +307,7 @@ def build_ha_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -
 BOOKS = {
     "3lot": ("rsi_candle_3lot_paper_trading", build_signals),
     "heikin_ashi": ("heikin_ashi_paper_trading", build_ha_signals),
+    "stretch": ("rsi_stretch_paper_trading", build_stretch_signals),
 }
 
 
@@ -311,7 +348,17 @@ def main() -> None:
         "--book",
         choices=sorted(BOOKS),
         default="3lot",
-        help="Which book to seed: 3lot (RSI + normal candle) or heikin_ashi",
+        help="Which book to seed: 3lot, heikin_ashi, or stretch",
+    )
+    parser.add_argument(
+        "--ohlc",
+        default="",
+        help="OHLC cache JSON to reuse instead of .cache/seed_3lot_ohlc.json",
+    )
+    parser.add_argument(
+        "--ledger-dir",
+        default="",
+        help="Write the seeded ledger here instead of data/",
     )
     args = parser.parse_args()
 
@@ -329,7 +376,8 @@ def main() -> None:
     try:
         symbols = client.fno_symbols()
         print(f"Loading {args.days}d of daily bars for {len(symbols)} F&O names…")
-        data = load_bars(client, symbols, args.days)
+        ohlc_path = Path(args.ohlc) if args.ohlc else None
+        data = load_bars(client, symbols, args.days, ohlc_path)
         lot_sizes = {symbol: client.lot_size(symbol) or 0 for symbol in data}
     finally:
         client.close()
@@ -348,8 +396,14 @@ def main() -> None:
     ]
     print(f"  {len(signals)} qualifying signal(s)")
 
-    ledger = ROOT / paper.ledger_path
-    journal_csv = ROOT / paper.journal_csv
+    if args.ledger_dir:
+        out_dir = Path(args.ledger_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        ledger = out_dir / Path(paper.ledger_path).name
+        journal_csv = out_dir / Path(paper.journal_csv).name
+    else:
+        ledger = ROOT / paper.ledger_path
+        journal_csv = ROOT / paper.journal_csv
     if ledger.exists():
         ledger.unlink()
     if journal_csv.exists():
@@ -458,8 +512,8 @@ def main() -> None:
         f"total ₹{book.realised_pnl + book.unrealised(final_prices):+,.0f}\n"
         f"  capital used ₹{last_row.get('Capital used in positions', 0):,}  "
         f"free ₹{last_row.get('Capital free', 0):,}\n"
-        f"  ledger {ledger.relative_to(ROOT)}\n"
-        f"  journal {journal_csv.relative_to(ROOT)}"
+        f"  ledger {ledger}\n"
+        f"  journal {journal_csv}"
     )
 
     if args.skip_sheets:

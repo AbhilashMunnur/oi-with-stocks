@@ -183,6 +183,52 @@ def same_day_setup(
     return None
 
 
+def prior_move_pct(closes: list[float], sessions: int = 5) -> float | None:
+    """Close-to-close percent move over ``sessions`` steps, ending at the last close.
+
+    Positive means the price rose. Needs ``sessions + 1`` closes.
+    """
+    if sessions <= 0 or len(closes) < sessions + 1:
+        return None
+    start = closes[-(sessions + 1)]
+    end = closes[-1]
+    if start <= 0:
+        return None
+    return (end - start) / start * 100.0
+
+
+def fade_pct(closes: list[float], *, is_short: bool, sessions: int = 5) -> float | None:
+    """How far price already ran the way this trade is fading.
+
+    A short fades a rise, so a positive number is a rise. A long fades a drop.
+    """
+    move = prior_move_pct(closes, sessions)
+    if move is None:
+        return None
+    return move if is_short else -move
+
+
+def stretch_entry_ok(
+    *,
+    is_short: bool,
+    same_day: bool,
+    fade: float | None,
+    min_fade_pct: float = 3.0,
+) -> bool:
+    """True when the entry is a real reversal, not a same-day guess.
+
+    The last ``sessions`` closes must already have moved at least
+    ``min_fade_pct`` the way the trade fades. Longs also have to be the
+    next-day candle: yesterday closed through RSI 30, today reverses.
+    A same-day long, including a hammer, is refused.
+    """
+    if fade is None or fade < min_fade_pct:
+        return False
+    if not is_short and same_day:
+        return False
+    return True
+
+
 def candle_stop_price(
     signal: SignalType,
     *,

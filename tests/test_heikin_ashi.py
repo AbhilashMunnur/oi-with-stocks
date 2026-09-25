@@ -225,4 +225,4 @@ def test_config_loads_the_heikin_ashi_book():
     assert book.ledger_path == "data/heikin_ashi_paper_book.json"
     assert book.google_worksheet == "Heikin Ashi Paper trades"
     assert book.google_summary_worksheet == "Heikin Ashi Portfolio Summary"
-    assert len(config.candle_books()) == 3
+    assert len(config.candle_books()) == 4

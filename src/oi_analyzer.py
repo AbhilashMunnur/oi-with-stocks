@@ -48,6 +48,8 @@ class ScanAlert:
     skip_reason: str | None = None
     # RSI+candle: cash high/low used as the futures stop for both lots.
     stop_price: float | None = None
+    # "same-day" or "next-day" on an RSI candle entry. Empty otherwise.
+    entry_timing: str = ""
 
     def in_contracts(self, shares: int | None) -> int | None:
         """Angel One reports OI in shares; traders read it in contracts."""

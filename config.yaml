@@ -168,3 +168,43 @@ heikin_ashi_paper_trading:
   google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
   google_worksheet: "Heikin Ashi Paper trades"
   google_summary_worksheet: "Heikin Ashi Portfolio Summary"
+
+# Fourth book. Does not change the three books above.
+# Same 3 lots, Rs 4 Cr, 1.5% stop and 5% / 12% ladder.
+# Entry only after the last 5 closes have already moved 3% the way the
+# trade fades (up before a short, down before a long). Longs are next-day
+# only: yesterday closed through RSI 30, today the candle reverses.
+# A same-day long, including a hammer, is not taken.
+rsi_stretch:
+  min_fade_pct: 3.0
+  fade_sessions: 5
+
+rsi_stretch_paper_trading:
+  enabled: true
+  name: "RSI_Stretch"
+  capital: 40000000
+  lots_per_trade: 3
+  first_target_pct: 5.0
+  second_target_pct: 12.0
+  smma_fast: 21
+  smma_slow: 50
+  second_lot_rsi_short: 30
+  second_lot_rsi_long: 70
+  final_lot_smma_cross_exit: true
+  final_lot_no_stop: true
+  stop_loss_pct: 1.5
+  second_lot_stop_pct: 1.5
+  candle_stop: false
+  margin_pct: 20.0
+  futures_month: 3
+  skip_new_entries: false
+  mark_entry_contract: true
+  cash_close_stop: true
+  loss_streak_count: 3
+  loss_streak_sessions: 10
+  skip_qualifies_after_streak: 3
+  ledger_path: data/rsi_stretch_paper_book.json
+  journal_csv: data/rsi_stretch_paper_trades.csv
+  google_sheet_id: "1PhX3QFeNLMMITd8glmZ3C2YfoAeRJ9wZjXOeB0hjrPY"
+  google_worksheet: "RSI Stretch Paper trades"
+  google_summary_worksheet: "RSI Stretch Portfolio Summary"

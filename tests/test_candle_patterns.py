@@ -1,6 +1,7 @@
 from src.candle_patterns import (
     Candle,
     candle_stop_price,
+    fade_pct,
     day2_long_pattern,
     day2_short_pattern,
     is_hammer,
@@ -10,6 +11,7 @@ from src.candle_patterns import (
     is_weak_middle,
     reversal_setup,
     same_day_setup,
+    stretch_entry_ok,
     waiting_reason,
     wider_of_candle_and_pct,
     with_live_close,
@@ -248,3 +250,17 @@ def test_long_stop_uses_the_low_when_it_is_farther_than_two_percent():
     assert wider_of_candle_and_pct(
         "LONG", entry=100.0, candle_stop=95.0, pct=2.0
     ) == 95.0
+
+
+def test_fade_pct_is_the_move_the_trade_is_fading():
+    closes = [100, 100, 100, 100, 100, 103]
+    assert fade_pct(closes, is_short=True) == 3.0
+    assert fade_pct(closes, is_short=False) == -3.0
+
+
+def test_stretch_entry_needs_a_real_move_and_refuses_a_same_day_long():
+    assert stretch_entry_ok(is_short=True, same_day=True, fade=2.9) is False
+    assert stretch_entry_ok(is_short=True, same_day=True, fade=3.0) is True
+    assert stretch_entry_ok(is_short=False, same_day=True, fade=5.0) is False
+    assert stretch_entry_ok(is_short=False, same_day=False, fade=3.0) is True
+    assert stretch_entry_ok(is_short=True, same_day=False, fade=None) is False
