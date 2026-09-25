@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1248870.51,
-  "closed_count": 320,
+  "realised_pnl": 1229557.78,
+  "closed_count": 321,
   "day_date": "2026-09-25",
-  "day_realised_pnl": -104951.96,
-  "updated_at": "2026-09-25 12:30:59",
+  "day_realised_pnl": -124264.69,
+  "updated_at": "2026-09-25 13:00:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1251,6 +1251,11 @@
       "symbol": "IRFC",
       "exit_date": "2026-09-16",
       "pnl": -19796.1
+    },
+    {
+      "symbol": "IRFC",
+      "exit_date": "2026-09-25",
+      "pnl": -19312.73
     },
     {
       "symbol": "APLAPOLLO",
@@ -3061,23 +3066,6 @@
       "rsi_at_entry": 22.70919677937762,
       "strike": 0.0,
       "margin_blocked": 331617.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IRFC",
-      "direction": "LONG",
-      "entry_price": 79.11,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 5425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 19.507434403490947,
-      "strike": 0.0,
-      "margin_blocked": 257503.05,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
