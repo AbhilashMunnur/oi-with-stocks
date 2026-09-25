@@ -488,3 +488,14 @@ BAJAJFINSV,Sell,07-Aug-26,2008.9,73.1,24-Sep-26,1773.5,28.9,34,120534*1,70620,rs
 PFC,Buy,01-Sep-26,345.8,15.8,25-Sep-26,340.61,,18,89908*3,-20229,stop_loss,1.5% stop ₹340.61
 TMPV,Buy,11-Sep-26,301.1,27.9,25-Sep-26,296.58,,10,96352*2,-14453,stop_loss,1.5% stop ₹296.58 (tightened after lot 1 booked)
 CHOLAFIN,Buy,24-Sep-26,1695.0,32.7,25-Sep-26,1669.58,,1,211875*3,-47672,stop_loss,"1.5% stop ₹1,669.58"
+PAYTM,Sell,15-Sep-26,1730.0,71.3,16-Sep-26,1755.95,65.0,1,250850*3,-56441,stop_loss,"1.5% stop ₹1,755.95"
+GODFRYPHLP,Buy,15-Sep-26,1915.0,28.4,18-Sep-26,2010.75,46.0,3,105325*1,26331,first_target,"lot 1 booked — 5% target ₹2,010.75"
+IREDA,Buy,16-Sep-26,108.4,29.6,18-Sep-26,113.82,50.0,2,98102*1,24526,first_target,lot 1 booked — 5% target ₹113.82
+DLF,Buy,16-Sep-26,622.8,32.8,21-Sep-26,653.94,50.9,3,118332*1,29583,first_target,lot 1 booked — 5% target ₹653.94
+DLF,Buy,16-Sep-26,622.8,32.8,21-Sep-26,637.15,50.9,3,118332*1,13634,second_target,lot 2 booked — SMMA 50 ₹637.15
+PIIND,Buy,15-Sep-26,2255.0,26.3,22-Sep-26,2367.75,48.8,5,78925*1,19731,first_target,"lot 1 booked — 5% target ₹2,367.75"
+BRITANNIA,Buy,16-Sep-26,4999.5,27.5,22-Sep-26,4924.51,30.9,4,124988*3,-28122,stop_loss,"1.5% stop ₹4,924.51"
+EICHERMOT,Buy,16-Sep-26,7500.0,34.1,24-Sep-26,7387.5,30.0,6,150000*3,-33750,stop_loss,"1.5% stop ₹7,387.50"
+ICICIGI,Buy,16-Sep-26,1440.0,16.0,24-Sep-26,1512.0,57.0,6,93600*1,23400,first_target,"lot 1 booked — 5% target ₹1,512.00"
+NESTLEIND,Buy,16-Sep-26,1384.5,29.2,24-Sep-26,1363.73,35.9,6,138450*3,-31151,stop_loss,"1.5% stop ₹1,363.73"
+MARUTI,Buy,23-Sep-26,12230.0,28.5,24-Sep-26,12046.55,26.1,1,122300*3,-27518,stop_loss,"1.5% stop ₹12,046.55"

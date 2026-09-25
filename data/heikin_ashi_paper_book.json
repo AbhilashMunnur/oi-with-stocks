@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -171464.14,
+  "realised_pnl": -301432.14,
   "closed_count": 244,
   "day_date": "2026-09-25",
   "day_realised_pnl": -60825.21,
-  "updated_at": "2026-09-25 12:00:17",
+  "updated_at": "2026-09-25 12:29:04",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1289,6 +1289,41 @@
       "symbol": "BAJAJFINSV",
       "exit_date": "2026-09-24",
       "pnl": 118313.78
+    },
+    {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-09-16",
+      "pnl": -19350.0
+    },
+    {
+      "symbol": "SOLARINDS",
+      "exit_date": "2026-09-22",
+      "pnl": -43312.5
+    },
+    {
+      "symbol": "TATACONSUM",
+      "exit_date": "2026-09-22",
+      "pnl": -24752.47
+    },
+    {
+      "symbol": "NESTLEIND",
+      "exit_date": "2026-09-22",
+      "pnl": -31162.5
+    },
+    {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-22",
+      "pnl": -19272.94
+    },
+    {
+      "symbol": "TMPV",
+      "exit_date": "2026-09-24",
+      "pnl": -21859.2
+    },
+    {
+      "symbol": "PREMIERENE",
+      "exit_date": "2026-09-24",
+      "pnl": -26907.07
     }
   ],
   "qualify_skips": {
@@ -2392,6 +2427,72 @@
       "rsi_at_entry": 71.49168153378884,
       "strike": 0.0,
       "margin_blocked": 795337.5,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "ALKEM",
+      "direction": "LONG",
+      "entry_price": 5161.0,
+      "entry_time": "2026-09-15 15:15:00",
+      "lot_size": 125,
+      "lots_open": 1,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 28.75,
+      "strike": 0.0,
+      "margin_blocked": 129025.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 5358.82,
+          "exit_time": "2026-09-18 15:15:00",
+          "reason": "first_target",
+          "pnl": 24726.93
+        },
+        {
+          "lots": 1,
+          "exit_price": 5416.37,
+          "exit_time": "2026-09-18 15:15:00",
+          "reason": "second_target",
+          "pnl": 31921.15
+        }
+      ],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "MAZDOCK",
+      "direction": "LONG",
+      "entry_price": 2232.0,
+      "entry_time": "2026-09-21 15:15:00",
+      "lot_size": 225,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 22.98,
+      "strike": 0.0,
+      "margin_blocked": 301320.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "PAYTM",
+      "direction": "SHORT",
+      "entry_price": 1775.0,
+      "entry_time": "2026-09-23 15:15:00",
+      "lot_size": 725,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-11-23",
+      "rsi_at_entry": 71.3,
+      "strike": 0.0,
+      "margin_blocked": 772125.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
