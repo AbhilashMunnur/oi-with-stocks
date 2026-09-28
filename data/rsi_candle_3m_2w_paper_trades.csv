@@ -274,3 +274,9 @@ KOTAKBANK,Sell,28-Aug-26,423.7,74.8,25-Sep-26,407.33,64.7,20,169480*1,32744,firs
 IREDA,Buy,16-Sep-26,108.4,29.6,28-Sep-26,106.23,,8,98102*2,-19620,stop_loss,2% stop ₹106.23 (tightened after lot 1 booked)
 ATHERENERG,Sell,02-Sep-26,1661.0,69.0,28-Sep-26,1461.68,,18,124575*1,74745,second_target,"final lot booked — 12% target ₹1,461.68"
 SBIN,Buy,16-Sep-26,991.4,28.8,28-Sep-26,971.57,,8,148710*3,-44613,stop_loss,2% stop ₹971.57
+UNOMINDA,Sell,01-Sep-26,1275.0,63.4,28-Sep-26,1192.47,40.7,19,140250*1,45392,second_target,"final lot booked — SMMA 50 ₹1,192.47"
+PNB,Sell,13-Aug-26,117.59,73.8,28-Sep-26,115.15,49.5,32,188144*1,19518,first_target,lot 1 booked — SMMA 21 ₹115.15
+PNB,Sell,13-Aug-26,117.59,73.8,28-Sep-26,113.33,49.5,32,188144*1,34072,second_target,final lot booked — SMMA 50 ₹113.33
+DRREDDY,Buy,03-Aug-26,1169.7,28.5,28-Sep-26,1215.07,56.1,40,146212*1,28356,second_target,"final lot booked — SMMA 50 ₹1,215.07"
+BHARATFORG,Buy,16-Sep-26,1885.0,32.8,28-Sep-26,1969.1,32.9,8,188500*1,42050,smma_cross,"final lot booked — strong candle closed 1,957.00 below SMMA 21 ₹2,018.66"
+LODHA,Buy,16-Sep-26,1087.4,34.7,28-Sep-26,1108.0,37.1,8,135925*1,12875,smma_cross,"final lot booked — strong candle closed 1,117.10 below SMMA 21 ₹1,165.17"
