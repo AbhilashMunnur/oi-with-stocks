@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -281851.39,
-  "closed_count": 255,
+  "realised_pnl": -342869.48,
+  "closed_count": 258,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -95950.3,
-  "updated_at": "2026-09-28 14:01:02",
+  "day_realised_pnl": -156968.39,
+  "updated_at": "2026-09-28 14:30:21",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -952,6 +952,11 @@
       "pnl": -22914.0
     },
     {
+      "symbol": "POWERGRID",
+      "exit_date": "2026-09-28",
+      "pnl": -22811.4
+    },
+    {
       "symbol": "INFY",
       "exit_date": "2026-08-20",
       "pnl": 105061.34
@@ -1307,6 +1312,11 @@
       "pnl": -22432.95
     },
     {
+      "symbol": "IEX",
+      "exit_date": "2026-09-28",
+      "pnl": -22344.86
+    },
+    {
       "symbol": "TIINDIA",
       "exit_date": "2026-09-24",
       "pnl": -23644.8
@@ -1380,6 +1390,11 @@
       "symbol": "COCHINSHIP",
       "exit_date": "2026-09-28",
       "pnl": -24643.8
+    },
+    {
+      "symbol": "ONGC",
+      "exit_date": "2026-09-28",
+      "pnl": 10574.55
     }
   ],
   "qualify_skips": {
@@ -1387,31 +1402,6 @@
     "SUNPHARMA": 2
   },
   "positions": [
-    {
-      "symbol": "ONGC",
-      "direction": "LONG",
-      "entry_price": 234.99,
-      "entry_time": "2026-07-01 15:15:00",
-      "lot_size": 2250,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-09-29",
-      "rsi_at_entry": 21.31,
-      "strike": 0.0,
-      "margin_blocked": 211491.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 246.74,
-          "exit_time": "2026-07-08 15:15:00",
-          "reason": "first_target",
-          "pnl": 26436.38
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
     {
       "symbol": "INDIGO",
       "direction": "SHORT",
@@ -1950,23 +1940,6 @@
       "stop_price": null
     },
     {
-      "symbol": "POWERGRID",
-      "direction": "LONG",
-      "entry_price": 266.8,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 1900,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.47,
-      "strike": 0.0,
-      "margin_blocked": 304152.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAPOWER",
       "direction": "LONG",
       "entry_price": 364.0,
@@ -2402,23 +2375,6 @@
           "pnl": 64343.75
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IEX",
-      "direction": "LONG",
-      "entry_price": 114.15,
-      "entry_time": "2026-09-25 15:53:38",
-      "lot_size": 4350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.789113548608356,
-      "strike": 0.0,
-      "margin_blocked": 297931.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

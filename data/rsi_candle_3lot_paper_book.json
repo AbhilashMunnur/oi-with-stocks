@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 874337.65,
-  "closed_count": 340,
+  "realised_pnl": 851992.79,
+  "closed_count": 341,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -347626.58,
-  "updated_at": "2026-09-28 14:00:56",
+  "day_realised_pnl": -369971.44,
+  "updated_at": "2026-09-28 14:30:11",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1719,6 +1719,11 @@
       "pnl": -22432.95
     },
     {
+      "symbol": "IEX",
+      "exit_date": "2026-09-28",
+      "pnl": -22344.86
+    },
+    {
       "symbol": "CUMMINSIND",
       "exit_date": "2026-09-16",
       "pnl": -45270.0
@@ -3418,23 +3423,6 @@
       "rsi_at_entry": 32.274818905387434,
       "strike": 0.0,
       "margin_blocked": 490500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IEX",
-      "direction": "LONG",
-      "entry_price": 114.15,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 4350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 41.20226807691407,
-      "strike": 0.0,
-      "margin_blocked": 297931.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
