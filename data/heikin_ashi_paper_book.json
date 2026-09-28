@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -185901.09,
-  "closed_count": 247,
-  "day_date": "2026-09-25",
-  "day_realised_pnl": 54705.84,
-  "updated_at": "2026-09-25 15:53:38",
+  "realised_pnl": -322841.27,
+  "closed_count": 251,
+  "day_date": "2026-09-28",
+  "day_realised_pnl": -136940.18,
+  "updated_at": "2026-09-28 09:31:25",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -67,7 +67,8 @@
     "2026-09-22",
     "2026-09-23",
     "2026-09-24",
-    "2026-09-25"
+    "2026-09-25",
+    "2026-09-28"
   ],
   "closed_results": [
     {
@@ -144,6 +145,11 @@
       "symbol": "ASTRAL",
       "exit_date": "2026-09-22",
       "pnl": -27224.44
+    },
+    {
+      "symbol": "ASTRAL",
+      "exit_date": "2026-09-28",
+      "pnl": -26908.88
     },
     {
       "symbol": "JINDALSTEL",
@@ -896,6 +902,11 @@
       "pnl": -35977.5
     },
     {
+      "symbol": "SBIN",
+      "exit_date": "2026-09-28",
+      "pnl": -33729.75
+    },
+    {
       "symbol": "PAGEIND",
       "exit_date": "2026-08-13",
       "pnl": 247530.1
@@ -1339,6 +1350,16 @@
       "symbol": "ALKEM",
       "exit_date": "2026-09-25",
       "pnl": 79023.08
+    },
+    {
+      "symbol": "HINDPETRO",
+      "exit_date": "2026-09-28",
+      "pnl": -32404.05
+    },
+    {
+      "symbol": "BIOCON",
+      "exit_date": "2026-09-28",
+      "pnl": -43897.5
     }
   ],
   "qualify_skips": {
@@ -2202,23 +2223,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HINDPETRO",
-      "direction": "LONG",
-      "entry_price": 355.6,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 2025,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.438866853589403,
-      "strike": 0.0,
-      "margin_blocked": 432054.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ICICIGI",
       "direction": "LONG",
       "entry_price": 1485.9,
@@ -2327,23 +2331,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SBIN",
-      "direction": "LONG",
-      "entry_price": 999.4,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.816487999515616,
-      "strike": 0.0,
-      "margin_blocked": 449730.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SRF",
       "direction": "LONG",
       "entry_price": 2570.0,
@@ -2355,23 +2342,6 @@
       "rsi_at_entry": 28.791470015838044,
       "strike": 0.0,
       "margin_blocked": 308400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BIOCON",
-      "direction": "LONG",
-      "entry_price": 390.2,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 2500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.394411286757702,
-      "strike": 0.0,
-      "margin_blocked": 585300.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2466,23 +2436,6 @@
           "pnl": 64343.75
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASTRAL",
-      "direction": "LONG",
-      "entry_price": 1407.0,
-      "entry_time": "2026-09-25 15:53:38",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.554842718117243,
-      "strike": 0.0,
-      "margin_blocked": 358785.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

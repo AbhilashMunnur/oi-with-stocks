@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 619843.87,
-  "closed_count": 227,
-  "day_date": "2026-09-25",
-  "day_realised_pnl": 89776.42,
-  "updated_at": "2026-09-25 15:53:23",
+  "realised_pnl": 600223.47,
+  "closed_count": 228,
+  "day_date": "2026-09-28",
+  "day_realised_pnl": -19620.4,
+  "updated_at": "2026-09-28 09:30:58",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -26,7 +26,8 @@
     "2026-09-22",
     "2026-09-23",
     "2026-09-24",
-    "2026-09-25"
+    "2026-09-25",
+    "2026-09-28"
   ],
   "closed_results": [
     {
@@ -155,6 +156,11 @@
       "pnl": 0.0
     },
     {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-09-22",
+      "pnl": -25697.25
+    },
+    {
       "symbol": "HINDPETRO",
       "exit_date": "2026-09-08",
       "pnl": -27540.0
@@ -228,6 +234,11 @@
       "symbol": "PAYTM",
       "exit_date": "2026-09-09",
       "pnl": 34966.75
+    },
+    {
+      "symbol": "PAYTM",
+      "exit_date": "2026-09-16",
+      "pnl": -75255.0
     },
     {
       "symbol": "ITC",
@@ -665,6 +676,11 @@
       "pnl": -25375.0
     },
     {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-09-24",
+      "pnl": -37496.25
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-11",
       "pnl": -38976.0
@@ -683,6 +699,11 @@
       "symbol": "BAJAJFINSV",
       "exit_date": "2026-09-22",
       "pnl": -32220.0
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "exit_date": "2026-09-24",
+      "pnl": -33237.0
     },
     {
       "symbol": "JUBLFOOD",
@@ -750,6 +771,11 @@
       "pnl": 0.0
     },
     {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-09-22",
+      "pnl": -24652.5
+    },
+    {
       "symbol": "PATANJALI",
       "exit_date": "2026-09-21",
       "pnl": 63231.5
@@ -785,26 +811,6 @@
       "pnl": 18843.75
     },
     {
-      "symbol": "PAYTM",
-      "exit_date": "2026-09-16",
-      "pnl": -75255.0
-    },
-    {
-      "symbol": "TATAELXSI",
-      "exit_date": "2026-09-22",
-      "pnl": -24652.5
-    },
-    {
-      "symbol": "VOLTAS",
-      "exit_date": "2026-09-22",
-      "pnl": -25697.25
-    },
-    {
-      "symbol": "BRITANNIA",
-      "exit_date": "2026-09-24",
-      "pnl": -37496.25
-    },
-    {
       "symbol": "EICHERMOT",
       "exit_date": "2026-09-24",
       "pnl": -45000.0
@@ -815,9 +821,9 @@
       "pnl": -41535.0
     },
     {
-      "symbol": "BAJAJFINSV",
-      "exit_date": "2026-09-24",
-      "pnl": -33237.0
+      "symbol": "IREDA",
+      "exit_date": "2026-09-28",
+      "pnl": 4905.1
     }
   ],
   "qualify_skips": {
@@ -2274,31 +2280,6 @@
           "exit_time": "2026-09-21 15:15:00",
           "reason": "second_target",
           "pnl": 13633.6
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IREDA",
-      "direction": "LONG",
-      "entry_price": 108.4,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 4525,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.57,
-      "strike": 0.0,
-      "margin_blocked": 196204.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 113.82,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "first_target",
-          "pnl": 24525.5
         }
       ],
       "priced_on": "futures",

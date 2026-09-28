@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1221964.23,
-  "closed_count": 322,
-  "day_date": "2026-09-25",
-  "day_realised_pnl": -131858.24,
-  "updated_at": "2026-09-25 15:53:33",
+  "realised_pnl": 1084742.05,
+  "closed_count": 327,
+  "day_date": "2026-09-28",
+  "day_realised_pnl": -137222.18,
+  "updated_at": "2026-09-28 09:31:16",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -69,7 +69,8 @@
     "2026-09-22",
     "2026-09-23",
     "2026-09-24",
-    "2026-09-25"
+    "2026-09-25",
+    "2026-09-28"
   ],
   "closed_results": [
     {
@@ -181,6 +182,11 @@
       "symbol": "CHOLAFIN",
       "exit_date": "2026-09-25",
       "pnl": -47671.87
+    },
+    {
+      "symbol": "CHOLAFIN",
+      "exit_date": "2026-09-28",
+      "pnl": -47390.63
     },
     {
       "symbol": "DELHIVERY",
@@ -516,6 +522,11 @@
       "symbol": "INDUSINDBK",
       "exit_date": "2026-08-03",
       "pnl": -31673.25
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-09-28",
+      "pnl": -29310.75
     },
     {
       "symbol": "NAUKRI",
@@ -1668,6 +1679,11 @@
       "pnl": -21159.9
     },
     {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-09-28",
+      "pnl": -21065.4
+    },
+    {
       "symbol": "BIOCON",
       "exit_date": "2026-09-16",
       "pnl": -43948.13
@@ -1706,6 +1722,16 @@
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-24",
       "pnl": -31151.25
+    },
+    {
+      "symbol": "TATACONSUM",
+      "exit_date": "2026-09-28",
+      "pnl": -24740.1
+    },
+    {
+      "symbol": "IREDA",
+      "exit_date": "2026-09-28",
+      "pnl": 9810.2
     }
   ],
   "qualify_skips": {
@@ -2816,23 +2842,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TATACONSUM",
-      "direction": "LONG",
-      "entry_price": 999.6,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 550,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 31.36,
-      "strike": 0.0,
-      "margin_blocked": 329868.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ULTRACEMCO",
       "direction": "LONG",
       "entry_price": 10979.0,
@@ -2968,23 +2977,6 @@
       "rsi_at_entry": 27.294216378648358,
       "strike": 0.0,
       "margin_blocked": 319440.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 390.1,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 1200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.381411168691216,
-      "strike": 0.0,
-      "margin_blocked": 280872.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3211,23 +3203,6 @@
       "stop_price": null
     },
     {
-      "symbol": "INDUSINDBK",
-      "direction": "LONG",
-      "entry_price": 930.5,
-      "entry_time": "2026-09-24 18:09:38",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.11259337885225,
-      "strike": 0.0,
-      "margin_blocked": 390810.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PGEL",
       "direction": "LONG",
       "entry_price": 518.5,
@@ -3403,31 +3378,6 @@
       "stop_price": null
     },
     {
-      "symbol": "IREDA",
-      "direction": "LONG",
-      "entry_price": 108.4,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 4525,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.57,
-      "strike": 0.0,
-      "margin_blocked": 196204.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 113.82,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "first_target",
-          "pnl": 24525.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PRESTIGE",
       "direction": "LONG",
       "entry_price": 1424.0,
@@ -3490,23 +3440,6 @@
       "rsi_at_entry": 29.05046154184832,
       "strike": 0.0,
       "margin_blocked": 371685.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CHOLAFIN",
-      "direction": "LONG",
-      "entry_price": 1685.0,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 31.20469022111297,
-      "strike": 0.0,
-      "margin_blocked": 631875.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

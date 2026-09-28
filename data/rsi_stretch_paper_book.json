@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2634814.74,
-  "closed_count": 193,
-  "day_date": "2026-09-25",
-  "day_realised_pnl": 2634814.74,
-  "updated_at": "2026-09-25 15:15:00",
+  "realised_pnl": 2552075.58,
+  "closed_count": 197,
+  "day_date": "2026-09-28",
+  "day_realised_pnl": -82739.16,
+  "updated_at": "2026-09-28 09:31:30",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -63,7 +63,8 @@
     "2026-09-22",
     "2026-09-23",
     "2026-09-24",
-    "2026-09-25"
+    "2026-09-25",
+    "2026-09-28"
   ],
   "closed_results": [
     {
@@ -962,9 +963,19 @@
       "pnl": -20135.43
     },
     {
+      "symbol": "IRFC",
+      "exit_date": "2026-09-28",
+      "pnl": -19273.67
+    },
+    {
       "symbol": "BDL",
       "exit_date": "2026-09-11",
       "pnl": 154758.62
+    },
+    {
+      "symbol": "BDL",
+      "exit_date": "2026-09-28",
+      "pnl": 9656.0
     },
     {
       "symbol": "INDIGO",
@@ -1030,6 +1041,16 @@
       "symbol": "IEX",
       "exit_date": "2026-09-24",
       "pnl": -22198.05
+    },
+    {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-09-28",
+      "pnl": -22597.99
+    },
+    {
+      "symbol": "PREMIERENE",
+      "exit_date": "2026-09-28",
+      "pnl": -26383.5
     }
   ],
   "qualify_skips": {
@@ -1600,31 +1621,6 @@
       "stop_price": null
     },
     {
-      "symbol": "BDL",
-      "direction": "LONG",
-      "entry_price": 1136.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 425,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.63,
-      "strike": 0.0,
-      "margin_blocked": 193120.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1192.8,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "first_target",
-          "pnl": 24140.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "DELHIVERY",
       "direction": "LONG",
       "entry_price": 421.8,
@@ -1676,23 +1672,6 @@
       "stop_price": null
     },
     {
-      "symbol": "IRFC",
-      "direction": "LONG",
-      "entry_price": 78.95,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 5425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.0,
-      "strike": 0.0,
-      "margin_blocked": 256982.25,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "KEI",
       "direction": "LONG",
       "entry_price": 4506.0,
@@ -1704,23 +1683,6 @@
       "rsi_at_entry": 27.46,
       "strike": 0.0,
       "margin_blocked": 473130.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2231.9,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.45,
-      "strike": 0.0,
-      "margin_blocked": 301306.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -1914,23 +1876,6 @@
       "rsi_at_entry": 29.94,
       "strike": 0.0,
       "margin_blocked": 320232.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PREMIERENE",
-      "direction": "LONG",
-      "entry_price": 902.0,
-      "entry_time": "2026-09-18 15:15:00",
-      "lot_size": 650,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.07,
-      "strike": 0.0,
-      "margin_blocked": 351780.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
