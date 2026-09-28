@@ -385,3 +385,4 @@ SRF,Buy,17-Sep-26,2570.0,28.8,28-Sep-26,2531.45,,7,102800*3,-23130,stop_loss,"1.
 COCHINSHIP,Buy,18-Sep-26,1369.1,29.9,28-Sep-26,1348.56,,6,109528*3,-24644,stop_loss,"1.5% stop ₹1,348.56"
 GODREJCP,Buy,17-Sep-26,877.5,22.1,28-Sep-26,864.34,,7,87750*3,-19744,stop_loss,1.5% stop ₹864.34
 ATHERENERG,Sell,03-Sep-26,1638.9,78.7,28-Sep-26,1442.23,,17,122918*1,73750,second_target,"lot 2 booked — 12% target ₹1,442.23"
+UNIONBANK,Sell,19-Aug-26,186.9,70.2,28-Sep-26,173.52,,28,165406*1,59198,second_target,lot 2 booked — SMMA 50 ₹173.52

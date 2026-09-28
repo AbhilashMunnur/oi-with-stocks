@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 674968.47,
-  "closed_count": 229,
+  "realised_pnl": 630355.47,
+  "closed_count": 230,
   "day_date": "2026-09-28",
-  "day_realised_pnl": 55124.6,
-  "updated_at": "2026-09-28 13:30:58",
+  "day_realised_pnl": 10511.6,
+  "updated_at": "2026-09-28 14:00:47",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -599,6 +599,11 @@
       "symbol": "SBIN",
       "exit_date": "2026-09-01",
       "pnl": 95150.98
+    },
+    {
+      "symbol": "SBIN",
+      "exit_date": "2026-09-28",
+      "pnl": -44613.0
     },
     {
       "symbol": "NATIONALUM",
@@ -2342,23 +2347,6 @@
       "rsi_at_entry": 29.18,
       "strike": 0.0,
       "margin_blocked": 384480.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBIN",
-      "direction": "LONG",
-      "entry_price": 991.4,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.82,
-      "strike": 0.0,
-      "margin_blocked": 446130.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
