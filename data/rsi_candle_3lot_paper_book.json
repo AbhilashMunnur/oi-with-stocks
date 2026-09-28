@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 851992.79,
-  "closed_count": 341,
+  "realised_pnl": 829893.29,
+  "closed_count": 342,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -369971.44,
-  "updated_at": "2026-09-28 14:30:11",
+  "day_realised_pnl": -392070.94,
+  "updated_at": "2026-09-28 15:00:50",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1802,6 +1802,11 @@
       "symbol": "CAMS",
       "exit_date": "2026-09-28",
       "pnl": -26433.0
+    },
+    {
+      "symbol": "NTPC",
+      "exit_date": "2026-09-28",
+      "pnl": -22099.5
     }
   ],
   "qualify_skips": {
@@ -2639,23 +2644,6 @@
           "pnl": 46500.0
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "NTPC",
-      "direction": "LONG",
-      "entry_price": 327.4,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 1500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 31.03,
-      "strike": 0.0,
-      "margin_blocked": 294659.99999999994,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
