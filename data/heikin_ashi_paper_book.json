@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -414800.12,
+  "realised_pnl": -341049.62,
   "closed_count": 255,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -228899.03,
-  "updated_at": "2026-09-28 11:30:17",
+  "day_realised_pnl": -155148.53,
+  "updated_at": "2026-09-28 12:00:58",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1990,12 +1990,12 @@
       "entry_price": 1638.9,
       "entry_time": "2026-09-03 15:15:00",
       "lot_size": 375,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 78.67,
       "strike": 0.0,
-      "margin_blocked": 245835.0,
+      "margin_blocked": 122917.5,
       "closed_legs": [
         {
           "lots": 1,
@@ -2003,6 +2003,13 @@
           "exit_time": "2026-09-16 10:30:31",
           "reason": "first_target",
           "pnl": 30729.38
+        },
+        {
+          "lots": 1,
+          "exit_price": 1442.23,
+          "exit_time": "2026-09-28 12:00:58",
+          "reason": "second_target",
+          "pnl": 73750.5
         }
       ],
       "priced_on": "futures",

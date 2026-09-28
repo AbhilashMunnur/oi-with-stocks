@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 871966.47,
-  "closed_count": 335,
+  "realised_pnl": 918089.67,
+  "closed_count": 336,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -349997.76,
-  "updated_at": "2026-09-28 11:30:10",
+  "day_realised_pnl": -303874.56,
+  "updated_at": "2026-09-28 12:00:52",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1117,6 +1117,11 @@
       "symbol": "M&M",
       "exit_date": "2026-09-24",
       "pnl": -27963.0
+    },
+    {
+      "symbol": "M&M",
+      "exit_date": "2026-09-28",
+      "pnl": -27627.3
     },
     {
       "symbol": "ZYDUSLIFE",
@@ -2728,12 +2733,12 @@
       "entry_price": 1638.9,
       "entry_time": "2026-09-03 15:15:00",
       "lot_size": 375,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 72.49,
       "strike": 0.0,
-      "margin_blocked": 245835.0,
+      "margin_blocked": 122917.5,
       "closed_legs": [
         {
           "lots": 1,
@@ -2741,6 +2746,13 @@
           "exit_time": "2026-09-16 10:30:16",
           "reason": "first_target",
           "pnl": 30729.38
+        },
+        {
+          "lots": 1,
+          "exit_price": 1442.23,
+          "exit_time": "2026-09-28 12:00:52",
+          "reason": "second_target",
+          "pnl": 73750.5
         }
       ],
       "priced_on": "futures",
@@ -3464,23 +3476,6 @@
       "rsi_at_entry": 31.642863417560918,
       "strike": 0.0,
       "margin_blocked": 242400.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 3069.7,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.45043896677899,
-      "strike": 0.0,
-      "margin_blocked": 368364.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
