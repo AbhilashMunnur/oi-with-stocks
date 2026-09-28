@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1084742.05,
-  "closed_count": 327,
+  "realised_pnl": 1020901.96,
+  "closed_count": 330,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -137222.18,
-  "updated_at": "2026-09-28 09:31:16",
+  "day_realised_pnl": -201062.27,
+  "updated_at": "2026-09-28 10:00:59",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -467,6 +467,11 @@
       "symbol": "KPITTECH",
       "exit_date": "2026-08-05",
       "pnl": 128008.3
+    },
+    {
+      "symbol": "KPITTECH",
+      "exit_date": "2026-09-28",
+      "pnl": -18234.39
     },
     {
       "symbol": "MARICO",
@@ -1309,6 +1314,11 @@
       "pnl": -24248.25
     },
     {
+      "symbol": "NBCC",
+      "exit_date": "2026-09-28",
+      "pnl": -24441.3
+    },
+    {
       "symbol": "INFY",
       "exit_date": "2026-08-20",
       "pnl": 105061.34
@@ -1637,6 +1647,11 @@
       "symbol": "TMPV",
       "exit_date": "2026-09-25",
       "pnl": 9635.2
+    },
+    {
+      "symbol": "TMPV",
+      "exit_date": "2026-09-28",
+      "pnl": -21164.4
     },
     {
       "symbol": "BDL",
@@ -3059,23 +3074,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 83.56,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.015487382968644,
-      "strike": 0.0,
-      "margin_blocked": 325884.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PREMIERENE",
       "direction": "LONG",
       "entry_price": 888.0,
@@ -3514,23 +3512,6 @@
       "stop_price": null
     },
     {
-      "symbol": "KPITTECH",
-      "direction": "LONG",
-      "entry_price": 522.85,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.5737502411493,
-      "strike": 0.0,
-      "margin_blocked": 243125.25,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "M&M",
       "direction": "LONG",
       "entry_price": 3069.7,
@@ -3576,23 +3557,6 @@
       "rsi_at_entry": 33.64275365086793,
       "strike": 0.0,
       "margin_blocked": 282555.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 293.95,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 33.29996269698155,
-      "strike": 0.0,
-      "margin_blocked": 282192.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

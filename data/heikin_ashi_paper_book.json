@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -322841.27,
-  "closed_count": 251,
+  "realised_pnl": -370412.57,
+  "closed_count": 253,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -136940.18,
-  "updated_at": "2026-09-28 09:31:25",
+  "day_realised_pnl": -184511.48,
+  "updated_at": "2026-09-28 10:01:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1067,6 +1067,11 @@
       "pnl": -25301.25
     },
     {
+      "symbol": "NBCC",
+      "exit_date": "2026-09-28",
+      "pnl": -24441.3
+    },
+    {
       "symbol": "ITC",
       "exit_date": "2026-08-31",
       "pnl": -20912.17
@@ -1360,6 +1365,11 @@
       "symbol": "BIOCON",
       "exit_date": "2026-09-28",
       "pnl": -43897.5
+    },
+    {
+      "symbol": "SRF",
+      "exit_date": "2026-09-28",
+      "pnl": -23130.0
     }
   ],
   "qualify_skips": {
@@ -2265,23 +2275,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 83.56,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.990650251995874,
-      "strike": 0.0,
-      "margin_blocked": 325884.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "OBEROIRLTY",
       "direction": "LONG",
       "entry_price": 1750.0,
@@ -2325,23 +2318,6 @@
       "rsi_at_entry": 29.63186049353989,
       "strike": 0.0,
       "margin_blocked": 624487.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SRF",
-      "direction": "LONG",
-      "entry_price": 2570.0,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.791470015838044,
-      "strike": 0.0,
-      "margin_blocked": 308400.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
