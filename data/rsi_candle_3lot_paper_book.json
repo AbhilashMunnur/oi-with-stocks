@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 905509.47,
-  "closed_count": 334,
+  "realised_pnl": 871966.47,
+  "closed_count": 335,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -316454.76,
-  "updated_at": "2026-09-28 11:00:09",
+  "day_realised_pnl": -349997.76,
+  "updated_at": "2026-09-28 11:30:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1754,6 +1754,11 @@
       "pnl": -33750.0
     },
     {
+      "symbol": "EICHERMOT",
+      "exit_date": "2026-09-28",
+      "pnl": -33543.0
+    },
+    {
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-24",
       "pnl": -31151.25
@@ -3408,23 +3413,6 @@
       "rsi_at_entry": 28.8,
       "strike": 0.0,
       "margin_blocked": 297612.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "EICHERMOT",
-      "direction": "LONG",
-      "entry_price": 7454.0,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 100,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.976968054608008,
-      "strike": 0.0,
-      "margin_blocked": 447240.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
