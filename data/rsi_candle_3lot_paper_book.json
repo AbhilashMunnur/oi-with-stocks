@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1020901.96,
-  "closed_count": 330,
+  "realised_pnl": 960237.35,
+  "closed_count": 332,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -201062.27,
-  "updated_at": "2026-09-28 10:00:59",
+  "day_realised_pnl": -261726.88,
+  "updated_at": "2026-09-28 10:31:00",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -904,6 +904,11 @@
       "pnl": 163690.32
     },
     {
+      "symbol": "TRENT",
+      "exit_date": "2026-09-28",
+      "pnl": -27204.86
+    },
+    {
       "symbol": "CIPLA",
       "exit_date": "2026-07-29",
       "pnl": -1100.09
@@ -1397,6 +1402,11 @@
       "symbol": "SBIN",
       "exit_date": "2026-08-25",
       "pnl": 113537.17
+    },
+    {
+      "symbol": "SBIN",
+      "exit_date": "2026-09-28",
+      "pnl": -33459.75
     },
     {
       "symbol": "MAZDOCK",
@@ -3393,23 +3403,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SBIN",
-      "direction": "LONG",
-      "entry_price": 991.4,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.82,
-      "strike": 0.0,
-      "margin_blocked": 446130.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SRF",
       "direction": "LONG",
       "entry_price": 2480.1,
@@ -3557,23 +3550,6 @@
       "rsi_at_entry": 33.64275365086793,
       "strike": 0.0,
       "margin_blocked": 282555.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2686.9,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.13535217701495,
-      "strike": 0.0,
-      "margin_blocked": 362731.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

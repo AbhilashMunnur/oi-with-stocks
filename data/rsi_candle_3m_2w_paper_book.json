@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 600223.47,
-  "closed_count": 228,
+  "realised_pnl": 674968.47,
+  "closed_count": 229,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -19620.4,
-  "updated_at": "2026-09-28 10:00:51",
+  "day_realised_pnl": 55124.6,
+  "updated_at": "2026-09-28 10:30:51",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -824,6 +824,11 @@
       "symbol": "IREDA",
       "exit_date": "2026-09-28",
       "pnl": 4905.1
+    },
+    {
+      "symbol": "ATHERENERG",
+      "exit_date": "2026-09-28",
+      "pnl": 105888.75
     }
   ],
   "qualify_skips": {
@@ -1141,31 +1146,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 400.45
-    },
-    {
-      "symbol": "ATHERENERG",
-      "direction": "SHORT",
-      "entry_price": 1661.0,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 375,
-      "lots_open": 1,
-      "lots_total": 2,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 69.03635589838329,
-      "strike": 0.0,
-      "margin_blocked": 124575.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1577.95,
-          "exit_time": "2026-09-04 15:15:00",
-          "reason": "first_target",
-          "pnl": 31143.75
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1737.0
     },
     {
       "symbol": "GODREJCP",

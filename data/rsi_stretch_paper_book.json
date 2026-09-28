@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2552075.58,
-  "closed_count": 197,
+  "realised_pnl": 2559190.0,
+  "closed_count": 198,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -82739.16,
-  "updated_at": "2026-09-28 10:01:13",
+  "day_realised_pnl": -75624.73,
+  "updated_at": "2026-09-28 10:31:12",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -131,6 +131,11 @@
       "symbol": "DELHIVERY",
       "exit_date": "2026-07-31",
       "pnl": 239136.96
+    },
+    {
+      "symbol": "DELHIVERY",
+      "exit_date": "2026-09-28",
+      "pnl": -39385.57
     },
     {
       "symbol": "GODREJPROP",
@@ -1458,13 +1463,21 @@
       "entry_price": 2480.0,
       "entry_time": "2026-08-31 15:15:00",
       "lot_size": 375,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 73.48,
       "strike": 0.0,
-      "margin_blocked": 558000.0,
-      "closed_legs": [],
+      "margin_blocked": 372000.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 2356.0,
+          "exit_time": "2026-09-28 10:31:12",
+          "reason": "first_target",
+          "pnl": 46500.0
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -1615,23 +1628,6 @@
       "rsi_at_entry": 29.73,
       "strike": 0.0,
       "margin_blocked": 469500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "DELHIVERY",
-      "direction": "LONG",
-      "entry_price": 421.8,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 2075,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.76,
-      "strike": 0.0,
-      "margin_blocked": 525141.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
