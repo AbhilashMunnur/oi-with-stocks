@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 875467.92,
-  "closed_count": 338,
+  "realised_pnl": 843332.69,
+  "closed_count": 339,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -346496.31,
-  "updated_at": "2026-09-28 13:00:58",
+  "day_realised_pnl": -378631.54,
+  "updated_at": "2026-09-28 13:31:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1649,6 +1649,11 @@
       "pnl": -32522.51
     },
     {
+      "symbol": "HINDPETRO",
+      "exit_date": "2026-09-28",
+      "pnl": -32135.23
+    },
+    {
       "symbol": "MAXHEALTH",
       "exit_date": "2026-09-09",
       "pnl": 126470.88
@@ -2866,23 +2871,6 @@
           "pnl": 22548.5
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HINDPETRO",
-      "direction": "LONG",
-      "entry_price": 352.65,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 2025,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 35.39,
-      "strike": 0.0,
-      "margin_blocked": 428469.75,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
