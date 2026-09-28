@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 960237.35,
-  "closed_count": 332,
+  "realised_pnl": 905509.47,
+  "closed_count": 334,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -261726.88,
-  "updated_at": "2026-09-28 10:31:00",
+  "day_realised_pnl": -316454.76,
+  "updated_at": "2026-09-28 11:00:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -417,6 +417,11 @@
       "symbol": "ASTRAL",
       "exit_date": "2026-09-07",
       "pnl": 76311.05
+    },
+    {
+      "symbol": "ASTRAL",
+      "exit_date": "2026-09-28",
+      "pnl": -26851.5
     },
     {
       "symbol": "ATHERENERG",
@@ -1554,6 +1559,11 @@
       "pnl": -27803.25
     },
     {
+      "symbol": "ASIANPAINT",
+      "exit_date": "2026-09-28",
+      "pnl": -27876.38
+    },
+    {
       "symbol": "DABUR",
       "exit_date": "2026-09-02",
       "pnl": -21712.5
@@ -1761,6 +1771,7 @@
   ],
   "qualify_skips": {
     "APLAPOLLO": 3,
+    "ASIANPAINT": 3,
     "BAJAJ-AUTO": 1,
     "ICICIGI": 1,
     "KALYANKJIL": 1,
@@ -3008,23 +3019,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ASTRAL",
-      "direction": "LONG",
-      "entry_price": 1404.0,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.431698165958252,
-      "strike": 0.0,
-      "margin_blocked": 358020.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BIOCON",
       "direction": "LONG",
       "entry_price": 384.35,
@@ -3414,23 +3408,6 @@
       "rsi_at_entry": 28.8,
       "strike": 0.0,
       "margin_blocked": 297612.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASIANPAINT",
-      "direction": "LONG",
-      "entry_price": 2477.9,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.05046154184832,
-      "strike": 0.0,
-      "margin_blocked": 371685.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -395056.37,
-  "closed_count": 254,
+  "realised_pnl": -414800.12,
+  "closed_count": 255,
   "day_date": "2026-09-28",
-  "day_realised_pnl": -209155.28,
-  "updated_at": "2026-09-28 10:31:06",
+  "day_realised_pnl": -228899.03,
+  "updated_at": "2026-09-28 11:00:15",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -970,6 +970,11 @@
       "symbol": "GODREJCP",
       "exit_date": "2026-08-24",
       "pnl": -21307.5
+    },
+    {
+      "symbol": "GODREJCP",
+      "exit_date": "2026-09-28",
+      "pnl": -19743.75
     },
     {
       "symbol": "MOTILALOFS",
@@ -2215,23 +2220,6 @@
       "rsi_at_entry": 27.462465939212677,
       "strike": 0.0,
       "margin_blocked": 320545.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GODREJCP",
-      "direction": "LONG",
-      "entry_price": 877.5,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.113004853545817,
-      "strike": 0.0,
-      "margin_blocked": 263250.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
