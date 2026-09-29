@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 168722.05,
-  "closed_count": 269,
+  "realised_pnl": 121885.49,
+  "closed_count": 270,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 235102.33,
-  "updated_at": "2026-09-29 13:01:03",
+  "day_realised_pnl": 188265.77,
+  "updated_at": "2026-09-29 13:31:15",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1451,6 +1451,11 @@
       "symbol": "BEL",
       "exit_date": "2026-09-29",
       "pnl": 3281.19
+    },
+    {
+      "symbol": "POLYCAB",
+      "exit_date": "2026-09-29",
+      "pnl": -46836.56
     }
   ],
   "qualify_skips": {
@@ -2101,23 +2106,6 @@
           "pnl": 2200.01
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "POLYCAB",
-      "direction": "LONG",
-      "entry_price": 8326.5,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.63186049353989,
-      "strike": 0.0,
-      "margin_blocked": 624487.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

@@ -403,3 +403,4 @@ TECHM,Sell,31-Jul-26,1651.3,74.6,29-Sep-26,1536.8,,42,198156*1,68700,expiry,cont
 BEL,Buy,03-Aug-26,392.15,29.8,29-Sep-26,386.27,,41,111763*2,-16764,stop_loss,1.5% stop ₹386.27 (tightened after lot 1 booked)
 KEI,Buy,18-Sep-26,4620.0,27.5,29-Sep-26,4550.7,,7,161700*3,-36383,stop_loss,"1.5% stop ₹4,550.70"
 GODREJPROP,Buy,28-Sep-26,1683.3,21.8,29-Sep-26,1658.05,,1,109414*3,-24618,stop_loss,"1.5% stop ₹1,658.05"
+POLYCAB,Buy,17-Sep-26,8326.5,29.6,29-Sep-26,8201.6,,8,208162*3,-46837,stop_loss,"1.5% stop ₹8,201.60"
