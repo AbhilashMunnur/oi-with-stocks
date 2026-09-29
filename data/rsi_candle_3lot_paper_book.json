@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1550902.72,
-  "closed_count": 356,
+  "realised_pnl": 1507137.33,
+  "closed_count": 358,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 382775.53,
-  "updated_at": "2026-09-29 09:31:04",
+  "day_realised_pnl": 339010.14,
+  "updated_at": "2026-09-29 10:01:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1755,6 +1755,11 @@
       "pnl": -28122.19
     },
     {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-09-29",
+      "pnl": -27762.19
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-11",
       "pnl": -23088.71
@@ -1878,6 +1883,11 @@
       "symbol": "MANAPPURAM",
       "exit_date": "2026-09-29",
       "pnl": 334220.55
+    },
+    {
+      "symbol": "COCHINSHIP",
+      "exit_date": "2026-09-29",
+      "pnl": 10668.8
     }
   ],
   "qualify_skips": {
@@ -2816,31 +2826,6 @@
       "stop_price": null
     },
     {
-      "symbol": "COCHINSHIP",
-      "direction": "LONG",
-      "entry_price": 1333.6,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 400,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.936623189636265,
-      "strike": 0.0,
-      "margin_blocked": 213376.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1400.28,
-          "exit_time": "2026-09-22 09:31:05",
-          "reason": "first_target",
-          "pnl": 26672.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PREMIERENE",
       "direction": "LONG",
       "entry_price": 888.0,
@@ -2886,23 +2871,6 @@
       "rsi_at_entry": 36.53689781902239,
       "strike": 0.0,
       "margin_blocked": 412500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BRITANNIA",
-      "direction": "LONG",
-      "entry_price": 4935.5,
-      "entry_time": "2026-09-24 18:09:38",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.89423673107822,
-      "strike": 0.0,
-      "margin_blocked": 370162.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

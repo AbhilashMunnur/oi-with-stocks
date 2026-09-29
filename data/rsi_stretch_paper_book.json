@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 3084609.94,
-  "closed_count": 208,
+  "realised_pnl": 3082353.23,
+  "closed_count": 209,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 245029.14,
-  "updated_at": "2026-09-29 09:31:25",
+  "day_realised_pnl": 242772.43,
+  "updated_at": "2026-09-29 10:01:27",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1107,6 +1107,11 @@
       "symbol": "AMBUJACEM",
       "exit_date": "2026-09-29",
       "pnl": -20576.7
+    },
+    {
+      "symbol": "COCHINSHIP",
+      "exit_date": "2026-09-29",
+      "pnl": -24017.4
     }
   ],
   "qualify_skips": {
@@ -1719,35 +1724,26 @@
       "stop_price": null
     },
     {
-      "symbol": "COCHINSHIP",
-      "direction": "LONG",
-      "entry_price": 1334.3,
-      "entry_time": "2026-09-17 15:15:00",
-      "lot_size": 400,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.94,
-      "strike": 0.0,
-      "margin_blocked": 320232.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PATANJALI",
       "direction": "SHORT",
       "entry_price": 404.85,
       "entry_time": "2026-09-24 15:15:00",
       "lot_size": 1075,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 78.05,
       "strike": 0.0,
-      "margin_blocked": 261128.25,
-      "closed_legs": [],
+      "margin_blocked": 174085.5,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 384.61,
+          "exit_time": "2026-09-29 10:01:27",
+          "reason": "first_target",
+          "pnl": 21760.69
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
