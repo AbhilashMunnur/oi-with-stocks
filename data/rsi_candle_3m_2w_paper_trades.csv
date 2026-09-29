@@ -280,3 +280,5 @@ PNB,Sell,13-Aug-26,117.59,73.8,28-Sep-26,113.33,49.5,32,188144*1,34072,second_ta
 DRREDDY,Buy,03-Aug-26,1169.7,28.5,28-Sep-26,1215.07,56.1,40,146212*1,28356,second_target,"final lot booked — SMMA 50 ₹1,215.07"
 BHARATFORG,Buy,16-Sep-26,1885.0,32.8,28-Sep-26,1969.1,32.9,8,188500*1,42050,smma_cross,"final lot booked — strong candle closed 1,957.00 below SMMA 21 ₹2,018.66"
 LODHA,Buy,16-Sep-26,1087.4,34.7,28-Sep-26,1108.0,37.1,8,135925*1,12875,smma_cross,"final lot booked — strong candle closed 1,117.10 below SMMA 21 ₹1,165.17"
+BANDHANBNK,Sell,24-Sep-26,185.85,71.4,29-Sep-26,182.65,,3,133812*1,11525,first_target,lot 1 booked — SMMA 21 ₹182.65
+BANDHANBNK,Sell,24-Sep-26,185.85,71.4,29-Sep-26,184.54,,3,133812*1,4703,second_target,lot 2 booked — SMMA 50 ₹184.54

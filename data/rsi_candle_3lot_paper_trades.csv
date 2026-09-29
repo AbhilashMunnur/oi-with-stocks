@@ -530,3 +530,15 @@ DRREDDY,Buy,24-Jul-26,1151.7,27.4,28-Sep-26,1215.05,56.1,46,143962*1,39592,secon
 JIOFIN,Sell,03-Aug-26,263.0,69.8,28-Sep-26,220.16,28.0,40,123610*1,100674,rsi_target,final lot booked — RSI 28.0 reached 30
 UNOMINDA,Sell,10-Aug-26,1288.0,79.6,28-Sep-26,1192.36,40.7,35,141680*1,52602,second_target,"lot 2 booked — SMMA 50 ₹1,192.36"
 SAGILITY,Sell,31-Aug-26,47.05,70.1,28-Sep-26,43.58,57.1,20,112920*1,41696,second_target,lot 2 booked — SMMA 50 ₹43.58
+INDIGO,Sell,02-Jul-26,5444.0,72.5,29-Sep-26,4874.0,,63,163320*1,85500,expiry,contract expiry 2026-09-29
+OBEROIRLTY,Sell,07-Jul-26,1906.4,81.1,29-Sep-26,1813.7,,60,133448*1,32445,expiry,contract expiry 2026-09-29
+DRREDDY,Buy,24-Jul-26,1151.7,27.4,29-Sep-26,1240.0,,47,143962*1,55187,expiry,contract expiry 2026-09-29
+BEL,Buy,29-Jul-26,387.55,31.2,29-Sep-26,383.85,,44,110452*2,-10545,expiry,contract expiry 2026-09-29
+LODHA,Sell,29-Jul-26,1316.35,75.7,29-Sep-26,1123.0,,44,164544*1,120844,expiry,contract expiry 2026-09-29
+MANAPPURAM,Sell,30-Jul-26,368.35,72.5,29-Sep-26,313.8,,43,221010*1,163650,expiry,contract expiry 2026-09-29
+SUNPHARMA,Sell,31-Jul-26,1990.5,70.2,29-Sep-26,1848.3,,42,139335*1,49770,expiry,contract expiry 2026-09-29
+POWERGRID,Buy,17-Aug-26,266.15,29.7,29-Sep-26,262.16,,31,101137*3,-22756,stop_loss,1.5% stop ₹262.16
+GODREJPROP,Buy,17-Sep-26,1700.6,22.7,29-Sep-26,1675.09,,8,110539*3,-24871,stop_loss,"1.5% stop ₹1,675.09"
+RVNL,Buy,17-Sep-26,202.98,25.3,29-Sep-26,199.94,,8,78147*2,-11722,stop_loss,1.5% stop ₹199.94 (tightened after lot 1 booked)
+KEI,Buy,18-Sep-26,4620.0,32.5,29-Sep-26,4550.7,,7,161700*3,-36383,stop_loss,"1.5% stop ₹4,550.70"
+POLICYBZR,Buy,28-Sep-26,1164.7,23.9,29-Sep-26,1147.23,,1,81529*3,-18344,stop_loss,"1.5% stop ₹1,147.23"

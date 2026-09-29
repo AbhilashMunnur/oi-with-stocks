@@ -396,3 +396,9 @@ JIOFIN,Sell,07-Aug-26,256.8,70.9,28-Sep-26,220.16,28.0,36,120696*1,86104,rsi_tar
 UNOMINDA,Sell,21-Aug-26,1265.0,79.9,28-Sep-26,1192.36,40.7,26,139150*1,39952,second_target,"lot 2 booked — SMMA 50 ₹1,192.36"
 INOXWIND,Buy,03-Sep-26,74.0,29.9,28-Sep-26,72.89,37.5,17,94720*2,-14208,stop_loss,1.5% stop ₹72.89 (tightened after lot 1 booked)
 GODFRYPHLP,Buy,17-Sep-26,1942.7,27.5,28-Sep-26,1913.56,28.6,7,106848*3,-24041,stop_loss,"1.5% stop ₹1,913.56"
+INDIGO,Sell,07-Jul-26,5395.0,78.4,29-Sep-26,4875.0,,60,161850*1,78000,expiry,contract expiry 2026-09-29
+PRESTIGE,Sell,15-Jul-26,1686.0,77.1,29-Sep-26,1446.6,,54,151740*1,107730,expiry,contract expiry 2026-09-29
+DRREDDY,Buy,31-Jul-26,1148.1,23.7,29-Sep-26,1241.6,,42,143512*1,58438,expiry,contract expiry 2026-09-29
+TECHM,Sell,31-Jul-26,1651.3,74.6,29-Sep-26,1536.8,,42,198156*1,68700,expiry,contract expiry 2026-09-29
+BEL,Buy,03-Aug-26,392.15,29.8,29-Sep-26,386.27,,41,111763*2,-16764,stop_loss,1.5% stop ₹386.27 (tightened after lot 1 booked)
+KEI,Buy,18-Sep-26,4620.0,27.5,29-Sep-26,4550.7,,7,161700*3,-36383,stop_loss,"1.5% stop ₹4,550.70"
