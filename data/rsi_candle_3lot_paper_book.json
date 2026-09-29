@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1507137.33,
-  "closed_count": 358,
+  "realised_pnl": 1407958.66,
+  "closed_count": 362,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 339010.14,
-  "updated_at": "2026-09-29 10:01:10",
+  "day_realised_pnl": 239831.47,
+  "updated_at": "2026-09-29 10:31:19",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -555,6 +555,11 @@
       "pnl": -29310.75
     },
     {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-09-29",
+      "pnl": -28809.9
+    },
+    {
       "symbol": "NAUKRI",
       "exit_date": "2026-07-09",
       "pnl": -29180.25
@@ -628,6 +633,11 @@
       "symbol": "PGEL",
       "exit_date": "2026-09-22",
       "pnl": -22978.12
+    },
+    {
+      "symbol": "PGEL",
+      "exit_date": "2026-09-29",
+      "pnl": -22165.88
     },
     {
       "symbol": "TORNTPHARM",
@@ -945,6 +955,11 @@
       "pnl": -27204.86
     },
     {
+      "symbol": "TRENT",
+      "exit_date": "2026-09-29",
+      "pnl": -26843.4
+    },
+    {
       "symbol": "CIPLA",
       "exit_date": "2026-07-29",
       "pnl": -1100.09
@@ -1088,6 +1103,11 @@
       "symbol": "CROMPTON",
       "exit_date": "2026-09-16",
       "pnl": -22484.7
+    },
+    {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-09-29",
+      "pnl": -21359.5
     },
     {
       "symbol": "ANGELONE",
@@ -1896,6 +1916,7 @@
     "BAJAJ-AUTO": 1,
     "ICICIGI": 1,
     "KALYANKJIL": 1,
+    "PGEL": 3,
     "TVSMOTOR": 1,
     "VBL": 3
   },
@@ -2894,23 +2915,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PGEL",
-      "direction": "LONG",
-      "entry_price": 518.5,
-      "entry_time": "2026-09-24 18:09:38",
-      "lot_size": 950,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 31.68377768479847,
-      "strike": 0.0,
-      "margin_blocked": 295545.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAELXSI",
       "direction": "LONG",
       "entry_price": 3186.2,
@@ -3188,23 +3192,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 220.77,
-      "entry_time": "2026-09-28 15:50:59",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 36.39547220872293,
-      "strike": 0.0,
-      "margin_blocked": 284793.3,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "EICHERMOT",
       "direction": "LONG",
       "entry_price": 7305.0,
@@ -3239,23 +3226,6 @@
       "stop_price": null
     },
     {
-      "symbol": "INDUSINDBK",
-      "direction": "LONG",
-      "entry_price": 914.6,
-      "entry_time": "2026-09-28 15:50:59",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.574493163344442,
-      "strike": 0.0,
-      "margin_blocked": 384132.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PATANJALI",
       "direction": "SHORT",
       "entry_price": 393.5,
@@ -3267,23 +3237,6 @@
       "rsi_at_entry": 73.2655849570306,
       "strike": 0.0,
       "margin_blocked": 253807.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2651.2,
-      "entry_time": "2026-09-28 15:50:59",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.916697893965804,
-      "strike": 0.0,
-      "margin_blocked": 357912.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

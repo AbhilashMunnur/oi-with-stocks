@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 3082353.23,
-  "closed_count": 209,
+  "realised_pnl": 3026699.93,
+  "closed_count": 211,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 242772.43,
-  "updated_at": "2026-09-29 10:01:27",
+  "day_realised_pnl": 187119.13,
+  "updated_at": "2026-09-29 10:31:32",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -337,6 +337,11 @@
       "symbol": "INDUSINDBK",
       "exit_date": "2026-07-09",
       "pnl": -31331.47
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-09-29",
+      "pnl": -28809.9
     },
     {
       "symbol": "NAUKRI",
@@ -1032,6 +1037,11 @@
       "symbol": "TRENT",
       "exit_date": "2026-09-15",
       "pnl": 164016.67
+    },
+    {
+      "symbol": "TRENT",
+      "exit_date": "2026-09-29",
+      "pnl": -26843.4
     },
     {
       "symbol": "SBIN",
@@ -1794,40 +1804,6 @@
       "rsi_at_entry": 29.001669736553524,
       "strike": 0.0,
       "margin_blocked": 552300.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "INDUSINDBK",
-      "direction": "LONG",
-      "entry_price": 914.6,
-      "entry_time": "2026-09-28 15:51:10",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.574493163344442,
-      "strike": 0.0,
-      "margin_blocked": 384132.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2651.2,
-      "entry_time": "2026-09-28 15:51:10",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.916697893965804,
-      "strike": 0.0,
-      "margin_blocked": 357912.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

@@ -544,3 +544,7 @@ KEI,Buy,18-Sep-26,4620.0,32.5,29-Sep-26,4550.7,,7,161700*3,-36383,stop_loss,"1.5
 POLICYBZR,Buy,28-Sep-26,1164.7,23.9,29-Sep-26,1147.23,,1,81529*3,-18344,stop_loss,"1.5% stop ₹1,147.23"
 COCHINSHIP,Buy,17-Sep-26,1333.6,29.9,29-Sep-26,1313.6,,8,106688*2,-16003,stop_loss,"1.5% stop ₹1,313.60 (tightened after lot 1 booked)"
 BRITANNIA,Buy,24-Sep-26,4935.5,32.9,29-Sep-26,4861.47,,3,123388*3,-27762,stop_loss,"1.5% stop ₹4,861.47"
+PGEL,Buy,24-Sep-26,518.5,31.7,29-Sep-26,510.72,,3,98515*3,-22166,stop_loss,1.5% stop ₹510.72
+CROMPTON,Buy,28-Sep-26,220.77,36.4,29-Sep-26,217.46,,1,94931*3,-21359,stop_loss,1.5% stop ₹217.46
+INDUSINDBK,Buy,28-Sep-26,914.6,29.6,29-Sep-26,900.88,,1,128044*3,-28810,stop_loss,1.5% stop ₹900.88
+TRENT,Buy,28-Sep-26,2651.2,29.9,29-Sep-26,2611.43,,1,119304*3,-26843,stop_loss,"1.5% stop ₹2,611.43"

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 193340.31,
-  "closed_count": 268,
+  "realised_pnl": 168722.05,
+  "closed_count": 269,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 259720.59,
-  "updated_at": "2026-09-29 10:01:19",
+  "day_realised_pnl": 235102.33,
+  "updated_at": "2026-09-29 10:31:26",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -241,6 +241,11 @@
       "symbol": "GODREJPROP",
       "exit_date": "2026-09-24",
       "pnl": -25153.54
+    },
+    {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-09-29",
+      "pnl": -24618.26
     },
     {
       "symbol": "IDFCFIRSTB",
@@ -2188,23 +2193,6 @@
       "rsi_at_entry": 23.02409452740747,
       "strike": 0.0,
       "margin_blocked": 365760.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1683.3,
-      "entry_time": "2026-09-28 15:51:05",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 21.80620849992333,
-      "strike": 0.0,
-      "margin_blocked": 328243.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
