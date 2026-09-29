@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 3010901.18,
-  "closed_count": 212,
+  "realised_pnl": 3000228.16,
+  "closed_count": 215,
   "day_date": "2026-09-29",
-  "day_realised_pnl": 171320.38,
-  "updated_at": "2026-09-29 15:00:29",
+  "day_realised_pnl": 160647.36,
+  "updated_at": "2026-09-29 16:42:32",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -479,6 +479,11 @@
       "pnl": -25110.0
     },
     {
+      "symbol": "UNITDSPR",
+      "exit_date": "2026-09-29",
+      "pnl": -25011.0
+    },
+    {
       "symbol": "IDFCFIRSTB",
       "exit_date": "2026-07-27",
       "pnl": -33865.81
@@ -507,6 +512,11 @@
       "symbol": "BAJAJFINSV",
       "exit_date": "2026-09-22",
       "pnl": -25099.2
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "exit_date": "2026-09-29",
+      "pnl": -23847.75
     },
     {
       "symbol": "BANKBARODA",
@@ -1027,6 +1037,11 @@
       "symbol": "OBEROIRLTY",
       "exit_date": "2026-09-15",
       "pnl": 162619.42
+    },
+    {
+      "symbol": "OBEROIRLTY",
+      "exit_date": "2026-09-29",
+      "pnl": 76842.28
     },
     {
       "symbol": "JIOFIN",
@@ -1572,38 +1587,6 @@
       "stop_price": null
     },
     {
-      "symbol": "OBEROIRLTY",
-      "direction": "LONG",
-      "entry_price": 1706.9,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 350,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.79,
-      "strike": 0.0,
-      "margin_blocked": 119483.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1792.25,
-          "exit_time": "2026-09-21 15:15:00",
-          "reason": "first_target",
-          "pnl": 29870.75
-        },
-        {
-          "lots": 1,
-          "exit_price": 1772.2,
-          "exit_time": "2026-09-21 15:15:00",
-          "reason": "second_target",
-          "pnl": 22856.53
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PRESTIGE",
       "direction": "LONG",
       "entry_price": 1424.0,
@@ -1680,23 +1663,6 @@
       "stop_price": null
     },
     {
-      "symbol": "UNITDSPR",
-      "direction": "LONG",
-      "entry_price": 1389.5,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 400,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.83,
-      "strike": 0.0,
-      "margin_blocked": 333480.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BIOCON",
       "direction": "LONG",
       "entry_price": 380.0,
@@ -1719,12 +1685,12 @@
       "entry_price": 404.85,
       "entry_time": "2026-09-24 15:15:00",
       "lot_size": 1075,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 78.05,
       "strike": 0.0,
-      "margin_blocked": 174085.5,
+      "margin_blocked": 87042.75,
       "closed_legs": [
         {
           "lots": 1,
@@ -1732,25 +1698,15 @@
           "exit_time": "2026-09-29 10:01:27",
           "reason": "first_target",
           "pnl": 21760.69
+        },
+        {
+          "lots": 1,
+          "exit_price": 391.76,
+          "exit_time": "2026-09-29 16:42:32",
+          "reason": "second_target",
+          "pnl": 14070.73
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BAJAJFINSV",
-      "direction": "LONG",
-      "entry_price": 1766.5,
-      "entry_time": "2026-09-28 15:51:10",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.25175369798393,
-      "strike": 0.0,
-      "margin_blocked": 317970.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

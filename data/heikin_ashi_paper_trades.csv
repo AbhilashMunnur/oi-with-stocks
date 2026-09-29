@@ -404,3 +404,6 @@ BEL,Buy,03-Aug-26,392.15,29.8,29-Sep-26,386.27,,41,111763*2,-16764,stop_loss,1.5
 KEI,Buy,18-Sep-26,4620.0,27.5,29-Sep-26,4550.7,,7,161700*3,-36383,stop_loss,"1.5% stop ₹4,550.70"
 GODREJPROP,Buy,28-Sep-26,1683.3,21.8,29-Sep-26,1658.05,,1,109414*3,-24618,stop_loss,"1.5% stop ₹1,658.05"
 POLYCAB,Buy,17-Sep-26,8326.5,29.6,29-Sep-26,8201.6,,8,208162*3,-46837,stop_loss,"1.5% stop ₹8,201.60"
+TATAPOWER,Buy,02-Sep-26,364.0,19.2,29-Sep-26,358.54,25.7,19,105560*2,-15834,stop_loss,1.5% stop ₹358.54 (tightened after lot 1 booked)
+BAJAJ-AUTO,Sell,03-Sep-26,11920.0,73.1,29-Sep-26,10980.17,39.3,18,178800*1,70488,second_target,"lot 2 booked — SMMA 50 ₹10,980.17"
+OBEROIRLTY,Buy,17-Sep-26,1750.0,26.8,29-Sep-26,1775.8,42.5,8,122500*1,9030,smma_cross,"final lot booked — strong candle closed 1,762.90 below SMMA 21 ₹1,819.15"
