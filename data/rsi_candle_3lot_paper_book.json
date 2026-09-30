@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1267993.74,
-  "closed_count": 371,
+  "realised_pnl": 1237788.92,
+  "closed_count": 372,
   "day_date": "2026-09-30",
-  "day_realised_pnl": 19063.51,
-  "updated_at": "2026-09-30 13:01:26",
+  "day_realised_pnl": -11141.31,
+  "updated_at": "2026-09-30 13:31:14",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -414,6 +414,11 @@
       "symbol": "SONACOMS",
       "exit_date": "2026-08-18",
       "pnl": -44094.49
+    },
+    {
+      "symbol": "SONACOMS",
+      "exit_date": "2026-09-30",
+      "pnl": 20136.56
     },
     {
       "symbol": "ASTRAL",
@@ -2406,31 +2411,6 @@
           "exit_time": "2026-09-07 15:15:00",
           "reason": "first_target",
           "pnl": 35220.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SONACOMS",
-      "direction": "SHORT",
-      "entry_price": 821.9,
-      "entry_time": "2026-08-20 15:15:00",
-      "lot_size": 1225,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 71.54,
-      "strike": 0.0,
-      "margin_blocked": 402731.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 780.8,
-          "exit_time": "2026-09-15 15:00:53",
-          "reason": "first_target",
-          "pnl": 50341.38
         }
       ],
       "priced_on": "futures",
