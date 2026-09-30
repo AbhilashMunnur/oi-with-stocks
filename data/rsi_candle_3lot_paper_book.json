@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1223360.79,
-  "closed_count": 373,
+  "realised_pnl": 1186573.29,
+  "closed_count": 374,
   "day_date": "2026-09-30",
-  "day_realised_pnl": -25569.43,
-  "updated_at": "2026-09-30 14:31:01",
+  "day_realised_pnl": -62356.93,
+  "updated_at": "2026-09-30 15:00:53",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -614,6 +614,11 @@
       "symbol": "FEDERALBNK",
       "exit_date": "2026-08-03",
       "pnl": -40404.37
+    },
+    {
+      "symbol": "FEDERALBNK",
+      "exit_date": "2026-09-30",
+      "pnl": -36787.5
     },
     {
       "symbol": "PGEL",
@@ -3028,23 +3033,6 @@
       "rsi_at_entry": 28.8,
       "strike": 0.0,
       "margin_blocked": 297612.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "FEDERALBNK",
-      "direction": "LONG",
-      "entry_price": 327.0,
-      "entry_time": "2026-09-25 15:53:33",
-      "lot_size": 2500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.274818905387434,
-      "strike": 0.0,
-      "margin_blocked": 490500.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
