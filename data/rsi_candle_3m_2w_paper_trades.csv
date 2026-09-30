@@ -321,3 +321,15 @@ CROMPTON,Buy,28-Sep-26,220.77,36.4,29-Sep-26,215.81,24.7,1,94931*3,-31992,stop_l
 PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,373.82,,2,84602*1,21151,first_target,lot 1 booked — 5% target ₹373.82
 ETERNAL,Sell,24-Sep-26,339.4,71.7,30-Sep-26,322.43,,4,164609*1,41152,first_target,lot 1 booked — 5% target ₹322.43
 PRESTIGE,Buy,16-Sep-26,1424.0,29.2,30-Sep-26,1495.2,,10,128160*1,32040,first_target,"lot 1 booked — 5% target ₹1,495.20"
+TITAN,Sell,31-Aug-26,5187.3,71.7,30-Sep-26,4707.99,34.6,22,181556*1,83880,second_target,"final lot booked — SMMA 50 ₹4,707.99"
+LICHSGFIN,Sell,04-Sep-26,572.0,69.5,30-Sep-26,539.64,59.4,18,114400*1,32362,second_target,final lot booked — SMMA 50 ₹539.64
+COLPAL,Buy,11-Sep-26,1797.3,31.6,30-Sep-26,1762.5,21.9,13,98852*1,-9570,stop_loss,"candle stop — cash closed 1,763.30 below the entry-candle stop ₹1,782.10"
+DMART,Buy,11-Sep-26,3735.6,32.0,30-Sep-26,3847.19,37.7,13,112068*1,16738,first_target,"lot 1 booked — SMMA 21 ₹3,847.19"
+BIOCON,Buy,17-Sep-26,384.35,23.4,30-Sep-26,375.65,24.4,9,192175*3,-65250,stop_loss,candle stop — cash closed 370.30 below the entry-candle stop ₹373.50
+NESTLEIND,Buy,18-Sep-26,1375.0,36.5,30-Sep-26,1313.4,24.5,8,137500*3,-92400,stop_loss,"candle stop — cash closed 1,310.00 below the entry-candle stop ₹1,332.80"
+TATAELXSI,Buy,24-Sep-26,3186.2,27.3,30-Sep-26,3087.9,22.9,4,79655*3,-36862,stop_loss,"candle stop — cash closed 3,088.90 below the entry-candle stop ₹3,122.48"
+FEDERALBNK,Buy,25-Sep-26,327.0,32.3,30-Sep-26,322.35,32.0,3,163500*3,-34875,stop_loss,candle stop — cash closed 317.40 below the entry-candle stop ₹319.50
+KPITTECH,Buy,25-Sep-26,522.85,28.6,30-Sep-26,503.3,24.7,3,81042*3,-45454,stop_loss,candle stop — cash closed 499.10 below the entry-candle stop ₹512.39
+TRENT,Buy,25-Sep-26,2686.9,32.1,30-Sep-26,2648.0,24.0,3,120910*3,-26258,stop_loss,"candle stop — cash closed 2,621.60 below the entry-candle stop ₹2,633.16"
+BAJAJFINSV,Buy,28-Sep-26,1766.5,28.3,30-Sep-26,1741.9,26.7,2,105990*3,-22140,stop_loss,"candle stop — cash closed 1,731.00 below the entry-candle stop ₹1,731.17"
+PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,391.18,54.9,2,84602*1,2496,second_target,lot 2 booked — SMMA 50 ₹391.18
