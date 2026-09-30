@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 185569.1,
-  "closed_count": 272,
+  "realised_pnl": 166396.57,
+  "closed_count": 273,
   "day_date": "2026-09-30",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-09-30 09:30:19",
+  "day_realised_pnl": -19172.53,
+  "updated_at": "2026-09-30 10:01:16",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -637,6 +637,11 @@
       "symbol": "LUPIN",
       "exit_date": "2026-09-03",
       "pnl": -41788.13
+    },
+    {
+      "symbol": "LUPIN",
+      "exit_date": "2026-09-30",
+      "pnl": -40323.15
     },
     {
       "symbol": "LTM",
@@ -2055,23 +2060,6 @@
       "stop_price": null
     },
     {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 2108.4,
-      "entry_time": "2026-09-17 19:17:27",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.596206134554762,
-      "strike": 0.0,
-      "margin_blocked": 537642.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ULTRACEMCO",
       "direction": "LONG",
       "entry_price": 11111.0,
@@ -2153,13 +2141,21 @@
       "entry_price": 393.5,
       "entry_time": "2026-09-28 15:51:05",
       "lot_size": 1075,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 78.05086231221844,
       "strike": 0.0,
-      "margin_blocked": 253807.5,
-      "closed_legs": [],
+      "margin_blocked": 169205.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 373.82,
+          "exit_time": "2026-09-30 10:01:16",
+          "reason": "first_target",
+          "pnl": 21150.63
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
