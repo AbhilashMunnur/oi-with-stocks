@@ -319,3 +319,4 @@ TCS,Buy,25-Sep-26,2093.0,33.6,29-Sep-26,2060.0,30.6,2,94185*3,-22275,stop_loss,"
 TMPV,Buy,25-Sep-26,293.95,33.3,29-Sep-26,283.9,19.9,2,94064*3,-48240,stop_loss,candle stop — cash closed 280.95 below the entry-candle stop ₹288.00
 CROMPTON,Buy,28-Sep-26,220.77,36.4,29-Sep-26,215.81,24.7,1,94931*3,-31992,stop_loss,candle stop — cash closed 211.37 below the entry-candle stop ₹214.51
 PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,373.82,,2,84602*1,21151,first_target,lot 1 booked — 5% target ₹373.82
+ETERNAL,Sell,24-Sep-26,339.4,71.7,30-Sep-26,322.43,,4,164609*1,41152,first_target,lot 1 booked — 5% target ₹322.43

@@ -559,3 +559,4 @@ ABB,Buy,16-Sep-26,6980.0,30.2,29-Sep-26,6875.3,31.1,9,174500*3,-39262,stop_loss,
 BAJAJFINSV,Buy,28-Sep-26,1766.5,28.3,29-Sep-26,1740.0,26.5,1,105990*3,-23848,stop_loss,"1.5% stop ₹1,740.00"
 PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,373.82,,2,84602*1,21151,first_target,lot 1 booked — 5% target ₹373.82
 BIOCON,Buy,17-Sep-26,384.35,23.4,30-Sep-26,378.58,,9,192175*3,-43239,stop_loss,1.5% stop ₹378.58
+ETERNAL,Sell,24-Sep-26,339.4,71.7,30-Sep-26,322.43,,4,164609*1,41152,first_target,lot 1 booked — 5% target ₹322.43
