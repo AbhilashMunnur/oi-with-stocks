@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1270080.86,
-  "closed_count": 370,
+  "realised_pnl": 1226841.49,
+  "closed_count": 371,
   "day_date": "2026-09-30",
-  "day_realised_pnl": 21150.63,
-  "updated_at": "2026-09-30 10:31:16",
+  "day_realised_pnl": -22088.74,
+  "updated_at": "2026-09-30 11:00:55",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1836,6 +1836,11 @@
       "pnl": -43948.13
     },
     {
+      "symbol": "BIOCON",
+      "exit_date": "2026-09-30",
+      "pnl": -43239.37
+    },
+    {
       "symbol": "PNB",
       "exit_date": "2026-09-17",
       "pnl": -42332.4
@@ -2873,23 +2878,6 @@
           "pnl": 34086.08
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BIOCON",
-      "direction": "LONG",
-      "entry_price": 384.35,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 2500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.3944115282076,
-      "strike": 0.0,
-      "margin_blocked": 576525.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
