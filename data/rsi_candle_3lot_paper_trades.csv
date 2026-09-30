@@ -561,3 +561,5 @@ PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,373.82,,2,84602*1,21151,first_targ
 BIOCON,Buy,17-Sep-26,384.35,23.4,30-Sep-26,378.58,,9,192175*3,-43239,stop_loss,1.5% stop ₹378.58
 ETERNAL,Sell,24-Sep-26,339.4,71.7,30-Sep-26,322.43,,4,164609*1,41152,first_target,lot 1 booked — 5% target ₹322.43
 SONACOMS,Sell,20-Aug-26,821.9,71.5,30-Sep-26,834.23,,29,201366*2,-30205,stop_loss,1.5% stop ₹834.23 (tightened after lot 1 booked)
+POLYCAB,Buy,07-Sep-26,8261.0,30.5,30-Sep-26,8137.09,,17,206525*3,-46468,stop_loss,"1.5% stop ₹8,137.09"
+PRESTIGE,Buy,16-Sep-26,1424.0,29.2,30-Sep-26,1495.2,,10,128160*1,32040,first_target,"lot 1 booked — 5% target ₹1,495.20"
