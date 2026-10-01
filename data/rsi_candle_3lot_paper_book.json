@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 972108.95,
-  "closed_count": 392,
+  "realised_pnl": 837316.54,
+  "closed_count": 398,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -370903.76,
-  "updated_at": "2026-10-01 12:30:20",
+  "day_realised_pnl": -505696.17,
+  "updated_at": "2026-10-01 13:01:12",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -997,6 +997,11 @@
       "pnl": -26843.4
     },
     {
+      "symbol": "TRENT",
+      "exit_date": "2026-10-01",
+      "pnl": -26811.0
+    },
+    {
       "symbol": "CIPLA",
       "exit_date": "2026-07-29",
       "pnl": -1100.09
@@ -1252,6 +1257,11 @@
       "pnl": -19642.61
     },
     {
+      "symbol": "PIIND",
+      "exit_date": "2026-10-01",
+      "pnl": 7892.5
+    },
+    {
       "symbol": "GODREJCP",
       "exit_date": "2026-08-12",
       "pnl": 133981.53
@@ -1500,6 +1510,11 @@
       "symbol": "SUZLON",
       "exit_date": "2026-09-23",
       "pnl": -24780.24
+    },
+    {
+      "symbol": "SUZLON",
+      "exit_date": "2026-10-01",
+      "pnl": -22722.84
     },
     {
       "symbol": "LICHSGFIN",
@@ -1882,6 +1897,11 @@
       "pnl": -22344.86
     },
     {
+      "symbol": "IEX",
+      "exit_date": "2026-10-01",
+      "pnl": -21129.26
+    },
+    {
       "symbol": "CUMMINSIND",
       "exit_date": "2026-09-16",
       "pnl": -45270.0
@@ -2060,6 +2080,16 @@
       "symbol": "TIINDIA",
       "exit_date": "2026-10-01",
       "pnl": -21765.6
+    },
+    {
+      "symbol": "CONCOR",
+      "exit_date": "2026-10-01",
+      "pnl": -25326.56
+    },
+    {
+      "symbol": "RELIANCE",
+      "exit_date": "2026-10-01",
+      "pnl": -26964.0
     }
   ],
   "qualify_skips": {
@@ -2068,10 +2098,12 @@
     "CHOLAFIN": 3,
     "EICHERMOT": 3,
     "ICICIGI": 1,
+    "IEX": 3,
     "KALYANKJIL": 1,
     "M&M": 3,
     "MARUTI": 3,
     "PGEL": 2,
+    "TRENT": 3,
     "TVSMOTOR": 1,
     "VBL": 3
   },
@@ -2857,31 +2889,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PIIND",
-      "direction": "LONG",
-      "entry_price": 2255.0,
-      "entry_time": "2026-09-15 15:15:00",
-      "lot_size": 175,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.31,
-      "strike": 0.0,
-      "margin_blocked": 157850.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2367.75,
-          "exit_time": "2026-09-22 15:15:00",
-          "reason": "first_target",
-          "pnl": 19731.25
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "DLF",
       "direction": "LONG",
       "entry_price": 622.8,
@@ -3098,23 +3105,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CONCOR",
-      "direction": "LONG",
-      "entry_price": 450.25,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 1250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.932194629327824,
-      "strike": 0.0,
-      "margin_blocked": 337687.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "FEDERALBNK",
       "direction": "LONG",
       "entry_price": 322.35,
@@ -3143,23 +3133,6 @@
       "rsi_at_entry": 25.61905969624455,
       "strike": 0.0,
       "margin_blocked": 415710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "IEX",
-      "direction": "LONG",
-      "entry_price": 107.94,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 4350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.711840271245848,
-      "strike": 0.0,
-      "margin_blocked": 281723.4,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3217,40 +3190,6 @@
       "stop_price": null
     },
     {
-      "symbol": "RELIANCE",
-      "direction": "LONG",
-      "entry_price": 1198.4,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.392273705836246,
-      "strike": 0.0,
-      "margin_blocked": 359520.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 39.76,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 20.749871355738875,
-      "strike": 0.0,
-      "margin_blocked": 302971.2,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TCS",
       "direction": "LONG",
       "entry_price": 2066.0,
@@ -3262,23 +3201,6 @@
       "rsi_at_entry": 28.1604614501299,
       "strike": 0.0,
       "margin_blocked": 278910.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2648.0,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.51321157768146,
-      "strike": 0.0,
-      "margin_blocked": 357480.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

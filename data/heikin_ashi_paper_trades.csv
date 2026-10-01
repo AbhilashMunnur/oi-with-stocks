@@ -414,3 +414,4 @@ PATANJALI,Sell,28-Sep-26,393.5,78.1,30-Sep-26,391.18,54.9,2,84602*1,2496,second_
 KOTAKBANK,Sell,07-Sep-26,422.1,74.8,01-Oct-26,428.43,,18,168840*2,-25326,stop_loss,1.5% stop ₹428.43 (tightened after lot 1 booked)
 ULTRACEMCO,Buy,18-Sep-26,11111.0,27.7,01-Oct-26,10944.33,,9,111110*3,-25000,stop_loss,"1.5% stop ₹10,944.33"
 BOSCHLTD,Sell,11-Sep-26,48385.0,78.0,01-Oct-26,45965.75,,14,241925*1,60481,first_target,"lot 1 booked — 5% target ₹45,965.75"
+ASIANPAINT,Buy,28-Sep-26,2438.4,23.0,01-Oct-26,2401.82,,3,121920*3,-27432,stop_loss,"1.5% stop ₹2,401.82"
