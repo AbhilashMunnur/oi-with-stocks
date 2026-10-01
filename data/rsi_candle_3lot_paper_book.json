@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 800704.54,
-  "closed_count": 399,
+  "realised_pnl": 804045.91,
+  "closed_count": 402,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -542308.17,
-  "updated_at": "2026-10-01 13:31:05",
+  "day_realised_pnl": -538966.8,
+  "updated_at": "2026-10-01 14:01:12",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -575,6 +575,11 @@
       "symbol": "INDUSINDBK",
       "exit_date": "2026-09-29",
       "pnl": -28809.9
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-10-01",
+      "pnl": -28535.85
     },
     {
       "symbol": "NAUKRI",
@@ -1882,6 +1887,11 @@
       "pnl": -27762.19
     },
     {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-10-01",
+      "pnl": -27225.0
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-11",
       "pnl": -23088.71
@@ -2095,15 +2105,22 @@
       "symbol": "INDIANB",
       "exit_date": "2026-10-01",
       "pnl": -36612.0
+    },
+    {
+      "symbol": "BANKINDIA",
+      "exit_date": "2026-10-01",
+      "pnl": -30717.18
     }
   ],
   "qualify_skips": {
     "APLAPOLLO": 3,
     "ASIANPAINT": 3,
+    "BRITANNIA": 3,
     "CHOLAFIN": 3,
     "EICHERMOT": 3,
     "ICICIGI": 1,
     "IEX": 3,
+    "INDUSINDBK": 3,
     "KALYANKJIL": 1,
     "M&M": 3,
     "MARUTI": 3,
@@ -2457,12 +2474,12 @@
       "entry_price": 1360.9,
       "entry_time": "2026-08-20 15:15:00",
       "lot_size": 550,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 72.37,
       "strike": 0.0,
-      "margin_blocked": 299398.0,
+      "margin_blocked": 149699.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2470,6 +2487,13 @@
           "exit_time": "2026-09-08 15:15:00",
           "reason": "first_target",
           "pnl": 37424.75
+        },
+        {
+          "lots": 1,
+          "exit_price": 1197.59,
+          "exit_time": "2026-10-01 14:01:12",
+          "reason": "second_target",
+          "pnl": 89819.4
         }
       ],
       "priced_on": "futures",
@@ -3059,40 +3083,6 @@
       "stop_price": null
     },
     {
-      "symbol": "BANKINDIA",
-      "direction": "LONG",
-      "entry_price": 131.27,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 5200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.492407825378876,
-      "strike": 0.0,
-      "margin_blocked": 409562.4,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BRITANNIA",
-      "direction": "LONG",
-      "entry_price": 4840.0,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.52103466502321,
-      "strike": 0.0,
-      "margin_blocked": 363000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "CAMS",
       "direction": "LONG",
       "entry_price": 675.25,
@@ -3138,23 +3128,6 @@
       "rsi_at_entry": 25.61905969624455,
       "strike": 0.0,
       "margin_blocked": 415710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "INDUSINDBK",
-      "direction": "LONG",
-      "entry_price": 905.9,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.836618553793073,
-      "strike": 0.0,
-      "margin_blocked": 380478.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

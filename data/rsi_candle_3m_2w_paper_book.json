@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -1040188.82,
-  "closed_count": 283,
+  "realised_pnl": -1092538.82,
+  "closed_count": 284,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -57755.0,
-  "updated_at": "2026-10-01 13:30:59",
+  "day_realised_pnl": -110105.0,
+  "updated_at": "2026-10-01 14:00:43",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -1103,6 +1103,11 @@
       "symbol": "GODFRYPHLP",
       "exit_date": "2026-10-01",
       "pnl": 5266.25
+    },
+    {
+      "symbol": "ABB",
+      "exit_date": "2026-10-01",
+      "pnl": -52350.0
     }
   ],
   "qualify_skips": {
@@ -1721,23 +1726,6 @@
           "pnl": 19731.25
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ABB",
-      "direction": "LONG",
-      "entry_price": 6980.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 30.25,
-      "strike": 0.0,
-      "margin_blocked": 523500.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

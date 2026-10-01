@@ -335,3 +335,4 @@ BAJAJFINSV,Buy,28-Sep-26,1766.5,28.3,30-Sep-26,1741.9,26.7,2,105990*3,-22140,sto
 PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,391.18,54.9,2,84602*1,2496,second_target,lot 2 booked — SMMA 50 ₹391.18
 MARUTI,Buy,23-Sep-26,12230.0,28.5,01-Oct-26,11985.4,,6,122300*3,-36690,stop_loss,"2% stop ₹11,985.40"
 GODFRYPHLP,Buy,15-Sep-26,1915.0,28.4,01-Oct-26,1876.7,,12,105325*2,-21065,stop_loss,"2% stop ₹1,876.70 (tightened after lot 1 booked)"
+ABB,Buy,16-Sep-26,6980.0,30.2,01-Oct-26,6840.4,,11,174500*3,-52350,stop_loss,"2% stop ₹6,840.40"
