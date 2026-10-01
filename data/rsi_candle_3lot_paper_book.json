@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1036232.67,
-  "closed_count": 389,
+  "realised_pnl": 972108.95,
+  "closed_count": 392,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -306780.04,
-  "updated_at": "2026-10-01 12:00:59",
+  "day_realised_pnl": -370903.76,
+  "updated_at": "2026-10-01 12:30:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1152,6 +1152,11 @@
       "pnl": -21359.5
     },
     {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-10-01",
+      "pnl": -20415.22
+    },
+    {
       "symbol": "ANGELONE",
       "exit_date": "2026-08-07",
       "pnl": -33519.37
@@ -1445,6 +1450,11 @@
       "symbol": "NBCC",
       "exit_date": "2026-09-28",
       "pnl": -24441.3
+    },
+    {
+      "symbol": "NBCC",
+      "exit_date": "2026-10-01",
+      "pnl": -23224.5
     },
     {
       "symbol": "INFY",
@@ -1825,6 +1835,11 @@
       "symbol": "TMPV",
       "exit_date": "2026-09-28",
       "pnl": -21164.4
+    },
+    {
+      "symbol": "TMPV",
+      "exit_date": "2026-10-01",
+      "pnl": -20484.0
     },
     {
       "symbol": "BDL",
@@ -3100,23 +3115,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 211.01,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.571797465264154,
-      "strike": 0.0,
-      "margin_blocked": 272202.9,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "FEDERALBNK",
       "direction": "LONG",
       "entry_price": 322.35,
@@ -3202,23 +3200,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 79.4,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.20230775701276,
-      "strike": 0.0,
-      "margin_blocked": 309660.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PIDILITIND",
       "direction": "LONG",
       "entry_price": 1481.5,
@@ -3281,23 +3262,6 @@
       "rsi_at_entry": 28.1604614501299,
       "strike": 0.0,
       "margin_blocked": 278910.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 284.5,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.12952287253782,
-      "strike": 0.0,
-      "margin_blocked": 273120.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

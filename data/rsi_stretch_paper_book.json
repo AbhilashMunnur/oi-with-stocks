@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2752242.26,
-  "closed_count": 225,
+  "realised_pnl": 2651773.17,
+  "closed_count": 229,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -280025.9,
-  "updated_at": "2026-10-01 12:01:13",
+  "day_realised_pnl": -380494.99,
+  "updated_at": "2026-10-01 12:30:34",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -84,6 +84,11 @@
       "symbol": "SHRIRAMFIN",
       "exit_date": "2026-09-15",
       "pnl": 264374.71
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "exit_date": "2026-10-01",
+      "pnl": -36345.38
     },
     {
       "symbol": "LTF",
@@ -866,6 +871,11 @@
       "pnl": -23812.42
     },
     {
+      "symbol": "NBCC",
+      "exit_date": "2026-10-01",
+      "pnl": -23224.5
+    },
+    {
       "symbol": "LUPIN",
       "exit_date": "2026-08-20",
       "pnl": 218339.36
@@ -1131,6 +1141,11 @@
       "pnl": -21679.2
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-10-01",
+      "pnl": -20484.0
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-24",
       "pnl": -22198.05
@@ -1194,6 +1209,11 @@
       "symbol": "BIOCON",
       "exit_date": "2026-10-01",
       "pnl": -42750.0
+    },
+    {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-10-01",
+      "pnl": -20415.22
     }
   ],
   "qualify_skips": {
@@ -1630,23 +1650,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SHRIRAMFIN",
-      "direction": "LONG",
-      "entry_price": 979.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.29,
-      "strike": 0.0,
-      "margin_blocked": 484605.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PATANJALI",
       "direction": "SHORT",
       "entry_price": 404.85,
@@ -1764,23 +1767,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 211.01,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.571797465264154,
-      "strike": 0.0,
-      "margin_blocked": 272202.9,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HDFCAMC",
       "direction": "LONG",
       "entry_price": 2309.5,
@@ -1849,23 +1835,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 79.4,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.20230775701276,
-      "strike": 0.0,
-      "margin_blocked": 309660.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PIDILITIND",
       "direction": "LONG",
       "entry_price": 1481.5,
@@ -1911,23 +1880,6 @@
       "rsi_at_entry": 20.749871355738875,
       "strike": 0.0,
       "margin_blocked": 302971.2,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 284.5,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.12952287253782,
-      "strike": 0.0,
-      "margin_blocked": 273120.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
