@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1065618.72,
-  "closed_count": 385,
+  "realised_pnl": 1059272.42,
+  "closed_count": 388,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -277393.99,
-  "updated_at": "2026-10-01 10:30:16",
+  "day_realised_pnl": -283740.29,
+  "updated_at": "2026-10-01 11:00:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1672,6 +1672,11 @@
       "pnl": -25391.25
     },
     {
+      "symbol": "SHREECEM",
+      "exit_date": "2026-10-01",
+      "pnl": -24975.0
+    },
+    {
       "symbol": "BANDHANBNK",
       "exit_date": "2026-09-01",
       "pnl": 11946.96
@@ -1877,6 +1882,11 @@
       "pnl": -21065.4
     },
     {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-10-01",
+      "pnl": -20293.2
+    },
+    {
       "symbol": "BIOCON",
       "exit_date": "2026-09-16",
       "pnl": -43948.13
@@ -2025,6 +2035,11 @@
       "symbol": "ULTRACEMCO",
       "exit_date": "2026-10-01",
       "pnl": -24702.75
+    },
+    {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-01",
+      "pnl": -21765.6
     }
   ],
   "qualify_skips": {
@@ -2606,13 +2621,21 @@
       "entry_price": 48550.0,
       "entry_time": "2026-09-01 15:15:00",
       "lot_size": 25,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 78.04,
       "strike": 0.0,
-      "margin_blocked": 728250.0,
-      "closed_legs": [],
+      "margin_blocked": 485500.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 46122.5,
+          "exit_time": "2026-10-01 11:00:10",
+          "reason": "first_target",
+          "pnl": 60687.5
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2784,23 +2807,6 @@
           "pnl": 34086.08
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SHREECEM",
-      "direction": "LONG",
-      "entry_price": 22200.0,
-      "entry_time": "2026-09-17 19:17:21",
-      "lot_size": 25,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.575254421481105,
-      "strike": 0.0,
-      "margin_blocked": 333000.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2999,23 +3005,6 @@
           "pnl": 2495.66
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 375.8,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 1200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.39792490884315,
-      "strike": 0.0,
-      "margin_blocked": 270576.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -3304,23 +3293,6 @@
       "rsi_at_entry": 28.1604614501299,
       "strike": 0.0,
       "margin_blocked": 278910.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2418.4,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 24.696556038495828,
-      "strike": 0.0,
-      "margin_blocked": 290208.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
