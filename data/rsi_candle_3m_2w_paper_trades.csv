@@ -336,3 +336,25 @@ PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,391.18,54.9,2,84602*1,2496,second_
 MARUTI,Buy,23-Sep-26,12230.0,28.5,01-Oct-26,11985.4,,6,122300*3,-36690,stop_loss,"2% stop ₹11,985.40"
 GODFRYPHLP,Buy,15-Sep-26,1915.0,28.4,01-Oct-26,1876.7,,12,105325*2,-21065,stop_loss,"2% stop ₹1,876.70 (tightened after lot 1 booked)"
 ABB,Buy,16-Sep-26,6980.0,30.2,01-Oct-26,6840.4,,11,174500*3,-52350,stop_loss,"2% stop ₹6,840.40"
+HAL,Sell,21-Aug-26,5030.0,67.9,01-Oct-26,4645.46,41.9,29,150900*1,57681,second_target,"final lot booked — SMMA 50 ₹4,645.46"
+GMRAIRPORT,Buy,01-Sep-26,95.0,21.8,01-Oct-26,93.35,21.3,22,132525*1,-11509,stop_loss,candle stop — cash closed 93.16 below the entry-candle stop ₹93.63
+INOXWIND,Buy,01-Sep-26,70.2,31.4,01-Oct-26,69.84,31.6,22,89856*1,-2304,stop_loss,candle stop — cash closed 68.75 below the entry-candle stop ₹69.10
+NAUKRI,Sell,12-Aug-26,1339.0,75.2,01-Oct-26,1207.75,41.3,36,147290*1,72188,second_target,"final lot booked — SMMA 50 ₹1,207.75"
+MANAPPURAM,Buy,09-Sep-26,325.5,32.0,01-Oct-26,310.55,32.8,16,195300*2,-89700,stop_loss,candle stop — cash closed 308.90 below the entry-candle stop ₹312.30
+HINDPETRO,Buy,10-Sep-26,354.15,35.4,01-Oct-26,347.05,29.5,15,143431*2,-28755,stop_loss,candle stop — cash closed 345.00 below the entry-candle stop ₹346.95
+DIXON,Buy,11-Sep-26,13191.0,35.0,01-Oct-26,12560.0,32.8,14,131910*2,-63100,stop_loss,"candle stop — cash closed 12,700.00 below the entry-candle stop ₹12,980.00"
+ASTRAL,Buy,17-Sep-26,1404.0,29.4,01-Oct-26,1348.7,28.2,10,119340*3,-70507,stop_loss,"candle stop — cash closed 1,344.00 below the entry-candle stop ₹1,357.60"
+COCHINSHIP,Buy,17-Sep-26,1333.6,29.9,01-Oct-26,1272.4,29.1,10,106688*2,-48960,stop_loss,"candle stop — cash closed 1,287.00 below the entry-candle stop ₹1,290.90"
+IRFC,Buy,17-Sep-26,79.11,19.5,01-Oct-26,74.84,16.1,10,85834*3,-69494,stop_loss,candle stop — cash closed 77.06 below the entry-candle stop ₹77.53
+AMBUJACEM,Buy,30-Sep-26,375.8,26.4,01-Oct-26,368.0,23.3,1,90192*3,-28080,stop_loss,candle stop — cash closed 362.25 below the entry-candle stop ₹365.75
+BAJAJ-AUTO,Buy,30-Sep-26,10989.0,37.2,01-Oct-26,10148.0,29.5,1,164835*3,-189225,stop_loss,"candle stop — cash closed 10,045.00 below the entry-candle stop ₹10,769.22"
+CHOLAFIN,Buy,30-Sep-26,1631.4,27.0,01-Oct-26,1586.5,28.0,1,203925*3,-84188,stop_loss,"candle stop — cash closed 1,580.00 below the entry-candle stop ₹1,598.77"
+CROMPTON,Buy,30-Sep-26,211.01,25.6,01-Oct-26,204.3,21.5,1,90734*3,-43279,stop_loss,candle stop — cash closed 202.70 below the entry-candle stop ₹206.79
+INDIANB,Buy,30-Sep-26,813.6,23.8,01-Oct-26,803.4,32.6,1,162720*3,-30600,stop_loss,candle stop — cash closed 793.15 below the entry-candle stop ₹794.75
+JIOFIN,Buy,30-Sep-26,217.87,27.0,01-Oct-26,214.73,25.2,1,102399*3,-22137,stop_loss,candle stop — cash closed 212.50 below the entry-candle stop ₹213.51
+NBCC,Buy,30-Sep-26,79.4,29.2,01-Oct-26,78.47,19.6,1,103220*3,-18135,stop_loss,candle stop — cash closed 77.40 below the entry-candle stop ₹77.81
+PGEL,Buy,30-Sep-26,503.1,25.9,01-Oct-26,487.25,23.2,1,95589*3,-45173,stop_loss,candle stop — cash closed 481.10 below the entry-candle stop ₹493.04
+RELIANCE,Buy,30-Sep-26,1198.4,29.4,01-Oct-26,1188.0,25.8,1,119840*3,-15600,stop_loss,"candle stop — cash closed 1,167.70 below the entry-candle stop ₹1,174.43"
+TIINDIA,Buy,30-Sep-26,2418.4,24.7,01-Oct-26,2370.6,27.9,1,96736*3,-28680,stop_loss,"candle stop — cash closed 2,340.00 below the entry-candle stop ₹2,370.03"
+TITAN,Buy,30-Sep-26,4651.0,32.1,01-Oct-26,4571.3,32.7,1,162785*3,-41842,stop_loss,"candle stop — cash closed 4,515.70 below the entry-candle stop ₹4,557.98"
+TRENT,Buy,30-Sep-26,2648.0,28.5,01-Oct-26,2600.0,22.3,1,119160*3,-32400,stop_loss,"candle stop — cash closed 2,580.00 below the entry-candle stop ₹2,580.40"

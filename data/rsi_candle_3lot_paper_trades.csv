@@ -596,3 +596,5 @@ NAUKRI,Sell,20-Aug-26,1360.9,72.4,01-Oct-26,1197.59,,30,149699*1,89819,second_ta
 BANKINDIA,Buy,30-Sep-26,131.27,29.5,01-Oct-26,129.3,,1,136521*3,-30717,stop_loss,1.5% stop ₹129.30
 BRITANNIA,Buy,30-Sep-26,4840.0,29.5,01-Oct-26,4767.4,,1,121000*3,-27225,stop_loss,"1.5% stop ₹4,767.40"
 INDUSINDBK,Buy,30-Sep-26,905.9,23.8,01-Oct-26,892.31,,1,126826*3,-28536,stop_loss,1.5% stop ₹892.31
+SHRIRAMFIN,Sell,06-Aug-26,1141.0,69.8,01-Oct-26,947.4,29.9,40,188265*1,159720,rsi_target,final lot booked — RSI 29.9 reached 30
+HAL,Sell,18-Aug-26,5099.0,75.6,01-Oct-26,4645.46,41.9,32,152970*1,68031,second_target,"lot 2 booked — SMMA 50 ₹4,645.46"
