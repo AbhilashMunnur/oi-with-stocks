@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2839539.54,
-  "closed_count": 222,
+  "realised_pnl": 2794992.26,
+  "closed_count": 224,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -192728.62,
-  "updated_at": "2026-10-01 11:00:21",
+  "day_realised_pnl": -237275.9,
+  "updated_at": "2026-10-01 11:30:24",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -389,6 +389,11 @@
       "symbol": "PGEL",
       "exit_date": "2026-09-24",
       "pnl": -22394.59
+    },
+    {
+      "symbol": "PGEL",
+      "exit_date": "2026-10-01",
+      "pnl": -21507.52
     },
     {
       "symbol": "TORNTPHARM",
@@ -1069,6 +1074,11 @@
       "symbol": "JIOFIN",
       "exit_date": "2026-09-15",
       "pnl": 166344.14
+    },
+    {
+      "symbol": "JIOFIN",
+      "exit_date": "2026-10-01",
+      "pnl": -23039.75
     },
     {
       "symbol": "TRENT",
@@ -1851,23 +1861,6 @@
       "stop_price": null
     },
     {
-      "symbol": "JIOFIN",
-      "direction": "LONG",
-      "entry_price": 217.87,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 2350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.013186686642413,
-      "strike": 0.0,
-      "margin_blocked": 307196.7,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NBCC",
       "direction": "LONG",
       "entry_price": 79.4,
@@ -1879,23 +1872,6 @@
       "rsi_at_entry": 29.20230775701276,
       "strike": 0.0,
       "margin_blocked": 309660.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PGEL",
-      "direction": "LONG",
-      "entry_price": 503.1,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 950,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.91815972243728,
-      "strike": 0.0,
-      "margin_blocked": 286767.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

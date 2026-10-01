@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1059272.42,
-  "closed_count": 388,
+  "realised_pnl": 1036232.67,
+  "closed_count": 389,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -283740.29,
-  "updated_at": "2026-10-01 11:00:10",
+  "day_realised_pnl": -306780.04,
+  "updated_at": "2026-10-01 11:30:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1977,6 +1977,11 @@
       "pnl": 175559.36
     },
     {
+      "symbol": "JIOFIN",
+      "exit_date": "2026-10-01",
+      "pnl": -23039.75
+    },
+    {
       "symbol": "INDIGO",
       "exit_date": "2026-09-29",
       "pnl": 194808.71
@@ -3191,23 +3196,6 @@
       "rsi_at_entry": 23.836618553793073,
       "strike": 0.0,
       "margin_blocked": 380478.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "JIOFIN",
-      "direction": "LONG",
-      "entry_price": 217.87,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 2350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.013186686642413,
-      "strike": 0.0,
-      "margin_blocked": 307196.7,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
