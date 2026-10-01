@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2794992.26,
-  "closed_count": 224,
+  "realised_pnl": 2752242.26,
+  "closed_count": 225,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -237275.9,
-  "updated_at": "2026-10-01 11:30:24",
+  "day_realised_pnl": -280025.9,
+  "updated_at": "2026-10-01 12:01:13",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1189,6 +1189,11 @@
       "symbol": "TIINDIA",
       "exit_date": "2026-10-01",
       "pnl": -21765.6
+    },
+    {
+      "symbol": "BIOCON",
+      "exit_date": "2026-10-01",
+      "pnl": -42750.0
     }
   ],
   "qualify_skips": {
@@ -1636,23 +1641,6 @@
       "rsi_at_entry": 29.29,
       "strike": 0.0,
       "margin_blocked": 484605.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BIOCON",
-      "direction": "LONG",
-      "entry_price": 380.0,
-      "entry_time": "2026-09-17 15:15:00",
-      "lot_size": 2500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 23.4,
-      "strike": 0.0,
-      "margin_blocked": 570000.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

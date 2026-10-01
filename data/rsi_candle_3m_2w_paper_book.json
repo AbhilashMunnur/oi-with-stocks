@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -1019123.82,
-  "closed_count": 282,
+  "realised_pnl": -1040188.82,
+  "closed_count": 283,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -36690.0,
-  "updated_at": "2026-10-01 11:30:02",
+  "day_realised_pnl": -57755.0,
+  "updated_at": "2026-10-01 12:00:49",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -1098,6 +1098,11 @@
       "symbol": "KPITTECH",
       "exit_date": "2026-09-30",
       "pnl": -45453.75
+    },
+    {
+      "symbol": "GODFRYPHLP",
+      "exit_date": "2026-10-01",
+      "pnl": 5266.25
     }
   ],
   "qualify_skips": {
@@ -1694,31 +1699,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 346.188
-    },
-    {
-      "symbol": "GODFRYPHLP",
-      "direction": "LONG",
-      "entry_price": 1915.0,
-      "entry_time": "2026-09-15 15:15:00",
-      "lot_size": 275,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.41,
-      "strike": 0.0,
-      "margin_blocked": 210650.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2010.75,
-          "exit_time": "2026-09-18 15:15:00",
-          "reason": "first_target",
-          "pnl": 26331.25
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
     },
     {
       "symbol": "PIIND",
