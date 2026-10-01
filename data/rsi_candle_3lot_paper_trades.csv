@@ -568,3 +568,11 @@ BHARTIARTL,Sell,05-Aug-26,1978.0,63.3,30-Sep-26,1768.0,29.6,40,187910*1,99750,rs
 TITAN,Sell,31-Aug-26,5102.4,71.7,30-Sep-26,4707.99,34.6,22,178584*1,69022,second_target,"lot 2 booked — SMMA 50 ₹4,707.99"
 COLPAL,Buy,11-Sep-26,1797.4,31.6,30-Sep-26,1770.44,21.9,13,98857*2,-14829,stop_loss,"1.5% stop ₹1,770.44 (tightened after lot 1 booked)"
 PATANJALI,Sell,28-Sep-26,393.5,73.3,30-Sep-26,391.18,54.9,2,84602*1,2496,second_target,lot 2 booked — SMMA 50 ₹391.18
+KOTAKBANK,Sell,28-Aug-26,423.7,74.8,01-Oct-26,430.06,,24,169480*2,-25422,stop_loss,1.5% stop ₹430.06 (tightened after lot 1 booked)
+GODREJCP,Buy,09-Sep-26,863.8,23.7,01-Oct-26,850.84,,16,86380*3,-19435,stop_loss,1.5% stop ₹850.84
+LUPIN,Buy,10-Sep-26,2077.8,24.9,01-Oct-26,2046.63,,15,176613*3,-39738,stop_loss,"1.5% stop ₹2,046.63"
+ASHOKLEY,Buy,16-Sep-26,156.5,29.7,01-Oct-26,154.15,,11,156500*3,-35212,stop_loss,1.5% stop ₹154.15
+CHOLAFIN,Buy,28-Sep-26,1643.3,29.9,01-Oct-26,1618.65,,3,205412*3,-46218,stop_loss,"1.5% stop ₹1,618.65"
+EICHERMOT,Buy,28-Sep-26,7305.0,29.1,01-Oct-26,7195.43,,3,146100*3,-32872,stop_loss,"1.5% stop ₹7,195.43"
+M&M,Buy,30-Sep-26,2966.5,28.2,01-Oct-26,2922.0,,1,118660*3,-26698,stop_loss,"1.5% stop ₹2,922.00"
+MARUTI,Buy,30-Sep-26,12042.0,26.0,01-Oct-26,11861.37,,1,120420*3,-27095,stop_loss,"1.5% stop ₹11,861.37"

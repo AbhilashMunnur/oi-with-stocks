@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 3032268.16,
-  "closed_count": 215,
-  "day_date": "2026-09-30",
-  "day_realised_pnl": 32040.0,
-  "updated_at": "2026-09-30 16:47:54",
+  "realised_pnl": 2881598.34,
+  "closed_count": 220,
+  "day_date": "2026-10-01",
+  "day_realised_pnl": -150669.82,
+  "updated_at": "2026-10-01 09:31:42",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -66,7 +66,8 @@
     "2026-09-25",
     "2026-09-28",
     "2026-09-29",
-    "2026-09-30"
+    "2026-09-30",
+    "2026-10-01"
   ],
   "closed_results": [
     {
@@ -148,6 +149,11 @@
       "symbol": "GODREJPROP",
       "exit_date": "2026-07-21",
       "pnl": -30820.72
+    },
+    {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-10-01",
+      "pnl": -24355.01
     },
     {
       "symbol": "PHOENIXLTD",
@@ -610,6 +616,11 @@
       "pnl": 23167.5
     },
     {
+      "symbol": "CHOLAFIN",
+      "exit_date": "2026-10-01",
+      "pnl": -46217.81
+    },
+    {
       "symbol": "COFORGE",
       "exit_date": "2026-08-03",
       "pnl": -36786.37
@@ -668,6 +679,11 @@
       "symbol": "ASHOKLEY",
       "exit_date": "2026-08-05",
       "pnl": -38718.0
+    },
+    {
+      "symbol": "ASHOKLEY",
+      "exit_date": "2026-10-01",
+      "pnl": -35212.5
     },
     {
       "symbol": "UNOMINDA",
@@ -763,6 +779,11 @@
       "symbol": "GODREJCP",
       "exit_date": "2026-09-07",
       "pnl": -19800.0
+    },
+    {
+      "symbol": "GODREJCP",
+      "exit_date": "2026-10-01",
+      "pnl": -19462.5
     },
     {
       "symbol": "SIEMENS",
@@ -1143,6 +1164,11 @@
       "symbol": "GODFRYPHLP",
       "exit_date": "2026-09-29",
       "pnl": 10532.5
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "exit_date": "2026-10-01",
+      "pnl": 7189.67
     }
   ],
   "qualify_skips": {
@@ -1331,31 +1357,6 @@
       "stop_price": null
     },
     {
-      "symbol": "KOTAKBANK",
-      "direction": "SHORT",
-      "entry_price": 423.7,
-      "entry_time": "2026-08-28 15:15:00",
-      "lot_size": 2000,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 74.78,
-      "strike": 0.0,
-      "margin_blocked": 338960.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 407.39,
-          "exit_time": "2026-09-24 15:15:00",
-          "reason": "first_target",
-          "pnl": 32611.67
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAPOWER",
       "direction": "LONG",
       "entry_price": 351.85,
@@ -1495,23 +1496,6 @@
       "stop_price": null
     },
     {
-      "symbol": "GODREJCP",
-      "direction": "LONG",
-      "entry_price": 865.0,
-      "entry_time": "2026-09-08 15:15:00",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 22.14,
-      "strike": 0.0,
-      "margin_blocked": 259500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PIIND",
       "direction": "LONG",
       "entry_price": 2255.0,
@@ -1532,40 +1516,6 @@
           "pnl": 19731.25
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASHOKLEY",
-      "direction": "LONG",
-      "entry_price": 156.5,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 5000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.73,
-      "strike": 0.0,
-      "margin_blocked": 469500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1665.3,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 21.81,
-      "strike": 0.0,
-      "margin_blocked": 324733.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -1716,23 +1666,6 @@
           "pnl": 14070.73
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CHOLAFIN",
-      "direction": "LONG",
-      "entry_price": 1643.3,
-      "entry_time": "2026-09-28 15:51:10",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.872955234464442,
-      "strike": 0.0,
-      "margin_blocked": 616237.5,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

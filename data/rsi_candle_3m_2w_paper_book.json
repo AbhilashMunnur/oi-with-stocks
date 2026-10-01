@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -982433.82,
-  "closed_count": 281,
-  "day_date": "2026-09-30",
-  "day_realised_pnl": -102990.49,
-  "updated_at": "2026-09-30 16:47:33",
+  "realised_pnl": -1019123.82,
+  "closed_count": 282,
+  "day_date": "2026-10-01",
+  "day_realised_pnl": -36690.0,
+  "updated_at": "2026-10-01 09:31:08",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -30,7 +30,8 @@
     "2026-09-25",
     "2026-09-28",
     "2026-09-29",
-    "2026-09-30"
+    "2026-09-30",
+    "2026-10-01"
   ],
   "closed_results": [
     {
@@ -722,6 +723,11 @@
       "symbol": "MARUTI",
       "exit_date": "2026-09-18",
       "pnl": -30300.0
+    },
+    {
+      "symbol": "MARUTI",
+      "exit_date": "2026-10-01",
+      "pnl": -36690.0
     },
     {
       "symbol": "TECHM",
@@ -1842,23 +1848,6 @@
       "rsi_at_entry": 28.8,
       "strike": 0.0,
       "margin_blocked": 297612.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 12230.0,
-      "entry_time": "2026-09-23 15:15:00",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.53,
-      "strike": 0.0,
-      "margin_blocked": 366900.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

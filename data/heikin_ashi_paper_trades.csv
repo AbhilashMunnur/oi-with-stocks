@@ -411,3 +411,5 @@ LUPIN,Buy,17-Sep-26,2108.4,22.6,30-Sep-26,2076.77,,9,179214*3,-40323,stop_loss,"
 PATANJALI,Sell,28-Sep-26,393.5,78.1,30-Sep-26,373.82,,2,84602*1,21151,first_target,lot 1 booked — 5% target ₹373.82
 TITAN,Sell,31-Aug-26,5102.4,71.7,30-Sep-26,4707.63,34.6,22,178584*1,69085,second_target,"lot 2 booked — SMMA 50 ₹4,707.63"
 PATANJALI,Sell,28-Sep-26,393.5,78.1,30-Sep-26,391.18,54.9,2,84602*1,2496,second_target,lot 2 booked — SMMA 50 ₹391.18
+KOTAKBANK,Sell,07-Sep-26,422.1,74.8,01-Oct-26,428.43,,18,168840*2,-25326,stop_loss,1.5% stop ₹428.43 (tightened after lot 1 booked)
+ULTRACEMCO,Buy,18-Sep-26,11111.0,27.7,01-Oct-26,10944.33,,9,111110*3,-25000,stop_loss,"1.5% stop ₹10,944.33"

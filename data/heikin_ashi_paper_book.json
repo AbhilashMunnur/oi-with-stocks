@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 237977.54,
-  "closed_count": 273,
-  "day_date": "2026-09-30",
-  "day_realised_pnl": 52408.44,
-  "updated_at": "2026-09-30 16:47:49",
+  "realised_pnl": 187651.79,
+  "closed_count": 275,
+  "day_date": "2026-10-01",
+  "day_realised_pnl": -50325.75,
+  "updated_at": "2026-10-01 09:31:38",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -70,7 +70,8 @@
     "2026-09-25",
     "2026-09-28",
     "2026-09-29",
-    "2026-09-30"
+    "2026-09-30",
+    "2026-10-01"
   ],
   "closed_results": [
     {
@@ -1472,6 +1473,16 @@
       "symbol": "POLYCAB",
       "exit_date": "2026-09-29",
       "pnl": -46836.56
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "exit_date": "2026-10-01",
+      "pnl": 4056.55
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "exit_date": "2026-10-01",
+      "pnl": -24999.75
     }
   ],
   "qualify_skips": {
@@ -1950,31 +1961,6 @@
       "stop_price": null
     },
     {
-      "symbol": "KOTAKBANK",
-      "direction": "SHORT",
-      "entry_price": 422.1,
-      "entry_time": "2026-09-07 15:15:00",
-      "lot_size": 2000,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 74.77,
-      "strike": 0.0,
-      "margin_blocked": 337680.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 407.41,
-          "exit_time": "2026-09-25 15:53:38",
-          "reason": "first_target",
-          "pnl": 29382.55
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BOSCHLTD",
       "direction": "SHORT",
       "entry_price": 48385.0,
@@ -2062,23 +2048,6 @@
           "pnl": 24145.88
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ULTRACEMCO",
-      "direction": "LONG",
-      "entry_price": 11111.0,
-      "entry_time": "2026-09-18 15:44:20",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.66575112769732,
-      "strike": 0.0,
-      "margin_blocked": 333330.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
