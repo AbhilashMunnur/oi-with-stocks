@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1090321.47,
-  "closed_count": 384,
+  "realised_pnl": 1065618.72,
+  "closed_count": 385,
   "day_date": "2026-10-01",
-  "day_realised_pnl": -252691.24,
-  "updated_at": "2026-10-01 10:00:14",
+  "day_realised_pnl": -277393.99,
+  "updated_at": "2026-10-01 10:30:16",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2020,6 +2020,11 @@
       "symbol": "KOTAKBANK",
       "exit_date": "2026-10-01",
       "pnl": 7322.45
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "exit_date": "2026-10-01",
+      "pnl": -24702.75
     }
   ],
   "qualify_skips": {
@@ -2690,23 +2695,6 @@
           "pnl": 22548.5
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ULTRACEMCO",
-      "direction": "LONG",
-      "entry_price": 10979.0,
-      "entry_time": "2026-09-10 15:15:00",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.33,
-      "strike": 0.0,
-      "margin_blocked": 329370.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
