@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1065630.94,
-  "closed_count": 403,
+  "realised_pnl": 1049034.94,
+  "closed_count": 404,
   "day_date": "2026-10-05",
-  "day_realised_pnl": 33833.8,
-  "updated_at": "2026-10-05 10:31:00",
+  "day_realised_pnl": 17237.8,
+  "updated_at": "2026-10-05 11:00:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2116,6 +2116,11 @@
       "symbol": "BANKINDIA",
       "exit_date": "2026-10-01",
       "pnl": -30717.18
+    },
+    {
+      "symbol": "DMART",
+      "exit_date": "2026-10-05",
+      "pnl": 11064.0
     }
   ],
   "qualify_skips": {
@@ -2778,31 +2783,6 @@
           "exit_time": "2026-09-16 15:02:16",
           "reason": "first_target",
           "pnl": 22548.5
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "DMART",
-      "direction": "LONG",
-      "entry_price": 3688.0,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 150,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 31.99,
-      "strike": 0.0,
-      "margin_blocked": 221280.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 3872.4,
-          "exit_time": "2026-09-23 11:31:01",
-          "reason": "first_target",
-          "pnl": 27660.0
         }
       ],
       "priced_on": "futures",
