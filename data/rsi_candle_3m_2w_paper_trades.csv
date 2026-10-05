@@ -359,3 +359,4 @@ TIINDIA,Buy,30-Sep-26,2418.4,24.7,01-Oct-26,2370.6,27.9,1,96736*3,-28680,stop_lo
 TITAN,Buy,30-Sep-26,4651.0,32.1,01-Oct-26,4571.3,32.7,1,162785*3,-41842,stop_loss,"candle stop — cash closed 4,515.70 below the entry-candle stop ₹4,557.98"
 TRENT,Buy,30-Sep-26,2648.0,28.5,01-Oct-26,2600.0,22.3,1,119160*3,-32400,stop_loss,"candle stop — cash closed 2,580.00 below the entry-candle stop ₹2,580.40"
 PIIND,Buy,15-Sep-26,2255.0,26.3,05-Oct-26,2209.9,,14,78925*2,-15785,stop_loss,"2% stop ₹2,209.90 (tightened after lot 1 booked)"
+GLENMARK,Sell,31-Aug-26,2513.9,73.5,05-Oct-26,2309.94,54.6,25,188542*1,76483,second_target,"final lot booked — SMMA 50 ₹2,309.94"

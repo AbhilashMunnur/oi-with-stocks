@@ -418,3 +418,5 @@ ASIANPAINT,Buy,28-Sep-26,2438.4,23.0,01-Oct-26,2401.82,,3,121920*3,-27432,stop_l
 HAL,Sell,20-Aug-26,4998.0,77.0,01-Oct-26,4645.46,41.9,30,149940*1,52881,second_target,"lot 2 booked — SMMA 50 ₹4,645.46"
 BAJAJ-AUTO,Sell,03-Sep-26,11920.0,73.1,01-Oct-26,10148.0,29.5,20,178800*1,132900,rsi_target,final lot booked — RSI 29.5 reached 30
 MPHASIS,Buy,01-Oct-26,2208.5,27.6,05-Oct-26,2318.93,,2,121468*1,30367,first_target,"lot 1 booked — 5% target ₹2,318.93"
+GLENMARK,Sell,01-Sep-26,2470.4,73.5,05-Oct-26,2310.1,54.6,24,185280*1,60112,second_target,"lot 2 booked — SMMA 50 ₹2,310.10"
+BANDHANBNK,Buy,03-Sep-26,164.23,29.8,05-Oct-26,170.19,41.2,22,118246*1,21456,smma_cross,final lot booked — strong candle closed 168.27 below SMMA 21 ₹177.55
