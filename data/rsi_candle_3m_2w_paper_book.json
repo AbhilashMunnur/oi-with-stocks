@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -1926337.79,
-  "closed_count": 306,
+  "realised_pnl": -1942122.79,
+  "closed_count": 307,
   "day_date": "2026-10-05",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-10-05 12:30:03",
+  "day_realised_pnl": -15785.0,
+  "updated_at": "2026-10-05 13:00:50",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -354,6 +354,11 @@
       "symbol": "PIIND",
       "exit_date": "2026-08-28",
       "pnl": -5250.0
+    },
+    {
+      "symbol": "PIIND",
+      "exit_date": "2026-10-05",
+      "pnl": 3946.25
     },
     {
       "symbol": "RECLTD",
@@ -1605,31 +1610,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 346.188
-    },
-    {
-      "symbol": "PIIND",
-      "direction": "LONG",
-      "entry_price": 2255.0,
-      "entry_time": "2026-09-15 15:15:00",
-      "lot_size": 175,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 26.31,
-      "strike": 0.0,
-      "margin_blocked": 157850.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2367.75,
-          "exit_time": "2026-09-22 15:15:00",
-          "reason": "first_target",
-          "pnl": 19731.25
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
     },
     {
       "symbol": "BEL",
