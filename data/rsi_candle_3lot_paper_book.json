@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1049034.94,
-  "closed_count": 404,
+  "realised_pnl": 1026082.47,
+  "closed_count": 405,
   "day_date": "2026-10-05",
-  "day_realised_pnl": 17237.8,
-  "updated_at": "2026-10-05 13:01:01",
+  "day_realised_pnl": -5714.67,
+  "updated_at": "2026-10-05 13:30:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1478,6 +1478,11 @@
       "pnl": -23224.5
     },
     {
+      "symbol": "NBCC",
+      "exit_date": "2026-10-05",
+      "pnl": -22952.47
+    },
+    {
       "symbol": "INFY",
       "exit_date": "2026-08-20",
       "pnl": 105061.34
@@ -2135,6 +2140,7 @@
     "KALYANKJIL": 1,
     "M&M": 2,
     "MARUTI": 3,
+    "NBCC": 3,
     "PGEL": 1,
     "TRENT": 2,
     "TVSMOTOR": 1,
@@ -3420,23 +3426,6 @@
       "rsi_at_entry": 35.04782871474556,
       "strike": 0.0,
       "margin_blocked": 521449.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 78.47,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 31.27673885297847,
-      "strike": 0.0,
-      "margin_blocked": 306033.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
