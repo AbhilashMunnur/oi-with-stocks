@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1066290.88,
-  "closed_count": 408,
+  "realised_pnl": 1226055.88,
+  "closed_count": 410,
   "day_date": "2026-10-06",
-  "day_realised_pnl": -22283.13,
-  "updated_at": "2026-10-06 15:01:01",
+  "day_realised_pnl": 137481.87,
+  "updated_at": "2026-10-06 16:46:32",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -819,6 +819,11 @@
       "pnl": -30773.25
     },
     {
+      "symbol": "LTM",
+      "exit_date": "2026-10-06",
+      "pnl": 218162.93
+    },
+    {
       "symbol": "VBL",
       "exit_date": "2026-07-22",
       "pnl": -26768.31
@@ -1337,6 +1342,11 @@
       "symbol": "HAL",
       "exit_date": "2026-08-18",
       "pnl": -33716.25
+    },
+    {
+      "symbol": "HAL",
+      "exit_date": "2026-10-06",
+      "pnl": 145423.73
     },
     {
       "symbol": "KEI",
@@ -2146,18 +2156,15 @@
   ],
   "qualify_skips": {
     "APLAPOLLO": 3,
-    "ASIANPAINT": 2,
-    "BRITANNIA": 2,
-    "CHOLAFIN": 2,
+    "ASIANPAINT": 1,
+    "BRITANNIA": 1,
+    "CHOLAFIN": 1,
     "EICHERMOT": 1,
     "ICICIGI": 1,
     "IEX": 3,
     "INDUSINDBK": 1,
-    "M&M": 1,
-    "MARUTI": 2,
-    "NBCC": 2,
-    "PGEL": 1,
-    "TRENT": 1,
+    "MARUTI": 1,
+    "NBCC": 1,
     "TVSMOTOR": 1,
     "VBL": 3
   },
@@ -2348,38 +2355,6 @@
       "stop_price": null
     },
     {
-      "symbol": "LTM",
-      "direction": "SHORT",
-      "entry_price": 4762.1,
-      "entry_time": "2026-08-12 15:15:00",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 73.22,
-      "strike": 0.0,
-      "margin_blocked": 142863.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 4523.99,
-          "exit_time": "2026-08-21 15:15:00",
-          "reason": "first_target",
-          "pnl": 35715.75
-        },
-        {
-          "lots": 1,
-          "exit_price": 4349.89,
-          "exit_time": "2026-09-11 15:15:00",
-          "reason": "second_target",
-          "pnl": 61832.18
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NATIONALUM",
       "direction": "SHORT",
       "entry_price": 400.5,
@@ -2437,38 +2412,6 @@
           "exit_time": "2026-09-28 14:00:56",
           "reason": "second_target",
           "pnl": 57437.96
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HAL",
-      "direction": "SHORT",
-      "entry_price": 5099.0,
-      "entry_time": "2026-08-18 15:15:00",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 75.6,
-      "strike": 0.0,
-      "margin_blocked": 152970.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 4844.05,
-          "exit_time": "2026-08-31 15:15:00",
-          "reason": "first_target",
-          "pnl": 38242.5
-        },
-        {
-          "lots": 1,
-          "exit_price": 4645.46,
-          "exit_time": "2026-10-01 16:43:55",
-          "reason": "second_target",
-          "pnl": 68031.23
         }
       ],
       "priced_on": "futures",
@@ -3799,6 +3742,91 @@
           "pnl": 23600.0
         }
       ],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "APOLLOHOSP",
+      "direction": "LONG",
+      "entry_price": 8004.5,
+      "entry_time": "2026-10-06 16:46:32",
+      "lot_size": 125,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 27.363249287707802,
+      "strike": 0.0,
+      "margin_blocked": 600337.5,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "CONCOR",
+      "direction": "LONG",
+      "entry_price": 449.7,
+      "entry_time": "2026-10-06 16:46:32",
+      "lot_size": 1250,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 28.903415186733568,
+      "strike": 0.0,
+      "margin_blocked": 337275.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "POLICYBZR",
+      "direction": "LONG",
+      "entry_price": 1044.0,
+      "entry_time": "2026-10-06 16:46:32",
+      "lot_size": 350,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 19.651428327200918,
+      "strike": 0.0,
+      "margin_blocked": 219240.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "SBICARD",
+      "direction": "LONG",
+      "entry_price": 574.5,
+      "entry_time": "2026-10-06 16:46:32",
+      "lot_size": 800,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 28.78019357055021,
+      "strike": 0.0,
+      "margin_blocked": 275760.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "UPL",
+      "direction": "LONG",
+      "entry_price": 515.85,
+      "entry_time": "2026-10-06 16:46:32",
+      "lot_size": 1355,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 25.247559278159684,
+      "strike": 0.0,
+      "margin_blocked": 419386.05,
+      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

@@ -364,3 +364,8 @@ TRENT,Buy,01-Oct-26,2600.0,27.5,06-Oct-26,2730.0,,3,117000*1,29250,first_target,
 PGEL,Buy,01-Oct-26,487.25,26.1,06-Oct-26,511.61,,3,92578*1,23144,first_target,lot 1 booked — 5% target ₹511.61
 TRENT,Buy,01-Oct-26,2600.0,27.5,06-Oct-26,2909.87,,3,117000*1,69720,second_target,"lot 2 booked — SMMA 50 ₹2,909.87"
 TIINDIA,Buy,05-Oct-26,2360.0,21.1,06-Oct-26,2478.0,,1,94400*1,23600,first_target,"lot 1 booked — 5% target ₹2,478.00"
+KOTAKBANK,Sell,28-Aug-26,423.7,74.8,06-Oct-26,432.6,78.1,27,169480*1,-17800,stop_loss,candle stop — cash closed 431.90 above the entry-candle stop ₹427.70
+DMART,Buy,11-Sep-26,3735.6,32.0,06-Oct-26,3602.2,26.5,17,112068*1,-20010,stop_loss,"candle stop — cash closed 3,581.90 below the entry-candle stop ₹3,650.00"
+INDIGO,Buy,17-Sep-26,4926.5,27.6,06-Oct-26,5016.96,41.7,13,147795*1,13569,first_target,"lot 1 booked — SMMA 21 ₹5,016.96"
+INDIGO,Buy,17-Sep-26,4926.5,27.6,06-Oct-26,4992.63,41.7,13,147795*1,9919,second_target,"lot 2 booked — SMMA 50 ₹4,992.63"
+IEX,Buy,30-Sep-26,107.94,25.7,06-Oct-26,105.72,,4,93908*3,-28971,stop_loss,candle stop — cash closed 104.86 below the entry-candle stop ₹105.78
