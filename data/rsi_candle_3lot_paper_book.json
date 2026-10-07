@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1216577.39,
-  "closed_count": 412,
+  "realised_pnl": 1182466.26,
+  "closed_count": 413,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -9478.49,
-  "updated_at": "2026-10-07 10:31:04",
+  "day_realised_pnl": -43589.61,
+  "updated_at": "2026-10-07 11:01:03",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -978,6 +978,11 @@
       "symbol": "BAJAJ-AUTO",
       "exit_date": "2026-08-05",
       "pnl": -39150.0
+    },
+    {
+      "symbol": "BAJAJ-AUTO",
+      "exit_date": "2026-10-07",
+      "pnl": -34111.12
     },
     {
       "symbol": "TCS",
@@ -3540,23 +3545,6 @@
       "rsi_at_entry": 29.813379529252387,
       "strike": 0.0,
       "margin_blocked": 287100.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BAJAJ-AUTO",
-      "direction": "LONG",
-      "entry_price": 10107.0,
-      "entry_time": "2026-10-05 15:59:03",
-      "lot_size": 75,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.806954728072142,
-      "strike": 0.0,
-      "margin_blocked": 454815.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

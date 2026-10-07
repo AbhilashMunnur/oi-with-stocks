@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 571800.89,
-  "closed_count": 284,
+  "realised_pnl": 520317.74,
+  "closed_count": 286,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -94059.77,
-  "updated_at": "2026-10-07 10:31:10",
+  "day_realised_pnl": -145542.92,
+  "updated_at": "2026-10-07 11:01:11",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -606,6 +606,11 @@
       "symbol": "INDUSINDBK",
       "exit_date": "2026-08-03",
       "pnl": -31673.25
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-10-07",
+      "pnl": -29008.35
     },
     {
       "symbol": "RADICO",
@@ -1401,6 +1406,11 @@
       "symbol": "TIINDIA",
       "exit_date": "2026-09-24",
       "pnl": -23644.8
+    },
+    {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-07",
+      "pnl": -22474.8
     },
     {
       "symbol": "AMBUJACEM",
@@ -2484,23 +2494,6 @@
       "stop_price": null
     },
     {
-      "symbol": "INDUSINDBK",
-      "direction": "LONG",
-      "entry_price": 920.9,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 23.836618853926723,
-      "strike": 0.0,
-      "margin_blocked": 386778.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "JIOFIN",
       "direction": "LONG",
       "entry_price": 221.49,
@@ -2682,23 +2675,6 @@
       "rsi_at_entry": 19.136003595689672,
       "strike": 0.0,
       "margin_blocked": 303733.2,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2497.2,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.17162604129487,
-      "strike": 0.0,
-      "margin_blocked": 299663.99999999994,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
