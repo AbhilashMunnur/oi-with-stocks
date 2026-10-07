@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 499336.94,
-  "closed_count": 287,
+  "realised_pnl": 477433.19,
+  "closed_count": 288,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -166523.72,
-  "updated_at": "2026-10-07 12:31:14",
+  "day_realised_pnl": -188427.47,
+  "updated_at": "2026-10-07 13:01:08",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -191,6 +191,11 @@
       "symbol": "WIPRO",
       "exit_date": "2026-07-07",
       "pnl": -23770.8
+    },
+    {
+      "symbol": "WIPRO",
+      "exit_date": "2026-10-07",
+      "pnl": -21903.75
     },
     {
       "symbol": "PIIND",
@@ -2306,23 +2311,6 @@
       "rsi_at_entry": 28.151532396698585,
       "strike": 0.0,
       "margin_blocked": 362220.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "WIPRO",
-      "direction": "LONG",
-      "entry_price": 162.25,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 3000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.17502339354641,
-      "strike": 0.0,
-      "margin_blocked": 292050.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
