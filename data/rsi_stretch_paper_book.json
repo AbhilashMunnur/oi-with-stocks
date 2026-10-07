@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2683869.24,
-  "closed_count": 249,
+  "realised_pnl": 2566964.08,
+  "closed_count": 254,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -144881.97,
-  "updated_at": "2026-10-07 13:01:15",
+  "day_realised_pnl": -261787.13,
+  "updated_at": "2026-10-07 13:31:22",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -169,6 +169,11 @@
       "pnl": -24355.01
     },
     {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-10-07",
+      "pnl": -23803.65
+    },
+    {
       "symbol": "PHOENIXLTD",
       "exit_date": "2026-07-06",
       "pnl": -32249.7
@@ -312,6 +317,11 @@
       "symbol": "KPITTECH",
       "exit_date": "2026-07-09",
       "pnl": -19488.15
+    },
+    {
+      "symbol": "KPITTECH",
+      "exit_date": "2026-10-07",
+      "pnl": -17381.7
     },
     {
       "symbol": "NYKAA",
@@ -1224,6 +1234,11 @@
       "pnl": -22597.99
     },
     {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-10-07",
+      "pnl": -21085.31
+    },
+    {
       "symbol": "PREMIERENE",
       "exit_date": "2026-09-28",
       "pnl": -26383.5
@@ -1317,6 +1332,16 @@
       "symbol": "UPL",
       "exit_date": "2026-10-07",
       "pnl": -31453.95
+    },
+    {
+      "symbol": "GRASIM",
+      "exit_date": "2026-10-07",
+      "pnl": -33952.5
+    },
+    {
+      "symbol": "SBICARD",
+      "exit_date": "2026-10-07",
+      "pnl": -20682.0
     }
   ],
   "qualify_skips": {
@@ -1787,23 +1812,6 @@
       "stop_price": null
     },
     {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1627.6,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.81789945791705,
-      "strike": 0.0,
-      "margin_blocked": 317382.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HAVELLS",
       "direction": "LONG",
       "entry_price": 1045.2,
@@ -1832,23 +1840,6 @@
       "rsi_at_entry": 26.447226832815943,
       "strike": 0.0,
       "margin_blocked": 302769.3,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "KPITTECH",
-      "direction": "LONG",
-      "entry_price": 498.4,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.65649993966582,
-      "strike": 0.0,
-      "margin_blocked": 231756.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2065,23 +2056,6 @@
       "stop_price": null
     },
     {
-      "symbol": "GRASIM",
-      "direction": "LONG",
-      "entry_price": 3018.0,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.233884485596832,
-      "strike": 0.0,
-      "margin_blocked": 452700.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HINDUNILVR",
       "direction": "LONG",
       "entry_price": 1853.1,
@@ -2110,23 +2084,6 @@
       "rsi_at_entry": 21.680508835751326,
       "strike": 0.0,
       "margin_blocked": 350070.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2082.5,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.137702922598052,
-      "strike": 0.0,
-      "margin_blocked": 281137.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2296,23 +2253,6 @@
       "rsi_at_entry": 19.651428327200918,
       "strike": 0.0,
       "margin_blocked": 219240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBICARD",
-      "direction": "LONG",
-      "entry_price": 574.5,
-      "entry_time": "2026-10-06 16:46:47",
-      "lot_size": 800,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.78019357055021,
-      "strike": 0.0,
-      "margin_blocked": 275760.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

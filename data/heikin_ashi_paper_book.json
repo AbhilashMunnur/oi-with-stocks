@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 477433.19,
-  "closed_count": 288,
+  "realised_pnl": 430722.31,
+  "closed_count": 290,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -188427.47,
-  "updated_at": "2026-10-07 13:01:08",
+  "day_realised_pnl": -235138.35,
+  "updated_at": "2026-10-07 13:31:15",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -256,6 +256,11 @@
       "symbol": "GODREJPROP",
       "exit_date": "2026-09-29",
       "pnl": -24618.26
+    },
+    {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-10-07",
+      "pnl": -23930.89
     },
     {
       "symbol": "IDFCFIRSTB",
@@ -968,6 +973,11 @@
       "pnl": -25134.57
     },
     {
+      "symbol": "SUZLON",
+      "exit_date": "2026-10-07",
+      "pnl": -22779.99
+    },
+    {
       "symbol": "SBIN",
       "exit_date": "2026-08-12",
       "pnl": -35977.5
@@ -1555,6 +1565,7 @@
   ],
   "qualify_skips": {
     "ASIANPAINT": 3,
+    "GODREJPROP": 3,
     "NAUKRI": 2,
     "SUNPHARMA": 2
   },
@@ -2436,23 +2447,6 @@
       "stop_price": null
     },
     {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1636.3,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.58210732110564,
-      "strike": 0.0,
-      "margin_blocked": 319078.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HINDUNILVR",
       "direction": "LONG",
       "entry_price": 1892.5,
@@ -2634,23 +2628,6 @@
       "rsi_at_entry": 28.64752317258376,
       "strike": 0.0,
       "margin_blocked": 281232.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 39.86,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 19.136003595689672,
-      "strike": 0.0,
-      "margin_blocked": 303733.2,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
