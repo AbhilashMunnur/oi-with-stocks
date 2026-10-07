@@ -612,3 +612,4 @@ NMDC,Buy,05-Oct-26,75.17,27.9,07-Oct-26,74.04,,2,101480*3,-22833,stop_loss,1.5% 
 TATAPOWER,Buy,28-Aug-26,351.85,21.6,07-Oct-26,346.57,,28,102037*2,-15305,stop_loss,1.5% stop ₹346.57 (tightened after lot 1 booked)
 ASTRAL,Buy,01-Oct-26,1348.7,32.0,07-Oct-26,1416.14,,4,114640*1,28660,first_target,"lot 1 booked — 5% target ₹1,416.14"
 BAJAJ-AUTO,Buy,05-Oct-26,10107.0,21.8,07-Oct-26,9955.4,,2,151605*3,-34111,stop_loss,"1.5% stop ₹9,955.40"
+SWIGGY,Buy,05-Oct-26,242.15,27.2,07-Oct-26,254.26,,2,88385*1,22096,first_target,lot 1 booked — 5% target ₹254.26
