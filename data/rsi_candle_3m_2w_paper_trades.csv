@@ -369,3 +369,4 @@ DMART,Buy,11-Sep-26,3735.6,32.0,06-Oct-26,3602.2,26.5,17,112068*1,-20010,stop_lo
 INDIGO,Buy,17-Sep-26,4926.5,27.6,06-Oct-26,5016.96,41.7,13,147795*1,13569,first_target,"lot 1 booked — SMMA 21 ₹5,016.96"
 INDIGO,Buy,17-Sep-26,4926.5,27.6,06-Oct-26,4992.63,41.7,13,147795*1,9919,second_target,"lot 2 booked — SMMA 50 ₹4,992.63"
 IEX,Buy,30-Sep-26,107.94,25.7,06-Oct-26,105.72,,4,93908*3,-28971,stop_loss,candle stop — cash closed 104.86 below the entry-candle stop ₹105.78
+ASTRAL,Buy,01-Oct-26,1348.7,32.0,07-Oct-26,1416.14,,4,114640*1,28660,first_target,"lot 1 booked — 5% target ₹1,416.14"
