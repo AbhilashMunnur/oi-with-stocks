@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 430722.31,
-  "closed_count": 290,
+  "realised_pnl": 403103.56,
+  "closed_count": 291,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -235138.35,
-  "updated_at": "2026-10-07 14:31:19",
+  "day_realised_pnl": -262757.1,
+  "updated_at": "2026-10-07 15:01:13",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1368,6 +1368,11 @@
       "pnl": -28440.0
     },
     {
+      "symbol": "BRITANNIA",
+      "exit_date": "2026-10-07",
+      "pnl": -27618.75
+    },
+    {
       "symbol": "M&M",
       "exit_date": "2026-09-22",
       "pnl": -28145.7
@@ -2339,23 +2344,6 @@
       "rsi_at_entry": 29.35063248357126,
       "strike": 0.0,
       "margin_blocked": 414000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BRITANNIA",
-      "direction": "LONG",
-      "entry_price": 4910.0,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.32708422274098,
-      "strike": 0.0,
-      "margin_blocked": 368250.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
