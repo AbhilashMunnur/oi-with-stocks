@@ -369,3 +369,4 @@ LTM,Sell,12-Aug-26,4762.1,73.2,06-Oct-26,3958.0,29.7,39,142863*1,120615,rsi_targ
 HAL,Sell,18-Aug-26,5099.0,75.6,06-Oct-26,4838.0,56.2,35,152970*1,39150,smma_cross,"final lot booked — strong candle closed 4,816.00 above SMMA 21 ₹4,766.55"
 NMDC,Buy,05-Oct-26,75.17,27.9,07-Oct-26,74.04,,2,101480*3,-22833,stop_loss,1.5% stop ₹74.04
 TITAN,Buy,05-Oct-26,4640.6,26.9,07-Oct-26,4570.99,,2,162421*3,-36545,stop_loss,"1.5% stop ₹4,570.99"
+TATAPOWER,Buy,28-Aug-26,351.85,21.7,07-Oct-26,346.57,,28,102037*2,-15305,stop_loss,1.5% stop ₹346.57 (tightened after lot 1 booked)

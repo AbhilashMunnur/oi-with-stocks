@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2769373.6,
-  "closed_count": 245,
+  "realised_pnl": 2754068.12,
+  "closed_count": 246,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -59377.61,
-  "updated_at": "2026-10-07 10:00:31",
+  "day_realised_pnl": -74683.09,
+  "updated_at": "2026-10-07 10:31:17",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -954,6 +954,11 @@
       "pnl": -24560.1
     },
     {
+      "symbol": "TATAPOWER",
+      "exit_date": "2026-10-07",
+      "pnl": 10203.65
+    },
+    {
       "symbol": "MOTILALOFS",
       "exit_date": "2026-08-25",
       "pnl": -34526.25
@@ -1421,31 +1426,6 @@
           "exit_time": "2026-09-15 15:15:00",
           "reason": "second_target",
           "pnl": 52606.09
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TATAPOWER",
-      "direction": "LONG",
-      "entry_price": 351.85,
-      "entry_time": "2026-08-28 15:15:00",
-      "lot_size": 1450,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 21.66,
-      "strike": 0.0,
-      "margin_blocked": 204073.00000000006,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 369.44,
-          "exit_time": "2026-09-09 15:15:00",
-          "reason": "first_target",
-          "pnl": 25509.13
         }
       ],
       "priced_on": "futures",
