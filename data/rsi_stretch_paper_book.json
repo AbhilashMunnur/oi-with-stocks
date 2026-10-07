@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2710599.24,
-  "closed_count": 248,
+  "realised_pnl": 2683869.24,
+  "closed_count": 249,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -118151.97,
-  "updated_at": "2026-10-07 12:01:29",
+  "day_realised_pnl": -144881.97,
+  "updated_at": "2026-10-07 12:31:24",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -102,6 +102,11 @@
       "symbol": "LTF",
       "exit_date": "2026-09-18",
       "pnl": 158882.81
+    },
+    {
+      "symbol": "LTF",
+      "exit_date": "2026-10-07",
+      "pnl": -26730.0
     },
     {
       "symbol": "OFSS",
@@ -1844,23 +1849,6 @@
       "rsi_at_entry": 28.65649993966582,
       "strike": 0.0,
       "margin_blocked": 231756.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LTF",
-      "direction": "LONG",
-      "entry_price": 264.0,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 2250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.553019742785352,
-      "strike": 0.0,
-      "margin_blocked": 356400.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
