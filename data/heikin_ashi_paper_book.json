@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 520317.74,
-  "closed_count": 286,
+  "realised_pnl": 499336.94,
+  "closed_count": 287,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -145542.92,
-  "updated_at": "2026-10-07 11:31:17",
+  "day_realised_pnl": -166523.72,
+  "updated_at": "2026-10-07 12:01:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1318,6 +1318,11 @@
       "pnl": -21859.2
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-10-07",
+      "pnl": -20980.8
+    },
+    {
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-18",
       "pnl": -31293.0
@@ -2301,23 +2306,6 @@
       "rsi_at_entry": 28.151532396698585,
       "strike": 0.0,
       "margin_blocked": 362220.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 291.4,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.129522831242454,
-      "strike": 0.0,
-      "margin_blocked": 279743.99999999994,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2742053.19,
-  "closed_count": 247,
+  "realised_pnl": 2710599.24,
+  "closed_count": 248,
   "day_date": "2026-10-07",
-  "day_realised_pnl": -86698.02,
-  "updated_at": "2026-10-07 11:31:26",
+  "day_realised_pnl": -118151.97,
+  "updated_at": "2026-10-07 12:01:29",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1307,6 +1307,11 @@
       "symbol": "NMDC",
       "exit_date": "2026-10-07",
       "pnl": -22832.89
+    },
+    {
+      "symbol": "UPL",
+      "exit_date": "2026-10-07",
+      "pnl": -31453.95
     }
   ],
   "qualify_skips": {
@@ -2337,23 +2342,6 @@
       "rsi_at_entry": 26.04617235102218,
       "strike": 0.0,
       "margin_blocked": 233325.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "UPL",
-      "direction": "LONG",
-      "entry_price": 515.85,
-      "entry_time": "2026-10-06 16:46:47",
-      "lot_size": 1355,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.247559278159684,
-      "strike": 0.0,
-      "margin_blocked": 419386.05,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
