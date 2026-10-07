@@ -371,3 +371,5 @@ INDIGO,Buy,17-Sep-26,4926.5,27.6,06-Oct-26,4992.63,41.7,13,147795*1,9919,second_
 IEX,Buy,30-Sep-26,107.94,25.7,06-Oct-26,105.72,,4,93908*3,-28971,stop_loss,candle stop — cash closed 104.86 below the entry-candle stop ₹105.78
 ASTRAL,Buy,01-Oct-26,1348.7,32.0,07-Oct-26,1416.14,,4,114640*1,28660,first_target,"lot 1 booked — 5% target ₹1,416.14"
 SWIGGY,Buy,05-Oct-26,242.15,27.2,07-Oct-26,254.26,,2,88385*1,22096,first_target,lot 1 booked — 5% target ₹254.26
+DLF,Buy,16-Sep-26,622.8,32.8,07-Oct-26,656.5,49.4,15,118332*1,32015,smma_cross,final lot booked — strong candle closed 656.00 below SMMA 21 ₹661.12
+KALYANKJIL,Buy,05-Oct-26,564.1,29.9,07-Oct-26,571.68,49.5,2,152307*1,10229,first_target,lot 1 booked — SMMA 21 ₹571.68

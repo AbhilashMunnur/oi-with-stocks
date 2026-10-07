@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -1712461.57,
-  "closed_count": 311,
+  "realised_pnl": -1670217.62,
+  "closed_count": 312,
   "day_date": "2026-10-07",
-  "day_realised_pnl": 50756.07,
-  "updated_at": "2026-10-07 15:00:52",
+  "day_realised_pnl": 93000.02,
+  "updated_at": "2026-10-07 15:56:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -1246,6 +1246,11 @@
       "symbol": "DMART",
       "exit_date": "2026-10-06",
       "pnl": -3272.06
+    },
+    {
+      "symbol": "DLF",
+      "exit_date": "2026-10-07",
+      "pnl": 75231.6
     }
   ],
   "qualify_skips": {
@@ -1582,38 +1587,6 @@
       "strike": 0.0,
       "margin_blocked": 329816.25,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "DLF",
-      "direction": "LONG",
-      "entry_price": 622.8,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 950,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 32.83,
-      "strike": 0.0,
-      "margin_blocked": 118332.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 653.94,
-          "exit_time": "2026-09-21 15:15:00",
-          "reason": "first_target",
-          "pnl": 29583.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 637.15,
-          "exit_time": "2026-09-21 15:15:00",
-          "reason": "second_target",
-          "pnl": 13633.6
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2613,13 +2586,21 @@
       "entry_price": 564.1,
       "entry_time": "2026-10-05 15:58:53",
       "lot_size": 1350,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 29.912818868166383,
       "strike": 0.0,
-      "margin_blocked": 456921.0,
-      "closed_legs": [],
+      "margin_blocked": 304614.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 571.68,
+          "exit_time": "2026-10-07 15:56:10",
+          "reason": "first_target",
+          "pnl": 10228.95
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 522.5
@@ -2860,6 +2841,91 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 496.05
+    },
+    {
+      "symbol": "BIOCON",
+      "direction": "LONG",
+      "entry_price": 365.15,
+      "entry_time": "2026-10-07 15:56:10",
+      "lot_size": 2500,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 30.276359448501267,
+      "strike": 0.0,
+      "margin_blocked": 547725.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 357.847
+    },
+    {
+      "symbol": "HINDALCO",
+      "direction": "LONG",
+      "entry_price": 923.5,
+      "entry_time": "2026-10-07 15:56:10",
+      "lot_size": 700,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 32.48721414111739,
+      "strike": 0.0,
+      "margin_blocked": 387870.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 905.03
+    },
+    {
+      "symbol": "MARUTI",
+      "direction": "LONG",
+      "entry_price": 11600.0,
+      "entry_time": "2026-10-07 15:56:10",
+      "lot_size": 50,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 30.48170237024334,
+      "strike": 0.0,
+      "margin_blocked": 348000.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 11368.0
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "direction": "LONG",
+      "entry_price": 917.0,
+      "entry_time": "2026-10-07 15:56:10",
+      "lot_size": 525,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 26.622841705477896,
+      "strike": 0.0,
+      "margin_blocked": 288855.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 892.25
+    },
+    {
+      "symbol": "TVSMOTOR",
+      "direction": "LONG",
+      "entry_price": 3980.0,
+      "entry_time": "2026-10-07 15:56:10",
+      "lot_size": 175,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 36.00521840502387,
+      "strike": 0.0,
+      "margin_blocked": 417900.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 3870.8
     }
   ]
 }
