@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 665860.65,
-  "closed_count": 280,
-  "day_date": "2026-10-06",
-  "day_realised_pnl": 147443.86,
-  "updated_at": "2026-10-06 16:46:40",
+  "realised_pnl": 645579.06,
+  "closed_count": 281,
+  "day_date": "2026-10-07",
+  "day_realised_pnl": -20281.59,
+  "updated_at": "2026-10-07 09:30:22",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -73,7 +73,8 @@
     "2026-09-30",
     "2026-10-01",
     "2026-10-05",
-    "2026-10-06"
+    "2026-10-06",
+    "2026-10-07"
   ],
   "closed_results": [
     {
@@ -1402,6 +1403,11 @@
       "pnl": -22129.54
     },
     {
+      "symbol": "BDL",
+      "exit_date": "2026-10-07",
+      "pnl": -20901.71
+    },
+    {
       "symbol": "MARUTI",
       "exit_date": "2026-09-24",
       "pnl": -27726.75
@@ -2070,12 +2076,12 @@
       "entry_price": 5001.0,
       "entry_time": "2026-09-30 16:47:49",
       "lot_size": 150,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 27.63303231056301,
       "strike": 0.0,
-      "margin_blocked": 300060.0,
+      "margin_blocked": 150030.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2083,6 +2089,13 @@
           "exit_time": "2026-10-06 16:46:40",
           "reason": "first_target",
           "pnl": 2393.86
+        },
+        {
+          "lots": 1,
+          "exit_price": 5005.13,
+          "exit_time": "2026-10-07 09:30:22",
+          "reason": "second_target",
+          "pnl": 620.13
         }
       ],
       "priced_on": "futures",
@@ -2347,23 +2360,6 @@
       "rsi_at_entry": 29.050461671965337,
       "strike": 0.0,
       "margin_blocked": 366570.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BDL",
-      "direction": "LONG",
-      "entry_price": 1092.9,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.56186774521001,
-      "strike": 0.0,
-      "margin_blocked": 278689.50000000006,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

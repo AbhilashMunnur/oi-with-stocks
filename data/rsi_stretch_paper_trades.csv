@@ -367,3 +367,5 @@ TRENT,Buy,01-Oct-26,2600.0,27.5,06-Oct-26,2909.73,,3,117000*1,69689,second_targe
 TIINDIA,Buy,05-Oct-26,2360.0,21.1,06-Oct-26,2478.0,,1,94400*1,23600,first_target,"lot 1 booked — 5% target ₹2,478.00"
 LTM,Sell,12-Aug-26,4762.1,73.2,06-Oct-26,3958.0,29.7,39,142863*1,120615,rsi_target,final lot booked — RSI 29.7 reached 30
 HAL,Sell,18-Aug-26,5099.0,75.6,06-Oct-26,4838.0,56.2,35,152970*1,39150,smma_cross,"final lot booked — strong candle closed 4,816.00 above SMMA 21 ₹4,766.55"
+NMDC,Buy,05-Oct-26,75.17,27.9,07-Oct-26,74.04,,2,101480*3,-22833,stop_loss,1.5% stop ₹74.04
+TITAN,Buy,05-Oct-26,4640.6,26.9,07-Oct-26,4570.99,,2,162421*3,-36545,stop_loss,"1.5% stop ₹4,570.99"

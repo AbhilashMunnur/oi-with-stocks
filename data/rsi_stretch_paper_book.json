@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2828751.21,
-  "closed_count": 243,
-  "day_date": "2026-10-06",
-  "day_realised_pnl": 305447.92,
-  "updated_at": "2026-10-06 16:46:47",
+  "realised_pnl": 2769373.6,
+  "closed_count": 245,
+  "day_date": "2026-10-07",
+  "day_realised_pnl": -59377.61,
+  "updated_at": "2026-10-07 09:30:30",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -69,7 +69,8 @@
     "2026-09-30",
     "2026-10-01",
     "2026-10-05",
-    "2026-10-06"
+    "2026-10-06",
+    "2026-10-07"
   ],
   "closed_results": [
     {
@@ -481,6 +482,11 @@
       "symbol": "TITAN",
       "exit_date": "2026-07-21",
       "pnl": -36258.07
+    },
+    {
+      "symbol": "TITAN",
+      "exit_date": "2026-10-07",
+      "pnl": -36544.73
     },
     {
       "symbol": "UNITDSPR",
@@ -1286,6 +1292,11 @@
       "symbol": "FORTIS",
       "exit_date": "2026-10-05",
       "pnl": -27523.35
+    },
+    {
+      "symbol": "NMDC",
+      "exit_date": "2026-10-07",
+      "pnl": -22832.89
     }
   ],
   "qualify_skips": {
@@ -2195,23 +2206,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NMDC",
-      "direction": "LONG",
-      "entry_price": 75.17,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 6750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.913913960394552,
-      "strike": 0.0,
-      "margin_blocked": 304438.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PFC",
       "direction": "LONG",
       "entry_price": 324.8,
@@ -2283,23 +2277,6 @@
           "pnl": 23600.0
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TITAN",
-      "direction": "LONG",
-      "entry_price": 4640.6,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.86854905591798,
-      "strike": 0.0,
-      "margin_blocked": 487263.00000000006,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

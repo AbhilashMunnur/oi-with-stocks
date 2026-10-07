@@ -423,3 +423,5 @@ BANDHANBNK,Buy,03-Sep-26,164.23,29.8,05-Oct-26,170.19,41.2,22,118246*1,21456,smm
 LTM,Sell,13-Aug-26,4765.0,74.7,06-Oct-26,3958.0,29.7,38,142950*1,121050,rsi_target,final lot booked — RSI 29.7 reached 30
 HAL,Sell,20-Aug-26,4998.0,77.0,06-Oct-26,4838.0,56.2,33,149940*1,24000,smma_cross,"final lot booked — strong candle closed 4,816.00 above SMMA 21 ₹4,766.55"
 INDIGO,Buy,30-Sep-26,5001.0,27.6,06-Oct-26,5016.96,41.7,4,150030*1,2394,first_target,"lot 1 booked — SMMA 21 ₹5,016.96"
+INDIGO,Buy,30-Sep-26,5001.0,27.6,07-Oct-26,5005.13,,5,150030*1,620,second_target,"lot 2 booked — SMMA 50 ₹5,005.13"
+BDL,Buy,06-Oct-26,1092.9,25.6,07-Oct-26,1076.51,,1,92897*3,-20902,stop_loss,"1.5% stop ₹1,076.51"
