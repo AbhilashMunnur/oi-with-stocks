@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1280558.34,
-  "closed_count": 423,
-  "day_date": "2026-10-07",
-  "day_realised_pnl": 54502.47,
-  "updated_at": "2026-10-07 15:56:22",
+  "realised_pnl": 1232888.99,
+  "closed_count": 427,
+  "day_date": "2026-10-08",
+  "day_realised_pnl": -47669.35,
+  "updated_at": "2026-10-08 09:31:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -76,7 +76,8 @@
     "2026-10-01",
     "2026-10-05",
     "2026-10-06",
-    "2026-10-07"
+    "2026-10-07",
+    "2026-10-08"
   ],
   "closed_results": [
     {
@@ -1190,6 +1191,11 @@
       "pnl": -35212.5
     },
     {
+      "symbol": "ASHOKLEY",
+      "exit_date": "2026-10-08",
+      "pnl": -34312.5
+    },
+    {
       "symbol": "UNOMINDA",
       "exit_date": "2026-08-05",
       "pnl": -30368.25
@@ -1590,6 +1596,11 @@
       "pnl": -22722.84
     },
     {
+      "symbol": "SUZLON",
+      "exit_date": "2026-10-08",
+      "pnl": -22557.11
+    },
+    {
       "symbol": "LICHSGFIN",
       "exit_date": "2026-08-24",
       "pnl": -22590.0
@@ -1910,6 +1921,11 @@
       "pnl": 126470.88
     },
     {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-08",
+      "pnl": -21664.12
+    },
+    {
       "symbol": "WIPRO",
       "exit_date": "2026-09-09",
       "pnl": 10207.8
@@ -2180,6 +2196,11 @@
       "pnl": -25326.56
     },
     {
+      "symbol": "CONCOR",
+      "exit_date": "2026-10-08",
+      "pnl": -25295.62
+    },
+    {
       "symbol": "RELIANCE",
       "exit_date": "2026-10-01",
       "pnl": -26964.0
@@ -2222,6 +2243,7 @@
   ],
   "qualify_skips": {
     "APLAPOLLO": 3,
+    "ASHOKLEY": 3,
     "ASIANPAINT": 1,
     "BRITANNIA": 1,
     "ICICIGI": 1,
@@ -2795,12 +2817,12 @@
       "entry_price": 1440.0,
       "entry_time": "2026-09-16 15:15:00",
       "lot_size": 325,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-11-23",
       "rsi_at_entry": 15.96,
       "strike": 0.0,
-      "margin_blocked": 187200.0,
+      "margin_blocked": 93600.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2808,6 +2830,13 @@
           "exit_time": "2026-09-24 15:15:00",
           "reason": "first_target",
           "pnl": 23400.0
+        },
+        {
+          "lots": 1,
+          "exit_price": 1612.8,
+          "exit_time": "2026-10-08 09:31:10",
+          "reason": "second_target",
+          "pnl": 56160.0
         }
       ],
       "priced_on": "futures",
@@ -3019,23 +3048,6 @@
       "rsi_at_entry": 32.22215628733535,
       "strike": 0.0,
       "margin_blocked": 264960.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ASHOKLEY",
-      "direction": "LONG",
-      "entry_price": 152.5,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 5000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 33.69812834752895,
-      "strike": 0.0,
-      "margin_blocked": 457500.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3313,23 +3325,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 39.47,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.722332574487638,
-      "strike": 0.0,
-      "margin_blocked": 300761.4,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAELXSI",
       "direction": "LONG",
       "entry_price": 3101.6,
@@ -3601,23 +3596,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CONCOR",
-      "direction": "LONG",
-      "entry_price": 449.7,
-      "entry_time": "2026-10-06 16:46:32",
-      "lot_size": 1250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.903415186733568,
-      "strike": 0.0,
-      "margin_blocked": 337275.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "POLICYBZR",
       "direction": "LONG",
       "entry_price": 1044.0,
@@ -3748,23 +3726,6 @@
       "rsi_at_entry": 22.873114741849747,
       "strike": 0.0,
       "margin_blocked": 340812.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAXHEALTH",
-      "direction": "LONG",
-      "entry_price": 917.0,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.622841705477896,
-      "strike": 0.0,
-      "margin_blocked": 288855.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

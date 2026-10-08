@@ -623,3 +623,8 @@ SBICARD,Buy,06-Oct-26,574.5,28.8,07-Oct-26,565.88,,1,91920*3,-20682,stop_loss,1.
 TECHM,Sell,04-Aug-26,1648.5,69.5,07-Oct-26,1479.7,29.9,46,197820*1,101280,rsi_target,final lot booked — RSI 29.9 reached 30
 TITAN,Sell,31-Aug-26,5102.4,71.7,07-Oct-26,4429.7,27.7,27,178584*1,117722,rsi_target,final lot booked — RSI 27.7 reached 30
 DLF,Buy,16-Sep-26,622.8,32.8,07-Oct-26,656.5,49.4,15,118332*1,32015,smma_cross,final lot booked — strong candle closed 656.00 below SMMA 21 ₹661.12
+ICICIGI,Buy,16-Sep-26,1440.0,16.0,08-Oct-26,1612.8,,16,93600*1,56160,second_target,"lot 2 booked — 12% target ₹1,612.80"
+ASHOKLEY,Buy,01-Oct-26,152.5,33.7,08-Oct-26,150.21,,5,152500*3,-34312,stop_loss,1.5% stop ₹150.21
+SUZLON,Buy,01-Oct-26,39.47,20.7,08-Oct-26,38.88,,5,100254*3,-22557,stop_loss,1.5% stop ₹38.88
+CONCOR,Buy,06-Oct-26,449.7,28.9,08-Oct-26,442.95,,2,112425*3,-25296,stop_loss,1.5% stop ₹442.95
+MAXHEALTH,Buy,07-Oct-26,917.0,26.6,08-Oct-26,903.25,,1,96285*3,-21664,stop_loss,1.5% stop ₹903.25

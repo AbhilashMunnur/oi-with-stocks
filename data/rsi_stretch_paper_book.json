@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2495250.96,
-  "closed_count": 256,
-  "day_date": "2026-10-07",
-  "day_realised_pnl": -333500.25,
-  "updated_at": "2026-10-07 15:56:35",
+  "realised_pnl": 2451029.73,
+  "closed_count": 258,
+  "day_date": "2026-10-08",
+  "day_realised_pnl": -44221.23,
+  "updated_at": "2026-10-08 09:31:26",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -70,7 +70,8 @@
     "2026-10-01",
     "2026-10-05",
     "2026-10-06",
-    "2026-10-07"
+    "2026-10-07",
+    "2026-10-08"
   ],
   "closed_results": [
     {
@@ -974,6 +975,11 @@
       "pnl": -22722.84
     },
     {
+      "symbol": "SUZLON",
+      "exit_date": "2026-10-08",
+      "pnl": -22557.11
+    },
+    {
       "symbol": "COLPAL",
       "exit_date": "2026-08-24",
       "pnl": -23636.25
@@ -1102,6 +1108,11 @@
       "symbol": "MAXHEALTH",
       "exit_date": "2026-09-09",
       "pnl": 130119.53
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-08",
+      "pnl": -21664.12
     },
     {
       "symbol": "HDFCBANK",
@@ -1358,6 +1369,7 @@
     "KALYANKJIL": 2,
     "RADICO": 2,
     "SONACOMS": 2,
+    "SUZLON": 3,
     "TVSMOTOR": 3
   },
   "positions": [
@@ -1881,23 +1893,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 39.47,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.722332574487638,
-      "strike": 0.0,
-      "margin_blocked": 300761.4,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TMPV",
       "direction": "LONG",
       "entry_price": 283.1,
@@ -2331,23 +2326,6 @@
       "rsi_at_entry": 22.873114741849747,
       "strike": 0.0,
       "margin_blocked": 340812.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAXHEALTH",
-      "direction": "LONG",
-      "entry_price": 917.0,
-      "entry_time": "2026-10-07 15:56:35",
-      "lot_size": 525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.622841705477896,
-      "strike": 0.0,
-      "margin_blocked": 288855.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

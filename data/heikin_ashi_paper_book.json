@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 502430.01,
-  "closed_count": 293,
-  "day_date": "2026-10-07",
-  "day_realised_pnl": -163430.65,
-  "updated_at": "2026-10-07 15:56:29",
+  "realised_pnl": 343145.69,
+  "closed_count": 299,
+  "day_date": "2026-10-08",
+  "day_realised_pnl": -159284.32,
+  "updated_at": "2026-10-08 09:31:18",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -74,7 +74,8 @@
     "2026-10-01",
     "2026-10-05",
     "2026-10-06",
-    "2026-10-07"
+    "2026-10-07",
+    "2026-10-08"
   ],
   "closed_results": [
     {
@@ -1538,6 +1539,11 @@
       "pnl": 139431.08
     },
     {
+      "symbol": "JIOFIN",
+      "exit_date": "2026-10-08",
+      "pnl": -23422.57
+    },
+    {
       "symbol": "GODFRYPHLP",
       "exit_date": "2026-09-28",
       "pnl": -24040.91
@@ -1576,6 +1582,31 @@
       "symbol": "HAL",
       "exit_date": "2026-10-06",
       "pnl": 114366.23
+    },
+    {
+      "symbol": "AMBER",
+      "exit_date": "2026-10-08",
+      "pnl": -31050.0
+    },
+    {
+      "symbol": "CONCOR",
+      "exit_date": "2026-10-08",
+      "pnl": -25295.62
+    },
+    {
+      "symbol": "EICHERMOT",
+      "exit_date": "2026-10-08",
+      "pnl": -32175.0
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "exit_date": "2026-10-08",
+      "pnl": -25548.75
+    },
+    {
+      "symbol": "NTPC",
+      "exit_date": "2026-10-08",
+      "pnl": -21792.38
     }
   ],
   "qualify_skips": {
@@ -2311,40 +2342,6 @@
       "stop_price": null
     },
     {
-      "symbol": "AMBER",
-      "direction": "LONG",
-      "entry_price": 6900.0,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 100,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.35063248357126,
-      "strike": 0.0,
-      "margin_blocked": 414000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CONCOR",
-      "direction": "LONG",
-      "entry_price": 449.7,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 1250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.932194716835184,
-      "strike": 0.0,
-      "margin_blocked": 337275.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "CROMPTON",
       "direction": "LONG",
       "entry_price": 214.18,
@@ -2362,23 +2359,6 @@
       "stop_price": null
     },
     {
-      "symbol": "EICHERMOT",
-      "direction": "LONG",
-      "entry_price": 7150.0,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 100,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 19.10727653871308,
-      "strike": 0.0,
-      "margin_blocked": 429000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "GODREJCP",
       "direction": "LONG",
       "entry_price": 875.0,
@@ -2390,40 +2370,6 @@
       "rsi_at_entry": 28.304059896153973,
       "strike": 0.0,
       "margin_blocked": 262500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HINDUNILVR",
-      "direction": "LONG",
-      "entry_price": 1892.5,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.28498197307711,
-      "strike": 0.0,
-      "margin_blocked": 340650.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "JIOFIN",
-      "direction": "LONG",
-      "entry_price": 221.49,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 2350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 22.73665074035489,
-      "strike": 0.0,
-      "margin_blocked": 312300.9,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2500,23 +2446,6 @@
       "rsi_at_entry": 29.06976153600911,
       "strike": 0.0,
       "margin_blocked": 306244.8,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "NTPC",
-      "direction": "LONG",
-      "entry_price": 322.85,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 1500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.802173457967143,
-      "strike": 0.0,
-      "margin_blocked": 290565.00000000006,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
