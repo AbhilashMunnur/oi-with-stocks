@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1033547.14,
-  "closed_count": 434,
+  "realised_pnl": 961284.68,
+  "closed_count": 436,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -247011.2,
-  "updated_at": "2026-10-08 11:31:06",
+  "day_realised_pnl": -319273.66,
+  "updated_at": "2026-10-08 12:01:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -144,6 +144,11 @@
       "symbol": "LUPIN",
       "exit_date": "2026-10-01",
       "pnl": -39737.93
+    },
+    {
+      "symbol": "LUPIN",
+      "exit_date": "2026-10-08",
+      "pnl": -39108.71
     },
     {
       "symbol": "OFSS",
@@ -2271,6 +2276,11 @@
       "pnl": -33885.0
     },
     {
+      "symbol": "GRASIM",
+      "exit_date": "2026-10-08",
+      "pnl": -33153.75
+    },
+    {
       "symbol": "SBICARD",
       "exit_date": "2026-10-07",
       "pnl": -20682.0
@@ -3225,23 +3235,6 @@
       "stop_price": null
     },
     {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 2044.9,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 35.04782871474556,
-      "strike": 0.0,
-      "margin_blocked": 521449.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NESTLEIND",
       "direction": "LONG",
       "entry_price": 1322.5,
@@ -3609,23 +3602,6 @@
       "rsi_at_entry": 27.560893282899045,
       "strike": 0.0,
       "margin_blocked": 312000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GRASIM",
-      "direction": "LONG",
-      "entry_price": 2947.0,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.42230511402768,
-      "strike": 0.0,
-      "margin_blocked": 442050.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
