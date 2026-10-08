@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 861366.49,
-  "closed_count": 441,
+  "realised_pnl": 766737.06,
+  "closed_count": 445,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -419191.85,
-  "updated_at": "2026-10-08 12:31:20",
+  "day_realised_pnl": -513821.28,
+  "updated_at": "2026-10-08 13:01:06",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -259,6 +259,11 @@
       "symbol": "GODREJPROP",
       "exit_date": "2026-10-07",
       "pnl": -23803.65
+    },
+    {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-10-08",
+      "pnl": -23400.0
     },
     {
       "symbol": "PHOENIXLTD",
@@ -529,6 +534,11 @@
       "symbol": "KPITTECH",
       "exit_date": "2026-10-07",
       "pnl": -17381.7
+    },
+    {
+      "symbol": "KPITTECH",
+      "exit_date": "2026-10-08",
+      "pnl": -17139.32
     },
     {
       "symbol": "MARICO",
@@ -1706,6 +1716,11 @@
       "pnl": 10618.2
     },
     {
+      "symbol": "ONGC",
+      "exit_date": "2026-10-08",
+      "pnl": -22911.86
+    },
+    {
       "symbol": "HYUNDAI",
       "exit_date": "2026-08-26",
       "pnl": -27311.62
@@ -2309,6 +2324,11 @@
       "symbol": "LT",
       "exit_date": "2026-10-08",
       "pnl": -29610.0
+    },
+    {
+      "symbol": "HDFCAMC",
+      "exit_date": "2026-10-08",
+      "pnl": -31178.25
     }
   ],
   "qualify_skips": {
@@ -2317,9 +2337,11 @@
     "ASIANPAINT": 1,
     "BRITANNIA": 1,
     "CROMPTON": 3,
+    "GODREJPROP": 3,
     "ICICIGI": 1,
     "IEX": 3,
     "INDUSINDBK": 1,
+    "KPITTECH": 3,
     "POLICYBZR": 3,
     "VBL": 3
   },
@@ -3058,23 +3080,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HDFCAMC",
-      "direction": "LONG",
-      "entry_price": 2309.5,
-      "entry_time": "2026-09-30 16:47:43",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.61905969624455,
-      "strike": 0.0,
-      "margin_blocked": 415710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PIDILITIND",
       "direction": "LONG",
       "entry_price": 1481.5,
@@ -3272,23 +3277,6 @@
       "rsi_at_entry": 29.83605608070239,
       "strike": 0.0,
       "margin_blocked": 300240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ONGC",
-      "direction": "LONG",
-      "entry_price": 226.29,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 2250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 35.65540112219773,
-      "strike": 0.0,
-      "margin_blocked": 305491.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3518,40 +3506,6 @@
       "rsi_at_entry": 21.536130387468233,
       "strike": 0.0,
       "margin_blocked": 448335.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1600.0,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.560893282899045,
-      "strike": 0.0,
-      "margin_blocked": 312000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "KPITTECH",
-      "direction": "LONG",
-      "entry_price": 491.45,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.53740974421629,
-      "strike": 0.0,
-      "margin_blocked": 228524.25,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2294820.56,
-  "closed_count": 266,
+  "realised_pnl": 2168638.37,
+  "closed_count": 271,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -200430.4,
-  "updated_at": "2026-10-08 12:31:35",
+  "day_realised_pnl": -326612.59,
+  "updated_at": "2026-10-08 13:01:21",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -175,6 +175,11 @@
       "pnl": -23803.65
     },
     {
+      "symbol": "GODREJPROP",
+      "exit_date": "2026-10-08",
+      "pnl": -23400.0
+    },
+    {
       "symbol": "PHOENIXLTD",
       "exit_date": "2026-07-06",
       "pnl": -32249.7
@@ -323,6 +328,11 @@
       "symbol": "KPITTECH",
       "exit_date": "2026-10-07",
       "pnl": -17381.7
+    },
+    {
+      "symbol": "KPITTECH",
+      "exit_date": "2026-10-08",
+      "pnl": -17139.32
     },
     {
       "symbol": "NYKAA",
@@ -940,6 +950,11 @@
       "pnl": -23224.5
     },
     {
+      "symbol": "NBCC",
+      "exit_date": "2026-10-08",
+      "pnl": -22712.62
+    },
+    {
       "symbol": "LUPIN",
       "exit_date": "2026-08-20",
       "pnl": 218339.36
@@ -1403,10 +1418,22 @@
       "symbol": "APOLLOHOSP",
       "exit_date": "2026-10-08",
       "pnl": -45025.31
+    },
+    {
+      "symbol": "HDFCAMC",
+      "exit_date": "2026-10-08",
+      "pnl": -31178.25
+    },
+    {
+      "symbol": "EICHERMOT",
+      "exit_date": "2026-10-08",
+      "pnl": -31752.0
     }
   ],
   "qualify_skips": {
+    "GODREJPROP": 3,
     "KALYANKJIL": 2,
+    "NBCC": 3,
     "RADICO": 2,
     "SONACOMS": 2,
     "SUZLON": 3,
@@ -1789,23 +1816,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HDFCAMC",
-      "direction": "LONG",
-      "entry_price": 2309.5,
-      "entry_time": "2026-09-30 16:47:54",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 25.61905969624455,
-      "strike": 0.0,
-      "margin_blocked": 415710.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "PIDILITIND",
       "direction": "LONG",
       "entry_price": 1481.5,
@@ -1843,23 +1853,6 @@
           "pnl": 33833.8
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "EICHERMOT",
-      "direction": "LONG",
-      "entry_price": 7056.0,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 100,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.733386869221363,
-      "strike": 0.0,
-      "margin_blocked": 423360.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2075,23 +2068,6 @@
       "stop_price": null
     },
     {
-      "symbol": "NBCC",
-      "direction": "LONG",
-      "entry_price": 77.65,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 6500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.207897098936186,
-      "strike": 0.0,
-      "margin_blocked": 302835.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NHPC",
       "direction": "LONG",
       "entry_price": 71.97,
@@ -2196,40 +2172,6 @@
       "rsi_at_entry": 21.536130387468233,
       "strike": 0.0,
       "margin_blocked": 448335.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GODREJPROP",
-      "direction": "LONG",
-      "entry_price": 1600.0,
-      "entry_time": "2026-10-07 15:56:35",
-      "lot_size": 325,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.560893282899045,
-      "strike": 0.0,
-      "margin_blocked": 312000.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "KPITTECH",
-      "direction": "LONG",
-      "entry_price": 491.45,
-      "entry_time": "2026-10-07 15:56:35",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.53740974421629,
-      "strike": 0.0,
-      "margin_blocked": 228524.25,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
