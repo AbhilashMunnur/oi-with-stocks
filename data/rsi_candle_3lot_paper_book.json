@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 961284.68,
-  "closed_count": 436,
+  "realised_pnl": 861366.49,
+  "closed_count": 441,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -319273.66,
-  "updated_at": "2026-10-08 12:01:05",
+  "day_realised_pnl": -419191.85,
+  "updated_at": "2026-10-08 12:31:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -756,6 +756,11 @@
       "pnl": -17922.38
     },
     {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-10-08",
+      "pnl": -17446.5
+    },
+    {
       "symbol": "BAJFINANCE",
       "exit_date": "2026-07-17",
       "pnl": -34809.75
@@ -1239,6 +1244,11 @@
       "symbol": "CROMPTON",
       "exit_date": "2026-10-01",
       "pnl": -20415.22
+    },
+    {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-10-08",
+      "pnl": -20704.5
     },
     {
       "symbol": "ANGELONE",
@@ -1931,6 +1941,11 @@
       "pnl": -19301.62
     },
     {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-10-08",
+      "pnl": -17997.19
+    },
+    {
       "symbol": "HINDPETRO",
       "exit_date": "2026-09-08",
       "pnl": -32522.51
@@ -2226,6 +2241,11 @@
       "pnl": -21765.6
     },
     {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-08",
+      "pnl": 9440.0
+    },
+    {
       "symbol": "CONCOR",
       "exit_date": "2026-10-01",
       "pnl": -25326.56
@@ -2284,6 +2304,11 @@
       "symbol": "SBICARD",
       "exit_date": "2026-10-07",
       "pnl": -20682.0
+    },
+    {
+      "symbol": "LT",
+      "exit_date": "2026-10-08",
+      "pnl": -29610.0
     }
   ],
   "qualify_skips": {
@@ -2291,6 +2316,7 @@
     "ASHOKLEY": 3,
     "ASIANPAINT": 1,
     "BRITANNIA": 1,
+    "CROMPTON": 3,
     "ICICIGI": 1,
     "IEX": 3,
     "INDUSINDBK": 1,
@@ -3218,23 +3244,6 @@
       "stop_price": null
     },
     {
-      "symbol": "LT",
-      "direction": "LONG",
-      "entry_price": 3760.0,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 35.749526841925274,
-      "strike": 0.0,
-      "margin_blocked": 394800.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NESTLEIND",
       "direction": "LONG",
       "entry_price": 1322.5,
@@ -3320,23 +3329,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TATAELXSI",
-      "direction": "LONG",
-      "entry_price": 3101.6,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 23.772361628764642,
-      "strike": 0.0,
-      "margin_blocked": 232620.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TMPV",
       "direction": "LONG",
       "entry_price": 283.1,
@@ -3365,23 +3357,6 @@
       "rsi_at_entry": 33.848463161656355,
       "strike": 0.0,
       "margin_blocked": 325200.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "VOLTAS",
-      "direction": "LONG",
-      "entry_price": 1066.5,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 375,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.78323975440075,
-      "strike": 0.0,
-      "margin_blocked": 239962.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3433,23 +3408,6 @@
       "rsi_at_entry": 32.77177422752227,
       "strike": 0.0,
       "margin_blocked": 556110.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 214.0,
-      "entry_time": "2026-10-05 15:59:03",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.4978058409409,
-      "strike": 0.0,
-      "margin_blocked": 276060.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3542,31 +3500,6 @@
           "exit_time": "2026-10-07 11:31:10",
           "reason": "first_target",
           "pnl": 22096.19
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2360.0,
-      "entry_time": "2026-10-05 15:59:03",
-      "lot_size": 200,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.077465913819722,
-      "strike": 0.0,
-      "margin_blocked": 188800.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2478.0,
-          "exit_time": "2026-10-06 13:31:16",
-          "reason": "first_target",
-          "pnl": 23600.0
         }
       ],
       "priced_on": "futures",

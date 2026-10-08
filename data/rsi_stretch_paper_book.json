@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2329685.06,
-  "closed_count": 264,
+  "realised_pnl": 2294820.56,
+  "closed_count": 266,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -165565.9,
-  "updated_at": "2026-10-08 12:01:18",
+  "day_realised_pnl": -200430.4,
+  "updated_at": "2026-10-08 12:31:35",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1325,6 +1325,11 @@
       "pnl": -21765.6
     },
     {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-08",
+      "pnl": 9440.0
+    },
+    {
       "symbol": "BIOCON",
       "exit_date": "2026-10-01",
       "pnl": -42750.0
@@ -1333,6 +1338,11 @@
       "symbol": "CROMPTON",
       "exit_date": "2026-10-01",
       "pnl": -20415.22
+    },
+    {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-10-08",
+      "pnl": -20704.5
     },
     {
       "symbol": "CONCOR",
@@ -2014,23 +2024,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 214.0,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.4978058409409,
-      "strike": 0.0,
-      "margin_blocked": 276060.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "FORTIS",
       "direction": "LONG",
       "entry_price": 776.6,
@@ -2168,31 +2161,6 @@
           "exit_time": "2026-10-07 11:31:26",
           "reason": "first_target",
           "pnl": 22096.19
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2360.0,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 200,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.077465913819722,
-      "strike": 0.0,
-      "margin_blocked": 188800.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2478.0,
-          "exit_time": "2026-10-06 13:31:32",
-          "reason": "first_target",
-          "pnl": 23600.0
         }
       ],
       "priced_on": "futures",
