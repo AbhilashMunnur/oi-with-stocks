@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 626936.01,
-  "closed_count": 450,
+  "realised_pnl": 613678.3,
+  "closed_count": 451,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -653622.33,
-  "updated_at": "2026-10-08 14:00:10",
+  "day_realised_pnl": -666880.04,
+  "updated_at": "2026-10-08 14:30:11",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2354,6 +2354,11 @@
       "symbol": "HDFCAMC",
       "exit_date": "2026-10-08",
       "pnl": -31178.25
+    },
+    {
+      "symbol": "SWIGGY",
+      "exit_date": "2026-10-08",
+      "pnl": 8838.48
     }
   ],
   "qualify_skips": {
@@ -3441,31 +3446,6 @@
       "strike": 0.0,
       "margin_blocked": 253344.0,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SWIGGY",
-      "direction": "LONG",
-      "entry_price": 242.15,
-      "entry_time": "2026-10-05 15:59:03",
-      "lot_size": 1825,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.157674876307922,
-      "strike": 0.0,
-      "margin_blocked": 176769.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 254.26,
-          "exit_time": "2026-10-07 11:31:10",
-          "reason": "first_target",
-          "pnl": 22096.19
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

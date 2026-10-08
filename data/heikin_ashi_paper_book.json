@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 91049.76,
-  "closed_count": 310,
+  "realised_pnl": 67436.01,
+  "closed_count": 311,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -411380.25,
-  "updated_at": "2026-10-08 14:00:16",
+  "day_realised_pnl": -434994.0,
+  "updated_at": "2026-10-08 14:30:18",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1249,6 +1249,11 @@
       "pnl": -24806.25
     },
     {
+      "symbol": "HAVELLS",
+      "exit_date": "2026-10-08",
+      "pnl": -23613.75
+    },
+    {
       "symbol": "IDEA",
       "exit_date": "2026-09-04",
       "pnl": -47216.38
@@ -2281,23 +2286,6 @@
       "rsi_at_entry": 28.56083498426017,
       "strike": 0.0,
       "margin_blocked": 338827.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HAVELLS",
-      "direction": "LONG",
-      "entry_price": 1049.5,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 22.76865718021078,
-      "strike": 0.0,
-      "margin_blocked": 314850.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

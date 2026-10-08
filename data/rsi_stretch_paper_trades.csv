@@ -401,3 +401,4 @@ TMPV,Buy,01-Oct-26,283.1,29.6,08-Oct-26,278.85,,5,90592*3,-20383,stop_loss,1.5% 
 WAAREEENER,Buy,05-Oct-26,2353.7,28.3,08-Oct-26,2318.39,,3,82379*3,-18535,stop_loss,"1.5% stop ₹2,318.39"
 BAJAJ-AUTO,Buy,07-Oct-26,9963.0,21.5,08-Oct-26,9813.56,,1,149445*3,-33625,stop_loss,"1.5% stop ₹9,813.56"
 M&M,Buy,07-Oct-26,2840.1,22.9,08-Oct-26,2797.5,,1,113604*3,-25561,stop_loss,"1.5% stop ₹2,797.50"
+SWIGGY,Buy,05-Oct-26,242.15,27.2,08-Oct-26,238.52,,3,88385*2,-13258,stop_loss,1.5% stop ₹238.52 (tightened after lot 1 booked)
