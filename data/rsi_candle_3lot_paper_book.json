@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1209086.07,
-  "closed_count": 428,
+  "realised_pnl": 1187580.57,
+  "closed_count": 429,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -71472.27,
-  "updated_at": "2026-10-08 10:01:13",
+  "day_realised_pnl": -92977.77,
+  "updated_at": "2026-10-08 10:31:05",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2121,6 +2121,11 @@
       "pnl": -22099.5
     },
     {
+      "symbol": "NTPC",
+      "exit_date": "2026-10-08",
+      "pnl": -21505.5
+    },
+    {
       "symbol": "JIOFIN",
       "exit_date": "2026-09-28",
       "pnl": 175559.36
@@ -3239,23 +3244,6 @@
       "rsi_at_entry": 29.83605608070239,
       "strike": 0.0,
       "margin_blocked": 300240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "NTPC",
-      "direction": "LONG",
-      "entry_price": 318.6,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 1500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.961870757664144,
-      "strike": 0.0,
-      "margin_blocked": 286740.00000000006,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
