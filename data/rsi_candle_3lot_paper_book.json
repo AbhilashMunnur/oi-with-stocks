@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1187580.57,
-  "closed_count": 429,
+  "realised_pnl": 1033547.14,
+  "closed_count": 434,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -92977.77,
-  "updated_at": "2026-10-08 11:00:53",
+  "day_realised_pnl": -247011.2,
+  "updated_at": "2026-10-08 11:31:06",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1121,6 +1121,11 @@
       "pnl": -45883.13
     },
     {
+      "symbol": "APOLLOHOSP",
+      "exit_date": "2026-10-08",
+      "pnl": -45025.31
+    },
+    {
       "symbol": "SAGILITY",
       "exit_date": "2026-08-04",
       "pnl": -23436.0
@@ -1426,6 +1431,11 @@
       "pnl": 61228.63
     },
     {
+      "symbol": "HINDALCO",
+      "exit_date": "2026-10-08",
+      "pnl": -29090.25
+    },
+    {
       "symbol": "NATIONALUM",
       "exit_date": "2026-08-12",
       "pnl": -32737.5
@@ -1709,6 +1719,11 @@
       "symbol": "POLICYBZR",
       "exit_date": "2026-09-29",
       "pnl": -18344.03
+    },
+    {
+      "symbol": "POLICYBZR",
+      "exit_date": "2026-10-08",
+      "pnl": -16443.0
     },
     {
       "symbol": "SOLARINDS",
@@ -2046,6 +2061,11 @@
       "pnl": -43239.37
     },
     {
+      "symbol": "BIOCON",
+      "exit_date": "2026-10-08",
+      "pnl": -41079.38
+    },
+    {
       "symbol": "PNB",
       "exit_date": "2026-09-17",
       "pnl": -42332.4
@@ -2241,6 +2261,11 @@
       "pnl": -22832.89
     },
     {
+      "symbol": "NMDC",
+      "exit_date": "2026-10-08",
+      "pnl": -22395.49
+    },
+    {
       "symbol": "GRASIM",
       "exit_date": "2026-10-07",
       "pnl": -33885.0
@@ -2259,6 +2284,7 @@
     "ICICIGI": 1,
     "IEX": 3,
     "INDUSINDBK": 1,
+    "POLICYBZR": 3,
     "VBL": 3
   },
   "positions": [
@@ -3555,40 +3581,6 @@
       "stop_price": null
     },
     {
-      "symbol": "APOLLOHOSP",
-      "direction": "LONG",
-      "entry_price": 8004.5,
-      "entry_time": "2026-10-06 16:46:32",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.363249287707802,
-      "strike": 0.0,
-      "margin_blocked": 600337.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "POLICYBZR",
-      "direction": "LONG",
-      "entry_price": 1044.0,
-      "entry_time": "2026-10-06 16:46:32",
-      "lot_size": 350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 19.651428327200918,
-      "strike": 0.0,
-      "margin_blocked": 219240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BAJAJ-AUTO",
       "direction": "LONG",
       "entry_price": 9963.0,
@@ -3600,23 +3592,6 @@
       "rsi_at_entry": 21.536130387468233,
       "strike": 0.0,
       "margin_blocked": 448335.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BIOCON",
-      "direction": "LONG",
-      "entry_price": 365.15,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 2500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 30.276359448501267,
-      "strike": 0.0,
-      "margin_blocked": 547725.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3657,23 +3632,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HINDALCO",
-      "direction": "LONG",
-      "entry_price": 923.5,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.48721414111739,
-      "strike": 0.0,
-      "margin_blocked": 387870.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "KPITTECH",
       "direction": "LONG",
       "entry_price": 491.45,
@@ -3702,23 +3660,6 @@
       "rsi_at_entry": 22.873114741849747,
       "strike": 0.0,
       "margin_blocked": 340812.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "NMDC",
-      "direction": "LONG",
-      "entry_price": 73.73,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 6750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.421921971828567,
-      "strike": 0.0,
-      "margin_blocked": 298606.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
