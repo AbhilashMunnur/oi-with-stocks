@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2168638.37,
-  "closed_count": 271,
+  "realised_pnl": 2070533.76,
+  "closed_count": 275,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -326612.59,
-  "updated_at": "2026-10-08 13:30:36",
+  "day_realised_pnl": -424717.2,
+  "updated_at": "2026-10-08 14:00:25",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -635,6 +635,11 @@
       "pnl": -34111.12
     },
     {
+      "symbol": "BAJAJ-AUTO",
+      "exit_date": "2026-10-08",
+      "pnl": -33625.12
+    },
+    {
       "symbol": "LTM",
       "exit_date": "2026-07-29",
       "pnl": 201846.47
@@ -668,6 +673,11 @@
       "symbol": "WAAREEENER",
       "exit_date": "2026-07-30",
       "pnl": -21355.43
+    },
+    {
+      "symbol": "WAAREEENER",
+      "exit_date": "2026-10-08",
+      "pnl": -18535.39
     },
     {
       "symbol": "ABCAPITAL",
@@ -818,6 +828,11 @@
       "symbol": "M&M",
       "exit_date": "2026-10-07",
       "pnl": -26010.0
+    },
+    {
+      "symbol": "M&M",
+      "exit_date": "2026-10-08",
+      "pnl": -25560.9
     },
     {
       "symbol": "ZYDUSLIFE",
@@ -1270,6 +1285,11 @@
       "pnl": -20484.0
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-10-08",
+      "pnl": -20383.2
+    },
+    {
       "symbol": "IEX",
       "exit_date": "2026-09-24",
       "pnl": -22198.05
@@ -1437,6 +1457,7 @@
     "RADICO": 2,
     "SONACOMS": 2,
     "SUZLON": 3,
+    "TMPV": 3,
     "TVSMOTOR": 3
   },
   "positions": [
@@ -1934,23 +1955,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 283.1,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.63958973566676,
-      "strike": 0.0,
-      "margin_blocked": 271776.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TRENT",
       "direction": "LONG",
       "entry_price": 2600.0,
@@ -2139,57 +2143,6 @@
           "pnl": 22096.19
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "WAAREEENER",
-      "direction": "LONG",
-      "entry_price": 2353.7,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.273255665253913,
-      "strike": 0.0,
-      "margin_blocked": 247138.49999999997,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BAJAJ-AUTO",
-      "direction": "LONG",
-      "entry_price": 9963.0,
-      "entry_time": "2026-10-07 15:56:35",
-      "lot_size": 75,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.536130387468233,
-      "strike": 0.0,
-      "margin_blocked": 448335.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 2840.1,
-      "entry_time": "2026-10-07 15:56:35",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 22.873114741849747,
-      "strike": 0.0,
-      "margin_blocked": 340812.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

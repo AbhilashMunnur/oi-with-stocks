@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 725028.81,
-  "closed_count": 446,
+  "realised_pnl": 626936.01,
+  "closed_count": 450,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -555529.53,
-  "updated_at": "2026-10-08 13:30:16",
+  "day_realised_pnl": -653622.33,
+  "updated_at": "2026-10-08 14:00:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1036,6 +1036,11 @@
       "pnl": -34111.12
     },
     {
+      "symbol": "BAJAJ-AUTO",
+      "exit_date": "2026-10-08",
+      "pnl": -33625.12
+    },
+    {
       "symbol": "TCS",
       "exit_date": "2026-07-29",
       "pnl": 163106.47
@@ -1094,6 +1099,11 @@
       "symbol": "WAAREEENER",
       "exit_date": "2026-09-16",
       "pnl": -20326.16
+    },
+    {
+      "symbol": "WAAREEENER",
+      "exit_date": "2026-10-08",
+      "pnl": -18523.57
     },
     {
       "symbol": "INOXWIND",
@@ -1329,6 +1339,11 @@
       "symbol": "M&M",
       "exit_date": "2026-10-01",
       "pnl": -26698.5
+    },
+    {
+      "symbol": "M&M",
+      "exit_date": "2026-10-08",
+      "pnl": -25560.9
     },
     {
       "symbol": "ZYDUSLIFE",
@@ -2016,6 +2031,11 @@
       "pnl": -20484.0
     },
     {
+      "symbol": "TMPV",
+      "exit_date": "2026-10-08",
+      "pnl": -20383.2
+    },
+    {
       "symbol": "BDL",
       "exit_date": "2026-09-11",
       "pnl": 155841.81
@@ -2347,7 +2367,9 @@
     "IEX": 3,
     "INDUSINDBK": 1,
     "KPITTECH": 3,
+    "M&M": 3,
     "POLICYBZR": 3,
+    "TMPV": 3,
     "VBL": 3
   },
   "positions": [
@@ -3322,23 +3344,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TMPV",
-      "direction": "LONG",
-      "entry_price": 283.1,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 1600,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.63958973566676,
-      "strike": 0.0,
-      "margin_blocked": 271776.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "UNITDSPR",
       "direction": "LONG",
       "entry_price": 1355.0,
@@ -3350,23 +3355,6 @@
       "rsi_at_entry": 33.848463161656355,
       "strike": 0.0,
       "margin_blocked": 325200.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "WAAREEENER",
-      "direction": "LONG",
-      "entry_price": 2352.2,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.038139977332335,
-      "strike": 0.0,
-      "margin_blocked": 246980.99999999997,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -3478,40 +3466,6 @@
           "pnl": 22096.19
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BAJAJ-AUTO",
-      "direction": "LONG",
-      "entry_price": 9963.0,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 75,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.536130387468233,
-      "strike": 0.0,
-      "margin_blocked": 448335.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "M&M",
-      "direction": "LONG",
-      "entry_price": 2840.1,
-      "entry_time": "2026-10-07 15:56:22",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 22.873114741849747,
-      "strike": 0.0,
-      "margin_blocked": 340812.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
