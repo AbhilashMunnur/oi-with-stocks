@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -1703199.25,
-  "closed_count": 313,
+  "realised_pnl": -1716504.25,
+  "closed_count": 314,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -32981.63,
-  "updated_at": "2026-10-08 15:00:10",
+  "day_realised_pnl": -46286.63,
+  "updated_at": "2026-10-08 16:02:34",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -1257,6 +1257,11 @@
       "symbol": "BEL",
       "exit_date": "2026-10-08",
       "pnl": -32981.63
+    },
+    {
+      "symbol": "INDIGO",
+      "exit_date": "2026-10-08",
+      "pnl": 10183.33
     }
   ],
   "qualify_skips": {
@@ -1463,38 +1468,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 687.1
-    },
-    {
-      "symbol": "INDIGO",
-      "direction": "LONG",
-      "entry_price": 4926.5,
-      "entry_time": "2026-09-17 19:17:11",
-      "lot_size": 150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.633032761978257,
-      "strike": 0.0,
-      "margin_blocked": 147795.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 5016.96,
-          "exit_time": "2026-10-06 16:46:20",
-          "reason": "first_target",
-          "pnl": 13568.86
-        },
-        {
-          "lots": 1,
-          "exit_price": 4992.63,
-          "exit_time": "2026-10-06 16:46:20",
-          "reason": "second_target",
-          "pnl": 9919.47
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 4701.5
     },
     {
       "symbol": "RVNL",
@@ -2915,6 +2888,74 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 3870.8
+    },
+    {
+      "symbol": "CIPLA",
+      "direction": "LONG",
+      "entry_price": 1321.5,
+      "entry_time": "2026-10-08 16:02:34",
+      "lot_size": 425,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 29.20745142150504,
+      "strike": 0.0,
+      "margin_blocked": 336982.5,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 1292.0
+    },
+    {
+      "symbol": "GMRAIRPORT",
+      "direction": "LONG",
+      "entry_price": 89.35,
+      "entry_time": "2026-10-08 16:02:34",
+      "lot_size": 6975,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 33.63548969337539,
+      "strike": 0.0,
+      "margin_blocked": 373929.75,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 87.56299999999999
+    },
+    {
+      "symbol": "HEROMOTOCO",
+      "direction": "LONG",
+      "entry_price": 4894.5,
+      "entry_time": "2026-10-08 16:02:34",
+      "lot_size": 150,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 31.82835842304661,
+      "strike": 0.0,
+      "margin_blocked": 440505.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 4796.61
+    },
+    {
+      "symbol": "SBIN",
+      "direction": "LONG",
+      "entry_price": 954.1,
+      "entry_time": "2026-10-08 16:02:34",
+      "lot_size": 750,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 33.01562271152304,
+      "strike": 0.0,
+      "margin_blocked": 429345.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 935.018
     }
   ]
 }
