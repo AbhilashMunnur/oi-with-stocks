@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 125953.03,
-  "closed_count": 308,
+  "realised_pnl": 91049.76,
+  "closed_count": 310,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -376476.98,
-  "updated_at": "2026-10-08 13:01:14",
+  "day_realised_pnl": -411380.25,
+  "updated_at": "2026-10-08 13:30:29",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1309,6 +1309,11 @@
       "pnl": -22587.86
     },
     {
+      "symbol": "RECLTD",
+      "exit_date": "2026-10-08",
+      "pnl": -21092.4
+    },
+    {
       "symbol": "KEI",
       "exit_date": "2026-09-11",
       "pnl": 321414.27
@@ -1652,6 +1657,11 @@
       "symbol": "NHPC",
       "exit_date": "2026-10-08",
       "pnl": -22968.36
+    },
+    {
+      "symbol": "HDFCBANK",
+      "exit_date": "2026-10-08",
+      "pnl": -607.02
     }
   ],
   "qualify_skips": {
@@ -2029,31 +2039,6 @@
           "exit_time": "2026-09-23 09:31:21",
           "reason": "first_target",
           "pnl": 23500.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HDFCBANK",
-      "direction": "LONG",
-      "entry_price": 708.25,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 650,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.37,
-      "strike": 0.0,
-      "margin_blocked": 184145.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 728.56,
-          "exit_time": "2026-09-18 15:44:20",
-          "reason": "first_target",
-          "pnl": 13203.85
         }
       ],
       "priced_on": "futures",
@@ -2440,23 +2425,6 @@
       "rsi_at_entry": 28.506655758504138,
       "strike": 0.0,
       "margin_blocked": 450900.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "RECLTD",
-      "direction": "LONG",
-      "entry_price": 297.6,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 1575,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.64752317258376,
-      "strike": 0.0,
-      "margin_blocked": 281232.00000000006,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
