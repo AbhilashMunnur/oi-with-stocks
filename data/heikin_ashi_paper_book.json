@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 67436.01,
-  "closed_count": 311,
+  "realised_pnl": 42023.95,
+  "closed_count": 312,
   "day_date": "2026-10-08",
-  "day_realised_pnl": -434994.0,
-  "updated_at": "2026-10-08 14:30:18",
+  "day_realised_pnl": -460406.06,
+  "updated_at": "2026-10-08 15:00:21",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1667,6 +1667,11 @@
       "symbol": "HDFCBANK",
       "exit_date": "2026-10-08",
       "pnl": -607.02
+    },
+    {
+      "symbol": "CAMS",
+      "exit_date": "2026-10-08",
+      "pnl": -25412.06
     }
   ],
   "qualify_skips": {
@@ -2269,23 +2274,6 @@
       "rsi_at_entry": 28.830815510087035,
       "strike": 0.0,
       "margin_blocked": 420170.3999999999,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CAMS",
-      "direction": "LONG",
-      "entry_price": 684.5,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.56083498426017,
-      "strike": 0.0,
-      "margin_blocked": 338827.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
