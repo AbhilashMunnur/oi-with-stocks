@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2033759.05,
-  "closed_count": 277,
-  "day_date": "2026-10-08",
-  "day_realised_pnl": -461491.91,
-  "updated_at": "2026-10-08 16:03:16",
+  "realised_pnl": 2006592.55,
+  "closed_count": 278,
+  "day_date": "2026-10-09",
+  "day_realised_pnl": -27166.5,
+  "updated_at": "2026-10-09 09:30:26",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -71,7 +71,8 @@
     "2026-10-05",
     "2026-10-06",
     "2026-10-07",
-    "2026-10-08"
+    "2026-10-08",
+    "2026-10-09"
   ],
   "closed_results": [
     {
@@ -1395,6 +1396,11 @@
       "pnl": -26964.0
     },
     {
+      "symbol": "RELIANCE",
+      "exit_date": "2026-10-09",
+      "pnl": -27166.5
+    },
+    {
       "symbol": "INDIANB",
       "exit_date": "2026-10-01",
       "pnl": -36612.0
@@ -2093,23 +2099,6 @@
       "rsi_at_entry": 22.3835347617202,
       "strike": 0.0,
       "margin_blocked": 253344.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "RELIANCE",
-      "direction": "LONG",
-      "entry_price": 1207.4,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.151532396698585,
-      "strike": 0.0,
-      "margin_blocked": 362220.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

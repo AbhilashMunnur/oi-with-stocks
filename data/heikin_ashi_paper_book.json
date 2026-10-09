@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 135683.0,
-  "closed_count": 313,
-  "day_date": "2026-10-08",
-  "day_realised_pnl": -366747.01,
-  "updated_at": "2026-10-08 16:03:11",
+  "realised_pnl": 39774.84,
+  "closed_count": 316,
+  "day_date": "2026-10-09",
+  "day_realised_pnl": -95908.16,
+  "updated_at": "2026-10-09 09:30:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -75,7 +75,8 @@
     "2026-10-05",
     "2026-10-06",
     "2026-10-07",
-    "2026-10-08"
+    "2026-10-08",
+    "2026-10-09"
   ],
   "closed_results": [
     {
@@ -872,6 +873,11 @@
       "symbol": "TRENT",
       "exit_date": "2026-07-29",
       "pnl": -29643.97
+    },
+    {
+      "symbol": "TRENT",
+      "exit_date": "2026-10-09",
+      "pnl": -29735.1
     },
     {
       "symbol": "ICICIGI",
@@ -1677,6 +1683,16 @@
       "symbol": "CAMS",
       "exit_date": "2026-10-08",
       "pnl": -25412.06
+    },
+    {
+      "symbol": "ABB",
+      "exit_date": "2026-10-09",
+      "pnl": -39006.56
+    },
+    {
+      "symbol": "RELIANCE",
+      "exit_date": "2026-10-09",
+      "pnl": -27166.5
     }
   ],
   "qualify_skips": {
@@ -2226,23 +2242,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ABB",
-      "direction": "LONG",
-      "entry_price": 6934.5,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.610235770947,
-      "strike": 0.0,
-      "margin_blocked": 520087.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BANKINDIA",
       "direction": "LONG",
       "entry_price": 134.67,
@@ -2271,23 +2270,6 @@
       "rsi_at_entry": 23.844043101249568,
       "strike": 0.0,
       "margin_blocked": 486450.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "RELIANCE",
-      "direction": "LONG",
-      "entry_price": 1207.4,
-      "entry_time": "2026-10-05 15:59:10",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.151532396698585,
-      "strike": 0.0,
-      "margin_blocked": 362220.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2381,23 +2363,6 @@
       "rsi_at_entry": 28.506655758504138,
       "strike": 0.0,
       "margin_blocked": 450900.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2936.8,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.713377975708013,
-      "strike": 0.0,
-      "margin_blocked": 396468.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
