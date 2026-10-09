@@ -375,3 +375,4 @@ DLF,Buy,16-Sep-26,622.8,32.8,07-Oct-26,656.5,49.4,15,118332*1,32015,smma_cross,f
 KALYANKJIL,Buy,05-Oct-26,564.1,29.9,07-Oct-26,571.68,49.5,2,152307*1,10229,first_target,lot 1 booked — SMMA 21 ₹571.68
 BEL,Buy,16-Sep-26,385.75,33.6,08-Oct-26,378.03,,16,109939*3,-32982,stop_loss,2% stop ₹378.03
 INDIGO,Buy,17-Sep-26,4926.5,27.6,08-Oct-26,4837.8,31.7,15,147795*1,-13305,smma_cross,"final lot booked — strong candle closed 4,813.10 below SMMA 21 ₹5,006.22"
+TCS,Buy,30-Sep-26,2066.0,28.2,09-Oct-26,2169.3,,7,92970*1,23243,first_target,"lot 1 booked — 5% target ₹2,169.30"
