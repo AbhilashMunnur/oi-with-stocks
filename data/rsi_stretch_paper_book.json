@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2006592.55,
-  "closed_count": 278,
+  "realised_pnl": 1986577.45,
+  "closed_count": 279,
   "day_date": "2026-10-09",
-  "day_realised_pnl": -27166.5,
-  "updated_at": "2026-10-09 12:31:22",
+  "day_realised_pnl": -47181.6,
+  "updated_at": "2026-10-09 13:01:22",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1346,6 +1346,11 @@
       "pnl": -20293.2
     },
     {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-10-09",
+      "pnl": -20015.1
+    },
+    {
       "symbol": "COCHINSHIP",
       "exit_date": "2026-09-29",
       "pnl": -24017.4
@@ -1467,6 +1472,7 @@
     }
   ],
   "qualify_skips": {
+    "AMBUJACEM": 3,
     "GODREJPROP": 3,
     "KALYANKJIL": 2,
     "NBCC": 3,
@@ -1981,23 +1987,6 @@
           "pnl": 69688.54
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 370.65,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 1200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.76377223870439,
-      "strike": 0.0,
-      "margin_blocked": 266868.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 701259.85,
-  "closed_count": 455,
+  "realised_pnl": 681387.85,
+  "closed_count": 456,
   "day_date": "2026-10-09",
-  "day_realised_pnl": 23242.5,
-  "updated_at": "2026-10-09 12:31:11",
+  "day_realised_pnl": 3370.5,
+  "updated_at": "2026-10-09 13:01:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2117,6 +2117,11 @@
       "pnl": -20293.2
     },
     {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-10-09",
+      "pnl": -19872.0
+    },
+    {
       "symbol": "BIOCON",
       "exit_date": "2026-09-16",
       "pnl": -43948.13
@@ -2383,6 +2388,7 @@
     }
   ],
   "qualify_skips": {
+    "AMBUJACEM": 3,
     "APLAPOLLO": 3,
     "ASHOKLEY": 3,
     "ASIANPAINT": 1,
@@ -3144,23 +3150,6 @@
           "pnl": 23242.5
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 368.0,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 1200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.22215628733535,
-      "strike": 0.0,
-      "margin_blocked": 264960.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
