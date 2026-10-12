@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 71471.71,
-  "closed_count": 318,
+  "realised_pnl": 38683.59,
+  "closed_count": 319,
   "day_date": "2026-10-12",
-  "day_realised_pnl": -94952.25,
-  "updated_at": "2026-10-12 10:30:22",
+  "day_realised_pnl": -127740.37,
+  "updated_at": "2026-10-12 11:00:23",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1024,6 +1024,11 @@
       "symbol": "SBIN",
       "exit_date": "2026-09-28",
       "pnl": -33729.75
+    },
+    {
+      "symbol": "SBIN",
+      "exit_date": "2026-10-12",
+      "pnl": -32788.12
     },
     {
       "symbol": "PAGEIND",
@@ -2515,23 +2520,6 @@
       "rsi_at_entry": 25.83616018393387,
       "strike": 0.0,
       "margin_blocked": 272256.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBIN",
-      "direction": "LONG",
-      "entry_price": 971.5,
-      "entry_time": "2026-10-09 16:03:00",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.455784258067098,
-      "strike": 0.0,
-      "margin_blocked": 437175.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
