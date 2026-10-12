@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 166423.96,
-  "closed_count": 316,
-  "day_date": "2026-10-09",
-  "day_realised_pnl": 30740.96,
-  "updated_at": "2026-10-09 16:03:00",
+  "realised_pnl": 131122.02,
+  "closed_count": 317,
+  "day_date": "2026-10-12",
+  "day_realised_pnl": -35301.94,
+  "updated_at": "2026-10-12 09:30:23",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -76,7 +76,8 @@
     "2026-10-06",
     "2026-10-07",
     "2026-10-08",
-    "2026-10-09"
+    "2026-10-09",
+    "2026-10-12"
   ],
   "closed_results": [
     {
@@ -488,6 +489,11 @@
       "symbol": "ETERNAL",
       "exit_date": "2026-09-21",
       "pnl": -35793.0
+    },
+    {
+      "symbol": "ETERNAL",
+      "exit_date": "2026-10-12",
+      "pnl": -35301.94
     },
     {
       "symbol": "ATHERENERG",
@@ -2402,23 +2408,6 @@
       "rsi_at_entry": 29.48393009596188,
       "strike": 0.0,
       "margin_blocked": 489240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ETERNAL",
-      "direction": "SHORT",
-      "entry_price": 323.5,
-      "entry_time": "2026-10-08 16:03:11",
-      "lot_size": 2425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 71.67538710802486,
-      "strike": 0.0,
-      "margin_blocked": 470692.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
