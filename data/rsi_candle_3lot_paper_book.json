@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 781368.25,
-  "closed_count": 457,
+  "realised_pnl": 749334.08,
+  "closed_count": 462,
   "day_date": "2026-10-12",
-  "day_realised_pnl": 68819.59,
-  "updated_at": "2026-10-12 15:00:20",
+  "day_realised_pnl": 36785.42,
+  "updated_at": "2026-10-12 16:04:31",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -96,6 +96,11 @@
       "symbol": "SHRIRAMFIN",
       "exit_date": "2026-10-01",
       "pnl": 287070.94
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "exit_date": "2026-10-12",
+      "pnl": -35343.0
     },
     {
       "symbol": "AUROPHARMA",
@@ -496,6 +501,11 @@
       "symbol": "ATHERENERG",
       "exit_date": "2026-08-28",
       "pnl": 11448.76
+    },
+    {
+      "symbol": "ATHERENERG",
+      "exit_date": "2026-10-12",
+      "pnl": 173704.88
     },
     {
       "symbol": "JINDALSTEL",
@@ -1993,6 +2003,11 @@
       "pnl": -17997.19
     },
     {
+      "symbol": "VOLTAS",
+      "exit_date": "2026-10-12",
+      "pnl": -17769.38
+    },
+    {
       "symbol": "HINDPETRO",
       "exit_date": "2026-09-08",
       "pnl": -32522.51
@@ -2011,6 +2026,11 @@
       "symbol": "MAXHEALTH",
       "exit_date": "2026-10-08",
       "pnl": -21664.12
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-12",
+      "pnl": -21062.87
     },
     {
       "symbol": "WIPRO",
@@ -2343,6 +2363,11 @@
       "pnl": -27523.35
     },
     {
+      "symbol": "FORTIS",
+      "exit_date": "2026-10-12",
+      "pnl": -27083.93
+    },
+    {
       "symbol": "NMDC",
       "exit_date": "2026-10-07",
       "pnl": -22832.89
@@ -2394,18 +2419,15 @@
     }
   ],
   "qualify_skips": {
-    "AMBUJACEM": 2,
+    "AMBUJACEM": 1,
     "APLAPOLLO": 3,
-    "ASHOKLEY": 2,
+    "ASHOKLEY": 1,
     "ASIANPAINT": 1,
     "BRITANNIA": 1,
-    "CROMPTON": 1,
     "GODREJPROP": 2,
     "ICICIGI": 1,
     "IEX": 3,
-    "KPITTECH": 1,
-    "M&M": 1,
-    "POLICYBZR": 2,
+    "POLICYBZR": 1,
     "TMPV": 2,
     "VBL": 3
   },
@@ -2774,38 +2796,6 @@
           "exit_time": "2026-10-08 16:03:05",
           "reason": "second_target",
           "pnl": 122264.05
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ATHERENERG",
-      "direction": "SHORT",
-      "entry_price": 1638.9,
-      "entry_time": "2026-09-03 15:15:00",
-      "lot_size": 375,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 72.49,
-      "strike": 0.0,
-      "margin_blocked": 122917.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1556.95,
-          "exit_time": "2026-09-16 10:30:16",
-          "reason": "first_target",
-          "pnl": 30729.38
-        },
-        {
-          "lots": 1,
-          "exit_price": 1442.23,
-          "exit_time": "2026-09-28 12:00:52",
-          "reason": "second_target",
-          "pnl": 73750.5
         }
       ],
       "priced_on": "futures",
@@ -3305,23 +3295,6 @@
       "stop_price": null
     },
     {
-      "symbol": "FORTIS",
-      "direction": "LONG",
-      "entry_price": 776.6,
-      "entry_time": "2026-10-05 15:59:03",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.948353364978217,
-      "strike": 0.0,
-      "margin_blocked": 361119.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HINDUNILVR",
       "direction": "LONG",
       "entry_price": 1853.1,
@@ -3805,23 +3778,6 @@
       "stop_price": null
     },
     {
-      "symbol": "MAXHEALTH",
-      "direction": "LONG",
-      "entry_price": 891.55,
-      "entry_time": "2026-10-09 16:02:54",
-      "lot_size": 525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.287943040183094,
-      "strike": 0.0,
-      "margin_blocked": 280838.25,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "MUTHOOTFIN",
       "direction": "LONG",
       "entry_price": 2660.0,
@@ -3884,23 +3840,6 @@
       "rsi_at_entry": 28.482019472984547,
       "strike": 0.0,
       "margin_blocked": 284487.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SHRIRAMFIN",
-      "direction": "LONG",
-      "entry_price": 952.0,
-      "entry_time": "2026-10-09 16:02:54",
-      "lot_size": 825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.646777977297333,
-      "strike": 0.0,
-      "margin_blocked": 471240.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -4000,23 +3939,6 @@
       "stop_price": null
     },
     {
-      "symbol": "VOLTAS",
-      "direction": "LONG",
-      "entry_price": 1053.0,
-      "entry_time": "2026-10-09 16:02:54",
-      "lot_size": 375,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 36.47665449712571,
-      "strike": 0.0,
-      "margin_blocked": 236925.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "WAAREEENER",
       "direction": "LONG",
       "entry_price": 2310.0,
@@ -4028,6 +3950,108 @@
       "rsi_at_entry": 30.669578259922503,
       "strike": 0.0,
       "margin_blocked": 242550.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "ANANDRATHI",
+      "direction": "LONG",
+      "entry_price": 2114.5,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 250,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 42.1889159899601,
+      "strike": 0.0,
+      "margin_blocked": 317175.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "direction": "LONG",
+      "entry_price": 860.9,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 700,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 29.93115133747149,
+      "strike": 0.0,
+      "margin_blocked": 361578.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "direction": "LONG",
+      "entry_price": 861.0,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 525,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 27.74602265506435,
+      "strike": 0.0,
+      "margin_blocked": 271215.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "NTPC",
+      "direction": "LONG",
+      "entry_price": 310.2,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 1500,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 33.084970759006836,
+      "strike": 0.0,
+      "margin_blocked": 279180.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "SWIGGY",
+      "direction": "LONG",
+      "entry_price": 233.65,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 1825,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 29.716149287184038,
+      "strike": 0.0,
+      "margin_blocked": 255846.75,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "VOLTAS",
+      "direction": "LONG",
+      "entry_price": 1036.2,
+      "entry_time": "2026-10-12 16:04:31",
+      "lot_size": 375,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 32.1288353269576,
+      "strike": 0.0,
+      "margin_blocked": 233145.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

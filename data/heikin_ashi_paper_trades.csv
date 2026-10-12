@@ -469,3 +469,7 @@ ETERNAL,Sell,08-Oct-26,323.5,71.7,12-Oct-26,328.35,,2,156898*3,-35302,stop_loss,
 RBLBANK,Sell,24-Sep-26,417.5,71.5,12-Oct-26,423.76,,12,265112*3,-59650,stop_loss,1.5% stop ₹423.76
 SBIN,Buy,09-Oct-26,971.5,29.5,12-Oct-26,956.93,,1,145725*3,-32788,stop_loss,1.5% stop ₹956.93
 LTM,Buy,09-Oct-26,3974.0,28.7,12-Oct-26,3914.39,,1,119220*3,-26825,stop_loss,"1.5% stop ₹3,914.39"
+ATHERENERG,Sell,03-Sep-26,1638.9,78.7,12-Oct-26,1454.3,45.5,27,122918*1,69225,smma_cross,"final lot booked — strong candle closed 1,470.00 above SMMA 21 ₹1,469.36"
+GODREJCP,Buy,06-Oct-26,875.0,28.3,12-Oct-26,861.88,23.6,4,87500*3,-19688,stop_loss,1.5% stop ₹861.88
+FORTIS,Buy,08-Oct-26,774.1,18.5,12-Oct-26,762.49,22.4,2,119986*3,-26997,stop_loss,1.5% stop ₹762.49
+APOLLOHOSP,Buy,09-Oct-26,8090.0,22.3,12-Oct-26,7968.65,25.2,1,202250*3,-45506,stop_loss,"1.5% stop ₹7,968.65"

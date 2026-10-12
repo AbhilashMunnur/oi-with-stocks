@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2054157.54,
-  "closed_count": 279,
+  "realised_pnl": 2075235.75,
+  "closed_count": 282,
   "day_date": "2026-10-12",
-  "day_realised_pnl": 67580.09,
-  "updated_at": "2026-10-12 15:00:38",
+  "day_realised_pnl": 88658.3,
+  "updated_at": "2026-10-12 16:04:58",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -310,6 +310,11 @@
       "symbol": "ATHERENERG",
       "exit_date": "2026-08-28",
       "pnl": 11448.76
+    },
+    {
+      "symbol": "ATHERENERG",
+      "exit_date": "2026-10-12",
+      "pnl": 173704.88
     },
     {
       "symbol": "JINDALSTEL",
@@ -1167,6 +1172,11 @@
       "pnl": -21664.12
     },
     {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-12",
+      "pnl": -21062.87
+    },
+    {
       "symbol": "HDFCBANK",
       "exit_date": "2026-09-09",
       "pnl": 142518.19
@@ -1420,6 +1430,11 @@
       "symbol": "FORTIS",
       "exit_date": "2026-10-05",
       "pnl": -27523.35
+    },
+    {
+      "symbol": "FORTIS",
+      "exit_date": "2026-10-12",
+      "pnl": -27083.93
     },
     {
       "symbol": "NMDC",
@@ -1688,38 +1703,6 @@
           "exit_time": "2026-09-28 15:51:10",
           "reason": "second_target",
           "pnl": 41695.79
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ATHERENERG",
-      "direction": "SHORT",
-      "entry_price": 1638.9,
-      "entry_time": "2026-09-03 15:15:00",
-      "lot_size": 375,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 72.49,
-      "strike": 0.0,
-      "margin_blocked": 122917.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1556.95,
-          "exit_time": "2026-09-17 15:15:00",
-          "reason": "first_target",
-          "pnl": 30729.38
-        },
-        {
-          "lots": 1,
-          "exit_price": 1442.23,
-          "exit_time": "2026-09-28 12:01:04",
-          "reason": "second_target",
-          "pnl": 73750.5
         }
       ],
       "priced_on": "futures",
@@ -2004,23 +1987,6 @@
       "rsi_at_entry": 26.708577374816755,
       "strike": 0.0,
       "margin_blocked": 362340.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "FORTIS",
-      "direction": "LONG",
-      "entry_price": 776.6,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.948353364978217,
-      "strike": 0.0,
-      "margin_blocked": 361119.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2451,23 +2417,6 @@
       "stop_price": null
     },
     {
-      "symbol": "MAXHEALTH",
-      "direction": "LONG",
-      "entry_price": 891.55,
-      "entry_time": "2026-10-09 16:03:05",
-      "lot_size": 525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.287943040183094,
-      "strike": 0.0,
-      "margin_blocked": 280838.25,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NATIONALUM",
       "direction": "LONG",
       "entry_price": 316.95,
@@ -2513,6 +2462,40 @@
       "rsi_at_entry": 28.33539993222125,
       "strike": 0.0,
       "margin_blocked": 270000.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "direction": "LONG",
+      "entry_price": 861.0,
+      "entry_time": "2026-10-12 16:04:58",
+      "lot_size": 525,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 27.74602265506435,
+      "strike": 0.0,
+      "margin_blocked": 271215.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "SWIGGY",
+      "direction": "LONG",
+      "entry_price": 233.65,
+      "entry_time": "2026-10-12 16:04:58",
+      "lot_size": 1825,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 29.716149287184038,
+      "strike": 0.0,
+      "margin_blocked": 255846.75,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

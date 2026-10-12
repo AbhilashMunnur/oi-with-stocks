@@ -4,7 +4,7 @@
   "closed_count": 314,
   "day_date": "2026-10-12",
   "day_realised_pnl": 19385.0,
-  "updated_at": "2026-10-12 15:00:02",
+  "updated_at": "2026-10-12 16:00:09",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-07",
@@ -3135,6 +3135,23 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 170.23
+    },
+    {
+      "symbol": "ANANDRATHI",
+      "direction": "LONG",
+      "entry_price": 2114.5,
+      "entry_time": "2026-10-12 16:00:09",
+      "lot_size": 250,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 42.1889159899601,
+      "strike": 0.0,
+      "margin_blocked": 317175.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 2015.9
     }
   ]
 }

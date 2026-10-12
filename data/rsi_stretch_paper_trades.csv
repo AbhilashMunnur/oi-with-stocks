@@ -407,3 +407,6 @@ RELIANCE,Buy,05-Oct-26,1207.4,28.2,09-Oct-26,1189.29,,4,120740*3,-27167,stop_los
 AMBUJACEM,Buy,05-Oct-26,370.65,29.8,09-Oct-26,365.09,,4,88956*3,-20015,stop_loss,1.5% stop ₹365.09
 EICHERMOT,Buy,08-Oct-26,6865.0,26.5,12-Oct-26,7208.25,,2,137300*1,34325,first_target,"lot 1 booked — 5% target ₹7,208.25"
 UPL,Buy,08-Oct-26,490.85,26.3,12-Oct-26,515.39,,2,133020*1,33255,first_target,lot 1 booked — 5% target ₹515.39
+ATHERENERG,Sell,03-Sep-26,1638.9,72.5,12-Oct-26,1454.3,45.5,27,122918*1,69225,smma_cross,"final lot booked — strong candle closed 1,470.00 above SMMA 21 ₹1,469.36"
+FORTIS,Buy,05-Oct-26,776.6,24.9,12-Oct-26,764.95,22.4,5,120373*3,-27084,stop_loss,1.5% stop ₹764.95
+MAXHEALTH,Buy,09-Oct-26,891.55,24.3,12-Oct-26,878.18,16.5,1,93613*3,-21063,stop_loss,1.5% stop ₹878.18
