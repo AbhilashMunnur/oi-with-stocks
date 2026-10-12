@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 38683.59,
-  "closed_count": 319,
+  "realised_pnl": 11859.09,
+  "closed_count": 320,
   "day_date": "2026-10-12",
-  "day_realised_pnl": -127740.37,
-  "updated_at": "2026-10-12 14:01:02",
+  "day_realised_pnl": -154564.87,
+  "updated_at": "2026-10-12 14:31:10",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -699,6 +699,11 @@
       "symbol": "LTM",
       "exit_date": "2026-10-06",
       "pnl": 219054.68
+    },
+    {
+      "symbol": "LTM",
+      "exit_date": "2026-10-12",
+      "pnl": -26824.5
     },
     {
       "symbol": "UNITDSPR",
@@ -2486,23 +2491,6 @@
       "rsi_at_entry": 19.107277202893414,
       "strike": 0.0,
       "margin_blocked": 428520.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LTM",
-      "direction": "LONG",
-      "entry_price": 3974.0,
-      "entry_time": "2026-10-09 16:03:00",
-      "lot_size": 150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.710891789329025,
-      "strike": 0.0,
-      "margin_blocked": 357660.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
