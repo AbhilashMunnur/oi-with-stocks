@@ -414,3 +414,7 @@ BAJAJ-AUTO,Buy,08-Oct-26,9760.0,20.2,13-Oct-26,10248.0,,3,146400*1,36600,first_t
 KPITTECH,Buy,08-Oct-26,478.15,26.4,13-Oct-26,502.06,,3,74113*1,18528,first_target,lot 1 booked — 5% target ₹502.06
 TIINDIA,Buy,09-Oct-26,2250.0,28.3,13-Oct-26,2216.25,,2,90000*3,-20250,stop_loss,"1.5% stop ₹2,216.25"
 PFC,Buy,05-Oct-26,324.8,22.4,13-Oct-26,341.04,,6,84448*1,21112,first_target,lot 1 booked — 5% target ₹341.04
+SAGILITY,Sell,31-Aug-26,47.05,70.1,13-Oct-26,44.94,61.6,31,112920*1,25320,smma_cross,final lot booked — strong candle closed 44.36 above SMMA 21 ₹44.04
+PATANJALI,Sell,24-Sep-26,404.85,78.0,13-Oct-26,367.7,57.8,13,87043*1,39936,smma_cross,final lot booked — strong candle closed 367.50 above SMMA 21 ₹365.55
+ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1366.5,39.2,11,184100*1,36048,first_target,"lot 1 booked — SMMA 21 ₹1,366.50"
+ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1369.75,39.2,11,184100*1,38328,second_target,"lot 2 booked — SMMA 50 ₹1,369.75"
