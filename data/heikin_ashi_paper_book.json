@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 364560.35,
-  "closed_count": 329,
+  "realised_pnl": 337972.1,
+  "closed_count": 330,
   "day_date": "2026-10-14",
-  "day_realised_pnl": 46302.49,
-  "updated_at": "2026-10-14 13:02:30",
+  "day_realised_pnl": 19714.24,
+  "updated_at": "2026-10-14 13:31:47",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -286,6 +286,11 @@
       "symbol": "LTF",
       "exit_date": "2026-07-09",
       "pnl": -31822.87
+    },
+    {
+      "symbol": "LTF",
+      "exit_date": "2026-10-14",
+      "pnl": -26588.25
     },
     {
       "symbol": "PHOENIXLTD",
@@ -2733,23 +2738,6 @@
           "pnl": 18871.25
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LTF",
-      "direction": "LONG",
-      "entry_price": 262.6,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 2250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.914757014181532,
-      "strike": 0.0,
-      "margin_blocked": 354510.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
