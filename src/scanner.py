@@ -29,6 +29,7 @@ from src.heikin_ashi import (
     ha_watch_setup,
     heikin_ashi,
     make_ha_alert,
+    recent_ha_rsi,
 )
 from src.indicators import calculate_rsi_series
 from src.nse_calendar import is_nse_fo_session
@@ -688,11 +689,11 @@ class OIRsiScanner:
         return sorted(names)
 
     def _check_heikin_ashi(self, symbol: str, ltp: float) -> ScanAlert | None:
-        """Heikin_Ashi book: RSI tag in the lookback, strong → weak → opposite HA.
+        """Heikin_Ashi book: HA-close RSI tag, strong → weak → opposite HA.
 
         Entry from 15:15 IST on the day the HA candle turns, with the live
-        price folded into today's bar. The normal candle must also be one of
-        the reversal shapes.
+        price folded into today's bar. RSI is the Heikin-Ashi close series
+        (Angel HA chart), not the normal OHLC close.
         """
         if not self.ha_book or not is_candle_entry_window():
             return None
@@ -708,9 +709,12 @@ class OIRsiScanner:
         bars[-1] = with_live_close(bars[-1], ltp)
 
         ha_cfg = self.config.heikin_ashi
-        recent_rsi = self._recent_completed_rsi(symbol, ha_cfg.rsi_lookback_sessions)
-        recent_rsi.append(self.client.get_rsi(symbol, ltp))
         ha = heikin_ashi(bars)
+        recent_rsi = recent_ha_rsi(
+            ha,
+            period=self.config.rsi.period,
+            lookback_sessions=ha_cfg.rsi_lookback_sessions,
+        )
         call_th = self.config.rsi.call_threshold
         put_th = self.config.rsi.put_threshold
         setup = ha_reversal_setup(

@@ -9,16 +9,21 @@ so a trend prints a run of one-colour candles with little wick against it.
 The strongest trend-colour candle in that run is the reference; later
 trend-colour candles with a smaller body are the base ("base forming" —
 reported, not traded), even when they sit in the old 40–50% gap. The
-first opposite-colour candle after that is the entry. The normal OHLC
-chart supplies the RSI and, only if configured, a confirming reversal candle.
+first opposite-colour candle after that is the entry. RSI is the Wilder
+RSI of the Heikin-Ashi closes — the same series Angel/Tickertape paints
+on an HA chart — not the normal OHLC close. A confirming normal-candle
+shape is used only if configured.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+import pandas as pd
+
 from src.candle_patterns import Candle, day2_long_pattern, day2_short_pattern
 from src.config import CandleConfig, HeikinAshiConfig, SignalType
+from src.indicators import calculate_rsi_series
 from src.oi_analyzer import ScanAlert
 
 
@@ -202,6 +207,28 @@ def ha_base_forming(
     )
 
 
+def recent_ha_rsi(
+    ha: list[Candle],
+    *,
+    period: int,
+    lookback_sessions: int,
+) -> list[float | None]:
+    """Wilder RSI on HA closes: last ``lookback_sessions`` finished days + today.
+
+    This is the RSI printed on a Heikin-Ashi chart (Angel / Tickertape).
+    ``ha[-1]`` must already be today's bar (live close folded in).
+    """
+    if len(ha) < period + 2:
+        return []
+    series = calculate_rsi_series(
+        pd.Series([bar.close for bar in ha], dtype=float), period
+    )
+    if series is None:
+        return []
+    tail = series.iloc[-(lookback_sessions + 1) :]
+    return [None if pd.isna(v) else float(v) for v in tail]
+
+
 def rsi_tagged(
     recent_rsi: list[float | None],
     *,
@@ -232,7 +259,7 @@ def ha_reversal_setup(
     """Return (signal, description, stretch RSI) when today completes a setup.
 
     ``bars[-1]`` / ``ha[-1]`` are today (live close folded in). ``recent_rsi``
-    covers the lookback window and today's live RSI.
+    is Heikin-Ashi close RSI for the lookback window plus today.
     """
     if not bars or len(bars) != len(ha):
         return None

@@ -63,8 +63,9 @@ class CandleConfig:
 class HeikinAshiConfig:
     """Heikin_Ashi book: RSI 70/30 tag, then HA run shrinks, then opposite colour.
 
-    Shorts: RSI ≥ 70 within ``rsi_lookback_sessions``. On the Heikin-Ashi
-    chart the strongest green candle in the current run (body ≥
+    Shorts: Heikin-Ashi close RSI ≥ 70 within ``rsi_lookback_sessions``
+    (the RSI Angel shows on an HA chart, not the normal OHLC close).
+    The strongest green candle in the current HA run (body ≥
     ``strong_body_pct``) is the reference; every later trend-colour candle
     with a smaller body is the base — including the 40–50% gap the old
     fixed buckets dropped. Today's HA candle turning red is the entry (any

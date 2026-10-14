@@ -17,9 +17,10 @@ candles:
   hammer_long_wick_pct: 50.0
   hammer_short_wick_pct: 15.0
 
-# Heikin_Ashi book entries: RSI (normal OHLC) tagged 70/30 inside the
-# lookback. On the Heikin-Ashi chart the strongest trend-colour candle
-# (body >= strong_body_pct) is the reference; later trend-colour candles
+# Heikin_Ashi book entries: Heikin-Ashi close RSI tagged 70/30 inside
+# the lookback (same RSI Angel paints on an HA chart). The strongest
+# trend-colour candle (body >= strong_body_pct) is the reference; later
+# trend-colour candles
 # with a smaller body are the base (not a fixed 40% bucket — 43–45% after
 # an 80% run still counts). Today's HA candle turning the opposite colour
 # is the entry — any body size. Names still shrinking after the reference

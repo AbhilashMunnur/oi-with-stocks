@@ -1,5 +1,7 @@
 from src.candle_patterns import Candle
 from src.config import CandleConfig, HeikinAshiConfig, SignalType, load_config
+import pandas as pd
+
 from src.heikin_ashi import (
     ha_base_forming,
     ha_reversal_setup,
@@ -9,8 +11,10 @@ from src.heikin_ashi import (
     is_strong,
     is_weak,
     make_ha_alert,
+    recent_ha_rsi,
     rsi_tagged,
 )
+from src.indicators import calculate_rsi_series
 
 HA = HeikinAshiConfig()  # min_weak 0, any opposite body, no normal candle
 STRICT = HeikinAshiConfig(
@@ -127,6 +131,49 @@ def test_rsi_tagged_returns_the_stretch_inside_the_window():
     assert rsi_tagged([65.0, 71.2, 68.0, None], threshold=70, above=True) == 71.2
     assert rsi_tagged([65.0, 69.9], threshold=70, above=True) is None
     assert rsi_tagged([35.0, 28.4, 26.1], threshold=30, above=False) == 26.1
+
+
+def test_recent_ha_rsi_is_wilder_rsi_of_ha_closes():
+    bars = []
+    price = 100.0
+    for day in range(1, 31):
+        move = 4 if day % 3 else -3
+        o = price
+        c = price + move
+        bars.append(
+            Candle(
+                f"2026-06-{day:02d}",
+                o,
+                max(o, c) + 1,
+                min(o, c) - 1,
+                c,
+            )
+        )
+        price = c
+    ha = heikin_ashi(bars)
+    window = recent_ha_rsi(ha, period=14, lookback_sessions=10)
+    series = calculate_rsi_series(pd.Series([c.close for c in ha], dtype=float), 14)
+    expected = [None if pd.isna(v) else float(v) for v in series.iloc[-11:]]
+    assert window == expected
+
+
+def test_mm_style_cash_rsi_under_70_still_arms_on_ha_rsi():
+    """M&M 11 Aug: Angel HA RSI 72.14, cash close RSI 63.4 — tag the 72."""
+    ha = [STRONG_GREEN, WEAK_1, WEAK_2, SOLID_RED]
+    cash_like = [66.2, 67.6, 69.5, 63.4]
+    assert rsi_tagged(cash_like, threshold=70, above=True) is None
+    setup = ha_reversal_setup(
+        _normal_bars(),
+        ha,
+        [75.8, 76.9, 72.14, 64.8],
+        call_threshold=70,
+        put_threshold=30,
+        ha_cfg=HA,
+        candle_cfg=NORMAL,
+    )
+    assert setup is not None
+    assert setup[0] is SignalType.HA_SHORT
+    assert setup[2] == 76.9
 
 
 def _normal_bars():

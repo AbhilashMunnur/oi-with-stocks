@@ -53,7 +53,12 @@ from src.candle_patterns import (
 from src.config import SignalType, load_config
 from src.data.angelone_client import AngelOneClient
 from src.data.option_expiry import expiry_entry_skip_reason, last_tuesday
-from src.heikin_ashi import ha_reversal_setup, heikin_ashi, make_ha_alert
+from src.heikin_ashi import (
+    ha_reversal_setup,
+    heikin_ashi,
+    make_ha_alert,
+    recent_ha_rsi,
+)
 from src.indicators import calculate_rsi_series, calculate_smma_series
 from src.oi_analyzer import no_short_skip_reason
 from src.paper_trading.book import PaperBook
@@ -261,16 +266,14 @@ def build_ha_signals(data: dict[str, list], config, lot_sizes: dict[str, int]) -
             continue
         bars = [Candle(r[0], r[1], r[2], r[3], r[4]) for r in rows]
         ha = heikin_ashi(bars)
-        closes = pd.Series([b.close for b in bars], dtype=float)
-        rsi_series = calculate_rsi_series(closes, PERIOD)
-        if rsi_series is None:
-            continue
         for i in range(PERIOD + 3, len(bars)):
-            lo = max(0, i - ha_cfg.rsi_lookback_sessions)
-            recent = [
-                None if pd.isna(v) else float(v)
-                for v in rsi_series.iloc[lo : i + 1]
-            ]
+            recent = recent_ha_rsi(
+                ha[: i + 1],
+                period=PERIOD,
+                lookback_sessions=ha_cfg.rsi_lookback_sessions,
+            )
+            if not recent:
+                continue
             setup = ha_reversal_setup(
                 bars[max(0, i - window) : i + 1],
                 ha[max(0, i - window) : i + 1],
