@@ -284,6 +284,7 @@ def test_ledger_survives_a_restart(config):
     assert reloaded.positions[0].lots_open == 1
     assert reloaded.realised_pnl == pytest.approx(book.realised_pnl)
     assert reloaded.day_realised_pnl == pytest.approx(book.day_realised_pnl)
+    assert reloaded.last_marks["TITAN"] == pytest.approx(4700.0)
 
 
 def test_day_realised_tracks_todays_exits(config):

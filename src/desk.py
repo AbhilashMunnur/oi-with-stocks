@@ -37,6 +37,7 @@ def _book(root: Path, name: str, ledger_rel: str, journal_rel: str) -> dict:
         "open_lots": 0,
         "closed_count": 0,
         "updated_at": None,
+        "unrealised": None,
         "open": [],
         "recent_exits": [],
     }
@@ -79,6 +80,7 @@ def _book(root: Path, name: str, ledger_rel: str, journal_rel: str) -> dict:
         "saved": True,
         "capital": raw.get("capital"),
         "realised": None if realised is None else float(realised),
+        "unrealised": _open_pnl(raw.get("positions") or [], raw.get("last_marks") or {}),
         "margin": round(margin, 2),
         "open_count": len(open_rows),
         "open_lots": lots,
@@ -87,6 +89,28 @@ def _book(root: Path, name: str, ledger_rel: str, journal_rel: str) -> dict:
         "open": open_rows,
         "recent_exits": _recent_exits(root / journal_rel),
     }
+
+
+def _open_pnl(positions: list, marks: dict) -> float | None:
+    """Mark still-open lots from the last saved futures price."""
+    total = 0.0
+    saw_open = False
+    for position in positions:
+        if not isinstance(position, dict) or int(position.get("lots_open") or 0) <= 0:
+            continue
+        saw_open = True
+        price = marks.get(position.get("symbol"))
+        lot_size = position.get("lot_size")
+        entry = position.get("entry_price")
+        if price in (None, "") or not lot_size or entry in (None, ""):
+            return None
+        difference = float(price) - float(entry)
+        if position.get("direction") == "SHORT":
+            difference = -difference
+        total += difference * int(lot_size) * int(position["lots_open"])
+    if not saw_open:
+        return 0.0
+    return round(total, 2)
 
 
 def _recent_exits(path: Path) -> list[dict]:

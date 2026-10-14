@@ -37,14 +37,15 @@ function landing(desk) {
   const tiles = (desk.books || []).map((book) => `
     <a class="tile" href="#${encodeURIComponent(book.name)}">
       <strong>${book.name}</strong>
-      <div class="${moneyClass(book.realised)} big">${inr(book.realised)}</div>
+      <div class="${moneyClass(book.realised)}">Realised ${inr(book.realised)}</div>
+      <div class="${moneyClass(book.unrealised)}">Unrealised ${inr(book.unrealised)}</div>
       <span>${book.open_count || 0} open · margin ${inr(book.margin)}</span>
     </a>`).join("");
   return `
     <h1>Stock paper books</h1>
-    <p class="lede">Four separate ₹4 crore books. The number on each card is profit already booked. Updated ${desk.generated_at}.</p>
+    <p class="lede">Four separate ₹4 crore books. Realised is profit already booked. Unrealised is the open lots at the last scan price. Updated ${desk.generated_at}.</p>
     <nav class="tiles">${tiles}</nav>
-    <p class="foot">Public page. Paper trades only. Open marks are not on this page.</p>`;
+    <p class="foot">Public page. Paper trades only.</p>`;
 }
 
 function bookPage(book) {
@@ -69,8 +70,9 @@ function bookPage(book) {
   return `
     <a class="back" href="#">&larr; All books</a>
     <h1>${book.name}</h1>
-    <p class="${moneyClass(book.realised)} big">${inr(book.realised)}</p>
-    <p class="meta">Booked · ${book.closed_count || 0} closed trades · ${book.open_lots || 0} lots still open · margin ${inr(book.margin)} · saved ${book.updated_at || ""}</p>
+    <p class="${moneyClass(book.realised)} big">Realised ${inr(book.realised)}</p>
+    <p class="${moneyClass(book.unrealised)} big">Unrealised ${inr(book.unrealised)}</p>
+    <p class="meta">${book.closed_count || 0} closed trades · ${book.open_lots || 0} lots still open · margin ${inr(book.margin)} · saved ${book.updated_at || ""}</p>
     <h2>Open</h2>
     <table>
       <thead><tr><th>Symbol</th><th>Side</th><th class="num">Lots</th><th class="num">Entry</th><th>Entered</th><th>Expiry</th><th class="num">Booked</th></tr></thead>

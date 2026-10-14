@@ -23,6 +23,7 @@ def test_desk_reads_booked_profit_and_open_lots(tmp_path: Path):
                         "entry_price": 3500,
                         "entry_time": "2026-10-01 15:15:00",
                         "expiry": "2026-12-29",
+                        "lot_size": 10,
                         "margin_blocked": 200000,
                         "closed_legs": [{"pnl": 40000}],
                     },
@@ -34,6 +35,7 @@ def test_desk_reads_booked_profit_and_open_lots(tmp_path: Path):
                         "margin_blocked": 999,
                     },
                 ],
+                "last_marks": {"TITAN": 3400},
             }
         ),
         encoding="utf-8",
@@ -55,5 +57,6 @@ def test_desk_reads_booked_profit_and_open_lots(tmp_path: Path):
     assert book["margin"] == 200000
     assert book["open"][0]["symbol"] == "TITAN"
     assert book["open"][0]["booked"] == 40000
+    assert book["unrealised"] == 1000
     assert book["recent_exits"][0]["pnl"] == 40000
     assert "google" not in json.dumps(desk).lower()

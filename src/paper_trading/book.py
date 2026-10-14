@@ -60,6 +60,7 @@ class PaperBook:
         self.session_dates: list[str] = []
         self.closed_results: list[dict] = []
         self.qualify_skips: dict[str, int] = {}
+        self.last_marks: dict[str, float] = {}
         self._pending_rows: list[dict] = []
         self._load()
 
@@ -105,6 +106,11 @@ class PaperBook:
             for symbol, left in (raw.get("qualify_skips") or {}).items()
             if int(left) > 0
         }
+        self.last_marks = {
+            str(symbol): float(price)
+            for symbol, price in (raw.get("last_marks") or {}).items()
+            if price
+        }
         self._roll_day()
 
     def save(self) -> None:
@@ -124,6 +130,10 @@ class PaperBook:
                 symbol: left
                 for symbol, left in sorted(self.qualify_skips.items())
                 if left > 0
+            },
+            "last_marks": {
+                symbol: price
+                for symbol, price in sorted(self.last_marks.items())
             },
             "positions": [p.to_dict() for p in self.positions],
         }
@@ -763,7 +773,19 @@ class PaperBook:
             )
 
         self.positions = [p for p in self.positions if p.is_open]
+        self.remember_marks(prices)
         return events
+
+    def remember_marks(self, prices: dict[str, float]) -> None:
+        """Keep the latest futures price for each open name, for the public page."""
+        marks = dict(self.last_marks)
+        for symbol, price in prices.items():
+            if price:
+                marks[str(symbol)] = float(price)
+        open_symbols = {position.symbol for position in self.positions if position.is_open}
+        self.last_marks = {
+            symbol: price for symbol, price in marks.items() if symbol in open_symbols
+        }
 
     def rebase_entries_to_futures(self, prices: dict[str, float]) -> list[TradeEvent]:
         """Move cash-priced paper fills onto the 3rd-month future.
