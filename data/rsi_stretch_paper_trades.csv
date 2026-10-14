@@ -420,3 +420,7 @@ ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1366.5,39.2,11,184100*1,36048,firs
 ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1369.75,39.2,11,184100*1,38328,second_target,"lot 2 booked — SMMA 50 ₹1,369.75"
 UPL,Buy,08-Oct-26,490.85,26.3,14-Oct-26,549.75,,4,133020*1,79812,second_target,lot 2 booked — 12% target ₹549.75
 INOXWIND,Buy,09-Oct-26,67.78,26.1,14-Oct-26,71.17,,3,86758*1,21690,first_target,lot 1 booked — 5% target ₹71.17
+ICICIBANK,Buy,28-Sep-26,1315.0,29.0,14-Oct-26,1350.6,33.7,12,184100*1,24920,smma_cross,"final lot booked — strong candle closed 1,338.60 below SMMA 21 ₹1,365.01"
+FEDERALBNK,Buy,01-Oct-26,323.1,29.7,14-Oct-26,334.01,38.1,9,161550*1,27284,first_target,lot 1 booked — SMMA 21 ₹334.01
+FEDERALBNK,Buy,01-Oct-26,323.1,29.7,14-Oct-26,328.37,38.1,9,161550*1,13187,second_target,lot 2 booked — SMMA 50 ₹328.37
+JSWENERGY,Buy,09-Oct-26,470.0,28.7,14-Oct-26,493.5,23.8,3,101050*1,25262,first_target,lot 1 booked — 5% target ₹493.50

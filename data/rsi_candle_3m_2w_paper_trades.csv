@@ -414,3 +414,8 @@ HAVELLS,Buy,01-Oct-26,1045.2,22.8,14-Oct-26,1097.46,,9,104520*1,26130,first_targ
 CANBK,Buy,01-Oct-26,120.13,35.7,14-Oct-26,126.14,,9,162176*1,40544,first_target,lot 1 booked — 5% target ₹126.14
 PREMIERENE,Buy,01-Oct-26,873.7,32.2,14-Oct-26,917.39,,9,113581*1,28395,first_target,lot 1 booked — 5% target ₹917.39
 INDIANB,Buy,05-Oct-26,810.75,27.8,14-Oct-26,851.29,,7,162150*1,40538,first_target,lot 1 booked — 5% target ₹851.29
+ICICIBANK,Buy,30-Sep-26,1336.0,22.6,14-Oct-26,1350.6,33.7,10,187040*1,10220,smma_cross,"final lot booked — strong candle closed 1,338.60 below SMMA 21 ₹1,365.01"
+ASTRAL,Buy,01-Oct-26,1348.7,32.0,14-Oct-26,1459.06,43.6,9,114640*1,46905,second_target,"lot 2 booked — SMMA 50 ₹1,459.06"
+NESTLEIND,Buy,01-Oct-26,1322.5,34.4,14-Oct-26,1380.88,31.4,9,132250*1,29190,first_target,"lot 1 booked — SMMA 21 ₹1,380.88"
+INDIANB,Buy,05-Oct-26,810.75,27.8,14-Oct-26,847.66,45.3,7,162150*1,36909,second_target,lot 2 booked — SMMA 50 ₹847.66
+ANANDRATHI,Buy,12-Oct-26,2114.5,42.2,14-Oct-26,2136.77,49.4,2,105725*1,5568,first_target,"lot 1 booked — SMMA 21 ₹2,136.77"
