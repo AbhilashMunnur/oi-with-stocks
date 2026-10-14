@@ -681,3 +681,4 @@ ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1366.5,39.2,11,184100*1,36048,firs
 ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1369.75,39.2,11,184100*1,38328,second_target,"lot 2 booked — SMMA 50 ₹1,369.75"
 PATANJALI,Sell,28-Sep-26,393.5,73.3,13-Oct-26,367.7,57.8,11,84602*1,27735,smma_cross,final lot booked — strong candle closed 367.50 above SMMA 21 ₹365.55
 TCS,Buy,30-Sep-26,2066.0,28.2,13-Oct-26,2269.26,46.8,9,92970*1,45733,second_target,"lot 2 booked — SMMA 50 ₹2,269.26"
+TATAELXSI,Buy,09-Oct-26,3155.5,20.8,14-Oct-26,3534.16,,3,78888*1,47333,second_target,"lot 2 booked — 12% target ₹3,534.16"

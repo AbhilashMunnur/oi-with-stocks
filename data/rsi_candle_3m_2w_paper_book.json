@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -2327172.12,
+  "realised_pnl": -2261335.12,
   "closed_count": 335,
-  "day_date": "2026-10-13",
-  "day_realised_pnl": -684456.18,
-  "updated_at": "2026-10-13 16:47:16",
+  "day_date": "2026-10-14",
+  "day_realised_pnl": 65837.0,
+  "updated_at": "2026-10-14 09:30:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-05",
@@ -40,7 +40,8 @@
     "2026-10-08",
     "2026-10-09",
     "2026-10-12",
-    "2026-10-13"
+    "2026-10-13",
+    "2026-10-14"
   ],
   "closed_results": [
     {
@@ -2031,13 +2032,21 @@
       "entry_price": 498.4,
       "entry_time": "2026-10-01 16:43:43",
       "lot_size": 775,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 28.65649993966582,
       "strike": 0.0,
-      "margin_blocked": 231756.0,
-      "closed_legs": [],
+      "margin_blocked": 154504.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 523.32,
+          "exit_time": "2026-10-14 09:30:07",
+          "reason": "first_target",
+          "pnl": 19313.0
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 488.43199999999996
@@ -2226,12 +2235,12 @@
       "entry_price": 3101.6,
       "entry_time": "2026-10-01 16:43:43",
       "lot_size": 125,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 23.772361628764642,
       "strike": 0.0,
-      "margin_blocked": 155080.0,
+      "margin_blocked": 77540.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2239,6 +2248,13 @@
           "exit_time": "2026-10-12 10:00:04",
           "reason": "first_target",
           "pnl": 19385.0
+        },
+        {
+          "lots": 1,
+          "exit_price": 3473.79,
+          "exit_time": "2026-10-14 09:30:07",
+          "reason": "second_target",
+          "pnl": 46524.0
         }
       ],
       "priced_on": "futures",
