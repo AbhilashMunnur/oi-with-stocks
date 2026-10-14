@@ -418,3 +418,5 @@ SAGILITY,Sell,31-Aug-26,47.05,70.1,13-Oct-26,44.94,61.6,31,112920*1,25320,smma_c
 PATANJALI,Sell,24-Sep-26,404.85,78.0,13-Oct-26,367.7,57.8,13,87043*1,39936,smma_cross,final lot booked — strong candle closed 367.50 above SMMA 21 ₹365.55
 ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1366.5,39.2,11,184100*1,36048,first_target,"lot 1 booked — SMMA 21 ₹1,366.50"
 ICICIBANK,Buy,28-Sep-26,1315.0,29.0,13-Oct-26,1369.75,39.2,11,184100*1,38328,second_target,"lot 2 booked — SMMA 50 ₹1,369.75"
+UPL,Buy,08-Oct-26,490.85,26.3,14-Oct-26,549.75,,4,133020*1,79812,second_target,lot 2 booked — 12% target ₹549.75
+INOXWIND,Buy,09-Oct-26,67.78,26.1,14-Oct-26,71.17,,3,86758*1,21690,first_target,lot 1 booked — 5% target ₹71.17
