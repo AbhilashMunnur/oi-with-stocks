@@ -487,3 +487,6 @@ MAZDOCK,Buy,12-Oct-26,2021.0,22.5,14-Oct-26,2122.05,,2,90945*1,22736,first_targe
 INOXWIND,Buy,12-Oct-26,67.89,26.1,14-Oct-26,71.28,,2,86899*1,21725,first_target,lot 1 booked — 5% target ₹71.28
 UPL,Buy,12-Oct-26,519.9,23.3,14-Oct-26,545.89,,2,140893*1,35223,first_target,lot 1 booked — 5% target ₹545.89
 HAVELLS,Buy,12-Oct-26,1056.0,22.8,14-Oct-26,1108.8,,2,105600*1,26400,first_target,"lot 1 booked — 5% target ₹1,108.80"
+CHOLAFIN,Buy,09-Oct-26,1610.0,23.3,14-Oct-26,1585.85,,3,201250*3,-45281,stop_loss,"1.5% stop ₹1,585.85"
+MUTHOOTFIN,Buy,12-Oct-26,2666.5,27.1,14-Oct-26,2626.5,,2,146658*3,-32998,stop_loss,"1.5% stop ₹2,626.50"
+HINDALCO,Buy,13-Oct-26,915.4,25.9,14-Oct-26,901.67,,1,128156*3,-28835,stop_loss,1.5% stop ₹901.67

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 471674.64,
-  "closed_count": 326,
+  "realised_pnl": 364560.35,
+  "closed_count": 329,
   "day_date": "2026-10-14",
-  "day_realised_pnl": 153416.78,
-  "updated_at": "2026-10-14 12:31:48",
+  "day_realised_pnl": 46302.49,
+  "updated_at": "2026-10-14 13:02:30",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -361,6 +361,11 @@
       "symbol": "CHOLAFIN",
       "exit_date": "2026-10-07",
       "pnl": -45720.0
+    },
+    {
+      "symbol": "CHOLAFIN",
+      "exit_date": "2026-10-14",
+      "pnl": -45281.25
     },
     {
       "symbol": "INDHOTEL",
@@ -1353,6 +1358,11 @@
       "pnl": 61228.63
     },
     {
+      "symbol": "HINDALCO",
+      "exit_date": "2026-10-14",
+      "pnl": -28835.1
+    },
+    {
       "symbol": "RECLTD",
       "exit_date": "2026-09-10",
       "pnl": -22587.86
@@ -1746,6 +1756,11 @@
       "symbol": "MANAPPURAM",
       "exit_date": "2026-10-13",
       "pnl": 272518.05
+    },
+    {
+      "symbol": "MUTHOOTFIN",
+      "exit_date": "2026-10-14",
+      "pnl": -32997.94
     }
   ],
   "qualify_skips": {
@@ -2378,23 +2393,6 @@
       "stop_price": null
     },
     {
-      "symbol": "CHOLAFIN",
-      "direction": "LONG",
-      "entry_price": 1610.0,
-      "entry_time": "2026-10-09 16:03:00",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 23.275694022634923,
-      "strike": 0.0,
-      "margin_blocked": 603750.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "EICHERMOT",
       "direction": "LONG",
       "entry_price": 7142.0,
@@ -2816,23 +2814,6 @@
       "stop_price": null
     },
     {
-      "symbol": "MUTHOOTFIN",
-      "direction": "LONG",
-      "entry_price": 2666.5,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 275,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.082182811611816,
-      "strike": 0.0,
-      "margin_blocked": 439972.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "NBCC",
       "direction": "LONG",
       "entry_price": 76.97,
@@ -3081,23 +3062,6 @@
       "rsi_at_entry": 29.956637969969265,
       "strike": 0.0,
       "margin_blocked": 303402.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HINDALCO",
-      "direction": "LONG",
-      "entry_price": 915.4,
-      "entry_time": "2026-10-13 16:47:39",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.902548274062354,
-      "strike": 0.0,
-      "margin_blocked": 384468.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
