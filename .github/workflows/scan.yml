@@ -20,6 +20,8 @@ on:
 
 jobs:
   scan:
+    outputs:
+      ran: ${{ steps.slot.outputs.run }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     concurrency:
@@ -175,3 +177,31 @@ jobs:
           done
           echo "Could not push the ledger after 5 attempts."
           exit 1
+
+  desk:
+    needs: scan
+    if: needs.scan.result == 'success' && needs.scan.outputs.ran == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build the public page
+        run: python scripts/publish_desk.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - uses: actions/deploy-pages@v4
+        id: deployment
