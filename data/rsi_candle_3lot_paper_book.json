@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1084352.27,
-  "closed_count": 466,
+  "realised_pnl": 1057672.9,
+  "closed_count": 467,
   "day_date": "2026-10-14",
-  "day_realised_pnl": 47332.5,
-  "updated_at": "2026-10-14 09:30:21",
+  "day_realised_pnl": 20653.12,
+  "updated_at": "2026-10-14 10:01:03",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2390,6 +2390,11 @@
       "pnl": -27083.93
     },
     {
+      "symbol": "FORTIS",
+      "exit_date": "2026-10-14",
+      "pnl": -26679.38
+    },
+    {
       "symbol": "NMDC",
       "exit_date": "2026-10-07",
       "pnl": -22832.89
@@ -2444,6 +2449,7 @@
     "APLAPOLLO": 3,
     "ASIANPAINT": 1,
     "BRITANNIA": 1,
+    "FORTIS": 3,
     "GODREJPROP": 1,
     "ICICIGI": 1,
     "IEX": 3,
@@ -4044,23 +4050,6 @@
       "rsi_at_entry": 29.232359906607428,
       "strike": 0.0,
       "margin_blocked": 277995.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "FORTIS",
-      "direction": "LONG",
-      "entry_price": 765.0,
-      "entry_time": "2026-10-13 16:47:26",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.76297357355578,
-      "strike": 0.0,
-      "margin_blocked": 355725.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
