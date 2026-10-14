@@ -491,3 +491,4 @@ CHOLAFIN,Buy,09-Oct-26,1610.0,23.3,14-Oct-26,1585.85,,3,201250*3,-45281,stop_los
 MUTHOOTFIN,Buy,12-Oct-26,2666.5,27.1,14-Oct-26,2626.5,,2,146658*3,-32998,stop_loss,"1.5% stop ₹2,626.50"
 HINDALCO,Buy,13-Oct-26,915.4,25.9,14-Oct-26,901.67,,1,128156*3,-28835,stop_loss,1.5% stop ₹901.67
 LTF,Buy,12-Oct-26,262.6,25.9,14-Oct-26,258.66,,2,118170*3,-26588,stop_loss,1.5% stop ₹258.66
+INDIANB,Buy,05-Oct-26,810.75,23.8,14-Oct-26,851.29,,7,162150*1,40538,first_target,lot 1 booked — 5% target ₹851.29
