@@ -407,3 +407,4 @@ MARUTI,Buy,07-Oct-26,11600.0,30.5,13-Oct-26,11474.0,16.7,4,116000*3,-18900,stop_
 MAXHEALTH,Buy,07-Oct-26,917.0,26.6,13-Oct-26,874.85,16.8,4,96285*3,-66386,stop_loss,candle stop — cash closed 861.00 below the entry-candle stop ₹892.25
 KPITTECH,Buy,01-Oct-26,498.4,28.7,14-Oct-26,523.32,,9,77252*1,19313,first_target,lot 1 booked — 5% target ₹523.32
 TATAELXSI,Buy,01-Oct-26,3101.6,23.8,14-Oct-26,3473.79,,9,77540*1,46524,second_target,"lot 2 booked — 12% target ₹3,473.79"
+UPL,Buy,06-Oct-26,515.85,25.2,14-Oct-26,541.64,,6,139795*1,34949,first_target,lot 1 booked — 5% target ₹541.64
