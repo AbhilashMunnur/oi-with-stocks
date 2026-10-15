@@ -699,3 +699,8 @@ ANANDRATHI,Buy,12-Oct-26,2114.5,42.2,14-Oct-26,2136.77,49.4,2,105725*1,5568,firs
 HINDALCO,Buy,08-Oct-26,904.7,29.4,15-Oct-26,891.13,,5,126658*3,-28498,stop_loss,1.5% stop ₹891.13
 HEROMOTOCO,Buy,08-Oct-26,4894.5,31.8,15-Oct-26,5139.23,,5,146835*1,36709,first_target,"lot 1 booked — 5% target ₹5,139.23"
 TVSMOTOR,Buy,08-Oct-26,3890.0,35.5,15-Oct-26,4073.4,,5,136150*1,32094,first_target,"lot 1 booked — SMMA 21 ₹4,073.40"
+BAJAJHLDNG,Sell,04-Aug-26,11475.0,73.5,15-Oct-26,11269.0,,52,172125*1,15450,smma_cross,"final lot booked — strong candle closed 11,225.00 above SMMA 21 ₹11,044.84"
+FEDERALBNK,Buy,30-Sep-26,322.35,34.4,15-Oct-26,333.9,37.8,11,161175*1,28884,first_target,lot 1 booked — SMMA 21 ₹333.90
+FEDERALBNK,Buy,30-Sep-26,322.35,34.4,15-Oct-26,328.44,37.8,11,161175*1,15233,second_target,lot 2 booked — SMMA 50 ₹328.44
+NESTLEIND,Buy,01-Oct-26,1322.5,34.4,15-Oct-26,1302.66,23.3,10,132250*2,-19838,stop_loss,"1.5% stop ₹1,302.66 (tightened after lot 1 booked)"
+TVSMOTOR,Buy,08-Oct-26,3890.0,35.5,15-Oct-26,3968.62,43.7,5,136150*1,13758,second_target,"lot 2 booked — SMMA 50 ₹3,968.62"

@@ -426,3 +426,4 @@ FEDERALBNK,Buy,01-Oct-26,323.1,29.7,14-Oct-26,328.37,38.1,9,161550*1,13187,secon
 JSWENERGY,Buy,09-Oct-26,470.0,28.7,14-Oct-26,493.5,23.8,3,101050*1,25262,first_target,lot 1 booked — 5% target ₹493.50
 HINDALCO,Buy,08-Oct-26,904.7,29.4,15-Oct-26,891.13,,5,126658*3,-28498,stop_loss,1.5% stop ₹891.13
 KPITTECH,Buy,08-Oct-26,478.15,26.4,15-Oct-26,535.53,,5,74113*1,44468,second_target,lot 2 booked — 12% target ₹535.53
+BAJAJHLDNG,Sell,04-Aug-26,11475.0,73.5,15-Oct-26,11269.0,,52,172125*1,15450,smma_cross,"final lot booked — strong candle closed 11,225.00 above SMMA 21 ₹10,959.53"
