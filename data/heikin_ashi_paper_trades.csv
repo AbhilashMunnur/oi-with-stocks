@@ -500,3 +500,5 @@ COCHINSHIP,Buy,13-Oct-26,1260.0,25.8,15-Oct-26,1241.1,,2,100800*3,-22680,stop_lo
 NATIONALUM,Buy,14-Oct-26,325.25,26.6,15-Oct-26,320.37,,1,121969*3,-27443,stop_loss,1.5% stop ₹320.37
 BANKINDIA,Buy,05-Oct-26,134.67,28.8,15-Oct-26,132.65,,8,140057*3,-31513,stop_loss,1.5% stop ₹132.65
 CANBK,Buy,07-Oct-26,120.8,29.5,15-Oct-26,118.99,,6,163080*2,-24462,stop_loss,1.5% stop ₹118.99 (tightened after lot 1 booked)
+BDL,Buy,12-Oct-26,1075.4,25.6,15-Oct-26,1129.17,,3,91409*1,22852,first_target,"lot 1 booked — 5% target ₹1,129.17"
+TVSMOTOR,Buy,12-Oct-26,3984.0,27.9,15-Oct-26,4073.4,,3,139440*1,15644,first_target,"lot 1 booked — SMMA 21 ₹4,073.40"
