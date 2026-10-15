@@ -504,3 +504,4 @@ BDL,Buy,12-Oct-26,1075.4,25.6,15-Oct-26,1129.17,,3,91409*1,22852,first_target,"l
 TVSMOTOR,Buy,12-Oct-26,3984.0,27.9,15-Oct-26,4073.4,,3,139440*1,15644,first_target,"lot 1 booked — SMMA 21 ₹4,073.40"
 NESTLEIND,Buy,06-Oct-26,1337.0,28.7,15-Oct-26,1316.94,,7,133700*2,-20055,stop_loss,"1.5% stop ₹1,316.94 (tightened after lot 1 booked)"
 JSWENERGY,Buy,14-Oct-26,497.6,27.4,15-Oct-26,490.14,,1,106984*3,-24071,stop_loss,1.5% stop ₹490.14
+ABB,Buy,12-Oct-26,6955.0,26.6,15-Oct-26,6850.68,,3,173875*3,-39122,stop_loss,"1.5% stop ₹6,850.68"
