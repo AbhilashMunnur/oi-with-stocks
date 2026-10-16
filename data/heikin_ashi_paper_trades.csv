@@ -508,3 +508,5 @@ ABB,Buy,12-Oct-26,6955.0,26.6,15-Oct-26,6850.68,,3,173875*3,-39122,stop_loss,"1.
 BAJAJHLDNG,Sell,14-Aug-26,11475.0,73.5,15-Oct-26,11269.0,,44,172125*1,15450,smma_cross,"final lot booked — strong candle closed 11,225.00 above SMMA 21 ₹10,959.53"
 HDFCAMC,Buy,12-Oct-26,2328.0,25.6,15-Oct-26,2410.15,37.5,3,139680*1,24646,first_target,"lot 1 booked — SMMA 21 ₹2,410.15"
 KPITTECH,Buy,12-Oct-26,487.0,23.5,16-Oct-26,545.44,,4,75485*1,45291,second_target,lot 2 booked — 12% target ₹545.44
+HEROMOTOCO,Buy,12-Oct-26,5010.0,29.2,16-Oct-26,5260.5,,4,150300*1,37575,first_target,"lot 1 booked — 5% target ₹5,260.50"
+CROMPTON,Buy,13-Oct-26,215.5,20.5,16-Oct-26,212.27,,3,92665*3,-20850,stop_loss,1.5% stop ₹212.27
