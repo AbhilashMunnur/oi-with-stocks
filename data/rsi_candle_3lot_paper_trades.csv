@@ -704,3 +704,6 @@ FEDERALBNK,Buy,30-Sep-26,322.35,34.4,15-Oct-26,333.9,37.8,11,161175*1,28884,firs
 FEDERALBNK,Buy,30-Sep-26,322.35,34.4,15-Oct-26,328.44,37.8,11,161175*1,15233,second_target,lot 2 booked — SMMA 50 ₹328.44
 NESTLEIND,Buy,01-Oct-26,1322.5,34.4,15-Oct-26,1302.66,23.3,10,132250*2,-19838,stop_loss,"1.5% stop ₹1,302.66 (tightened after lot 1 booked)"
 TVSMOTOR,Buy,08-Oct-26,3890.0,35.5,15-Oct-26,3968.62,43.7,5,136150*1,13758,second_target,"lot 2 booked — SMMA 50 ₹3,968.62"
+WIPRO,Buy,01-Oct-26,159.5,29.8,16-Oct-26,178.64,,11,95700*1,57420,second_target,lot 2 booked — 12% target ₹178.64
+LTF,Buy,09-Oct-26,258.7,25.9,16-Oct-26,254.82,,5,116415*3,-26193,stop_loss,1.5% stop ₹254.82
+DMART,Buy,14-Oct-26,3415.0,28.7,16-Oct-26,3363.78,,2,102450*3,-23051,stop_loss,"1.5% stop ₹3,363.78"
