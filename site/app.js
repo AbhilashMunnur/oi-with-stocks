@@ -55,10 +55,11 @@ function bookPage(book) {
       <td>${side(row.direction)}</td>
       <td class="num">${row.lots_open}/${row.lots_total}</td>
       <td class="num">${px(row.entry_price)}</td>
+      <td class="num">${px(row.mark)}</td>
       <td>${when(row.entry_time)}</td>
       <td>${row.expiry || ""}</td>
       <td class="num ${moneyClass(row.booked)}">${inr(row.booked)}</td>
-    </tr>`).join("") || `<tr><td colspan="7">No open lots.</td></tr>`;
+    </tr>`).join("") || `<tr><td colspan="8">No open lots.</td></tr>`;
   const exits = (book.recent_exits || []).map((row) => `
     <tr>
       <td>${row.symbol}</td>
@@ -75,7 +76,7 @@ function bookPage(book) {
     <p class="meta">${book.closed_count || 0} closed trades · ${book.open_lots || 0} lots still open · margin ${inr(book.margin)} · saved ${book.updated_at || ""}</p>
     <h2>Open</h2>
     <table>
-      <thead><tr><th>Symbol</th><th>Side</th><th class="num">Lots</th><th class="num">Entry</th><th>Entered</th><th>Expiry</th><th class="num">Booked</th></tr></thead>
+      <thead><tr><th>Symbol</th><th>Side</th><th class="num">Lots</th><th class="num">Entry</th><th class="num">Price</th><th>Entered</th><th>Expiry</th><th class="num">Booked</th></tr></thead>
       <tbody>${open}</tbody>
     </table>
     <h2>Latest booked exits</h2>

@@ -394,6 +394,7 @@ class OIRsiScanner:
             print(f"  {book.config.name}: 15:45 close — marking P&L, not opening new paper")
         else:
             print(f"  {book.config.name}: marking open P&L — no new entries")
+        book.remember_marks(fut_prices)
         book.save()
 
         logged = book.flush_journal()

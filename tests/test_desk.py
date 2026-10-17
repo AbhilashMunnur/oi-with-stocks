@@ -57,6 +57,7 @@ def test_desk_reads_booked_profit_and_open_lots(tmp_path: Path):
     assert book["margin"] == 200000
     assert book["open"][0]["symbol"] == "TITAN"
     assert book["open"][0]["booked"] == 40000
+    assert book["open"][0]["mark"] == 3400
     assert book["unrealised"] == 1000
     assert book["recent_exits"][0]["pnl"] == 40000
     assert "google" not in json.dumps(desk).lower()

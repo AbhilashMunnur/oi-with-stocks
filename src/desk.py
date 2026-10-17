@@ -70,6 +70,7 @@ def _book(root: Path, name: str, ledger_rel: str, journal_rel: str) -> dict:
                 "entry_price": position.get("entry_price"),
                 "entry_time": position.get("entry_time"),
                 "expiry": position.get("expiry"),
+                "mark": (raw.get("last_marks") or {}).get(position.get("symbol")),
                 "booked": round(booked, 2),
             }
         )
@@ -103,7 +104,7 @@ def _open_pnl(positions: list, marks: dict) -> float | None:
         lot_size = position.get("lot_size")
         entry = position.get("entry_price")
         if price in (None, "") or not lot_size or entry in (None, ""):
-            return None
+            continue
         difference = float(price) - float(entry)
         if position.get("direction") == "SHORT":
             difference = -difference
