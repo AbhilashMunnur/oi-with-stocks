@@ -717,3 +717,5 @@ MAZDOCK,Buy,13-Oct-26,2120.0,29.6,16-Oct-26,2088.2,23.3,3,95400*3,-21465,stop_lo
 POLICYBZR,Buy,14-Oct-26,1070.0,30.9,19-Oct-26,1053.95,,3,74900*3,-16852,stop_loss,"1.5% stop ₹1,053.95"
 SBICARD,Buy,08-Oct-26,554.85,27.9,19-Oct-26,582.59,,7,88776*1,22194,first_target,lot 1 booked — 5% target ₹582.59
 MFSL,Buy,16-Oct-26,1318.6,38.5,19-Oct-26,1298.82,,1,105488*3,-23735,stop_loss,"1.5% stop ₹1,298.82"
+BAJAJ-AUTO,Buy,08-Oct-26,9760.0,20.2,19-Oct-26,10565.71,,7,146400*1,60428,second_target,"lot 2 booked — SMMA 50 ₹10,565.71"
+YESBANK,Buy,16-Oct-26,17.84,24.6,19-Oct-26,17.57,,1,110965*3,-24967,stop_loss,1.5% stop ₹17.57
