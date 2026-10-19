@@ -432,3 +432,4 @@ CAMS,Buy,30-Sep-26,675.25,28.6,16-Oct-26,709.01,,12,111416*1,27854,first_target,
 KPITTECH,Buy,01-Oct-26,498.4,28.7,16-Oct-26,558.21,,11,77252*1,46351,second_target,lot 2 booked — 12% target ₹558.21
 UNITDSPR,Buy,01-Oct-26,1355.0,33.8,16-Oct-26,1402.0,35.6,11,108400*1,18800,smma_cross,"final lot booked — strong candle closed 1,380.00 below SMMA 21 ₹1,404.97"
 HEROMOTOCO,Buy,08-Oct-26,4894.5,31.8,16-Oct-26,5257.93,38.0,6,146835*1,54514,second_target,"lot 2 booked — SMMA 50 ₹5,257.93"
+EICHERMOT,Buy,01-Oct-26,7056.0,24.7,19-Oct-26,7408.8,,12,141120*1,35280,first_target,"lot 1 booked — 5% target ₹7,408.80"
