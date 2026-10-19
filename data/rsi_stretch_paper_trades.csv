@@ -440,3 +440,5 @@ ICICIGI,Sell,15-Oct-26,1702.9,67.0,19-Oct-26,1675.06,,2,110688*1,9050,first_targ
 BAJAJFINSV,Buy,30-Sep-26,1741.9,25.7,19-Oct-26,1715.77,,13,104514*3,-23516,stop_loss,"1.5% stop ₹1,715.77"
 INOXWIND,Buy,09-Oct-26,67.78,26.1,19-Oct-26,66.76,,6,86758*2,-13014,stop_loss,1.5% stop ₹66.76 (tightened after lot 1 booked)
 MAXHEALTH,Buy,12-Oct-26,861.0,27.7,19-Oct-26,848.09,,5,90405*3,-20341,stop_loss,1.5% stop ₹848.09
+BIOCON,Buy,08-Oct-26,352.95,28.0,19-Oct-26,347.66,,7,176475*3,-39707,stop_loss,1.5% stop ₹347.66
+INDUSINDBK,Buy,13-Oct-26,890.45,28.6,19-Oct-26,877.09,,4,124663*3,-28049,stop_loss,1.5% stop ₹877.09
