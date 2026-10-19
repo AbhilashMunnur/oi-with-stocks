@@ -524,3 +524,10 @@ SWIGGY,Buy,16-Oct-26,236.55,23.8,19-Oct-26,233.0,,1,86341*3,-19427,stop_loss,1.5
 TMPV,Buy,12-Oct-26,287.85,26.1,19-Oct-26,283.53,,5,92112*3,-20725,stop_loss,1.5% stop ₹283.53
 INDUSINDBK,Buy,13-Oct-26,890.45,23.8,19-Oct-26,877.09,,4,124663*3,-28049,stop_loss,1.5% stop ₹877.09
 MUTHOOTFIN,Buy,16-Oct-26,2641.0,24.7,19-Oct-26,2601.38,,1,145255*3,-32682,stop_loss,"1.5% stop ₹2,601.38"
+UNIONBANK,Sell,19-Aug-26,186.9,70.2,19-Oct-26,181.15,55.4,43,165406*1,25444,smma_cross,final lot booked — strong candle closed 180.70 above SMMA 21 ₹175.90
+EICHERMOT,Buy,09-Oct-26,7142.0,19.1,19-Oct-26,7460.42,34.3,6,142840*1,31842,second_target,"lot 2 booked — SMMA 50 ₹7,460.42"
+KPITTECH,Buy,12-Oct-26,487.0,23.5,19-Oct-26,542.9,30.6,5,75485*1,43322,smma_cross,final lot booked — strong candle closed 536.95 below SMMA 21 ₹540.15
+SBIN,Buy,12-Oct-26,955.0,29.5,19-Oct-26,986.77,31.7,5,143250*1,23827,first_target,lot 1 booked — SMMA 21 ₹986.77
+NTPC,Buy,14-Oct-26,315.65,29.8,19-Oct-26,310.92,23.6,3,94695*3,-21306,stop_loss,1.5% stop ₹310.92
+JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,19-Oct-26,1248.41,46.5,2,164848*1,18433,first_target,"lot 1 booked — SMMA 21 ₹1,248.41"
+JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,19-Oct-26,1255.84,46.5,2,164848*1,23452,second_target,"lot 2 booked — SMMA 50 ₹1,255.84"

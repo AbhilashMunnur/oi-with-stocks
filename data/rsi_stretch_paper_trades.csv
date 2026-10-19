@@ -442,3 +442,9 @@ INOXWIND,Buy,09-Oct-26,67.78,26.1,19-Oct-26,66.76,,6,86758*2,-13014,stop_loss,1.
 MAXHEALTH,Buy,12-Oct-26,861.0,27.7,19-Oct-26,848.09,,5,90405*3,-20341,stop_loss,1.5% stop ₹848.09
 BIOCON,Buy,08-Oct-26,352.95,28.0,19-Oct-26,347.66,,7,176475*3,-39707,stop_loss,1.5% stop ₹347.66
 INDUSINDBK,Buy,13-Oct-26,890.45,28.6,19-Oct-26,877.09,,4,124663*3,-28049,stop_loss,1.5% stop ₹877.09
+UNIONBANK,Sell,17-Aug-26,188.9,70.2,19-Oct-26,181.15,55.4,45,167176*1,34294,smma_cross,final lot booked — strong candle closed 180.70 above SMMA 21 ₹175.90
+BRITANNIA,Buy,05-Oct-26,4831.2,26.7,19-Oct-26,4758.73,23.8,10,120780*3,-27175,stop_loss,"1.5% stop ₹4,758.73"
+BAJAJ-AUTO,Buy,08-Oct-26,9760.0,20.2,19-Oct-26,10435.0,32.3,7,146400*1,50625,smma_cross,"final lot booked — strong candle closed 10,287.00 below SMMA 21 ₹10,836.31"
+EICHERMOT,Buy,08-Oct-26,6865.0,26.5,19-Oct-26,7460.42,34.3,7,137300*1,59542,second_target,"lot 2 booked — SMMA 50 ₹7,460.42"
+KPITTECH,Buy,08-Oct-26,478.15,26.4,19-Oct-26,542.9,30.6,7,74113*1,50181,smma_cross,final lot booked — strong candle closed 536.95 below SMMA 21 ₹540.15
+NMDC,Buy,09-Oct-26,72.65,23.1,19-Oct-26,71.56,22.8,6,98078*3,-22067,stop_loss,1.5% stop ₹71.56

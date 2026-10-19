@@ -437,3 +437,24 @@ UNIONBANK,Buy,30-Sep-26,172.83,29.7,19-Oct-26,177.29,,13,152955*1,19741,first_ta
 UNIONBANK,Buy,30-Sep-26,172.83,29.7,19-Oct-26,173.62,,13,152955*1,3489,second_target,lot 2 booked — SMMA 50 ₹173.62
 ICICIGI,Sell,15-Oct-26,1702.9,67.0,19-Oct-26,1675.06,,2,110688*1,9050,first_target,"lot 1 booked — SMMA 21 ₹1,675.06"
 SRF,Buy,16-Sep-26,2480.1,28.8,19-Oct-26,2430.5,,23,99204*3,-29761,stop_loss,"2% stop ₹2,430.50"
+RVNL,Buy,17-Sep-26,202.98,25.3,19-Oct-26,193.47,21.2,22,78147*2,-36613,stop_loss,candle stop — cash closed 194.50 below the entry-candle stop ₹195.15
+BANKINDIA,Buy,30-Sep-26,131.27,29.5,19-Oct-26,136.8,40.9,13,136521*1,28780,first_target,lot 1 booked — SMMA 21 ₹136.80
+BRITANNIA,Buy,30-Sep-26,4840.0,29.5,19-Oct-26,4728.5,23.8,13,121000*3,-41812,stop_loss,"candle stop — cash closed 4,705.00 below the entry-candle stop ₹4,743.20"
+EICHERMOT,Buy,01-Oct-26,7056.0,24.7,19-Oct-26,7460.42,34.3,12,141120*1,40442,second_target,"lot 2 booked — SMMA 50 ₹7,460.42"
+KPITTECH,Buy,01-Oct-26,498.4,28.7,19-Oct-26,542.9,30.6,12,77252*1,34488,smma_cross,final lot booked — strong candle closed 536.95 below SMMA 21 ₹540.15
+LTF,Buy,01-Oct-26,264.0,28.6,19-Oct-26,249.0,24.2,12,118800*3,-101250,stop_loss,candle stop — cash closed 253.00 below the entry-candle stop ₹258.72
+NBCC,Buy,01-Oct-26,78.47,31.3,19-Oct-26,74.72,16.9,12,102011*3,-73125,stop_loss,candle stop — cash closed 73.70 below the entry-candle stop ₹76.07
+NESTLEIND,Buy,01-Oct-26,1322.5,34.4,19-Oct-26,1257.1,20.9,12,132250*2,-65400,stop_loss,"candle stop — cash closed 1,242.70 below the entry-candle stop ₹1,295.00"
+VOLTAS,Buy,01-Oct-26,1066.5,32.8,19-Oct-26,1030.0,20.2,12,79988*3,-41062,stop_loss,"candle stop — cash closed 1,019.60 below the entry-candle stop ₹1,040.60"
+BHARATFORG,Buy,05-Oct-26,1853.7,32.8,19-Oct-26,1819.6,23.4,10,185370*3,-51150,stop_loss,"candle stop — cash closed 1,798.60 below the entry-candle stop ₹1,816.63"
+CHOLAFIN,Buy,05-Oct-26,1625.0,23.3,19-Oct-26,1570.0,26.9,10,203125*3,-103125,stop_loss,"candle stop — cash closed 1,553.00 below the entry-candle stop ₹1,563.20"
+ASIANPAINT,Buy,06-Oct-26,2443.8,45.2,19-Oct-26,2351.0,19.2,9,122190*3,-69600,stop_loss,"candle stop — cash closed 2,330.70 below the entry-candle stop ₹2,349.00"
+BAJAJFINSV,Buy,06-Oct-26,1776.3,36.6,19-Oct-26,1718.0,25.5,9,106578*3,-52470,stop_loss,"candle stop — cash closed 1,700.00 below the entry-candle stop ₹1,737.80"
+SBIN,Buy,08-Oct-26,954.1,33.0,19-Oct-26,986.77,31.7,7,143115*1,24502,first_target,lot 1 booked — SMMA 21 ₹986.77
+BIOCON,Buy,13-Oct-26,355.7,22.6,19-Oct-26,345.1,18.2,4,177850*3,-79500,stop_loss,candle stop — cash closed 340.00 below the entry-candle stop ₹345.10
+FORTIS,Buy,13-Oct-26,765.0,32.8,19-Oct-26,744.35,20.8,4,118575*3,-48011,stop_loss,candle stop — cash closed 737.80 below the entry-candle stop ₹745.20
+SWIGGY,Buy,13-Oct-26,236.0,27.8,19-Oct-26,231.3,29.3,4,86140*3,-25732,stop_loss,candle stop — cash closed 229.00 below the entry-candle stop ₹230.00
+TIINDIA,Buy,13-Oct-26,2222.6,27.3,19-Oct-26,2202.4,24.0,4,88904*3,-12120,stop_loss,"candle stop — cash closed 2,170.00 below the entry-candle stop ₹2,178.15"
+DMART,Buy,14-Oct-26,3415.0,28.7,19-Oct-26,3311.0,19.5,3,102450*3,-46800,stop_loss,"candle stop — cash closed 3,304.00 below the entry-candle stop ₹3,345.90"
+MAXHEALTH,Buy,14-Oct-26,862.7,25.0,19-Oct-26,842.0,14.9,3,90584*3,-32603,stop_loss,candle stop — cash closed 830.00 below the entry-candle stop ₹842.05
+YESBANK,Buy,16-Oct-26,17.84,24.6,19-Oct-26,17.01,12.9,1,110965*3,-77439,stop_loss,candle stop — cash closed 16.88 below the entry-candle stop ₹16.96
