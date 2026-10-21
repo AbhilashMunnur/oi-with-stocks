@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2533658.7,
-  "closed_count": 310,
+  "realised_pnl": 2507607.08,
+  "closed_count": 311,
   "day_date": "2026-10-21",
-  "day_realised_pnl": -228676.95,
-  "updated_at": "2026-10-21 13:00:20",
+  "day_realised_pnl": -254728.58,
+  "updated_at": "2026-10-21 13:31:28",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1538,6 +1538,11 @@
       "pnl": -27083.93
     },
     {
+      "symbol": "FORTIS",
+      "exit_date": "2026-10-21",
+      "pnl": -26051.63
+    },
+    {
       "symbol": "NMDC",
       "exit_date": "2026-10-07",
       "pnl": -22832.89
@@ -1647,36 +1652,35 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "ASHOKLEY": 146.34,
-    "BAJFINANCE": 925.8,
-    "BANKINDIA": 137.83,
-    "BEL": 373.7,
-    "CAMS": 681.0,
-    "COFORGE": 1966.1,
-    "EICHERMOT": 7193.5,
-    "FEDERALBNK": 345.35,
-    "FORTIS": 741.0,
-    "GLENMARK": 2185.5,
+    "ASHOKLEY": 145.68,
+    "BAJFINANCE": 924.35,
+    "BANKINDIA": 138.56,
+    "BEL": 373.85,
+    "CAMS": 679.5,
+    "COFORGE": 1957.5,
+    "EICHERMOT": 7225.0,
+    "FEDERALBNK": 346.65,
+    "GLENMARK": 2178.4,
     "GODREJCP": 856.0,
     "GRASIM": 2921.8,
-    "HEROMOTOCO": 5152.5,
-    "HINDUNILVR": 1852.9,
-    "ICICIGI": 1646.3,
+    "HEROMOTOCO": 5149.5,
+    "HINDUNILVR": 1846.3,
+    "ICICIGI": 1644.2,
     "JINDALSTEL": 1037.4,
-    "JIOFIN": 214.25,
+    "JIOFIN": 213.57,
     "JSWENERGY": 480.1,
     "LUPIN": 1959.4,
-    "M&M": 2894.4,
-    "MARUTI": 11363.0,
-    "MOTHERSON": 156.62,
+    "M&M": 2898.0,
+    "MARUTI": 11394.0,
+    "MOTHERSON": 156.7,
     "NHPC": 72.36,
-    "PFC": 326.55,
+    "PFC": 326.95,
     "PGEL": 495.9,
-    "PIDILITIND": 1484.6,
-    "PRESTIGE": 1424.9,
-    "SBICARD": 560.35,
-    "TITAN": 4415.8,
-    "TRENT": 2861.7
+    "PIDILITIND": 1480.3,
+    "PRESTIGE": 1417.6,
+    "SBICARD": 559.4,
+    "TITAN": 4418.8,
+    "TRENT": 2843.0
   },
   "positions": [
     {
@@ -2346,23 +2350,6 @@
           "pnl": 9049.59
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "FORTIS",
-      "direction": "LONG",
-      "entry_price": 747.0,
-      "entry_time": "2026-10-16 16:04:37",
-      "lot_size": 775,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.393904366768297,
-      "strike": 0.0,
-      "margin_blocked": 347355.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
