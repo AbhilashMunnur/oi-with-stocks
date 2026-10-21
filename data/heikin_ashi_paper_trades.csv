@@ -531,3 +531,5 @@ SBIN,Buy,12-Oct-26,955.0,29.5,19-Oct-26,986.77,31.7,5,143250*1,23827,first_targe
 NTPC,Buy,14-Oct-26,315.65,29.8,19-Oct-26,310.92,23.6,3,94695*3,-21306,stop_loss,1.5% stop ₹310.92
 JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,19-Oct-26,1248.41,46.5,2,164848*1,18433,first_target,"lot 1 booked — SMMA 21 ₹1,248.41"
 JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,19-Oct-26,1255.84,46.5,2,164848*1,23452,second_target,"lot 2 booked — SMMA 50 ₹1,255.84"
+NMDC,Buy,14-Oct-26,72.3,23.1,21-Oct-26,71.22,,5,97605*3,-21961,stop_loss,1.5% stop ₹71.22
+TIINDIA,Buy,19-Oct-26,2202.4,15.3,21-Oct-26,2169.36,,2,88096*3,-19822,stop_loss,"1.5% stop ₹2,169.36"

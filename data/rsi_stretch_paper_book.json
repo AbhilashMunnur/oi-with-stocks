@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2712376.2,
-  "closed_count": 303,
+  "realised_pnl": 2628268.11,
+  "closed_count": 307,
   "day_date": "2026-10-21",
-  "day_realised_pnl": -49959.45,
-  "updated_at": "2026-10-21 09:30:22",
+  "day_realised_pnl": -134067.54,
+  "updated_at": "2026-10-21 10:00:23",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -493,6 +493,11 @@
       "pnl": -17499.37
     },
     {
+      "symbol": "TATAELXSI",
+      "exit_date": "2026-10-21",
+      "pnl": -21259.69
+    },
+    {
       "symbol": "UNIONBANK",
       "exit_date": "2026-07-16",
       "pnl": 147392.29
@@ -961,6 +966,11 @@
       "symbol": "KEI",
       "exit_date": "2026-09-11",
       "pnl": 366448.67
+    },
+    {
+      "symbol": "KEI",
+      "exit_date": "2026-10-21",
+      "pnl": 15771.0
     },
     {
       "symbol": "PAGEIND",
@@ -1453,6 +1463,11 @@
       "pnl": -20250.0
     },
     {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-21",
+      "pnl": -20003.4
+    },
+    {
       "symbol": "BIOCON",
       "exit_date": "2026-10-01",
       "pnl": -42750.0
@@ -1568,6 +1583,11 @@
       "pnl": 8838.48
     },
     {
+      "symbol": "SWIGGY",
+      "exit_date": "2026-10-21",
+      "pnl": -19188.51
+    },
+    {
       "symbol": "HINDALCO",
       "exit_date": "2026-10-15",
       "pnl": -28498.05
@@ -1612,43 +1632,39 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "ASHOKLEY": 149.04,
-    "BAJFINANCE": 935.85,
-    "BANKINDIA": 139.56,
-    "BEL": 381.0,
-    "CAMS": 697.65,
-    "CHOLAFIN": 1570.0,
-    "COFORGE": 1950.0,
-    "EICHERMOT": 7473.0,
-    "FEDERALBNK": 352.15,
+    "ASHOKLEY": 147.7,
+    "BAJFINANCE": 939.4,
+    "BANKINDIA": 139.99,
+    "BEL": 377.7,
+    "CAMS": 690.1,
+    "CHOLAFIN": 1548.0,
+    "COFORGE": 1953.0,
+    "EICHERMOT": 7350.0,
+    "FEDERALBNK": 349.7,
     "FORTIS": 744.95,
-    "GLENMARK": 2244.7,
-    "GODREJCP": 851.6,
-    "GRASIM": 2948.5,
-    "HEROMOTOCO": 5327.0,
+    "GLENMARK": 2226.6,
+    "GODREJCP": 850.95,
+    "GRASIM": 2924.6,
+    "HEROMOTOCO": 5297.0,
     "HINDUNILVR": 1870.0,
     "HYUNDAI": 1917.6,
-    "ICICIGI": 1661.7,
+    "ICICIGI": 1657.9,
     "JINDALSTEL": 1068.0,
-    "JIOFIN": 218.75,
-    "JSWENERGY": 485.0,
-    "KEI": 4450.0,
-    "LUPIN": 1970.0,
-    "M&M": 2947.0,
-    "MARUTI": 11693.0,
-    "MOTHERSON": 158.82,
-    "NATIONALUM": 318.05,
-    "NHPC": 72.64,
-    "PFC": 333.9,
-    "PGEL": 515.1,
-    "PIDILITIND": 1496.5,
-    "PRESTIGE": 1468.2,
-    "SBICARD": 573.75,
-    "SWIGGY": 231.85,
-    "TATAELXSI": 3815.5,
-    "TIINDIA": 2196.0,
-    "TITAN": 4475.5,
-    "TRENT": 2916.0
+    "JIOFIN": 217.9,
+    "JSWENERGY": 483.0,
+    "LUPIN": 1971.0,
+    "M&M": 2931.1,
+    "MARUTI": 11600.0,
+    "MOTHERSON": 158.4,
+    "NATIONALUM": 316.15,
+    "NHPC": 72.22,
+    "PFC": 329.95,
+    "PGEL": 512.0,
+    "PIDILITIND": 1494.1,
+    "PRESTIGE": 1468.1,
+    "SBICARD": 569.3,
+    "TITAN": 4478.2,
+    "TRENT": 2900.0
   },
   "positions": [
     {
@@ -1759,31 +1775,6 @@
           "exit_time": "2026-10-05 15:59:17",
           "reason": "second_target",
           "pnl": 63770.89
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "KEI",
-      "direction": "LONG",
-      "entry_price": 4506.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 175,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.46,
-      "strike": 0.0,
-      "margin_blocked": 315420.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 4731.3,
-          "exit_time": "2026-10-08 10:01:27",
-          "reason": "first_target",
-          "pnl": 39427.5
         }
       ],
       "priced_on": "futures",
@@ -2374,40 +2365,6 @@
       "stop_price": null
     },
     {
-      "symbol": "SWIGGY",
-      "direction": "LONG",
-      "entry_price": 233.65,
-      "entry_time": "2026-10-12 16:04:58",
-      "lot_size": 1825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.716149287184038,
-      "strike": 0.0,
-      "margin_blocked": 255846.75,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TIINDIA",
-      "direction": "LONG",
-      "entry_price": 2222.6,
-      "entry_time": "2026-10-13 16:47:45",
-      "lot_size": 200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.322159615336048,
-      "strike": 0.0,
-      "margin_blocked": 266712.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ICICIGI",
       "direction": "SHORT",
       "entry_price": 1702.9,
@@ -2444,23 +2401,6 @@
       "rsi_at_entry": 28.393904366768297,
       "strike": 0.0,
       "margin_blocked": 347355.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TATAELXSI",
-      "direction": "SHORT",
-      "entry_price": 3779.5,
-      "entry_time": "2026-10-19 17:02:04",
-      "lot_size": 125,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 74.42078165197569,
-      "strike": 0.0,
-      "margin_blocked": 283462.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
