@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2507607.08,
-  "closed_count": 311,
+  "realised_pnl": 2771319.58,
+  "closed_count": 314,
   "day_date": "2026-10-21",
-  "day_realised_pnl": -254728.58,
-  "updated_at": "2026-10-21 15:01:10",
+  "day_realised_pnl": 8983.92,
+  "updated_at": "2026-10-21 19:56:00",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -516,6 +516,11 @@
       "symbol": "BAJFINANCE",
       "exit_date": "2026-07-31",
       "pnl": 16038.0
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "exit_date": "2026-10-21",
+      "pnl": 318158.25
     },
     {
       "symbol": "KALYANKJIL",
@@ -1333,6 +1338,11 @@
       "pnl": -26811.0
     },
     {
+      "symbol": "TRENT",
+      "exit_date": "2026-10-21",
+      "pnl": 155863.54
+    },
+    {
       "symbol": "SBIN",
       "exit_date": "2026-09-15",
       "pnl": 180020.83
@@ -1598,6 +1608,11 @@
       "pnl": -31752.0
     },
     {
+      "symbol": "EICHERMOT",
+      "exit_date": "2026-10-21",
+      "pnl": 129467.38
+    },
+    {
       "symbol": "SWIGGY",
       "exit_date": "2026-10-08",
       "pnl": 8838.48
@@ -1652,69 +1667,35 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "ASHOKLEY": 145.4,
-    "BAJFINANCE": 921.9,
+    "ASHOKLEY": 146.5,
     "BANKINDIA": 137.83,
-    "BEL": 371.95,
-    "CAMS": 677.2,
-    "COFORGE": 1955.2,
-    "EICHERMOT": 7170.0,
-    "FEDERALBNK": 347.25,
-    "GLENMARK": 2183.3,
-    "GODREJCP": 859.8,
-    "GRASIM": 2921.8,
-    "HEROMOTOCO": 5127.0,
-    "HINDUNILVR": 1842.5,
-    "ICICIGI": 1644.9,
-    "JINDALSTEL": 1034.9,
-    "JIOFIN": 212.88,
-    "JSWENERGY": 480.1,
-    "LUPIN": 1959.4,
-    "M&M": 2885.0,
-    "MARUTI": 11312.0,
-    "MOTHERSON": 156.22,
-    "NHPC": 71.85,
-    "PFC": 326.25,
-    "PGEL": 495.8,
-    "PIDILITIND": 1471.6,
-    "PRESTIGE": 1428.3,
-    "SBICARD": 559.45,
-    "TITAN": 4410.4,
-    "TRENT": 2841.3
+    "BEL": 373.55,
+    "CAMS": 682.5,
+    "COFORGE": 1957.1,
+    "FEDERALBNK": 347.45,
+    "FORTIS": 734.35,
+    "GLENMARK": 2190.0,
+    "GODREJCP": 862.05,
+    "GRASIM": 2905.5,
+    "HEROMOTOCO": 5161.0,
+    "HINDUNILVR": 1852.0,
+    "ICICIGI": 1655.0,
+    "JINDALSTEL": 1033.7,
+    "JIOFIN": 213.64,
+    "JSWENERGY": 478.8,
+    "LUPIN": 1963.9,
+    "M&M": 2903.6,
+    "MARUTI": 11281.0,
+    "MOTHERSON": 156.99,
+    "NHPC": 72.57,
+    "PFC": 328.1,
+    "PGEL": 497.75,
+    "PIDILITIND": 1476.6,
+    "PRESTIGE": 1439.8,
+    "SBICARD": 564.0,
+    "TITAN": 4425.8
   },
   "positions": [
-    {
-      "symbol": "BAJFINANCE",
-      "direction": "SHORT",
-      "entry_price": 1153.0,
-      "entry_time": "2026-08-03 15:15:00",
-      "lot_size": 750,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 73.9,
-      "strike": 0.0,
-      "margin_blocked": 172950.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1095.35,
-          "exit_time": "2026-08-07 15:15:00",
-          "reason": "first_target",
-          "pnl": 43237.5
-        },
-        {
-          "lots": 1,
-          "exit_price": 1014.69,
-          "exit_time": "2026-09-15 15:15:00",
-          "reason": "second_target",
-          "pnl": 103733.25
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
     {
       "symbol": "MOTHERSON",
       "direction": "SHORT",
@@ -1964,38 +1945,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2600.0,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 225,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.53832995762731,
-      "strike": 0.0,
-      "margin_blocked": 117000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2730.0,
-          "exit_time": "2026-10-06 09:32:03",
-          "reason": "first_target",
-          "pnl": 29250.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 2909.73,
-          "exit_time": "2026-10-06 13:01:05",
-          "reason": "second_target",
-          "pnl": 69688.54
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "GODREJCP",
       "direction": "LONG",
       "entry_price": 844.0,
@@ -2065,38 +2014,6 @@
           "exit_time": "2026-10-13 15:00:54",
           "reason": "first_target",
           "pnl": 21112.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "EICHERMOT",
-      "direction": "LONG",
-      "entry_price": 6865.0,
-      "entry_time": "2026-10-08 16:03:16",
-      "lot_size": 100,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.548827974136216,
-      "strike": 0.0,
-      "margin_blocked": 137300.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 7208.25,
-          "exit_time": "2026-10-12 09:30:30",
-          "reason": "first_target",
-          "pnl": 34325.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 7460.42,
-          "exit_time": "2026-10-19 17:02:04",
-          "reason": "second_target",
-          "pnl": 59542.38
         }
       ],
       "priced_on": "futures",
@@ -2350,6 +2267,23 @@
           "pnl": 9049.59
         }
       ],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "FORTIS",
+      "direction": "LONG",
+      "entry_price": 734.35,
+      "entry_time": "2026-10-21 19:56:00",
+      "lot_size": 775,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 27.40867152719413,
+      "strike": 0.0,
+      "margin_blocked": 341472.75,
+      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

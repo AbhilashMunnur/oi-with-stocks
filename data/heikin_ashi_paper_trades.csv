@@ -547,3 +547,6 @@ BPCL,Buy,15-Oct-26,297.3,26.2,21-Oct-26,292.84,,4,117434*3,-26423,stop_loss,1.5%
 HINDALCO,Buy,16-Oct-26,917.2,19.5,21-Oct-26,903.44,,3,128408*3,-28892,stop_loss,1.5% stop ₹903.44
 MAZDOCK,Buy,12-Oct-26,2021.0,22.5,21-Oct-26,1990.68,,7,90945*2,-13642,stop_loss,"1.5% stop ₹1,990.68 (tightened after lot 1 booked)"
 HINDPETRO,Buy,15-Oct-26,350.6,27.9,21-Oct-26,345.34,,4,141993*3,-31948,stop_loss,1.5% stop ₹345.34
+UNOMINDA,Sell,21-Aug-26,1265.0,79.9,21-Oct-26,1064.9,26.8,43,139150*1,110055,rsi_target,final lot booked — RSI 26.8 reached 30
+EICHERMOT,Buy,09-Oct-26,7142.0,19.1,21-Oct-26,7221.0,29.0,8,142840*1,7900,smma_cross,"final lot booked — strong candle closed 7,170.50 below SMMA 21 ₹7,373.05"
+AXISBANK,Sell,19-Oct-26,1250.7,70.1,21-Oct-26,1248.74,42.3,2,156338*1,1222,first_target,"lot 1 booked — SMMA 21 ₹1,248.74"

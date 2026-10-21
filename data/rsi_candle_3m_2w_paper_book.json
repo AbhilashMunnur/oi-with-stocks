@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -2285506.69,
-  "closed_count": 356,
+  "realised_pnl": -3063308.69,
+  "closed_count": 375,
   "day_date": "2026-10-21",
-  "day_realised_pnl": 0.0,
-  "updated_at": "2026-10-21 15:00:52",
+  "day_realised_pnl": -777802.0,
+  "updated_at": "2026-10-21 19:55:33",
   "blocked_reentry": [],
   "session_dates": [
     "2026-08-05",
@@ -750,6 +750,11 @@
       "pnl": -32400.0
     },
     {
+      "symbol": "TRENT",
+      "exit_date": "2026-10-21",
+      "pnl": 155895.04
+    },
+    {
       "symbol": "SBIN",
       "exit_date": "2026-09-01",
       "pnl": 95150.98
@@ -780,6 +785,11 @@
       "pnl": 43965.15
     },
     {
+      "symbol": "HCLTECH",
+      "exit_date": "2026-10-21",
+      "pnl": -42120.0
+    },
+    {
       "symbol": "SHRIRAMFIN",
       "exit_date": "2026-09-07",
       "pnl": 137063.61
@@ -788,6 +798,11 @@
       "symbol": "SHRIRAMFIN",
       "exit_date": "2026-09-29",
       "pnl": -54202.5
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "exit_date": "2026-10-21",
+      "pnl": -97020.0
     },
     {
       "symbol": "MOTILALOFS",
@@ -970,6 +985,11 @@
       "pnl": -43279.5
     },
     {
+      "symbol": "CROMPTON",
+      "exit_date": "2026-10-21",
+      "pnl": -64564.5
+    },
+    {
       "symbol": "RVNL",
       "exit_date": "2026-09-17",
       "pnl": -20097.0
@@ -1115,6 +1135,11 @@
       "pnl": -46950.0
     },
     {
+      "symbol": "EICHERMOT",
+      "exit_date": "2026-10-21",
+      "pnl": 92222.38
+    },
+    {
       "symbol": "NESTLEIND",
       "exit_date": "2026-09-24",
       "pnl": -41535.0
@@ -1143,6 +1168,11 @@
       "symbol": "UNOMINDA",
       "exit_date": "2026-09-28",
       "pnl": 73810.23
+    },
+    {
+      "symbol": "UNOMINDA",
+      "exit_date": "2026-10-21",
+      "pnl": -79200.0
     },
     {
       "symbol": "PNB",
@@ -1183,6 +1213,11 @@
       "symbol": "NTPC",
       "exit_date": "2026-10-13",
       "pnl": -21600.0
+    },
+    {
+      "symbol": "NTPC",
+      "exit_date": "2026-10-21",
+      "pnl": -44775.0
     },
     {
       "symbol": "PFC",
@@ -1243,6 +1278,11 @@
       "symbol": "MAZDOCK",
       "exit_date": "2026-09-29",
       "pnl": -100170.0
+    },
+    {
+      "symbol": "MAZDOCK",
+      "exit_date": "2026-10-21",
+      "pnl": -73237.5
     },
     {
       "symbol": "CHOLAFIN",
@@ -1330,6 +1370,11 @@
       "pnl": 21622.5
     },
     {
+      "symbol": "GMRAIRPORT",
+      "exit_date": "2026-10-21",
+      "pnl": 18605.81
+    },
+    {
       "symbol": "INOXWIND",
       "exit_date": "2026-10-01",
       "pnl": 20160.0
@@ -1348,6 +1393,11 @@
       "symbol": "ASTRAL",
       "exit_date": "2026-10-01",
       "pnl": -70507.5
+    },
+    {
+      "symbol": "ASTRAL",
+      "exit_date": "2026-10-21",
+      "pnl": 96517.06
     },
     {
       "symbol": "COCHINSHIP",
@@ -1378,6 +1428,11 @@
       "symbol": "TIINDIA",
       "exit_date": "2026-10-19",
       "pnl": -12120.0
+    },
+    {
+      "symbol": "TIINDIA",
+      "exit_date": "2026-10-21",
+      "pnl": -41100.0
     },
     {
       "symbol": "GLENMARK",
@@ -1440,6 +1495,11 @@
       "pnl": -48011.25
     },
     {
+      "symbol": "FORTIS",
+      "exit_date": "2026-10-21",
+      "pnl": -23250.0
+    },
+    {
       "symbol": "GRASIM",
       "exit_date": "2026-10-13",
       "pnl": -37500.0
@@ -1448,6 +1508,11 @@
       "symbol": "NMDC",
       "exit_date": "2026-10-13",
       "pnl": -49612.5
+    },
+    {
+      "symbol": "NMDC",
+      "exit_date": "2026-10-21",
+      "pnl": -45360.0
     },
     {
       "symbol": "SWIGGY",
@@ -1470,6 +1535,11 @@
       "pnl": -32602.5
     },
     {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-21",
+      "pnl": -29925.0
+    },
+    {
       "symbol": "SRF",
       "exit_date": "2026-10-19",
       "pnl": -29761.2
@@ -1483,96 +1553,111 @@
       "symbol": "YESBANK",
       "exit_date": "2026-10-19",
       "pnl": -77439.0
+    },
+    {
+      "symbol": "CONCOR",
+      "exit_date": "2026-10-21",
+      "pnl": -76312.5
+    },
+    {
+      "symbol": "LT",
+      "exit_date": "2026-10-21",
+      "pnl": -48090.0
+    },
+    {
+      "symbol": "SBICARD",
+      "exit_date": "2026-10-21",
+      "pnl": -25200.0
+    },
+    {
+      "symbol": "MUTHOOTFIN",
+      "exit_date": "2026-10-21",
+      "pnl": -117150.0
+    },
+    {
+      "symbol": "MFSL",
+      "exit_date": "2026-10-21",
+      "pnl": -52320.0
     }
   ],
   "qualify_skips": {
     "ALKEM": 3,
     "AMBUJACEM": 2,
-    "RECLTD": 3
+    "FORTIS": 2,
+    "MAXHEALTH": 3,
+    "RECLTD": 3,
+    "TIINDIA": 3
   },
   "last_marks": {
-    "ANANDRATHI": 2217.8,
-    "ASHOKLEY": 145.4,
-    "ASTRAL": 1400.0,
+    "ANANDRATHI": 2215.3,
+    "ASHOKLEY": 146.5,
     "BAJAJ-AUTO": 10150.0,
-    "BANKINDIA": 136.5,
-    "BEL": 371.95,
-    "CAMS": 677.2,
-    "CANBK": 121.33,
-    "CIPLA": 1323.0,
-    "CONCOR": 427.5,
-    "CROMPTON": 203.35,
-    "EICHERMOT": 7170.0,
-    "ETERNAL": 308.7,
-    "FEDERALBNK": 345.35,
-    "FORTIS": 734.35,
-    "GMRAIRPORT": 87.7,
-    "GODREJCP": 859.8,
-    "GODREJPROP": 1566.0,
-    "GRASIM": 2921.8,
-    "HAVELLS": 1074.8,
-    "HCLTECH": 1408.1,
-    "HDFCAMC": 2307.3,
-    "HDFCBANK": 706.6,
-    "HEROMOTOCO": 5127.0,
-    "HINDALCO": 897.3,
-    "HINDUNILVR": 1842.5,
+    "BAJAJFINSV": 1695.4,
+    "BANKINDIA": 137.55,
+    "BEL": 373.55,
+    "CAMS": 682.5,
+    "CANBK": 121.57,
+    "CIPLA": 1321.3,
+    "ETERNAL": 318.65,
+    "FEDERALBNK": 345.85,
+    "GODREJCP": 862.05,
+    "GODREJPROP": 1575.1,
+    "GRASIM": 2905.5,
+    "HAVELLS": 1078.6,
+    "HDFCAMC": 2322.3,
+    "HDFCBANK": 709.85,
+    "HEROMOTOCO": 5161.0,
+    "HINDALCO": 900.2,
+    "HINDUNILVR": 1852.0,
     "HYUNDAI": 1885.5,
-    "ICICIGI": 1644.9,
-    "INDIANB": 856.9,
-    "INDUSINDBK": 855.4,
-    "INFY": 1168.95,
-    "INOXWIND": 63.3,
-    "JINDALSTEL": 1034.9,
-    "JIOFIN": 212.88,
-    "JSWENERGY": 480.1,
-    "KALYANKJIL": 569.4,
-    "LT": 3671.0,
-    "LUPIN": 1959.4,
-    "M&M": 2885.0,
-    "MARUTI": 11312.0,
-    "MAXHEALTH": 824.0,
-    "MAZDOCK": 1976.4,
+    "ICICIGI": 1655.0,
+    "IDFCFIRSTB": 75.73,
+    "INDIANB": 860.25,
+    "INDUSINDBK": 857.3,
+    "INFY": 1172.1,
+    "INOXWIND": 63.36,
+    "JINDALSTEL": 1033.7,
+    "JIOFIN": 213.64,
+    "JSWENERGY": 478.8,
+    "KALYANKJIL": 561.2,
+    "LUPIN": 1963.9,
+    "M&M": 2903.6,
+    "MARUTI": 11281.0,
     "MFSL": 1275.0,
-    "MOTHERSON": 156.22,
-    "MUTHOOTFIN": 2515.0,
-    "NATIONALUM": 309.5,
-    "NHPC": 71.85,
-    "NMDC": 69.91,
-    "NTPC": 303.05,
-    "OIL": 452.4,
-    "ONGC": 227.44,
-    "PFC": 326.25,
-    "PGEL": 495.8,
-    "PIDILITIND": 1471.6,
-    "POLICYBZR": 1021.8,
-    "POWERGRID": 247.25,
-    "PREMIERENE": 867.4,
-    "PRESTIGE": 1428.3,
-    "RADICO": 4268.8,
-    "RELIANCE": 1216.7,
-    "SBICARD": 559.45,
-    "SBIN": 976.95,
-    "SHREECEM": 22085.0,
-    "SHRIRAMFIN": 908.0,
-    "SONACOMS": 763.75,
-    "SUZLON": 39.15,
-    "TATAELXSI": 3803.6,
-    "TATASTEEL": 173.1,
-    "TCS": 2511.4,
-    "TIINDIA": 2137.7,
-    "TITAN": 4410.4,
-    "TMPV": 274.5,
-    "TRENT": 2841.3,
-    "TVSMOTOR": 3995.0,
-    "ULTRACEMCO": 10867.0,
-    "UNIONBANK": 182.74,
-    "UNOMINDA": 1059.0,
-    "UPL": 519.0,
-    "VBL": 407.35,
-    "WAAREEENER": 2377.1,
-    "WIPRO": 187.7,
-    "ZYDUSLIFE": 1112.6
+    "MOTHERSON": 156.99,
+    "MUTHOOTFIN": 2518.0,
+    "NATIONALUM": 311.0,
+    "NHPC": 72.57,
+    "OIL": 451.0,
+    "ONGC": 227.99,
+    "PFC": 328.1,
+    "PGEL": 497.75,
+    "PIDILITIND": 1476.6,
+    "POLICYBZR": 1028.0,
+    "POWERGRID": 248.5,
+    "PREMIERENE": 863.3,
+    "PRESTIGE": 1439.8,
+    "RADICO": 4325.0,
+    "RELIANCE": 1221.2,
+    "SBIN": 974.3,
+    "SHREECEM": 22235.0,
+    "SONACOMS": 764.1,
+    "SUZLON": 39.56,
+    "SWIGGY": 228.4,
+    "TATAELXSI": 3834.5,
+    "TATASTEEL": 173.5,
+    "TCS": 2528.0,
+    "TITAN": 4425.8,
+    "TMPV": 275.7,
+    "TORNTPHARM": 4577.0,
+    "TVSMOTOR": 4023.9,
+    "ULTRACEMCO": 10905.0,
+    "UNIONBANK": 182.81,
+    "UPL": 518.2,
+    "VBL": 411.75,
+    "WAAREEENER": 2409.6,
+    "WIPRO": 188.47,
+    "ZYDUSLIFE": 1114.9
   },
   "positions": [
     {
@@ -1892,23 +1977,6 @@
       "stop_price": 661.745
     },
     {
-      "symbol": "CONCOR",
-      "direction": "LONG",
-      "entry_price": 450.25,
-      "entry_time": "2026-09-30 16:47:33",
-      "lot_size": 1250,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 27.932194629327824,
-      "strike": 0.0,
-      "margin_blocked": 337687.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 441.245
-    },
-    {
       "symbol": "FEDERALBNK",
       "direction": "LONG",
       "entry_price": 322.35,
@@ -2081,38 +2149,6 @@
       "stop_price": 166.0
     },
     {
-      "symbol": "ASTRAL",
-      "direction": "LONG",
-      "entry_price": 1348.7,
-      "entry_time": "2026-10-01 16:43:43",
-      "lot_size": 425,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 31.983949242081394,
-      "strike": 0.0,
-      "margin_blocked": 114639.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1416.14,
-          "exit_time": "2026-10-07 10:00:06",
-          "reason": "first_target",
-          "pnl": 28659.88
-        },
-        {
-          "lots": 1,
-          "exit_price": 1459.06,
-          "exit_time": "2026-10-14 15:49:58",
-          "reason": "second_target",
-          "pnl": 46904.68
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1316.1
-    },
-    {
       "symbol": "CANBK",
       "direction": "LONG",
       "entry_price": 120.13,
@@ -2136,38 +2172,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 116.51
-    },
-    {
-      "symbol": "EICHERMOT",
-      "direction": "LONG",
-      "entry_price": 7056.0,
-      "entry_time": "2026-10-01 16:43:43",
-      "lot_size": 100,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.733386869221363,
-      "strike": 0.0,
-      "margin_blocked": 141120.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 7408.8,
-          "exit_time": "2026-10-19 09:33:42",
-          "reason": "first_target",
-          "pnl": 35280.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 7460.42,
-          "exit_time": "2026-10-19 17:01:28",
-          "reason": "second_target",
-          "pnl": 40442.38
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 6914.88
     },
     {
       "symbol": "GODREJCP",
@@ -2227,23 +2231,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 210.4354
-    },
-    {
-      "symbol": "LT",
-      "direction": "LONG",
-      "entry_price": 3760.0,
-      "entry_time": "2026-10-01 16:43:43",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 35.749526841925274,
-      "strike": 0.0,
-      "margin_blocked": 394800.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 3655.9
     },
     {
       "symbol": "NHPC",
@@ -2396,38 +2383,6 @@
       "stop_price": 3039.5679999999998
     },
     {
-      "symbol": "TRENT",
-      "direction": "LONG",
-      "entry_price": 2600.0,
-      "entry_time": "2026-10-01 16:43:43",
-      "lot_size": 225,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.53832995762731,
-      "strike": 0.0,
-      "margin_blocked": 117000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2730.0,
-          "exit_time": "2026-10-06 09:31:30",
-          "reason": "first_target",
-          "pnl": 29250.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 2909.87,
-          "exit_time": "2026-10-06 13:30:53",
-          "reason": "second_target",
-          "pnl": 69720.04
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2548.0
-    },
-    {
       "symbol": "WAAREEENER",
       "direction": "LONG",
       "entry_price": 2352.2,
@@ -2500,23 +2455,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 9900.0
-    },
-    {
-      "symbol": "CROMPTON",
-      "direction": "LONG",
-      "entry_price": 214.0,
-      "entry_time": "2026-10-05 15:58:53",
-      "lot_size": 2150,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 20.4978058409409,
-      "strike": 0.0,
-      "margin_blocked": 276060.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 201.1
     },
     {
       "symbol": "HINDUNILVR",
@@ -2593,23 +2531,6 @@
       "stop_price": 522.5
     },
     {
-      "symbol": "MAZDOCK",
-      "direction": "LONG",
-      "entry_price": 2082.5,
-      "entry_time": "2026-10-05 15:58:53",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.137702922598052,
-      "strike": 0.0,
-      "margin_blocked": 281137.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2031.2
-    },
-    {
       "symbol": "PFC",
       "direction": "LONG",
       "entry_price": 324.8,
@@ -2633,23 +2554,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 313.35
-    },
-    {
-      "symbol": "UNOMINDA",
-      "direction": "LONG",
-      "entry_price": 1107.0,
-      "entry_time": "2026-10-05 15:58:53",
-      "lot_size": 550,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 31.82520064902735,
-      "strike": 0.0,
-      "margin_blocked": 365310.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1084.86
     },
     {
       "symbol": "M&M",
@@ -2684,23 +2588,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 945.1
-    },
-    {
-      "symbol": "SBICARD",
-      "direction": "LONG",
-      "entry_price": 574.5,
-      "entry_time": "2026-10-06 16:46:20",
-      "lot_size": 800,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.78019357055021,
-      "strike": 0.0,
-      "margin_blocked": 275760.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 561.25
     },
     {
       "symbol": "UPL",
@@ -2768,31 +2655,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 1292.0
-    },
-    {
-      "symbol": "GMRAIRPORT",
-      "direction": "LONG",
-      "entry_price": 89.35,
-      "entry_time": "2026-10-08 16:02:34",
-      "lot_size": 6975,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 33.63548969337539,
-      "strike": 0.0,
-      "margin_blocked": 249286.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 93.82,
-          "exit_time": "2026-10-09 16:02:43",
-          "reason": "first_target",
-          "pnl": 31160.81
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 87.56299999999999
     },
     {
       "symbol": "HEROMOTOCO",
@@ -2928,23 +2790,6 @@
       "stop_price": 1001.1
     },
     {
-      "symbol": "MUTHOOTFIN",
-      "direction": "LONG",
-      "entry_price": 2660.0,
-      "entry_time": "2026-10-09 16:02:43",
-      "lot_size": 275,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.082182906030482,
-      "strike": 0.0,
-      "margin_blocked": 438900.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 2559.6
-    },
-    {
       "symbol": "NATIONALUM",
       "direction": "LONG",
       "entry_price": 316.95,
@@ -2977,23 +2822,6 @@
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": 244.559
-    },
-    {
-      "symbol": "SHRIRAMFIN",
-      "direction": "LONG",
-      "entry_price": 952.0,
-      "entry_time": "2026-10-09 16:02:43",
-      "lot_size": 825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.646777977297333,
-      "strike": 0.0,
-      "margin_blocked": 471240.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 917.25
     },
     {
       "symbol": "TATASTEEL",
@@ -3140,40 +2968,6 @@
       "stop_price": 1933.2
     },
     {
-      "symbol": "NMDC",
-      "direction": "LONG",
-      "entry_price": 72.72,
-      "entry_time": "2026-10-13 16:47:16",
-      "lot_size": 6750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.797596984236506,
-      "strike": 0.0,
-      "margin_blocked": 294516.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 70.34
-    },
-    {
-      "symbol": "NTPC",
-      "direction": "LONG",
-      "entry_price": 313.8,
-      "entry_time": "2026-10-13 16:47:16",
-      "lot_size": 1500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 38.45630390784224,
-      "strike": 0.0,
-      "margin_blocked": 282420.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 306.15
-    },
-    {
       "symbol": "TITAN",
       "direction": "LONG",
       "entry_price": 4536.2,
@@ -3250,89 +3044,106 @@
       "stop_price": 1786.0
     },
     {
+      "symbol": "BAJAJFINSV",
+      "direction": "LONG",
+      "entry_price": 1695.4,
+      "entry_time": "2026-10-21 19:55:33",
+      "lot_size": 300,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 32.67707602614669,
+      "strike": 0.0,
+      "margin_blocked": 305172.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 1661.492
+    },
+    {
+      "symbol": "IDFCFIRSTB",
+      "direction": "LONG",
+      "entry_price": 75.73,
+      "entry_time": "2026-10-21 19:55:33",
+      "lot_size": 9275,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2026-12-29",
+      "rsi_at_entry": 30.826863978271106,
+      "strike": 0.0,
+      "margin_blocked": 421437.45,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": 74.2154
+    },
+    {
       "symbol": "MFSL",
       "direction": "LONG",
-      "entry_price": 1318.6,
-      "entry_time": "2026-10-16 16:03:59",
+      "entry_price": 1275.0,
+      "entry_time": "2026-10-21 19:55:33",
       "lot_size": 400,
       "lots_open": 3,
       "lots_total": 3,
       "expiry": "2026-12-29",
-      "rsi_at_entry": 38.50233023453666,
+      "rsi_at_entry": 32.30094096529632,
       "strike": 0.0,
-      "margin_blocked": 316464.0,
+      "margin_blocked": 306000.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
-      "stop_price": 1263.3
+      "stop_price": 1247.6
     },
     {
-      "symbol": "FORTIS",
+      "symbol": "MUTHOOTFIN",
       "direction": "LONG",
-      "entry_price": 744.35,
-      "entry_time": "2026-10-19 17:01:28",
-      "lot_size": 775,
+      "entry_price": 2518.0,
+      "entry_time": "2026-10-21 19:55:33",
+      "lot_size": 275,
       "lots_open": 3,
       "lots_total": 3,
       "expiry": "2026-12-29",
-      "rsi_at_entry": 26.83721109756253,
+      "rsi_at_entry": 29.566051327405276,
       "strike": 0.0,
-      "margin_blocked": 346122.75,
+      "margin_blocked": 415470.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
-      "stop_price": 729.463
+      "stop_price": 2445.9
     },
     {
-      "symbol": "HCLTECH",
-      "direction": "SHORT",
-      "entry_price": 1383.9,
-      "entry_time": "2026-10-19 17:01:28",
-      "lot_size": 400,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 69.39299654335163,
-      "strike": 0.0,
-      "margin_blocked": 332136.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": 1411.5780000000002
-    },
-    {
-      "symbol": "MAXHEALTH",
+      "symbol": "SWIGGY",
       "direction": "LONG",
-      "entry_price": 842.0,
-      "entry_time": "2026-10-19 17:01:28",
-      "lot_size": 525,
+      "entry_price": 228.4,
+      "entry_time": "2026-10-21 19:55:33",
+      "lot_size": 1825,
       "lots_open": 3,
       "lots_total": 3,
       "expiry": "2026-12-29",
-      "rsi_at_entry": 24.50025566541798,
+      "rsi_at_entry": 31.73008504035839,
       "strike": 0.0,
-      "margin_blocked": 265230.0,
+      "margin_blocked": 250098.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
-      "stop_price": 825.16
+      "stop_price": 217.9
     },
     {
-      "symbol": "TIINDIA",
+      "symbol": "TORNTPHARM",
       "direction": "LONG",
-      "entry_price": 2202.4,
-      "entry_time": "2026-10-19 17:01:28",
-      "lot_size": 200,
+      "entry_price": 4577.0,
+      "entry_time": "2026-10-21 19:55:33",
+      "lot_size": 125,
       "lots_open": 3,
       "lots_total": 3,
       "expiry": "2026-12-29",
-      "rsi_at_entry": 29.41991752870372,
+      "rsi_at_entry": 34.87323656677893,
       "strike": 0.0,
-      "margin_blocked": 264288.0,
+      "margin_blocked": 343275.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
-      "stop_price": 2158.352
+      "stop_price": 4470.4
     }
   ]
 }

@@ -741,3 +741,8 @@ INDUSINDBK,Buy,12-Oct-26,860.9,29.9,21-Oct-26,847.99,,7,120526*3,-27118,stop_los
 NTPC,Buy,12-Oct-26,310.2,33.1,21-Oct-26,305.55,,7,93060*3,-20939,stop_loss,1.5% stop ₹305.55
 GMRAIRPORT,Buy,08-Oct-26,89.35,33.6,21-Oct-26,88.01,,9,124643*2,-18696,stop_loss,1.5% stop ₹88.01 (tightened after lot 1 booked)
 TATASTEEL,Buy,09-Oct-26,176.19,40.5,21-Oct-26,173.55,,8,96904*3,-21804,stop_loss,1.5% stop ₹173.55
+BAJFINANCE,Sell,03-Aug-26,1153.0,73.9,21-Oct-26,924.75,27.5,57,172950*1,171188,rsi_target,final lot booked — RSI 27.5 reached 30
+UNOMINDA,Sell,10-Aug-26,1288.0,79.6,21-Oct-26,1064.9,26.8,52,141680*1,122705,rsi_target,final lot booked — RSI 26.8 reached 30
+ASTRAL,Buy,01-Oct-26,1348.7,32.0,21-Oct-26,1398.0,33.0,14,114640*1,20952,smma_cross,"final lot booked — strong candle closed 1,395.80 below SMMA 21 ₹1,429.61"
+EICHERMOT,Buy,08-Oct-26,6865.0,26.5,21-Oct-26,7221.0,29.0,9,137300*1,35600,smma_cross,"final lot booked — strong candle closed 7,170.50 below SMMA 21 ₹7,373.05"
+TVSMOTOR,Buy,08-Oct-26,3890.0,35.5,21-Oct-26,4023.9,40.8,9,136150*1,23433,smma_cross,"final lot booked — strong candle closed 3,992.60 below SMMA 21 ₹4,064.40"
