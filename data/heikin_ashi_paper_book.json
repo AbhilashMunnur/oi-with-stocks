@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 201089.4,
-  "closed_count": 361,
+  "realised_pnl": 89941.23,
+  "closed_count": 366,
   "day_date": "2026-10-21",
-  "day_realised_pnl": -143840.33,
-  "updated_at": "2026-10-21 11:31:09",
+  "day_realised_pnl": -254988.5,
+  "updated_at": "2026-10-21 12:00:16",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -342,6 +342,11 @@
       "pnl": -37719.0
     },
     {
+      "symbol": "SHRIRAMFIN",
+      "exit_date": "2026-10-21",
+      "pnl": 15454.72
+    },
+    {
       "symbol": "SUNPHARMA",
       "exit_date": "2026-07-09",
       "pnl": -29739.15
@@ -585,6 +590,11 @@
       "symbol": "IRFC",
       "exit_date": "2026-09-22",
       "pnl": -19652.06
+    },
+    {
+      "symbol": "IRFC",
+      "exit_date": "2026-10-21",
+      "pnl": -18565.71
     },
     {
       "symbol": "DIXON",
@@ -947,6 +957,11 @@
       "pnl": -18919.69
     },
     {
+      "symbol": "WAAREEENER",
+      "exit_date": "2026-10-21",
+      "pnl": -19175.63
+    },
+    {
       "symbol": "TRENT",
       "exit_date": "2026-07-29",
       "pnl": -29643.97
@@ -1090,6 +1105,11 @@
       "symbol": "SUZLON",
       "exit_date": "2026-10-07",
       "pnl": -22779.99
+    },
+    {
+      "symbol": "SUZLON",
+      "exit_date": "2026-10-21",
+      "pnl": -22877.15
     },
     {
       "symbol": "SBIN",
@@ -1925,6 +1945,11 @@
       "symbol": "NMDC",
       "exit_date": "2026-10-21",
       "pnl": -21961.13
+    },
+    {
+      "symbol": "GAIL",
+      "exit_date": "2026-10-21",
+      "pnl": -27347.6
     }
   ],
   "qualify_skips": {
@@ -1933,63 +1958,58 @@
     "NAUKRI": 2
   },
   "last_marks": {
-    "AMBUJACEM": 371.35,
-    "AXISBANK": 1232.5,
-    "BAJAJ-AUTO": 10250.0,
-    "BEL": 377.85,
-    "BOSCHLTD": 44500.0,
-    "BPCL": 294.45,
-    "CAMS": 690.15,
-    "CANBK": 122.43,
+    "AMBUJACEM": 360.5,
+    "AXISBANK": 1230.0,
+    "BAJAJ-AUTO": 10205.0,
+    "BEL": 374.75,
+    "BOSCHLTD": 44380.0,
+    "BPCL": 293.0,
+    "CAMS": 685.0,
+    "CANBK": 121.62,
     "CIPLA": 1339.0,
-    "COFORGE": 1976.6,
-    "DABUR": 375.3,
-    "EICHERMOT": 7230.0,
-    "FEDERALBNK": 343.7,
-    "GAIL": 169.45,
-    "GLENMARK": 2223.0,
-    "GRASIM": 2925.5,
-    "HAVELLS": 1090.5,
-    "HDFCAMC": 2380.9,
-    "HEROMOTOCO": 5210.5,
-    "HINDALCO": 907.15,
+    "COFORGE": 1966.7,
+    "DABUR": 374.15,
+    "EICHERMOT": 7205.5,
+    "FEDERALBNK": 342.35,
+    "GLENMARK": 2210.0,
+    "GRASIM": 2933.1,
+    "HAVELLS": 1086.0,
+    "HDFCAMC": 2335.0,
+    "HEROMOTOCO": 5175.0,
+    "HINDALCO": 904.15,
     "HINDPETRO": 352.0,
     "HYUNDAI": 1893.6,
-    "ICICIGI": 1638.3,
-    "INDIANB": 861.0,
-    "IOC": 131.35,
-    "IRFC": 75.0,
-    "JINDALSTEL": 1048.7,
-    "JSWSTEEL": 1258.0,
-    "KALYANKJIL": 570.0,
-    "KOTAKBANK": 442.5,
-    "LT": 3711.5,
+    "ICICIGI": 1635.5,
+    "INDIANB": 863.5,
+    "IOC": 131.17,
+    "JINDALSTEL": 1044.0,
+    "JSWSTEEL": 1252.8,
+    "KALYANKJIL": 564.85,
+    "KOTAKBANK": 443.85,
+    "LT": 3691.9,
     "LUPIN": 1968.0,
-    "M&M": 2907.4,
-    "MARUTI": 11480.0,
-    "MAZDOCK": 2013.5,
-    "MOTHERSON": 157.13,
-    "MPHASIS": 2586.1,
-    "PAYTM": 1663.0,
-    "PFC": 328.4,
+    "M&M": 2892.0,
+    "MARUTI": 11419.0,
+    "MAZDOCK": 2000.0,
+    "MOTHERSON": 156.61,
+    "MPHASIS": 2579.0,
+    "PAYTM": 1666.0,
+    "PFC": 326.65,
     "PIDILITIND": 1499.8,
-    "PNBHOUSING": 1174.8,
-    "POWERGRID": 249.8,
-    "RADICO": 4340.0,
-    "RELIANCE": 1235.8,
-    "SBICARD": 563.0,
-    "SBIN": 988.75,
-    "SHRIRAMFIN": 926.0,
-    "SUZLON": 39.69,
-    "TATAELXSI": 3816.9,
-    "TATAPOWER": 354.85,
-    "TCS": 2516.7,
-    "TITAN": 4440.0,
+    "PNBHOUSING": 1165.6,
+    "POWERGRID": 248.3,
+    "RADICO": 4331.7,
+    "RELIANCE": 1235.1,
+    "SBICARD": 561.35,
+    "SBIN": 984.7,
+    "TATAELXSI": 3800.0,
+    "TATAPOWER": 353.1,
+    "TCS": 2519.8,
+    "TITAN": 4425.3,
     "TVSMOTOR": 4035.0,
-    "UNOMINDA": 1061.5,
-    "UPL": 521.1,
-    "VBL": 414.65,
-    "WAAREEENER": 2402.8
+    "UNOMINDA": 1059.5,
+    "UPL": 519.75,
+    "VBL": 412.25
   },
   "positions": [
     {
@@ -2731,23 +2751,6 @@
       "stop_price": null
     },
     {
-      "symbol": "IRFC",
-      "direction": "LONG",
-      "entry_price": 76.05,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 5425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.101768377830993,
-      "strike": 0.0,
-      "margin_blocked": 247542.75,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "M&M",
       "direction": "LONG",
       "entry_price": 2851.9,
@@ -2827,48 +2830,6 @@
           "pnl": 23826.72
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SHRIRAMFIN",
-      "direction": "LONG",
-      "entry_price": 936.65,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 825,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.646777923941485,
-      "strike": 0.0,
-      "margin_blocked": 309094.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 983.48,
-          "exit_time": "2026-10-13 14:31:07",
-          "reason": "first_target",
-          "pnl": 38636.81
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SUZLON",
-      "direction": "LONG",
-      "entry_price": 40.03,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 12700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 15.175690371517305,
-      "strike": 0.0,
-      "margin_blocked": 305028.6,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2975,23 +2936,6 @@
       "stop_price": null
     },
     {
-      "symbol": "WAAREEENER",
-      "direction": "LONG",
-      "entry_price": 2435.0,
-      "entry_time": "2026-10-13 16:47:39",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.273257245344297,
-      "strike": 0.0,
-      "margin_blocked": 255675.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "JINDALSTEL",
       "direction": "LONG",
       "entry_price": 1038.0,
@@ -3071,23 +3015,6 @@
       "rsi_at_entry": 26.164122801608073,
       "strike": 0.0,
       "margin_blocked": 352300.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GAIL",
-      "direction": "LONG",
-      "entry_price": 171.19,
-      "entry_time": "2026-10-15 16:00:04",
-      "lot_size": 3550,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.705808332419082,
-      "strike": 0.0,
-      "margin_blocked": 364634.7,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
