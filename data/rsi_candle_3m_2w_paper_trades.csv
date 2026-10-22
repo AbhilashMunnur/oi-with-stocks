@@ -477,3 +477,14 @@ FORTIS,Buy,19-Oct-26,744.35,26.8,21-Oct-26,734.35,20.1,2,115374*3,-23250,stop_lo
 HCLTECH,Sell,19-Oct-26,1383.9,69.4,21-Oct-26,1419.0,68.1,2,110712*3,-42120,stop_loss,"candle stop — cash closed 1,424.20 above the entry-candle stop ₹1,411.58"
 MAXHEALTH,Buy,19-Oct-26,842.0,24.5,21-Oct-26,823.0,14.0,2,88410*3,-29925,stop_loss,candle stop — cash closed 819.90 below the entry-candle stop ₹825.16
 TIINDIA,Buy,19-Oct-26,2202.4,29.4,21-Oct-26,2133.9,22.8,2,88096*3,-41100,stop_loss,"candle stop — cash closed 2,113.90 below the entry-candle stop ₹2,158.35"
+RADICO,Sell,19-Aug-26,4699.6,73.7,22-Oct-26,4199.94,39.5,46,140988*1,74948,second_target,"final lot booked — SMMA 50 ₹4,199.94"
+ETERNAL,Sell,24-Sep-26,339.4,71.7,22-Oct-26,305.74,47.9,20,164609*1,81636,second_target,lot 2 booked — SMMA 50 ₹305.74
+SUZLON,Buy,30-Sep-26,39.76,20.7,22-Oct-26,38.82,18.6,16,100990*3,-35814,stop_loss,candle stop — cash closed 38.57 below the entry-candle stop ₹38.90
+TMPV,Buy,30-Sep-26,284.5,26.1,22-Oct-26,271.35,17.6,16,91040*3,-63120,stop_loss,candle stop — cash closed 270.00 below the entry-candle stop ₹272.20
+BEL,Buy,09-Oct-26,374.4,29.0,22-Oct-26,369.3,26.6,9,106704*3,-21802,stop_loss,candle stop — cash closed 364.50 below the entry-candle stop ₹366.20
+INOXWIND,Buy,09-Oct-26,67.78,26.1,22-Oct-26,62.68,23.7,9,86758*2,-65280,stop_loss,candle stop — cash closed 62.11 below the entry-candle stop ₹62.43
+LUPIN,Buy,13-Oct-26,1973.5,27.0,22-Oct-26,1947.6,15.0,7,167748*3,-33023,stop_loss,"candle stop — cash closed 1,922.00 below the entry-candle stop ₹1,933.20"
+TITAN,Buy,13-Oct-26,4536.2,29.0,22-Oct-26,4379.4,26.4,7,158767*3,-82320,stop_loss,"candle stop — cash closed 4,350.00 below the entry-candle stop ₹4,361.00"
+MFSL,Buy,21-Oct-26,1275.0,32.3,22-Oct-26,1240.0,23.0,1,102000*3,-42000,stop_loss,"candle stop — cash closed 1,223.30 below the entry-candle stop ₹1,247.60"
+MUTHOOTFIN,Buy,21-Oct-26,2518.0,29.6,22-Oct-26,2456.7,31.9,1,138490*3,-50573,stop_loss,"candle stop — cash closed 2,415.00 below the entry-candle stop ₹2,445.90"
+SWIGGY,Buy,21-Oct-26,228.4,31.7,22-Oct-26,211.0,24.7,1,83366*3,-95265,stop_loss,candle stop — cash closed 211.40 below the entry-candle stop ₹217.90
