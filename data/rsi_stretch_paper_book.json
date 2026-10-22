@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2577415.59,
-  "closed_count": 321,
+  "realised_pnl": 2542529.34,
+  "closed_count": 322,
   "day_date": "2026-10-22",
-  "day_realised_pnl": -193903.99,
-  "updated_at": "2026-10-22 13:31:08",
+  "day_realised_pnl": -228790.24,
+  "updated_at": "2026-10-22 14:01:13",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -572,6 +572,11 @@
       "symbol": "TITAN",
       "exit_date": "2026-10-07",
       "pnl": -36544.73
+    },
+    {
+      "symbol": "TITAN",
+      "exit_date": "2026-10-22",
+      "pnl": -34886.25
     },
     {
       "symbol": "UNITDSPR",
@@ -1704,25 +1709,24 @@
   },
   "last_marks": {
     "BANKINDIA": 138.0,
-    "CAMS": 674.1,
-    "COFORGE": 1921.2,
-    "FEDERALBNK": 353.0,
-    "FORTIS": 734.0,
-    "GLENMARK": 2194.2,
+    "CAMS": 673.55,
+    "COFORGE": 1911.8,
+    "FEDERALBNK": 352.5,
+    "FORTIS": 732.0,
+    "GLENMARK": 2191.8,
     "GODREJCP": 862.0,
     "GRASIM": 2915.0,
-    "HEROMOTOCO": 5126.5,
+    "HEROMOTOCO": 5119.5,
     "ICICIGI": 1662.1,
-    "JIOFIN": 213.0,
+    "JIOFIN": 212.84,
     "JSWENERGY": 476.0,
-    "M&M": 2887.6,
-    "MOTHERSON": 153.87,
-    "NHPC": 71.4,
-    "PFC": 323.45,
-    "PGEL": 494.5,
-    "PIDILITIND": 1479.7,
-    "SBICARD": 571.55,
-    "TITAN": 4370.0
+    "M&M": 2886.7,
+    "MOTHERSON": 153.98,
+    "NHPC": 71.35,
+    "PFC": 322.8,
+    "PGEL": 493.65,
+    "PIDILITIND": 1481.7,
+    "SBICARD": 570.2
   },
   "positions": [
     {
@@ -2070,23 +2074,6 @@
           "pnl": 22194.0
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TITAN",
-      "direction": "LONG",
-      "entry_price": 4430.0,
-      "entry_time": "2026-10-08 16:03:16",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.374445548469495,
-      "strike": 0.0,
-      "margin_blocked": 465150.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
