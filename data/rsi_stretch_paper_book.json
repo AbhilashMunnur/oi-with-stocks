@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2602432.44,
-  "closed_count": 320,
+  "realised_pnl": 2577415.59,
+  "closed_count": 321,
   "day_date": "2026-10-22",
-  "day_realised_pnl": -168887.14,
-  "updated_at": "2026-10-22 13:01:02",
+  "day_realised_pnl": -193903.99,
+  "updated_at": "2026-10-22 13:31:08",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1682,6 +1682,11 @@
       "symbol": "BRITANNIA",
       "exit_date": "2026-10-19",
       "pnl": -27175.5
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "exit_date": "2026-10-22",
+      "pnl": -25016.85
     }
   ],
   "qualify_skips": {
@@ -1698,27 +1703,26 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "BANKINDIA": 136.0,
-    "CAMS": 676.6,
-    "COFORGE": 1921.3,
-    "FEDERALBNK": 351.0,
+    "BANKINDIA": 138.0,
+    "CAMS": 674.1,
+    "COFORGE": 1921.2,
+    "FEDERALBNK": 353.0,
     "FORTIS": 734.0,
-    "GLENMARK": 2205.0,
+    "GLENMARK": 2194.2,
     "GODREJCP": 862.0,
     "GRASIM": 2915.0,
-    "HEROMOTOCO": 5156.0,
-    "HINDUNILVR": 1836.0,
-    "ICICIGI": 1652.6,
-    "JIOFIN": 214.19,
+    "HEROMOTOCO": 5126.5,
+    "ICICIGI": 1662.1,
+    "JIOFIN": 213.0,
     "JSWENERGY": 476.0,
-    "M&M": 2879.3,
-    "MOTHERSON": 154.37,
+    "M&M": 2887.6,
+    "MOTHERSON": 153.87,
     "NHPC": 71.4,
-    "PFC": 325.35,
+    "PFC": 323.45,
     "PGEL": 494.5,
-    "PIDILITIND": 1482.9,
-    "SBICARD": 576.1,
-    "TITAN": 4391.1
+    "PIDILITIND": 1479.7,
+    "SBICARD": 571.55,
+    "TITAN": 4370.0
   },
   "positions": [
     {
@@ -1956,23 +1960,6 @@
       "rsi_at_entry": 29.053166905173185,
       "strike": 0.0,
       "margin_blocked": 253200.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HINDUNILVR",
-      "direction": "LONG",
-      "entry_price": 1853.1,
-      "entry_time": "2026-10-05 15:59:17",
-      "lot_size": 300,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.28498223415491,
-      "strike": 0.0,
-      "margin_blocked": 333558.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
