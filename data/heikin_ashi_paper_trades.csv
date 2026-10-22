@@ -562,3 +562,4 @@ POWERGRID,Buy,14-Oct-26,249.1,28.5,22-Oct-26,245.36,,6,94658*3,-21298,stop_loss,
 NHPC,Buy,21-Oct-26,72.57,27.7,22-Oct-26,71.48,,1,100872*3,-22696,stop_loss,1.5% stop ₹71.48
 KALYANKJIL,Buy,06-Oct-26,557.4,29.9,22-Oct-26,549.04,,12,150498*2,-22575,stop_loss,1.5% stop ₹549.04 (tightened after lot 1 booked)
 CANBK,Buy,19-Oct-26,123.0,29.9,22-Oct-26,121.16,,3,166050*3,-37361,stop_loss,1.5% stop ₹121.16
+HYUNDAI,Buy,12-Oct-26,1910.1,29.7,22-Oct-26,1881.45,,8,105056*3,-23637,stop_loss,"1.5% stop ₹1,881.45"
