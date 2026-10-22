@@ -550,3 +550,12 @@ HINDPETRO,Buy,15-Oct-26,350.6,27.9,21-Oct-26,345.34,,4,141993*3,-31948,stop_loss
 UNOMINDA,Sell,21-Aug-26,1265.0,79.9,21-Oct-26,1064.9,26.8,43,139150*1,110055,rsi_target,final lot booked — RSI 26.8 reached 30
 EICHERMOT,Buy,09-Oct-26,7142.0,19.1,21-Oct-26,7221.0,29.0,8,142840*1,7900,smma_cross,"final lot booked — strong candle closed 7,170.50 below SMMA 21 ₹7,373.05"
 AXISBANK,Sell,19-Oct-26,1250.7,70.1,21-Oct-26,1248.74,42.3,2,156338*1,1222,first_target,"lot 1 booked — SMMA 21 ₹1,248.74"
+DABUR,Buy,11-Sep-26,376.0,21.5,22-Oct-26,370.36,,29,94000*2,-14100,stop_loss,1.5% stop ₹370.36 (tightened after lot 1 booked)
+PIDILITIND,Buy,06-Oct-26,1503.0,28.5,22-Oct-26,1480.45,,12,150300*3,-33818,stop_loss,"1.5% stop ₹1,480.45"
+SBICARD,Buy,09-Oct-26,567.2,25.8,22-Oct-26,558.69,,9,90752*3,-20419,stop_loss,1.5% stop ₹558.69
+CAMS,Buy,12-Oct-26,689.0,28.6,22-Oct-26,678.66,,8,113685*3,-25579,stop_loss,1.5% stop ₹678.66
+MARUTI,Buy,12-Oct-26,11432.0,21.7,22-Oct-26,11260.52,,8,114320*3,-25722,stop_loss,"1.5% stop ₹11,260.52"
+TITAN,Buy,12-Oct-26,4463.9,24.9,22-Oct-26,4396.94,,8,156236*3,-35153,stop_loss,"1.5% stop ₹4,396.94"
+JINDALSTEL,Buy,14-Oct-26,1038.0,27.5,22-Oct-26,1022.43,,6,129750*3,-29194,stop_loss,"1.5% stop ₹1,022.43"
+LUPIN,Buy,14-Oct-26,1972.9,24.2,22-Oct-26,1943.31,,6,167696*3,-37732,stop_loss,"1.5% stop ₹1,943.31"
+POWERGRID,Buy,14-Oct-26,249.1,28.5,22-Oct-26,245.36,,6,94658*3,-21298,stop_loss,1.5% stop ₹245.36

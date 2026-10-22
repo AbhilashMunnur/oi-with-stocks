@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2771319.58,
-  "closed_count": 314,
-  "day_date": "2026-10-21",
-  "day_realised_pnl": 8983.92,
-  "updated_at": "2026-10-21 19:56:00",
+  "realised_pnl": 2621656.44,
+  "closed_count": 319,
+  "day_date": "2026-10-22",
+  "day_realised_pnl": -149663.14,
+  "updated_at": "2026-10-22 09:31:27",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -79,7 +79,8 @@
     "2026-10-15",
     "2026-10-16",
     "2026-10-19",
-    "2026-10-21"
+    "2026-10-21",
+    "2026-10-22"
   ],
   "closed_results": [
     {
@@ -331,6 +332,11 @@
       "symbol": "JINDALSTEL",
       "exit_date": "2026-08-31",
       "pnl": -32906.25
+    },
+    {
+      "symbol": "JINDALSTEL",
+      "exit_date": "2026-10-22",
+      "pnl": -29247.19
     },
     {
       "symbol": "KPITTECH",
@@ -833,6 +839,11 @@
       "pnl": -35212.5
     },
     {
+      "symbol": "ASHOKLEY",
+      "exit_date": "2026-10-22",
+      "pnl": -33050.25
+    },
+    {
       "symbol": "UNOMINDA",
       "exit_date": "2026-08-05",
       "pnl": -30368.25
@@ -1053,6 +1064,11 @@
       "pnl": 218339.36
     },
     {
+      "symbol": "LUPIN",
+      "exit_date": "2026-10-22",
+      "pnl": -37806.3
+    },
+    {
       "symbol": "PERSISTENT",
       "exit_date": "2026-08-20",
       "pnl": -31020.19
@@ -1236,6 +1252,11 @@
       "symbol": "MARUTI",
       "exit_date": "2026-10-08",
       "pnl": -26255.25
+    },
+    {
+      "symbol": "MARUTI",
+      "exit_date": "2026-10-22",
+      "pnl": -25551.0
     },
     {
       "symbol": "VOLTAS",
@@ -1441,6 +1462,11 @@
       "symbol": "BEL",
       "exit_date": "2026-09-29",
       "pnl": 15711.53
+    },
+    {
+      "symbol": "BEL",
+      "exit_date": "2026-10-22",
+      "pnl": -24008.4
     },
     {
       "symbol": "AMBUJACEM",
@@ -1667,33 +1693,28 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "ASHOKLEY": 146.5,
     "BANKINDIA": 137.83,
-    "BEL": 373.55,
-    "CAMS": 682.5,
-    "COFORGE": 1957.1,
-    "FEDERALBNK": 347.45,
+    "CAMS": 667.6,
+    "COFORGE": 1967.8,
+    "FEDERALBNK": 347.0,
     "FORTIS": 734.35,
-    "GLENMARK": 2190.0,
+    "GLENMARK": 2180.7,
     "GODREJCP": 862.05,
-    "GRASIM": 2905.5,
-    "HEROMOTOCO": 5161.0,
-    "HINDUNILVR": 1852.0,
-    "ICICIGI": 1655.0,
-    "JINDALSTEL": 1033.7,
-    "JIOFIN": 213.64,
-    "JSWENERGY": 478.8,
-    "LUPIN": 1963.9,
-    "M&M": 2903.6,
-    "MARUTI": 11281.0,
-    "MOTHERSON": 156.99,
-    "NHPC": 72.57,
-    "PFC": 328.1,
-    "PGEL": 497.75,
-    "PIDILITIND": 1476.6,
-    "PRESTIGE": 1439.8,
-    "SBICARD": 564.0,
-    "TITAN": 4425.8
+    "GRASIM": 2904.7,
+    "HEROMOTOCO": 5107.0,
+    "HINDUNILVR": 1827.5,
+    "ICICIGI": 1652.6,
+    "JIOFIN": 212.22,
+    "JSWENERGY": 470.0,
+    "M&M": 2872.0,
+    "MOTHERSON": 153.77,
+    "NHPC": 71.76,
+    "PFC": 322.05,
+    "PGEL": 486.05,
+    "PIDILITIND": 1463.3,
+    "PRESTIGE": 1418.1,
+    "SBICARD": 555.75,
+    "TITAN": 4394.9
   },
   "positions": [
     {
@@ -2063,23 +2084,6 @@
       "stop_price": null
     },
     {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 11356.0,
-      "entry_time": "2026-10-08 16:03:16",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.002999583731494,
-      "strike": 0.0,
-      "margin_blocked": 340680.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SBICARD",
       "direction": "LONG",
       "entry_price": 554.85,
@@ -2122,40 +2126,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ASHOKLEY",
-      "direction": "LONG",
-      "entry_price": 146.89,
-      "entry_time": "2026-10-09 16:03:05",
-      "lot_size": 5000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.320077541337625,
-      "strike": 0.0,
-      "margin_blocked": 440669.99999999994,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BEL",
-      "direction": "LONG",
-      "entry_price": 374.4,
-      "entry_time": "2026-10-09 16:03:05",
-      "lot_size": 1425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.0265511264013,
-      "strike": 0.0,
-      "margin_blocked": 320112.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "HEROMOTOCO",
       "direction": "LONG",
       "entry_price": 4969.5,
@@ -2188,23 +2158,6 @@
       "stop_price": null
     },
     {
-      "symbol": "JINDALSTEL",
-      "direction": "LONG",
-      "entry_price": 1039.9,
-      "entry_time": "2026-10-09 16:03:05",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.528070810016104,
-      "strike": 0.0,
-      "margin_blocked": 389962.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "JSWENERGY",
       "direction": "LONG",
       "entry_price": 470.0,
@@ -2225,23 +2178,6 @@
           "pnl": 25262.5
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 1976.8,
-      "entry_time": "2026-10-09 16:03:05",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.226764519389206,
-      "strike": 0.0,
-      "margin_blocked": 504084.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

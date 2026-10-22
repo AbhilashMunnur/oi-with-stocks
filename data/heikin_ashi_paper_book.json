@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 83920.17,
-  "closed_count": 373,
-  "day_date": "2026-10-21",
-  "day_realised_pnl": -261009.56,
-  "updated_at": "2026-10-21 19:55:54",
+  "realised_pnl": -159094.38,
+  "closed_count": 382,
+  "day_date": "2026-10-22",
+  "day_realised_pnl": -243014.55,
+  "updated_at": "2026-10-22 09:31:19",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -83,7 +83,8 @@
     "2026-10-15",
     "2026-10-16",
     "2026-10-19",
-    "2026-10-21"
+    "2026-10-21",
+    "2026-10-22"
   ],
   "closed_results": [
     {
@@ -130,6 +131,11 @@
       "symbol": "PIDILITIND",
       "exit_date": "2026-07-10",
       "pnl": -35334.0
+    },
+    {
+      "symbol": "PIDILITIND",
+      "exit_date": "2026-10-22",
+      "pnl": -33817.5
     },
     {
       "symbol": "TCS",
@@ -200,6 +206,11 @@
       "symbol": "JINDALSTEL",
       "exit_date": "2026-09-17",
       "pnl": 48039.58
+    },
+    {
+      "symbol": "JINDALSTEL",
+      "exit_date": "2026-10-22",
+      "pnl": -29193.75
     },
     {
       "symbol": "WIPRO",
@@ -747,6 +758,11 @@
       "pnl": -39282.75
     },
     {
+      "symbol": "LUPIN",
+      "exit_date": "2026-10-22",
+      "pnl": -37731.71
+    },
+    {
       "symbol": "LTM",
       "exit_date": "2026-07-22",
       "pnl": 139112.85
@@ -925,6 +941,11 @@
       "symbol": "TITAN",
       "exit_date": "2026-10-07",
       "pnl": 225905.09
+    },
+    {
+      "symbol": "TITAN",
+      "exit_date": "2026-10-22",
+      "pnl": -35153.21
     },
     {
       "symbol": "INOXWIND",
@@ -1180,6 +1201,11 @@
       "symbol": "POWERGRID",
       "exit_date": "2026-09-28",
       "pnl": -22811.4
+    },
+    {
+      "symbol": "POWERGRID",
+      "exit_date": "2026-10-22",
+      "pnl": -21298.05
     },
     {
       "symbol": "INFY",
@@ -1692,6 +1718,11 @@
       "pnl": -27726.75
     },
     {
+      "symbol": "MARUTI",
+      "exit_date": "2026-10-22",
+      "pnl": -25722.0
+    },
+    {
       "symbol": "360ONE",
       "exit_date": "2026-09-24",
       "pnl": -24480.0
@@ -1927,6 +1958,11 @@
       "pnl": -25412.06
     },
     {
+      "symbol": "CAMS",
+      "exit_date": "2026-10-22",
+      "pnl": -25579.13
+    },
+    {
       "symbol": "ABB",
       "exit_date": "2026-10-09",
       "pnl": -39006.56
@@ -1985,6 +2021,16 @@
       "symbol": "BPCL",
       "exit_date": "2026-10-21",
       "pnl": -26422.54
+    },
+    {
+      "symbol": "DABUR",
+      "exit_date": "2026-10-22",
+      "pnl": 9400.0
+    },
+    {
+      "symbol": "SBICARD",
+      "exit_date": "2026-10-22",
+      "pnl": -20419.2
     }
   ],
   "qualify_skips": {
@@ -1994,51 +2040,42 @@
   },
   "last_marks": {
     "AMBUJACEM": 360.5,
-    "AXISBANK": 1228.1,
-    "BAJAJ-AUTO": 10150.0,
-    "BOSCHLTD": 44700.0,
-    "CAMS": 685.45,
-    "CANBK": 121.57,
-    "CIPLA": 1321.3,
-    "COFORGE": 1967.9,
-    "DABUR": 376.4,
-    "FEDERALBNK": 344.3,
-    "GLENMARK": 2206.1,
-    "GRASIM": 2905.5,
-    "HAVELLS": 1078.6,
-    "HDFCAMC": 2322.0,
-    "HEROMOTOCO": 5161.0,
+    "AXISBANK": 1228.3,
+    "BAJAJ-AUTO": 10121.0,
+    "BOSCHLTD": 44140.0,
+    "CANBK": 121.2,
+    "CIPLA": 1315.3,
+    "COFORGE": 1975.0,
+    "FEDERALBNK": 343.3,
+    "GLENMARK": 2191.5,
+    "GRASIM": 2904.7,
+    "HAVELLS": 1070.0,
+    "HDFCAMC": 2308.0,
+    "HEROMOTOCO": 5107.0,
     "HYUNDAI": 1885.5,
-    "ICICIGI": 1648.9,
-    "INDIANB": 860.25,
-    "IOC": 130.79,
-    "JINDALSTEL": 1033.7,
-    "JSWSTEEL": 1236.5,
-    "KALYANKJIL": 561.2,
-    "KOTAKBANK": 442.8,
-    "LT": 3668.4,
-    "LUPIN": 1963.9,
-    "M&M": 2903.6,
-    "MARUTI": 11281.0,
-    "MOTHERSON": 156.99,
-    "MPHASIS": 2598.6,
-    "NHPC": 72.57,
-    "PAYTM": 1673.5,
-    "PFC": 328.1,
-    "PIDILITIND": 1485.0,
-    "PNBHOUSING": 1157.2,
-    "POWERGRID": 248.5,
-    "RADICO": 4325.0,
-    "RELIANCE": 1221.2,
-    "SBICARD": 564.0,
-    "SBIN": 974.3,
-    "TATAELXSI": 3834.5,
-    "TATAPOWER": 355.0,
-    "TCS": 2528.0,
-    "TITAN": 4425.8,
-    "TVSMOTOR": 4023.9,
-    "UPL": 518.2,
-    "VBL": 411.75
+    "ICICIGI": 1625.9,
+    "INDIANB": 851.0,
+    "IOC": 129.62,
+    "JSWSTEEL": 1234.5,
+    "KALYANKJIL": 551.0,
+    "KOTAKBANK": 442.7,
+    "LT": 3645.6,
+    "M&M": 2872.0,
+    "MOTHERSON": 153.73,
+    "MPHASIS": 2608.2,
+    "NHPC": 71.76,
+    "PAYTM": 1668.7,
+    "PFC": 322.05,
+    "PNBHOUSING": 1146.1,
+    "RADICO": 4285.9,
+    "RELIANCE": 1212.7,
+    "SBIN": 972.25,
+    "TATAELXSI": 3829.3,
+    "TATAPOWER": 351.05,
+    "TCS": 2527.1,
+    "TVSMOTOR": 4025.7,
+    "UPL": 515.1,
+    "VBL": 404.7
   },
   "positions": [
     {
@@ -2231,31 +2268,6 @@
           "exit_time": "2026-10-08 16:03:11",
           "reason": "second_target",
           "pnl": 118139.05
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "DABUR",
-      "direction": "LONG",
-      "entry_price": 376.0,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 1250,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 21.48,
-      "strike": 0.0,
-      "margin_blocked": 188000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 394.8,
-          "exit_time": "2026-09-23 09:31:21",
-          "reason": "first_target",
-          "pnl": 23500.0
         }
       ],
       "priced_on": "futures",
@@ -2466,40 +2478,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PIDILITIND",
-      "direction": "LONG",
-      "entry_price": 1503.0,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.506655758504138,
-      "strike": 0.0,
-      "margin_blocked": 450900.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBICARD",
-      "direction": "LONG",
-      "entry_price": 567.2,
-      "entry_time": "2026-10-09 16:03:00",
-      "lot_size": 800,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.83616018393387,
-      "strike": 0.0,
-      "margin_blocked": 272256.00000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAELXSI",
       "direction": "LONG",
       "entry_price": 3155.5,
@@ -2543,23 +2521,6 @@
       "rsi_at_entry": 17.926243917883667,
       "strike": 0.0,
       "margin_blocked": 456705.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CAMS",
-      "direction": "LONG",
-      "entry_price": 689.0,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 825,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.560835055895865,
-      "strike": 0.0,
-      "margin_blocked": 341055.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2716,23 +2677,6 @@
       "stop_price": null
     },
     {
-      "symbol": "MARUTI",
-      "direction": "LONG",
-      "entry_price": 11432.0,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 21.680508962727487,
-      "strike": 0.0,
-      "margin_blocked": 342960.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SBIN",
       "direction": "LONG",
       "entry_price": 955.0,
@@ -2769,23 +2713,6 @@
       "rsi_at_entry": 27.08852699157204,
       "strike": 0.0,
       "margin_blocked": 301890.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TITAN",
-      "direction": "LONG",
-      "entry_price": 4463.9,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 175,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.85303676118278,
-      "strike": 0.0,
-      "margin_blocked": 468709.49999999994,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -2853,57 +2780,6 @@
       "rsi_at_entry": 23.927344447582428,
       "strike": 0.0,
       "margin_blocked": 257508.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "JINDALSTEL",
-      "direction": "LONG",
-      "entry_price": 1038.0,
-      "entry_time": "2026-10-14 15:50:17",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.52807075263901,
-      "strike": 0.0,
-      "margin_blocked": 389250.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "LUPIN",
-      "direction": "LONG",
-      "entry_price": 1972.9,
-      "entry_time": "2026-10-14 15:50:17",
-      "lot_size": 425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.22676454891925,
-      "strike": 0.0,
-      "margin_blocked": 503089.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "POWERGRID",
-      "direction": "LONG",
-      "entry_price": 249.1,
-      "entry_time": "2026-10-14 15:50:17",
-      "lot_size": 1900,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.482019760079027,
-      "strike": 0.0,
-      "margin_blocked": 283974.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
