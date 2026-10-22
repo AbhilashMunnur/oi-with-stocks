@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 1493730.97,
-  "closed_count": 519,
+  "realised_pnl": 1457469.82,
+  "closed_count": 521,
   "day_date": "2026-10-22",
-  "day_realised_pnl": -292410.96,
-  "updated_at": "2026-10-22 09:31:09",
+  "day_realised_pnl": -328672.11,
+  "updated_at": "2026-10-22 10:00:56",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -318,6 +318,11 @@
       "symbol": "PRESTIGE",
       "exit_date": "2026-07-10",
       "pnl": -34495.87
+    },
+    {
+      "symbol": "PRESTIGE",
+      "exit_date": "2026-10-22",
+      "pnl": 12816.0
     },
     {
       "symbol": "ALKEM",
@@ -2505,6 +2510,11 @@
       "pnl": -25974.0
     },
     {
+      "symbol": "PREMIERENE",
+      "exit_date": "2026-10-22",
+      "pnl": 11358.1
+    },
+    {
       "symbol": "ABB",
       "exit_date": "2026-09-29",
       "pnl": -39262.5
@@ -2727,47 +2737,45 @@
     "VOLTAS": 3
   },
   "last_marks": {
-    "ANANDRATHI": 2220.9,
-    "BAJAJFINSV": 1675.8,
-    "BANKINDIA": 137.83,
-    "BOSCHLTD": 44140.0,
-    "CAMS": 667.6,
-    "CANBK": 121.2,
-    "CIPLA": 1311.8,
-    "ETERNAL": 318.5,
-    "FEDERALBNK": 345.05,
+    "ANANDRATHI": 2225.2,
+    "BAJAJFINSV": 1689.9,
+    "BANKINDIA": 137.1,
+    "BOSCHLTD": 44530.0,
+    "CAMS": 668.6,
+    "CANBK": 121.3,
+    "CIPLA": 1318.0,
+    "ETERNAL": 316.35,
+    "FEDERALBNK": 345.0,
     "FORTIS": 734.35,
-    "GLENMARK": 2180.4,
-    "GODREJCP": 862.05,
-    "GRASIM": 2904.7,
-    "HDFCBANK": 703.35,
-    "HEROMOTOCO": 5116.0,
-    "HINDUNILVR": 1827.5,
-    "ICICIGI": 1629.5,
-    "IDFCFIRSTB": 75.2,
-    "INDIANB": 851.0,
+    "GLENMARK": 2188.1,
+    "GODREJCP": 855.0,
+    "GRASIM": 2890.0,
+    "HDFCBANK": 701.1,
+    "HEROMOTOCO": 5163.0,
+    "HINDUNILVR": 1834.0,
+    "ICICIGI": 1631.5,
+    "IDFCFIRSTB": 75.4,
+    "INDIANB": 857.35,
     "JSWENERGY": 470.0,
-    "KPITTECH": 542.7,
-    "MOTHERSON": 153.88,
-    "NATIONALUM": 306.9,
-    "OIL": 451.0,
-    "ONGC": 226.5,
-    "PFC": 321.75,
-    "PIDILITIND": 1463.3,
-    "PREMIERENE": 863.3,
-    "PRESTIGE": 1420.1,
-    "RADICO": 4285.9,
-    "RELIANCE": 1213.0,
-    "SBICARD": 555.75,
-    "SBIN": 972.25,
-    "SUZLON": 38.8,
-    "TATAELXSI": 3829.3,
-    "TATAPOWER": 351.05,
-    "TCS": 2526.6,
-    "TITAN": 4380.0,
+    "KPITTECH": 548.5,
+    "MOTHERSON": 154.58,
+    "NATIONALUM": 307.3,
+    "OIL": 450.6,
+    "ONGC": 227.35,
+    "PFC": 322.8,
+    "PIDILITIND": 1464.7,
+    "RADICO": 4283.4,
+    "RELIANCE": 1210.2,
+    "SBICARD": 561.05,
+    "SBIN": 971.15,
+    "SUZLON": 39.0,
+    "TATAELXSI": 3846.5,
+    "TATAPOWER": 353.05,
+    "TCS": 2525.5,
+    "TITAN": 4398.7,
     "TORNTPHARM": 4577.0,
-    "WAAREEENER": 2403.2,
-    "WIPRO": 191.0
+    "WAAREEENER": 2352.2,
+    "WIPRO": 190.75
   },
   "positions": [
     {
@@ -3031,31 +3039,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PRESTIGE",
-      "direction": "LONG",
-      "entry_price": 1424.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 450,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.18,
-      "strike": 0.0,
-      "margin_blocked": 256320.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1495.2,
-          "exit_time": "2026-09-30 14:31:01",
-          "reason": "first_target",
-          "pnl": 32040.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "CAMS",
       "direction": "LONG",
       "entry_price": 675.25,
@@ -3224,31 +3207,6 @@
       "strike": 0.0,
       "margin_blocked": 255615.0,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PREMIERENE",
-      "direction": "LONG",
-      "entry_price": 873.7,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 650,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 32.24354461918287,
-      "strike": 0.0,
-      "margin_blocked": 227162.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 917.39,
-          "exit_time": "2026-10-14 12:01:35",
-          "reason": "first_target",
-          "pnl": 28395.25
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

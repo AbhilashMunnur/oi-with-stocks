@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2621656.44,
-  "closed_count": 319,
+  "realised_pnl": 2602432.44,
+  "closed_count": 320,
   "day_date": "2026-10-22",
-  "day_realised_pnl": -149663.14,
-  "updated_at": "2026-10-22 09:31:27",
+  "day_realised_pnl": -168887.14,
+  "updated_at": "2026-10-22 10:01:06",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -212,6 +212,11 @@
       "symbol": "PRESTIGE",
       "exit_date": "2026-07-10",
       "pnl": -34495.87
+    },
+    {
+      "symbol": "PRESTIGE",
+      "exit_date": "2026-10-22",
+      "pnl": 12816.0
     },
     {
       "symbol": "ETERNAL",
@@ -1693,28 +1698,27 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "BANKINDIA": 137.83,
-    "CAMS": 667.6,
-    "COFORGE": 1967.8,
-    "FEDERALBNK": 347.0,
+    "BANKINDIA": 137.1,
+    "CAMS": 668.6,
+    "COFORGE": 1973.6,
+    "FEDERALBNK": 347.45,
     "FORTIS": 734.35,
-    "GLENMARK": 2180.7,
-    "GODREJCP": 862.05,
-    "GRASIM": 2904.7,
-    "HEROMOTOCO": 5107.0,
-    "HINDUNILVR": 1827.5,
+    "GLENMARK": 2188.1,
+    "GODREJCP": 855.0,
+    "GRASIM": 2890.0,
+    "HEROMOTOCO": 5163.0,
+    "HINDUNILVR": 1833.0,
     "ICICIGI": 1652.6,
-    "JIOFIN": 212.22,
+    "JIOFIN": 211.78,
     "JSWENERGY": 470.0,
-    "M&M": 2872.0,
-    "MOTHERSON": 153.77,
-    "NHPC": 71.76,
-    "PFC": 322.05,
-    "PGEL": 486.05,
-    "PIDILITIND": 1463.3,
-    "PRESTIGE": 1418.1,
-    "SBICARD": 555.75,
-    "TITAN": 4394.9
+    "M&M": 2871.7,
+    "MOTHERSON": 154.44,
+    "NHPC": 71.45,
+    "PFC": 322.8,
+    "PGEL": 490.0,
+    "PIDILITIND": 1464.7,
+    "SBICARD": 561.05,
+    "TITAN": 4398.7
   },
   "positions": [
     {
@@ -1793,31 +1797,6 @@
           "exit_time": "2026-10-05 15:59:17",
           "reason": "second_target",
           "pnl": 63770.89
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "PRESTIGE",
-      "direction": "LONG",
-      "entry_price": 1424.0,
-      "entry_time": "2026-09-16 15:15:00",
-      "lot_size": 450,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 29.18,
-      "strike": 0.0,
-      "margin_blocked": 256320.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1495.2,
-          "exit_time": "2026-09-30 14:31:12",
-          "reason": "first_target",
-          "pnl": 32040.0
         }
       ],
       "priced_on": "futures",
