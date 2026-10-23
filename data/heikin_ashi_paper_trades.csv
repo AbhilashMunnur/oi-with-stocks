@@ -573,3 +573,4 @@ PNBHOUSING,Sell,15-Oct-26,1197.0,70.1,23-Oct-26,1137.15,,6,155610*1,38903,first_
 HAVELLS,Buy,12-Oct-26,1056.0,22.8,23-Oct-26,1040.16,,9,105600*2,-15840,stop_loss,"1.5% stop ₹1,040.16 (tightened after lot 1 booked)"
 UPL,Buy,12-Oct-26,519.9,23.3,23-Oct-26,512.1,,9,140893*2,-21134,stop_loss,1.5% stop ₹512.10 (tightened after lot 1 booked)
 TORNTPHARM,Buy,22-Oct-26,4640.0,21.8,23-Oct-26,4570.4,,1,116000*3,-26100,stop_loss,"1.5% stop ₹4,570.40"
+IOC,Buy,15-Oct-26,130.07,24.9,23-Oct-26,128.12,,6,126818*3,-28534,stop_loss,1.5% stop ₹128.12
