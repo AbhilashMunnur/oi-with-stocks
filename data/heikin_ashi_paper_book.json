@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -155051.67,
-  "closed_count": 387,
-  "day_date": "2026-10-22",
-  "day_realised_pnl": -238971.84,
-  "updated_at": "2026-10-22 16:55:54",
+  "realised_pnl": -165388.66,
+  "closed_count": 390,
+  "day_date": "2026-10-23",
+  "day_realised_pnl": -10336.99,
+  "updated_at": "2026-10-23 09:34:50",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -84,7 +84,8 @@
     "2026-10-16",
     "2026-10-19",
     "2026-10-21",
-    "2026-10-22"
+    "2026-10-22",
+    "2026-10-23"
   ],
   "closed_results": [
     {
@@ -1023,6 +1024,11 @@
       "pnl": -25359.75
     },
     {
+      "symbol": "VBL",
+      "exit_date": "2026-10-23",
+      "pnl": 10382.32
+    },
+    {
       "symbol": "PAYTM",
       "exit_date": "2026-08-03",
       "pnl": 19546.0
@@ -1331,6 +1337,11 @@
       "symbol": "PFC",
       "exit_date": "2026-09-25",
       "pnl": -20211.75
+    },
+    {
+      "symbol": "PFC",
+      "exit_date": "2026-10-23",
+      "pnl": 8476.0
     },
     {
       "symbol": "SHREECEM",
@@ -1958,6 +1969,11 @@
       "pnl": -31657.5
     },
     {
+      "symbol": "HDFCAMC",
+      "exit_date": "2026-10-23",
+      "pnl": 3694.38
+    },
+    {
       "symbol": "NHPC",
       "exit_date": "2026-10-08",
       "pnl": -22968.36
@@ -2064,39 +2080,36 @@
     "NAUKRI": 2
   },
   "last_marks": {
-    "AMBUJACEM": 369.5,
-    "AXISBANK": 1226.9,
-    "BAJAJ-AUTO": 10291.0,
-    "BOSCHLTD": 44555.0,
-    "CIPLA": 1342.0,
-    "COFORGE": 1913.2,
-    "GLENMARK": 2206.6,
+    "AMBUJACEM": 370.8,
+    "AXISBANK": 1231.8,
+    "BAJAJ-AUTO": 10254.0,
+    "BOSCHLTD": 44500.0,
+    "CIPLA": 1347.4,
+    "COFORGE": 1941.3,
+    "GLENMARK": 2196.4,
     "GRASIM": 2905.2,
-    "HAVELLS": 1081.1,
-    "HDFCAMC": 2309.1,
-    "HEROMOTOCO": 5124.0,
-    "ICICIGI": 1639.7,
-    "INDIANB": 863.75,
-    "IOC": 130.98,
+    "HAVELLS": 1041.6,
+    "HEROMOTOCO": 5120.0,
+    "ICICIGI": 1622.5,
+    "INDIANB": 854.0,
+    "IOC": 130.0,
     "JSWSTEEL": 1240.8,
-    "KOTAKBANK": 442.85,
-    "LT": 3699.0,
-    "M&M": 2890.0,
-    "MOTHERSON": 153.42,
-    "MPHASIS": 2554.0,
-    "PAYTM": 1665.7,
-    "PFC": 326.85,
-    "PNBHOUSING": 1145.5,
-    "RADICO": 4188.0,
-    "RELIANCE": 1204.4,
-    "SBIN": 980.1,
-    "TATAELXSI": 3827.9,
-    "TATAPOWER": 357.1,
-    "TCS": 2509.0,
-    "TORNTPHARM": 4640.0,
+    "KOTAKBANK": 442.15,
+    "LT": 3688.0,
+    "M&M": 2860.0,
+    "MOTHERSON": 150.71,
+    "MPHASIS": 2539.5,
+    "PAYTM": 1647.5,
+    "PNBHOUSING": 1135.5,
+    "RADICO": 4138.0,
+    "RELIANCE": 1210.0,
+    "SBIN": 978.0,
+    "TATAELXSI": 3802.0,
+    "TATAPOWER": 354.3,
+    "TCS": 2584.5,
+    "TORNTPHARM": 4689.9,
     "TVSMOTOR": 4025.0,
-    "UPL": 520.0,
-    "VBL": 401.4
+    "UPL": 517.0
   },
   "positions": [
     {
@@ -2207,31 +2220,6 @@
           "exit_time": "2026-09-09 15:15:00",
           "reason": "first_target",
           "pnl": 46685.38
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "VBL",
-      "direction": "LONG",
-      "entry_price": 407.15,
-      "entry_time": "2026-09-03 15:15:00",
-      "lot_size": 1275,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 28.82,
-      "strike": 0.0,
-      "margin_blocked": 207646.5,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 427.51,
-          "exit_time": "2026-09-18 15:02:26",
-          "reason": "first_target",
-          "pnl": 25955.81
         }
       ],
       "priced_on": "futures",
@@ -2424,31 +2412,6 @@
       "stop_price": null
     },
     {
-      "symbol": "PFC",
-      "direction": "LONG",
-      "entry_price": 326.0,
-      "entry_time": "2026-10-06 16:46:40",
-      "lot_size": 1300,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 22.383534696183162,
-      "strike": 0.0,
-      "margin_blocked": 169520.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 342.3,
-          "exit_time": "2026-10-13 16:47:39",
-          "reason": "first_target",
-          "pnl": 21190.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "TATAELXSI",
       "direction": "LONG",
       "entry_price": 3155.5,
@@ -2550,31 +2513,6 @@
           "exit_time": "2026-10-14 12:31:48",
           "reason": "first_target",
           "pnl": 26400.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "HDFCAMC",
-      "direction": "LONG",
-      "entry_price": 2328.0,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 300,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 25.61905964520929,
-      "strike": 0.0,
-      "margin_blocked": 279360.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2410.15,
-          "exit_time": "2026-10-15 16:00:04",
-          "reason": "first_target",
-          "pnl": 24646.38
         }
       ],
       "priced_on": "futures",
@@ -2819,13 +2757,21 @@
       "entry_price": 1197.0,
       "entry_time": "2026-10-15 16:00:04",
       "lot_size": 650,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 70.11457090382322,
       "strike": 0.0,
-      "margin_blocked": 466830.0,
-      "closed_legs": [],
+      "margin_blocked": 311220.0,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 1137.15,
+          "exit_time": "2026-10-23 09:34:50",
+          "reason": "first_target",
+          "pnl": 38902.5
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

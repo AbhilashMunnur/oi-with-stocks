@@ -566,3 +566,7 @@ HYUNDAI,Buy,12-Oct-26,1910.1,29.7,22-Oct-26,1881.45,,8,105056*3,-23637,stop_loss
 AMBUJACEM,Buy,13-Oct-26,357.65,23.9,22-Oct-26,375.53,,7,85836*1,21459,first_target,lot 1 booked — 5% target ₹375.53
 FEDERALBNK,Sell,05-Aug-26,356.45,78.0,22-Oct-26,347.3,48.6,56,178225*1,22875,smma_cross,final lot booked — strong candle closed 347.80 above SMMA 21 ₹335.74
 RADICO,Sell,21-Aug-26,4639.8,77.5,22-Oct-26,4199.94,39.5,44,139194*1,65978,second_target,"lot 2 booked — SMMA 50 ₹4,199.94"
+VBL,Buy,03-Sep-26,407.15,28.8,23-Oct-26,401.04,,36,103823*2,-15573,stop_loss,1.5% stop ₹401.04 (tightened after lot 1 booked)
+PFC,Buy,06-Oct-26,326.0,22.4,23-Oct-26,321.11,,13,84760*2,-12714,stop_loss,1.5% stop ₹321.11 (tightened after lot 1 booked)
+HDFCAMC,Buy,12-Oct-26,2328.0,25.6,23-Oct-26,2293.08,,9,139680*2,-20952,stop_loss,"1.5% stop ₹2,293.08 (tightened after lot 1 booked)"
+PNBHOUSING,Sell,15-Oct-26,1197.0,70.1,23-Oct-26,1137.15,,6,155610*1,38903,first_target,"lot 1 booked — 5% target ₹1,137.15"

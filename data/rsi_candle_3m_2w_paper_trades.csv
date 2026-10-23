@@ -488,3 +488,4 @@ TITAN,Buy,13-Oct-26,4536.2,29.0,22-Oct-26,4379.4,26.4,7,158767*3,-82320,stop_los
 MFSL,Buy,21-Oct-26,1275.0,32.3,22-Oct-26,1240.0,23.0,1,102000*3,-42000,stop_loss,"candle stop — cash closed 1,223.30 below the entry-candle stop ₹1,247.60"
 MUTHOOTFIN,Buy,21-Oct-26,2518.0,29.6,22-Oct-26,2456.7,31.9,1,138490*3,-50573,stop_loss,"candle stop — cash closed 2,415.00 below the entry-candle stop ₹2,445.90"
 SWIGGY,Buy,21-Oct-26,228.4,31.7,22-Oct-26,211.0,24.7,1,83366*3,-95265,stop_loss,candle stop — cash closed 211.40 below the entry-candle stop ₹217.90
+MOTHERSON,Sell,19-Aug-26,172.35,74.0,23-Oct-26,151.67,,47,211990*1,127194,second_target,final lot booked — 12% target ₹151.67

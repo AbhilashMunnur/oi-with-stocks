@@ -765,3 +765,11 @@ HINDUNILVR,Buy,05-Oct-26,1853.1,29.3,22-Oct-26,1825.3,,13,111186*3,-25017,stop_l
 TITAN,Buy,07-Oct-26,4429.7,27.0,22-Oct-26,4363.25,,11,155040*3,-34884,stop_loss,"1.5% stop ₹4,363.25"
 RADICO,Sell,20-Aug-26,4696.0,73.3,22-Oct-26,4199.94,39.5,45,140880*1,74408,second_target,"lot 2 booked — SMMA 50 ₹4,199.94"
 ETERNAL,Sell,24-Sep-26,339.4,71.7,22-Oct-26,305.74,47.9,20,164609*1,81636,second_target,lot 2 booked — SMMA 50 ₹305.74
+PFC,Buy,05-Oct-26,324.8,22.4,23-Oct-26,319.93,,14,84448*2,-12667,stop_loss,1.5% stop ₹319.93 (tightened after lot 1 booked)
+CHOLAFIN,Buy,22-Oct-26,1537.3,34.2,23-Oct-26,1514.24,,1,192162*3,-43237,stop_loss,"1.5% stop ₹1,514.24"
+COCHINSHIP,Buy,22-Oct-26,1161.6,28.0,23-Oct-26,1144.18,,1,92928*3,-20909,stop_loss,"1.5% stop ₹1,144.18"
+CUMMINSIND,Buy,22-Oct-26,4480.0,26.2,23-Oct-26,4412.8,,1,179200*3,-40320,stop_loss,"1.5% stop ₹4,412.80"
+GVT&D,Buy,22-Oct-26,3773.0,29.8,23-Oct-26,3716.4,,1,94325*3,-21223,stop_loss,"1.5% stop ₹3,716.40"
+IDEA,Buy,22-Oct-26,11.74,28.9,23-Oct-26,11.56,,1,167823*3,-37760,stop_loss,1.5% stop ₹11.56
+NBCC,Buy,22-Oct-26,71.43,26.9,23-Oct-26,70.36,,1,92859*3,-20893,stop_loss,1.5% stop ₹70.36
+TIINDIA,Buy,22-Oct-26,2126.8,25.2,23-Oct-26,2094.9,,1,85072*3,-19141,stop_loss,"1.5% stop ₹2,094.90"
