@@ -786,3 +786,5 @@ ENRIN,Buy,22-Oct-26,2791.4,28.5,23-Oct-26,2749.53,,1,97699*3,-21982,stop_loss,"1
 NESTLEIND,Buy,22-Oct-26,1204.9,29.3,23-Oct-26,1186.83,,1,120490*3,-27110,stop_loss,"1.5% stop ₹1,186.83"
 NTPC,Buy,22-Oct-26,303.1,29.7,23-Oct-26,298.55,,1,90930*3,-20459,stop_loss,1.5% stop ₹298.55
 OBEROIRLTY,Buy,22-Oct-26,1629.5,30.8,23-Oct-26,1605.06,,1,114065*3,-25665,stop_loss,"1.5% stop ₹1,605.06"
+CANBK,Buy,01-Oct-26,120.13,35.7,23-Oct-26,118.33,,16,162176*2,-24326,stop_loss,1.5% stop ₹118.33 (tightened after lot 1 booked)
+BHARATFORG,Buy,22-Oct-26,1761.0,32.0,23-Oct-26,1734.59,,1,176100*3,-39622,stop_loss,"1.5% stop ₹1,734.59"

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 959462.22,
-  "closed_count": 545,
+  "realised_pnl": 895513.4,
+  "closed_count": 547,
   "day_date": "2026-10-23",
-  "day_realised_pnl": -568191.59,
-  "updated_at": "2026-10-23 10:30:13",
+  "day_realised_pnl": -632140.42,
+  "updated_at": "2026-10-23 11:01:00",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2426,6 +2426,11 @@
       "pnl": -41708.25
     },
     {
+      "symbol": "BHARATFORG",
+      "exit_date": "2026-10-23",
+      "pnl": -39622.5
+    },
+    {
       "symbol": "CDSL",
       "exit_date": "2026-09-18",
       "pnl": 100173.96
@@ -2839,6 +2844,11 @@
       "symbol": "ENRIN",
       "exit_date": "2026-10-23",
       "pnl": -21982.28
+    },
+    {
+      "symbol": "CANBK",
+      "exit_date": "2026-10-23",
+      "pnl": 16217.55
     }
   ],
   "qualify_skips": {
@@ -2860,43 +2870,41 @@
     "VOLTAS": 3
   },
   "last_marks": {
-    "ALKEM": 5050.0,
-    "ANANDRATHI": 2261.9,
-    "APOLLOHOSP": 7705.0,
-    "BAJAJFINSV": 1673.8,
+    "ALKEM": 5008.0,
+    "ANANDRATHI": 2254.4,
+    "APOLLOHOSP": 7678.0,
+    "BAJAJFINSV": 1676.0,
     "BANKINDIA": 133.07,
-    "BHARATFORG": 1736.0,
-    "BOSCHLTD": 44280.0,
-    "CANBK": 118.88,
-    "CIPLA": 1333.0,
-    "ETERNAL": 306.35,
-    "FEDERALBNK": 347.2,
-    "GLENMARK": 2154.3,
-    "GODREJCP": 847.7,
-    "GRASIM": 2905.2,
-    "HDFCBANK": 693.5,
-    "HEROMOTOCO": 5085.0,
-    "ICICIGI": 1604.9,
+    "BOSCHLTD": 43935.0,
+    "CIPLA": 1331.0,
+    "ETERNAL": 306.45,
+    "FEDERALBNK": 347.8,
+    "GLENMARK": 2131.7,
+    "GODREJCP": 847.0,
+    "GRASIM": 2905.0,
+    "HDFCBANK": 693.25,
+    "HEROMOTOCO": 5055.0,
+    "ICICIGI": 1598.0,
     "INDIANB": 843.0,
-    "KPITTECH": 541.1,
-    "MARUTI": 11175.0,
+    "KPITTECH": 543.5,
+    "MARUTI": 11140.0,
     "MFSL": 1240.0,
-    "MOTHERSON": 149.91,
-    "NATIONALUM": 296.9,
-    "OIL": 450.8,
-    "ONGC": 228.98,
-    "PIDILITIND": 1477.2,
-    "RADICO": 4095.3,
-    "RELIANCE": 1191.0,
-    "SBICARD": 565.1,
-    "SBIN": 976.15,
+    "MOTHERSON": 149.35,
+    "NATIONALUM": 294.65,
+    "OIL": 449.75,
+    "ONGC": 227.6,
+    "PIDILITIND": 1471.1,
+    "RADICO": 4052.6,
+    "RELIANCE": 1183.0,
+    "SBICARD": 567.05,
+    "SBIN": 966.05,
     "SUZLON": 37.5,
-    "TATAELXSI": 3783.5,
-    "TATAPOWER": 348.55,
-    "TCS": 2572.4,
-    "TORNTPHARM": 4615.5,
-    "WAAREEENER": 2289.7,
-    "WIPRO": 192.17
+    "TATAELXSI": 3771.6,
+    "TATAPOWER": 348.85,
+    "TCS": 2551.9,
+    "TORNTPHARM": 4601.0,
+    "WAAREEENER": 2300.0,
+    "WIPRO": 190.75
   },
   "positions": [
     {
@@ -3273,31 +3281,6 @@
           "exit_time": "2026-10-05 10:00:14",
           "reason": "first_target",
           "pnl": 33833.8
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "CANBK",
-      "direction": "LONG",
-      "entry_price": 120.13,
-      "entry_time": "2026-10-01 16:43:55",
-      "lot_size": 6750,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 35.6820124809924,
-      "strike": 0.0,
-      "margin_blocked": 324351.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 126.14,
-          "exit_time": "2026-10-14 12:01:35",
-          "reason": "first_target",
-          "pnl": 40543.88
         }
       ],
       "priced_on": "futures",
@@ -3747,23 +3730,6 @@
       "rsi_at_entry": 35.9013969693907,
       "strike": 0.0,
       "margin_blocked": 578587.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BHARATFORG",
-      "direction": "LONG",
-      "entry_price": 1761.0,
-      "entry_time": "2026-10-22 16:55:48",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 31.953272340048272,
-      "strike": 0.0,
-      "margin_blocked": 528300.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
