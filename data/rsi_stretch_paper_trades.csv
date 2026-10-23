@@ -479,3 +479,10 @@ IDEA,Buy,22-Oct-26,11.74,28.9,23-Oct-26,11.56,,1,167823*3,-37760,stop_loss,1.5% 
 TCS,Sell,22-Oct-26,2517.4,76.1,23-Oct-26,2555.16,,1,113283*3,-25489,stop_loss,"1.5% stop ₹2,555.16"
 TIINDIA,Buy,22-Oct-26,2126.8,25.2,23-Oct-26,2094.9,,1,85072*3,-19141,stop_loss,"1.5% stop ₹2,094.90"
 WIPRO,Sell,22-Oct-26,189.5,72.9,23-Oct-26,192.34,,1,113700*3,-25582,stop_loss,1.5% stop ₹192.34
+CAMS,Buy,30-Sep-26,675.25,28.6,23-Oct-26,665.12,,17,111416*2,-16712,stop_loss,1.5% stop ₹665.12 (tightened after lot 1 booked)
+PGEL,Buy,01-Oct-26,487.25,26.1,23-Oct-26,479.94,,16,92578*2,-13887,stop_loss,1.5% stop ₹479.94 (tightened after lot 1 booked)
+BIOCON,Buy,22-Oct-26,334.4,22.1,23-Oct-26,329.38,,1,167200*3,-37620,stop_loss,1.5% stop ₹329.38
+IDFCFIRSTB,Buy,22-Oct-26,75.87,29.4,23-Oct-26,74.73,,1,140739*3,-31666,stop_loss,1.5% stop ₹74.73
+NTPC,Buy,22-Oct-26,303.1,29.7,23-Oct-26,298.55,,1,90930*3,-20459,stop_loss,1.5% stop ₹298.55
+TECHM,Sell,22-Oct-26,1798.9,76.8,23-Oct-26,1825.88,,1,215868*3,-48570,stop_loss,"1.5% stop ₹1,825.88"
+YESBANK,Buy,22-Oct-26,16.32,19.2,23-Oct-26,16.08,,1,101510*3,-22840,stop_loss,1.5% stop ₹16.08

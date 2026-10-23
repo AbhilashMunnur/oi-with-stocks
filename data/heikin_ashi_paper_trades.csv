@@ -570,3 +570,5 @@ VBL,Buy,03-Sep-26,407.15,28.8,23-Oct-26,401.04,,36,103823*2,-15573,stop_loss,1.5
 PFC,Buy,06-Oct-26,326.0,22.4,23-Oct-26,321.11,,13,84760*2,-12714,stop_loss,1.5% stop ₹321.11 (tightened after lot 1 booked)
 HDFCAMC,Buy,12-Oct-26,2328.0,25.6,23-Oct-26,2293.08,,9,139680*2,-20952,stop_loss,"1.5% stop ₹2,293.08 (tightened after lot 1 booked)"
 PNBHOUSING,Sell,15-Oct-26,1197.0,70.1,23-Oct-26,1137.15,,6,155610*1,38903,first_target,"lot 1 booked — 5% target ₹1,137.15"
+HAVELLS,Buy,12-Oct-26,1056.0,22.8,23-Oct-26,1040.16,,9,105600*2,-15840,stop_loss,"1.5% stop ₹1,040.16 (tightened after lot 1 booked)"
+UPL,Buy,12-Oct-26,519.9,23.3,23-Oct-26,512.1,,9,140893*2,-21134,stop_loss,1.5% stop ₹512.10 (tightened after lot 1 booked)
