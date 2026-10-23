@@ -4,7 +4,7 @@
   "closed_count": 342,
   "day_date": "2026-10-23",
   "day_realised_pnl": -502812.98,
-  "updated_at": "2026-10-23 11:31:19",
+  "updated_at": "2026-10-23 12:01:12",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1812,17 +1812,17 @@
   },
   "last_marks": {
     "BANKINDIA": 133.16,
-    "COFORGE": 1924.2,
-    "FEDERALBNK": 350.25,
-    "GLENMARK": 2137.8,
-    "GODREJCP": 847.4,
+    "COFORGE": 1903.1,
+    "FEDERALBNK": 350.35,
+    "GLENMARK": 2131.3,
+    "GODREJCP": 847.85,
     "GRASIM": 2897.2,
-    "HEROMOTOCO": 5055.0,
+    "HEROMOTOCO": 5038.0,
     "ICICIGI": 1603.1,
     "M&M": 2859.2,
-    "MOTHERSON": 149.76,
-    "PIDILITIND": 1472.3,
-    "SBICARD": 564.5
+    "MOTHERSON": 149.14,
+    "PIDILITIND": 1470.3,
+    "SBICARD": 562.0
   },
   "positions": [
     {
