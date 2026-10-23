@@ -486,3 +486,6 @@ IDFCFIRSTB,Buy,22-Oct-26,75.87,29.4,23-Oct-26,74.73,,1,140739*3,-31666,stop_loss
 NTPC,Buy,22-Oct-26,303.1,29.7,23-Oct-26,298.55,,1,90930*3,-20459,stop_loss,1.5% stop ₹298.55
 TECHM,Sell,22-Oct-26,1798.9,76.8,23-Oct-26,1825.88,,1,215868*3,-48570,stop_loss,"1.5% stop ₹1,825.88"
 YESBANK,Buy,22-Oct-26,16.32,19.2,23-Oct-26,16.08,,1,101510*3,-22840,stop_loss,1.5% stop ₹16.08
+JSWENERGY,Buy,09-Oct-26,470.0,28.7,23-Oct-26,462.95,,10,101050*2,-15158,stop_loss,1.5% stop ₹462.95 (tightened after lot 1 booked)
+FORTIS,Buy,21-Oct-26,734.35,27.4,23-Oct-26,723.33,,2,113824*3,-25610,stop_loss,1.5% stop ₹723.33
+ENRIN,Buy,22-Oct-26,2791.4,28.5,23-Oct-26,2749.53,,1,97699*3,-21982,stop_loss,"1.5% stop ₹2,749.53"
