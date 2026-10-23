@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2039716.36,
+  "realised_pnl": 2164630.24,
   "closed_count": 342,
   "day_date": "2026-10-23",
-  "day_realised_pnl": -502812.98,
-  "updated_at": "2026-10-23 12:31:23",
+  "day_realised_pnl": -377899.1,
+  "updated_at": "2026-10-23 13:01:08",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1812,17 +1812,17 @@
   },
   "last_marks": {
     "BANKINDIA": 133.16,
-    "COFORGE": 1903.9,
-    "FEDERALBNK": 349.7,
-    "GLENMARK": 2132.1,
-    "GODREJCP": 842.15,
-    "GRASIM": 2910.0,
+    "COFORGE": 1899.0,
+    "FEDERALBNK": 346.6,
+    "GLENMARK": 2122.7,
+    "GODREJCP": 843.45,
+    "GRASIM": 2909.5,
     "HEROMOTOCO": 5038.0,
-    "ICICIGI": 1603.1,
-    "M&M": 2856.9,
-    "MOTHERSON": 149.25,
-    "PIDILITIND": 1476.6,
-    "SBICARD": 560.75
+    "ICICIGI": 1609.0,
+    "M&M": 2847.9,
+    "MOTHERSON": 148.72,
+    "PIDILITIND": 1471.4,
+    "SBICARD": 556.65
   },
   "positions": [
     {
@@ -1831,12 +1831,12 @@
       "entry_price": 169.26,
       "entry_time": "2026-08-11 15:15:00",
       "lot_size": 6150,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-10-27",
       "rsi_at_entry": 75.36,
       "strike": 0.0,
-      "margin_blocked": 416379.6,
+      "margin_blocked": 208189.8,
       "closed_legs": [
         {
           "lots": 1,
@@ -1844,6 +1844,13 @@
           "exit_time": "2026-09-04 15:15:00",
           "reason": "first_target",
           "pnl": 52047.45
+        },
+        {
+          "lots": 1,
+          "exit_price": 148.95,
+          "exit_time": "2026-10-23 13:01:08",
+          "reason": "second_target",
+          "pnl": 124913.88
         }
       ],
       "priced_on": "futures",
