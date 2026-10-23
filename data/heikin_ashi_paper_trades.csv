@@ -574,3 +574,7 @@ HAVELLS,Buy,12-Oct-26,1056.0,22.8,23-Oct-26,1040.16,,9,105600*2,-15840,stop_loss
 UPL,Buy,12-Oct-26,519.9,23.3,23-Oct-26,512.1,,9,140893*2,-21134,stop_loss,1.5% stop ₹512.10 (tightened after lot 1 booked)
 TORNTPHARM,Buy,22-Oct-26,4640.0,21.8,23-Oct-26,4570.4,,1,116000*3,-26100,stop_loss,"1.5% stop ₹4,570.40"
 IOC,Buy,15-Oct-26,130.07,24.9,23-Oct-26,128.12,,6,126818*3,-28534,stop_loss,1.5% stop ₹128.12
+MOTHERSON,Sell,14-Aug-26,168.3,76.3,23-Oct-26,153.23,39.2,50,207009*1,92686,second_target,lot 2 booked — SMMA 50 ₹153.23
+ICICIGI,Buy,17-Sep-26,1485.9,16.0,23-Oct-26,1602.4,39.0,26,96584*1,37862,smma_cross,"final lot booked — strong candle closed 1,592.00 below SMMA 21 ₹1,605.16"
+INDIANB,Buy,05-Oct-26,810.75,23.8,23-Oct-26,839.45,41.6,14,162150*1,28700,smma_cross,final lot booked — strong candle closed 837.15 below SMMA 21 ₹841.85
+JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,23-Oct-26,1201.1,36.7,6,164848*1,-13500,smma_cross,"final lot booked — strong candle closed 1,185.50 below SMMA 21 ₹1,242.84"
