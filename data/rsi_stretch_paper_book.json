@@ -4,7 +4,7 @@
   "closed_count": 342,
   "day_date": "2026-10-23",
   "day_realised_pnl": -502812.98,
-  "updated_at": "2026-10-23 11:01:11",
+  "updated_at": "2026-10-23 11:31:19",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1811,18 +1811,18 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "BANKINDIA": 133.07,
-    "COFORGE": 1920.9,
-    "FEDERALBNK": 350.2,
-    "GLENMARK": 2136.0,
-    "GODREJCP": 847.0,
-    "GRASIM": 2905.0,
+    "BANKINDIA": 133.16,
+    "COFORGE": 1924.2,
+    "FEDERALBNK": 350.25,
+    "GLENMARK": 2137.8,
+    "GODREJCP": 847.4,
+    "GRASIM": 2897.2,
     "HEROMOTOCO": 5055.0,
     "ICICIGI": 1603.1,
-    "M&M": 2845.3,
-    "MOTHERSON": 149.35,
-    "PIDILITIND": 1471.1,
-    "SBICARD": 567.05
+    "M&M": 2859.2,
+    "MOTHERSON": 149.76,
+    "PIDILITIND": 1472.3,
+    "SBICARD": 564.5
   },
   "positions": [
     {
