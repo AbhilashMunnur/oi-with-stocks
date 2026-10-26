@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -154341.36,
-  "closed_count": 399,
+  "realised_pnl": -182352.58,
+  "closed_count": 400,
   "day_date": "2026-10-26",
-  "day_realised_pnl": -43093.35,
-  "updated_at": "2026-10-26 14:30:21",
+  "day_realised_pnl": -71104.57,
+  "updated_at": "2026-10-26 15:00:13",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -1260,6 +1260,11 @@
       "pnl": -38603.25
     },
     {
+      "symbol": "COFORGE",
+      "exit_date": "2026-10-26",
+      "pnl": 18674.16
+    },
+    {
       "symbol": "JSWSTEEL",
       "exit_date": "2026-08-24",
       "pnl": -5319.11
@@ -2126,30 +2131,29 @@
     "NAUKRI": 2
   },
   "last_marks": {
-    "AMBUJACEM": 363.0,
-    "APOLLOHOSP": 7880.0,
-    "AXISBANK": 1238.0,
+    "AMBUJACEM": 377.0,
+    "APOLLOHOSP": 7885.0,
+    "AXISBANK": 1241.6,
     "BAJAJ-AUTO": 10180.0,
-    "BOSCHLTD": 45075.0,
+    "BOSCHLTD": 45125.0,
     "CIPLA": 1358.9,
-    "COFORGE": 1979.8,
-    "GLENMARK": 2238.4,
+    "GLENMARK": 2234.9,
     "GRASIM": 2965.0,
-    "HEROMOTOCO": 5096.0,
-    "KOTAKBANK": 446.3,
-    "LT": 3713.8,
+    "HEROMOTOCO": 5150.0,
+    "KOTAKBANK": 446.95,
+    "LT": 3712.1,
     "M&M": 2894.0,
-    "MOTHERSON": 152.77,
-    "MPHASIS": 2550.0,
-    "PAYTM": 1670.0,
-    "PNB": 122.25,
-    "PNBHOUSING": 1101.0,
-    "RADICO": 4191.9,
-    "RELIANCE": 1214.5,
-    "SBIN": 971.9,
-    "TATAELXSI": 3750.0,
-    "TCS": 2545.9,
-    "TVSMOTOR": 4019.9
+    "MOTHERSON": 153.4,
+    "MPHASIS": 2565.0,
+    "PAYTM": 1670.8,
+    "PNB": 121.8,
+    "PNBHOUSING": 1105.0,
+    "RADICO": 4200.0,
+    "RELIANCE": 1215.0,
+    "SBIN": 970.5,
+    "TATAELXSI": 3741.0,
+    "TCS": 2549.1,
+    "TVSMOTOR": 4031.6
   },
   "positions": [
     {
@@ -2242,31 +2246,6 @@
           "exit_time": "2026-10-05 15:59:10",
           "reason": "second_target",
           "pnl": 60111.64
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "COFORGE",
-      "direction": "SHORT",
-      "entry_price": 1965.7,
-      "entry_time": "2026-09-02 15:15:00",
-      "lot_size": 475,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 77.63,
-      "strike": 0.0,
-      "margin_blocked": 373483.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1867.41,
-          "exit_time": "2026-09-09 15:15:00",
-          "reason": "first_target",
-          "pnl": 46685.38
         }
       ],
       "priced_on": "futures",

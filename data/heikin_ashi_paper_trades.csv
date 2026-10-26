@@ -580,3 +580,4 @@ INDIANB,Buy,05-Oct-26,810.75,23.8,23-Oct-26,839.45,41.6,14,162150*1,28700,smma_c
 JSWSTEEL,Buy,15-Oct-26,1221.1,23.8,23-Oct-26,1201.1,36.7,6,164848*1,-13500,smma_cross,"final lot booked — strong candle closed 1,185.50 below SMMA 21 ₹1,242.84"
 INFY,Sell,23-Oct-26,1136.2,72.7,26-Oct-26,1153.24,,1,90896*3,-20452,stop_loss,"1.5% stop ₹1,153.24"
 TATAPOWER,Buy,12-Oct-26,347.0,27.1,26-Oct-26,341.8,,10,100630*3,-22642,stop_loss,1.5% stop ₹341.80
+COFORGE,Sell,02-Sep-26,1965.7,77.6,26-Oct-26,1995.19,,38,186742*2,-28011,stop_loss,"1.5% stop ₹1,995.19 (tightened after lot 1 booked)"
