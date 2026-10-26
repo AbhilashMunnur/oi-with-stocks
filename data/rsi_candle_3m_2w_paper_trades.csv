@@ -523,3 +523,4 @@ NBCC,Buy,22-Oct-26,71.43,26.9,23-Oct-26,68.96,14.0,1,92859*3,-48165,stop_loss,ca
 NESTLEIND,Buy,22-Oct-26,1204.9,29.3,23-Oct-26,1185.4,17.6,1,120490*3,-29250,stop_loss,"candle stop — cash closed 1,175.00 below the entry-candle stop ₹1,180.80"
 NMDC,Buy,22-Oct-26,69.5,28.9,23-Oct-26,67.11,19.6,1,93825*3,-48398,stop_loss,candle stop — cash closed 66.35 below the entry-candle stop ₹68.11
 YESBANK,Buy,22-Oct-26,16.32,19.2,23-Oct-26,15.88,11.3,1,101510*3,-41052,stop_loss,candle stop — cash closed 15.80 below the entry-candle stop ₹15.99
+SHREECEM,Buy,17-Sep-26,22200.0,23.6,26-Oct-26,23310.0,,27,111000*1,27750,first_target,"lot 1 booked — 5% target ₹23,310.00"
