@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2182764.15,
-  "closed_count": 342,
-  "day_date": "2026-10-23",
-  "day_realised_pnl": -359765.19,
-  "updated_at": "2026-10-23 19:33:08",
+  "realised_pnl": 2162463.87,
+  "closed_count": 343,
+  "day_date": "2026-10-26",
+  "day_realised_pnl": -20300.28,
+  "updated_at": "2026-10-26 09:31:38",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -81,7 +81,8 @@
     "2026-10-19",
     "2026-10-21",
     "2026-10-22",
-    "2026-10-23"
+    "2026-10-23",
+    "2026-10-26"
   ],
   "closed_results": [
     {
@@ -1625,6 +1626,11 @@
       "pnl": -30717.18
     },
     {
+      "symbol": "BANKINDIA",
+      "exit_date": "2026-10-26",
+      "pnl": 13533.52
+    },
+    {
       "symbol": "FORTIS",
       "exit_date": "2026-10-05",
       "pnl": -27523.35
@@ -1810,31 +1816,30 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "BANKINDIA": 132.3,
-    "BIOCON": 327.55,
-    "COFORGE": 1900.6,
-    "CUMMINSIND": 4367.4,
+    "BIOCON": 328.05,
+    "COFORGE": 1874.9,
+    "CUMMINSIND": 4355.0,
     "DMART": 3180.0,
-    "FEDERALBNK": 344.45,
-    "GLENMARK": 2135.5,
-    "GODREJCP": 848.3,
-    "GRASIM": 2925.4,
-    "HCLTECH": 1424.0,
-    "HEROMOTOCO": 5065.0,
+    "FEDERALBNK": 344.0,
+    "GLENMARK": 2162.8,
+    "GODREJCP": 846.05,
+    "GRASIM": 2910.1,
+    "HCLTECH": 1422.0,
+    "HEROMOTOCO": 5005.0,
     "ICICIGI": 1606.2,
-    "IDEA": 11.55,
-    "M&M": 2879.0,
+    "IDEA": 11.41,
+    "M&M": 2865.1,
     "MFSL": 1221.0,
-    "MOTHERSON": 149.44,
-    "MUTHOOTFIN": 2395.6,
-    "NESTLEIND": 1185.4,
-    "NTPC": 298.0,
-    "PIDILITIND": 1477.7,
-    "POWERINDIA": 26625.0,
-    "SBICARD": 548.15,
-    "TCS": 2543.5,
-    "TECHM": 1791.6,
-    "WIPRO": 190.1
+    "MOTHERSON": 148.89,
+    "MUTHOOTFIN": 2384.5,
+    "NESTLEIND": 1177.2,
+    "NTPC": 295.85,
+    "PIDILITIND": 1483.0,
+    "POWERINDIA": 26450.0,
+    "SBICARD": 548.95,
+    "TCS": 2540.7,
+    "TECHM": 1783.6,
+    "WIPRO": 188.9
   },
   "positions": [
     {
@@ -1939,31 +1944,6 @@
       "strike": 0.0,
       "margin_blocked": 444450.0,
       "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BANKINDIA",
-      "direction": "LONG",
-      "entry_price": 130.13,
-      "entry_time": "2026-10-01 16:44:06",
-      "lot_size": 5200,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 29.91262667847313,
-      "strike": 0.0,
-      "margin_blocked": 270670.4,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 136.64,
-          "exit_time": "2026-10-05 10:00:24",
-          "reason": "first_target",
-          "pnl": 33833.8
-        }
-      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null

@@ -795,3 +795,6 @@ MFSL,Buy,22-Oct-26,1240.0,29.0,23-Oct-26,1221.4,,1,99200*3,-22320,stop_loss,"1.5
 ALKEM,Buy,22-Oct-26,5050.0,39.9,23-Oct-26,4974.25,,1,126250*3,-28406,stop_loss,"1.5% stop ₹4,974.25"
 ICICIGI,Buy,16-Sep-26,1440.0,16.0,23-Oct-26,1602.4,39.0,27,93600*1,52780,smma_cross,"final lot booked — strong candle closed 1,592.00 below SMMA 21 ₹1,605.16"
 INDIANB,Buy,05-Oct-26,810.75,27.8,23-Oct-26,839.45,41.6,14,162150*1,28700,smma_cross,final lot booked — strong candle closed 837.15 below SMMA 21 ₹841.85
+BANKINDIA,Buy,01-Oct-26,130.13,29.9,26-Oct-26,128.18,,17,135335*2,-20300,stop_loss,1.5% stop ₹128.18 (tightened after lot 1 booked)
+SHRIRAMFIN,Buy,23-Oct-26,864.8,30.1,26-Oct-26,851.83,,1,142692*3,-32106,stop_loss,1.5% stop ₹851.83
+UNITDSPR,Buy,23-Oct-26,1265.8,30.1,26-Oct-26,1246.81,,1,101264*3,-22784,stop_loss,"1.5% stop ₹1,246.81"
