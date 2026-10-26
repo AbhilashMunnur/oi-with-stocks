@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2162463.87,
-  "closed_count": 343,
+  "realised_pnl": 2149147.47,
+  "closed_count": 344,
   "day_date": "2026-10-26",
-  "day_realised_pnl": -20300.28,
-  "updated_at": "2026-10-26 10:00:20",
+  "day_realised_pnl": -33616.68,
+  "updated_at": "2026-10-26 10:30:17",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1691,6 +1691,11 @@
       "pnl": -20682.0
     },
     {
+      "symbol": "SBICARD",
+      "exit_date": "2026-10-26",
+      "pnl": 8877.6
+    },
+    {
       "symbol": "APOLLOHOSP",
       "exit_date": "2026-10-08",
       "pnl": -45025.31
@@ -1816,30 +1821,29 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "BIOCON": 331.0,
-    "COFORGE": 1908.4,
-    "CUMMINSIND": 4402.5,
-    "DMART": 3192.0,
-    "FEDERALBNK": 345.4,
-    "GLENMARK": 2193.1,
+    "BIOCON": 331.1,
+    "COFORGE": 1919.1,
+    "CUMMINSIND": 4407.7,
+    "DMART": 3187.9,
+    "FEDERALBNK": 345.15,
+    "GLENMARK": 2200.2,
     "GODREJCP": 852.0,
     "GRASIM": 2910.1,
-    "HCLTECH": 1432.0,
-    "HEROMOTOCO": 5067.5,
-    "ICICIGI": 1606.2,
-    "IDEA": 11.7,
-    "M&M": 2893.0,
+    "HCLTECH": 1430.0,
+    "HEROMOTOCO": 5115.0,
+    "ICICIGI": 1617.5,
+    "IDEA": 11.9,
+    "M&M": 2902.2,
     "MFSL": 1244.0,
-    "MOTHERSON": 150.55,
-    "MUTHOOTFIN": 2380.0,
-    "NESTLEIND": 1188.0,
-    "NTPC": 296.25,
-    "PIDILITIND": 1491.2,
-    "POWERINDIA": 26900.0,
-    "SBICARD": 550.45,
-    "TCS": 2561.2,
-    "TECHM": 1808.0,
-    "WIPRO": 190.31
+    "MOTHERSON": 150.32,
+    "MUTHOOTFIN": 2406.9,
+    "NESTLEIND": 1190.0,
+    "NTPC": 301.0,
+    "PIDILITIND": 1477.1,
+    "POWERINDIA": 27120.0,
+    "TCS": 2555.0,
+    "TECHM": 1804.5,
+    "WIPRO": 190.19
   },
   "positions": [
     {
@@ -2033,31 +2037,6 @@
           "exit_time": "2026-10-16 10:31:18",
           "reason": "first_target",
           "pnl": 27812.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBICARD",
-      "direction": "LONG",
-      "entry_price": 554.85,
-      "entry_time": "2026-10-08 16:03:16",
-      "lot_size": 800,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.87463631391236,
-      "strike": 0.0,
-      "margin_blocked": 177552.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 582.59,
-          "exit_time": "2026-10-19 10:30:30",
-          "reason": "first_target",
-          "pnl": 22194.0
         }
       ],
       "priced_on": "futures",
