@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -131699.61,
-  "closed_count": 398,
+  "realised_pnl": -154341.36,
+  "closed_count": 399,
   "day_date": "2026-10-26",
-  "day_realised_pnl": -20451.6,
-  "updated_at": "2026-10-26 12:30:18",
+  "day_realised_pnl": -43093.35,
+  "updated_at": "2026-10-26 13:00:13",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -858,6 +858,11 @@
       "symbol": "TATAPOWER",
       "exit_date": "2026-09-29",
       "pnl": -4670.55
+    },
+    {
+      "symbol": "TATAPOWER",
+      "exit_date": "2026-10-26",
+      "pnl": -22641.75
     },
     {
       "symbol": "HCLTECH",
@@ -2122,30 +2127,29 @@
   },
   "last_marks": {
     "AMBUJACEM": 362.4,
-    "APOLLOHOSP": 7820.0,
-    "AXISBANK": 1232.4,
-    "BAJAJ-AUTO": 10127.0,
-    "BOSCHLTD": 44700.0,
+    "APOLLOHOSP": 7840.0,
+    "AXISBANK": 1232.7,
+    "BAJAJ-AUTO": 10153.0,
+    "BOSCHLTD": 44830.0,
     "CIPLA": 1358.9,
-    "COFORGE": 1969.9,
-    "GLENMARK": 2225.8,
-    "GRASIM": 2930.7,
-    "HEROMOTOCO": 5074.0,
-    "KOTAKBANK": 445.05,
-    "LT": 3702.9,
+    "COFORGE": 1971.6,
+    "GLENMARK": 2223.3,
+    "GRASIM": 2940.0,
+    "HEROMOTOCO": 5088.0,
+    "KOTAKBANK": 444.45,
+    "LT": 3688.1,
     "M&M": 2880.0,
-    "MOTHERSON": 151.8,
+    "MOTHERSON": 151.9,
     "MPHASIS": 2521.0,
-    "PAYTM": 1650.5,
-    "PNB": 120.5,
+    "PAYTM": 1654.0,
+    "PNB": 120.57,
     "PNBHOUSING": 1105.2,
-    "RADICO": 4199.1,
-    "RELIANCE": 1211.3,
-    "SBIN": 965.95,
-    "TATAELXSI": 3740.0,
-    "TATAPOWER": 342.35,
-    "TCS": 2538.6,
-    "TVSMOTOR": 4013.9
+    "RADICO": 4200.0,
+    "RELIANCE": 1210.5,
+    "SBIN": 965.8,
+    "TATAELXSI": 3739.4,
+    "TCS": 2530.6,
+    "TVSMOTOR": 4018.4
   },
   "positions": [
     {
@@ -2543,23 +2547,6 @@
           "pnl": 23826.72
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "TATAPOWER",
-      "direction": "LONG",
-      "entry_price": 347.0,
-      "entry_time": "2026-10-12 16:04:39",
-      "lot_size": 1450,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.08852699157204,
-      "strike": 0.0,
-      "margin_blocked": 301890.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
