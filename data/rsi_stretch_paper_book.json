@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 2149147.47,
-  "closed_count": 344,
-  "day_date": "2026-10-26",
-  "day_realised_pnl": -33616.68,
-  "updated_at": "2026-10-26 21:50:04",
+  "realised_pnl": 2320792.69,
+  "closed_count": 348,
+  "day_date": "2026-10-27",
+  "day_realised_pnl": 171645.22,
+  "updated_at": "2026-10-27 09:32:28",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -82,7 +82,8 @@
     "2026-10-21",
     "2026-10-22",
     "2026-10-23",
-    "2026-10-26"
+    "2026-10-26",
+    "2026-10-27"
   ],
   "closed_results": [
     {
@@ -816,6 +817,11 @@
       "pnl": -40035.37
     },
     {
+      "symbol": "COFORGE",
+      "exit_date": "2026-10-27",
+      "pnl": 31380.88
+    },
+    {
       "symbol": "ABB",
       "exit_date": "2026-08-04",
       "pnl": -42221.25
@@ -1229,6 +1235,11 @@
       "symbol": "GLENMARK",
       "exit_date": "2026-08-28",
       "pnl": -41512.5
+    },
+    {
+      "symbol": "GLENMARK",
+      "exit_date": "2026-10-27",
+      "pnl": 198583.39
     },
     {
       "symbol": "MCX",
@@ -1804,6 +1815,16 @@
       "symbol": "ENRIN",
       "exit_date": "2026-10-23",
       "pnl": -21982.28
+    },
+    {
+      "symbol": "MOTHERSON",
+      "exit_date": "2026-10-27",
+      "pnl": 254143.83
+    },
+    {
+      "symbol": "VMM",
+      "exit_date": "2026-10-27",
+      "pnl": -19356.59
     }
   ],
   "qualify_skips": {
@@ -1820,153 +1841,60 @@
     "TVSMOTOR": 3
   },
   "last_marks": {
-    "ABB": 6448.0,
-    "ABCAPITAL": 357.2,
-    "ADANIENT": 2542.9,
-    "AMBER": 5950.0,
-    "BAJAJFINSV": 1687.1,
-    "BDL": 1028.0,
-    "BHARATFORG": 1741.7,
-    "BIOCON": 331.8,
-    "BRITANNIA": 4597.6,
-    "COCHINSHIP": 1135.0,
-    "COFORGE": 1999.6,
-    "CONCOR": 414.55,
-    "CUMMINSIND": 4419.0,
-    "DELHIVERY": 380.05,
-    "DIXON": 11086.0,
-    "DMART": 3183.3,
-    "ENRIN": 2780.6,
-    "FEDERALBNK": 347.4,
-    "GLENMARK": 2230.8,
-    "GODREJCP": 838.0,
-    "GRASIM": 2975.0,
-    "GVT&D": 3832.0,
-    "HCLTECH": 1436.9,
-    "HEROMOTOCO": 5200.0,
-    "HINDZINC": 501.3,
-    "HYUNDAI": 1844.7,
+    "ABB": 6483.0,
+    "ABCAPITAL": 356.1,
+    "ADANIENT": 2538.7,
+    "AMBER": 6075.0,
+    "BAJAJFINSV": 1682.0,
+    "BDL": 1039.6,
+    "BHARATFORG": 1771.1,
+    "BIOCON": 335.25,
+    "BRITANNIA": 4597.5,
+    "COCHINSHIP": 1145.0,
+    "CONCOR": 421.2,
+    "CUMMINSIND": 4417.2,
+    "DELHIVERY": 382.3,
+    "DIXON": 11119.0,
+    "DMART": 3170.0,
+    "ENRIN": 2802.8,
+    "FEDERALBNK": 348.9,
+    "GODREJCP": 838.3,
+    "GRASIM": 2956.5,
+    "GVT&D": 3893.0,
+    "HCLTECH": 1416.0,
+    "HEROMOTOCO": 5252.5,
+    "HINDZINC": 507.5,
+    "HYUNDAI": 1857.0,
     "ICICIGI": 1602.9,
-    "IDEA": 12.11,
-    "IDFCFIRSTB": 72.5,
-    "INOXWIND": 58.81,
-    "JIOFIN": 208.64,
-    "KEI": 3897.5,
-    "LODHA": 981.5,
-    "LTF": 238.75,
-    "M&M": 2892.9,
-    "MAZDOCK": 1862.9,
-    "MFSL": 1243.0,
-    "MOTHERSON": 153.1,
-    "MUTHOOTFIN": 2431.5,
-    "NATIONALUM": 313.0,
-    "NESTLEIND": 1180.0,
-    "NTPC": 300.8,
-    "PGEL": 480.4,
-    "PIDILITIND": 1485.0,
-    "POLYCAB": 7775.0,
-    "POWERINDIA": 27240.0,
-    "SIEMENS": 3295.3,
-    "SRF": 2359.0,
-    "SWIGGY": 188.3,
-    "TCS": 2574.0,
-    "TECHM": 1818.0,
-    "UNITDSPR": 1261.0,
-    "VEDL": 230.55,
-    "VMM": 88.69,
-    "VOLTAS": 961.8,
-    "WIPRO": 191.57
+    "IDEA": 12.26,
+    "IDFCFIRSTB": 72.63,
+    "INOXWIND": 60.16,
+    "JIOFIN": 207.57,
+    "KEI": 3963.0,
+    "LODHA": 1000.0,
+    "LTF": 239.1,
+    "M&M": 2891.3,
+    "MAZDOCK": 1883.0,
+    "MFSL": 1249.3,
+    "MUTHOOTFIN": 2424.0,
+    "NATIONALUM": 317.1,
+    "NESTLEIND": 1187.0,
+    "NTPC": 302.95,
+    "PGEL": 483.4,
+    "PIDILITIND": 1473.0,
+    "POLYCAB": 7735.5,
+    "POWERINDIA": 27830.0,
+    "SIEMENS": 3333.6,
+    "SRF": 2341.0,
+    "SWIGGY": 188.5,
+    "TCS": 2516.0,
+    "TECHM": 1793.6,
+    "UNITDSPR": 1248.0,
+    "VEDL": 232.6,
+    "VOLTAS": 953.0,
+    "WIPRO": 187.86
   },
   "positions": [
-    {
-      "symbol": "MOTHERSON",
-      "direction": "SHORT",
-      "entry_price": 169.26,
-      "entry_time": "2026-08-11 15:15:00",
-      "lot_size": 6150,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 75.36,
-      "strike": 0.0,
-      "margin_blocked": 208189.8,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 160.8,
-          "exit_time": "2026-09-04 15:15:00",
-          "reason": "first_target",
-          "pnl": 52047.45
-        },
-        {
-          "lots": 1,
-          "exit_price": 148.95,
-          "exit_time": "2026-10-23 13:01:08",
-          "reason": "second_target",
-          "pnl": 124913.88
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "COFORGE",
-      "direction": "SHORT",
-      "entry_price": 1985.3,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 475,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 77.63,
-      "strike": 0.0,
-      "margin_blocked": 377207.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 1886.03,
-          "exit_time": "2026-09-09 15:15:00",
-          "reason": "first_target",
-          "pnl": 47150.88
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GLENMARK",
-      "direction": "SHORT",
-      "entry_price": 2480.0,
-      "entry_time": "2026-08-31 15:15:00",
-      "lot_size": 375,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-10-27",
-      "rsi_at_entry": 73.48,
-      "strike": 0.0,
-      "margin_blocked": 186000.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 2356.0,
-          "exit_time": "2026-09-28 10:31:12",
-          "reason": "first_target",
-          "pnl": 46500.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 2309.94,
-          "exit_time": "2026-10-05 15:59:17",
-          "reason": "second_target",
-          "pnl": 63770.89
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
     {
       "symbol": "PIDILITIND",
       "direction": "LONG",
@@ -2213,13 +2141,21 @@
       "entry_price": 11.55,
       "entry_time": "2026-10-23 19:33:08",
       "lot_size": 71475,
-      "lots_open": 3,
+      "lots_open": 2,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 28.00567731543758,
       "strike": 0.0,
-      "margin_blocked": 495321.75,
-      "closed_legs": [],
+      "margin_blocked": 330214.5,
+      "closed_legs": [
+        {
+          "lots": 1,
+          "exit_price": 12.13,
+          "exit_time": "2026-10-27 09:32:28",
+          "reason": "first_target",
+          "pnl": 41276.81
+        }
+      ],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
@@ -2882,23 +2818,6 @@
       "rsi_at_entry": 28.751305131443047,
       "strike": 0.0,
       "margin_blocked": 159079.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "VMM",
-      "direction": "LONG",
-      "entry_price": 88.69,
-      "entry_time": "2026-10-26 21:50:04",
-      "lot_size": 4850,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 24.950220046976682,
-      "strike": 0.0,
-      "margin_blocked": 258087.9,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

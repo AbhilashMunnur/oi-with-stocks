@@ -535,3 +535,7 @@ COCHINSHIP,Buy,22-Oct-26,1161.6,28.0,26-Oct-26,1135.0,22.6,2,92928*3,-31920,stop
 OBEROIRLTY,Buy,22-Oct-26,1629.5,30.8,26-Oct-26,1605.8,30.7,2,114065*3,-24885,stop_loss,"candle stop — cash closed 1,582.00 below the entry-candle stop ₹1,596.91"
 SHRIRAMFIN,Buy,23-Oct-26,864.8,30.1,26-Oct-26,831.15,22.2,1,142692*3,-83284,stop_loss,candle stop — cash closed 825.00 below the entry-candle stop ₹833.60
 UNITDSPR,Buy,23-Oct-26,1265.8,30.1,26-Oct-26,1261.0,25.1,1,101264*3,-5760,stop_loss,"candle stop — cash closed 1,239.00 below the entry-candle stop ₹1,240.00"
+SONACOMS,Sell,20-Aug-26,826.4,72.1,27-Oct-26,830.95,,48,202468*1,-5574,expiry,contract expiry 2026-10-27
+ZYDUSLIFE,Sell,13-Aug-26,1184.6,70.5,27-Oct-26,1170.9,,53,213228*1,12330,expiry,contract expiry 2026-10-27
+IDEA,Buy,23-Oct-26,11.55,28.0,27-Oct-26,12.13,,2,165107*1,41277,first_target,lot 1 booked — 5% target ₹12.13
+NATIONALUM,Buy,23-Oct-26,299.6,29.1,27-Oct-26,314.58,,2,112350*1,28088,first_target,lot 1 booked — 5% target ₹314.58
