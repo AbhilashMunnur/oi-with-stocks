@@ -587,3 +587,7 @@ RADICO,Sell,21-Aug-26,4639.8,77.5,27-Oct-26,4240.1,,47,139194*1,59955,expiry,con
 PNB,Sell,23-Oct-26,120.74,70.3,27-Oct-26,122.55,,2,193184*3,-43466,stop_loss,1.5% stop ₹122.55
 MANKIND,Buy,26-Oct-26,2351.1,29.1,27-Oct-26,2447.69,,1,117555*1,24147,first_target,"lot 1 booked — SMMA 21 ₹2,447.69"
 MANKIND,Buy,26-Oct-26,2351.1,29.1,27-Oct-26,2401.17,,1,117555*1,12518,second_target,"lot 2 booked — SMMA 50 ₹2,401.17"
+BOSCHLTD,Sell,11-Sep-26,48385.0,78.0,27-Oct-26,46125.0,59.3,32,241925*1,56500,smma_cross,"final lot booked — strong candle closed 45,600.00 above SMMA 21 ₹45,546.98"
+AMBUJACEM,Buy,13-Oct-26,357.65,23.9,27-Oct-26,352.29,19.6,10,85836*2,-12875,stop_loss,1.5% stop ₹352.29 (tightened after lot 1 booked)
+PNBHOUSING,Sell,15-Oct-26,1197.0,70.1,27-Oct-26,1100.51,43.3,8,155610*1,62718,second_target,"lot 2 booked — SMMA 50 ₹1,100.51"
+MAXHEALTH,Buy,26-Oct-26,849.3,14.2,27-Oct-26,836.56,14.4,1,89176*3,-20065,stop_loss,1.5% stop ₹836.56

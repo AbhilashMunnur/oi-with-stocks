@@ -821,3 +821,6 @@ ADANIENT,Buy,23-Oct-26,2517.8,30.6,27-Oct-26,2480.03,,2,155600*3,-35010,stop_los
 BDL,Buy,26-Oct-26,1028.0,29.2,27-Oct-26,1012.58,,1,87380*3,-19660,stop_loss,"1.5% stop ₹1,012.58"
 COCHINSHIP,Buy,26-Oct-26,1135.0,25.7,27-Oct-26,1117.97,,1,90800*3,-20430,stop_loss,"1.5% stop ₹1,117.97"
 MAZDOCK,Buy,26-Oct-26,1862.9,24.4,27-Oct-26,1834.96,,1,83830*3,-18862,stop_loss,"1.5% stop ₹1,834.96"
+BOSCHLTD,Sell,01-Sep-26,48550.0,78.0,27-Oct-26,46125.0,59.3,40,242750*1,60625,smma_cross,"final lot booked — strong candle closed 45,600.00 above SMMA 21 ₹45,546.98"
+AUBANK,Buy,26-Oct-26,879.5,24.8,27-Oct-26,866.31,20.0,1,175900*3,-39577,stop_loss,1.5% stop ₹866.31
+MAXHEALTH,Buy,26-Oct-26,849.3,20.8,27-Oct-26,836.56,14.4,1,89176*3,-20065,stop_loss,1.5% stop ₹836.56

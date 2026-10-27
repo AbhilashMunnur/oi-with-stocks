@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": -44509.64,
-  "closed_count": 403,
+  "realised_pnl": 41768.7,
+  "closed_count": 406,
   "day_date": "2026-10-27",
-  "day_realised_pnl": 124431.36,
-  "updated_at": "2026-10-27 15:00:19",
+  "day_realised_pnl": 210709.7,
+  "updated_at": "2026-10-27 21:02:50",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -846,6 +846,11 @@
       "pnl": -54720.0
     },
     {
+      "symbol": "BOSCHLTD",
+      "exit_date": "2026-10-27",
+      "pnl": 235120.3
+    },
+    {
       "symbol": "UNIONBANK",
       "exit_date": "2026-07-23",
       "pnl": 72524.17
@@ -1546,6 +1551,11 @@
       "pnl": 92033.82
     },
     {
+      "symbol": "MAXHEALTH",
+      "exit_date": "2026-10-27",
+      "pnl": -20064.71
+    },
+    {
       "symbol": "HINDALCO",
       "exit_date": "2026-09-09",
       "pnl": 61228.63
@@ -1774,6 +1784,11 @@
       "symbol": "AMBUJACEM",
       "exit_date": "2026-09-24",
       "pnl": -21359.7
+    },
+    {
+      "symbol": "AMBUJACEM",
+      "exit_date": "2026-10-27",
+      "pnl": 8583.6
     },
     {
       "symbol": "BDL",
@@ -2147,38 +2162,35 @@
     "NAUKRI": 2
   },
   "last_marks": {
-    "ALKEM": 5125.0,
-    "AMBUJACEM": 355.9,
-    "APOLLOHOSP": 8013.5,
-    "AXISBANK": 1232.6,
-    "BAJAJ-AUTO": 10432.0,
-    "BOSCHLTD": 45495.0,
-    "CIPLA": 1351.1,
-    "FORTIS": 751.3,
-    "GLENMARK": 2277.4,
+    "ALKEM": 5100.0,
+    "APOLLOHOSP": 7780.0,
+    "AXISBANK": 1227.4,
+    "BAJAJ-AUTO": 10556.0,
+    "CIPLA": 1339.2,
+    "FORTIS": 733.6,
+    "GLENMARK": 2277.8,
     "GMRAIRPORT": 90.49,
-    "GRASIM": 2941.5,
-    "HCLTECH": 1434.6,
-    "HEROMOTOCO": 5257.0,
-    "IDEA": 12.21,
-    "JUBLFOOD": 423.2,
-    "KOTAKBANK": 447.2,
-    "LT": 3727.2,
-    "M&M": 2888.3,
-    "MANKIND": 2533.0,
-    "MARUTI": 11491.0,
-    "MAXHEALTH": 866.0,
-    "MPHASIS": 2578.0,
-    "PAYTM": 1614.5,
+    "GRASIM": 2946.7,
+    "HCLTECH": 1426.6,
+    "HEROMOTOCO": 5216.0,
+    "IDEA": 12.27,
+    "JUBLFOOD": 420.0,
+    "KOTAKBANK": 445.45,
+    "LT": 3709.0,
+    "M&M": 2890.3,
+    "MANKIND": 2524.0,
+    "MARUTI": 11382.0,
+    "MPHASIS": 2563.0,
+    "PAYTM": 1599.0,
     "PNBHOUSING": 1094.8,
-    "RELIANCE": 1211.0,
-    "SBILIFE": 1654.5,
-    "SBIN": 964.7,
-    "TATAELXSI": 3772.2,
-    "TCS": 2522.6,
-    "TECHM": 1811.7,
-    "TVSMOTOR": 4130.0,
-    "WIPRO": 189.88
+    "RELIANCE": 1215.1,
+    "SBILIFE": 1645.5,
+    "SBIN": 962.25,
+    "TATAELXSI": 3748.9,
+    "TCS": 2524.9,
+    "TECHM": 1812.0,
+    "TVSMOTOR": 4125.5,
+    "WIPRO": 189.11
   },
   "positions": [
     {
@@ -2207,38 +2219,6 @@
           "exit_time": "2026-10-05 15:59:10",
           "reason": "second_target",
           "pnl": 60111.64
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BOSCHLTD",
-      "direction": "SHORT",
-      "entry_price": 48385.0,
-      "entry_time": "2026-09-11 15:15:00",
-      "lot_size": 25,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-11-23",
-      "rsi_at_entry": 78.04,
-      "strike": 0.0,
-      "margin_blocked": 241925.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 45965.75,
-          "exit_time": "2026-10-01 11:30:19",
-          "reason": "first_target",
-          "pnl": 60481.25
-        },
-        {
-          "lots": 1,
-          "exit_price": 43659.44,
-          "exit_time": "2026-10-08 16:03:11",
-          "reason": "second_target",
-          "pnl": 118139.05
         }
       ],
       "priced_on": "futures",
@@ -2525,31 +2505,6 @@
       "stop_price": null
     },
     {
-      "symbol": "AMBUJACEM",
-      "direction": "LONG",
-      "entry_price": 357.65,
-      "entry_time": "2026-10-13 16:47:39",
-      "lot_size": 1200,
-      "lots_open": 2,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 23.927344447582428,
-      "strike": 0.0,
-      "margin_blocked": 171672.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 375.53,
-          "exit_time": "2026-10-22 15:00:31",
-          "reason": "first_target",
-          "pnl": 21459.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "RELIANCE",
       "direction": "LONG",
       "entry_price": 1195.0,
@@ -2572,12 +2527,12 @@
       "entry_price": 1197.0,
       "entry_time": "2026-10-15 16:00:04",
       "lot_size": 650,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 70.11457090382322,
       "strike": 0.0,
-      "margin_blocked": 311220.0,
+      "margin_blocked": 155610.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2585,6 +2540,13 @@
           "exit_time": "2026-10-23 09:34:50",
           "reason": "first_target",
           "pnl": 38902.5
+        },
+        {
+          "lots": 1,
+          "exit_price": 1100.51,
+          "exit_time": "2026-10-27 21:02:50",
+          "reason": "second_target",
+          "pnl": 62718.46
         }
       ],
       "priced_on": "futures",
@@ -2813,23 +2775,6 @@
       "rsi_at_entry": 15.449526426371989,
       "strike": 0.0,
       "margin_blocked": 343140.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "MAXHEALTH",
-      "direction": "LONG",
-      "entry_price": 849.3,
-      "entry_time": "2026-10-26 21:49:50",
-      "lot_size": 525,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 14.171214325768005,
-      "strike": 0.0,
-      "margin_blocked": 267529.5,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

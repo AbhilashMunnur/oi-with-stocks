@@ -546,3 +546,8 @@ GLENMARK,Buy,23-Oct-26,2169.0,34.4,27-Oct-26,2228.23,,2,162675*1,22213,second_ta
 POWERINDIA,Buy,23-Oct-26,26625.0,27.6,27-Oct-26,27956.25,,2,133125*1,33281,first_target,"lot 1 booked — 5% target ₹27,956.25"
 GVT&D,Buy,22-Oct-26,3773.0,29.8,27-Oct-26,3961.65,,3,94325*1,23581,first_target,"lot 1 booked — 5% target ₹3,961.65"
 PGEL,Buy,26-Oct-26,480.4,29.5,27-Oct-26,504.42,,1,91276*1,22819,first_target,lot 1 booked — 5% target ₹504.42
+HDFCBANK,Buy,10-Sep-26,702.7,29.4,27-Oct-26,685.0,24.7,33,91351*1,-11505,stop_loss,candle stop — cash closed 680.20 below the entry-candle stop ₹687.10
+PIDILITIND,Buy,30-Sep-26,1481.5,28.5,27-Oct-26,1456.4,27.8,19,148150*3,-37650,stop_loss,"candle stop — cash closed 1,450.00 below the entry-candle stop ₹1,451.87"
+WAAREEENER,Buy,01-Oct-26,2352.2,29.0,27-Oct-26,2220.0,16.7,18,82327*2,-46270,stop_loss,"candle stop — cash closed 2,275.00 below the entry-candle stop ₹2,301.10"
+KALYANKJIL,Buy,26-Oct-26,510.4,32.2,27-Oct-26,507.4,35.3,1,137808*3,-12150,stop_loss,candle stop — cash closed 500.00 below the entry-candle stop ₹500.00
+MAZDOCK,Buy,26-Oct-26,1862.9,24.4,27-Oct-26,1716.7,15.5,1,83830*3,-98685,stop_loss,"candle stop — cash closed 1,754.00 below the entry-candle stop ₹1,825.64"
