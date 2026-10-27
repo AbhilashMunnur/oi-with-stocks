@@ -817,3 +817,5 @@ POWERINDIA,Buy,23-Oct-26,26625.0,27.6,27-Oct-26,27956.25,,2,133125*1,33281,first
 KALYANKJIL,Buy,26-Oct-26,510.4,32.2,27-Oct-26,502.74,,1,137808*3,-31007,stop_loss,1.5% stop ₹502.74
 PGEL,Buy,26-Oct-26,480.4,29.5,27-Oct-26,504.42,,1,91276*1,22819,first_target,lot 1 booked — 5% target ₹504.42
 GVT&D,Buy,26-Oct-26,3832.0,26.4,27-Oct-26,4023.6,,1,95800*1,23950,first_target,"lot 1 booked — 5% target ₹4,023.60"
+ADANIENT,Buy,23-Oct-26,2517.8,30.6,27-Oct-26,2480.03,,2,155600*3,-35010,stop_loss,"1.5% stop ₹2,480.03"
+BDL,Buy,26-Oct-26,1028.0,29.2,27-Oct-26,1012.58,,1,87380*3,-19660,stop_loss,"1.5% stop ₹1,012.58"
