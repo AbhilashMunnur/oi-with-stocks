@@ -539,3 +539,5 @@ SONACOMS,Sell,20-Aug-26,826.4,72.1,27-Oct-26,830.95,,48,202468*1,-5574,expiry,co
 ZYDUSLIFE,Sell,13-Aug-26,1184.6,70.5,27-Oct-26,1170.9,,53,213228*1,12330,expiry,contract expiry 2026-10-27
 IDEA,Buy,23-Oct-26,11.55,28.0,27-Oct-26,12.13,,2,165107*1,41277,first_target,lot 1 booked — 5% target ₹12.13
 NATIONALUM,Buy,23-Oct-26,299.6,29.1,27-Oct-26,314.58,,2,112350*1,28088,first_target,lot 1 booked — 5% target ₹314.58
+OIL,Buy,01-Oct-26,445.45,33.0,27-Oct-26,457.06,,18,124726*1,16258,first_target,lot 1 booked — SMMA 21 ₹457.06
+OIL,Buy,01-Oct-26,445.45,33.0,27-Oct-26,455.45,,18,124726*1,14001,second_target,lot 2 booked — SMMA 50 ₹455.45
