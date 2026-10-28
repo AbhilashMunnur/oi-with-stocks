@@ -559,3 +559,10 @@ PGEL,Buy,26-Oct-26,480.4,29.5,28-Oct-26,538.05,,2,91276*1,54766,second_target,lo
 VOLTAS,Buy,26-Oct-26,961.8,24.0,28-Oct-26,1009.89,,2,72135*1,18034,first_target,"lot 1 booked — 5% target ₹1,009.89"
 AMBER,Buy,26-Oct-26,5950.0,28.0,28-Oct-26,6247.5,,2,119000*1,29750,first_target,"lot 1 booked — 5% target ₹6,247.50"
 JSWENERGY,Buy,26-Oct-26,454.55,35.5,28-Oct-26,477.28,,2,97728*1,24432,first_target,lot 1 booked — 5% target ₹477.28
+OIL,Buy,01-Oct-26,445.45,33.0,28-Oct-26,446.6,43.4,19,124726*1,1610,smma_cross,final lot booked — strong candle closed 447.50 below SMMA 21 ₹458.59
+RELIANCE,Buy,01-Oct-26,1188.0,31.7,28-Oct-26,1171.9,24.3,19,118800*3,-24150,stop_loss,"candle stop — cash closed 1,158.00 below the entry-candle stop ₹1,160.80"
+BAJAJ-AUTO,Buy,05-Oct-26,10107.0,21.8,28-Oct-26,10596.0,34.3,17,151605*1,36675,smma_cross,"final lot booked — strong candle closed 10,485.00 below SMMA 21 ₹10,679.66"
+TVSMOTOR,Buy,07-Oct-26,3980.0,36.0,28-Oct-26,3981.31,55.5,15,139300*1,228,second_target,"lot 2 booked — SMMA 50 ₹3,981.31"
+CIPLA,Buy,08-Oct-26,1321.5,29.2,28-Oct-26,1380.0,33.1,14,112328*1,24862,second_target,"lot 2 booked — SMMA 50 ₹1,380.00"
+BDL,Buy,26-Oct-26,1028.0,29.2,28-Oct-26,991.0,24.8,2,87380*3,-47175,stop_loss,"candle stop — cash closed 992.50 below the entry-candle stop ₹1,000.00"
+UNITDSPR,Buy,26-Oct-26,1261.0,28.7,28-Oct-26,1239.2,24.0,2,100880*3,-26160,stop_loss,"candle stop — cash closed 1,227.40 below the entry-candle stop ₹1,235.78"
