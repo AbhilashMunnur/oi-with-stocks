@@ -594,3 +594,4 @@ MAXHEALTH,Buy,26-Oct-26,849.3,14.2,27-Oct-26,836.56,14.4,1,89176*3,-20065,stop_l
 BAJAJ-AUTO,Buy,12-Oct-26,10149.0,17.9,28-Oct-26,10656.45,,12,152235*1,38059,first_target,"lot 1 booked — 5% target ₹10,656.45"
 BAJAJ-AUTO,Buy,12-Oct-26,10149.0,17.9,28-Oct-26,10569.93,,12,152235*1,31569,second_target,"lot 2 booked — SMMA 50 ₹10,569.93"
 LT,Buy,16-Oct-26,3684.1,20.8,28-Oct-26,3868.31,,8,128944*1,32236,first_target,"lot 1 booked — 5% target ₹3,868.31"
+RELIANCE,Buy,14-Oct-26,1195.0,28.2,28-Oct-26,1177.08,,10,119500*3,-26887,stop_loss,"1.5% stop ₹1,177.08"

@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 143632.76,
-  "closed_count": 406,
+  "realised_pnl": 116745.26,
+  "closed_count": 407,
   "day_date": "2026-10-28",
-  "day_realised_pnl": 101864.06,
-  "updated_at": "2026-10-28 14:02:28",
+  "day_realised_pnl": 74976.56,
+  "updated_at": "2026-10-28 14:31:32",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-03",
@@ -2082,6 +2082,11 @@
       "pnl": -27166.5
     },
     {
+      "symbol": "RELIANCE",
+      "exit_date": "2026-10-28",
+      "pnl": -26887.5
+    },
+    {
       "symbol": "FORTIS",
       "exit_date": "2026-10-12",
       "pnl": -26996.74
@@ -2163,35 +2168,34 @@
     "NAUKRI": 2
   },
   "last_marks": {
-    "ALKEM": 5113.0,
-    "APOLLOHOSP": 8126.0,
-    "AXISBANK": 1231.7,
-    "BAJAJ-AUTO": 10610.0,
+    "ALKEM": 5129.0,
+    "APOLLOHOSP": 8135.0,
+    "AXISBANK": 1231.2,
+    "BAJAJ-AUTO": 10604.0,
     "CIPLA": 1376.9,
-    "FORTIS": 761.85,
-    "GLENMARK": 2311.2,
-    "GMRAIRPORT": 90.1,
-    "GRASIM": 2944.0,
-    "HCLTECH": 1407.0,
-    "HEROMOTOCO": 5321.0,
-    "IDEA": 12.09,
-    "JUBLFOOD": 420.8,
-    "KOTAKBANK": 448.1,
-    "LT": 3862.9,
-    "M&M": 2908.6,
-    "MANKIND": 2498.4,
-    "MARUTI": 11577.0,
+    "FORTIS": 761.8,
+    "GLENMARK": 2321.2,
+    "GMRAIRPORT": 89.89,
+    "GRASIM": 2946.3,
+    "HCLTECH": 1404.8,
+    "HEROMOTOCO": 5344.0,
+    "IDEA": 12.05,
+    "JUBLFOOD": 419.9,
+    "KOTAKBANK": 446.15,
+    "LT": 3862.1,
+    "M&M": 2907.0,
+    "MANKIND": 2500.7,
+    "MARUTI": 11677.0,
     "MPHASIS": 2535.1,
-    "PAYTM": 1611.4,
-    "PNBHOUSING": 1126.8,
-    "RELIANCE": 1177.5,
-    "SBILIFE": 1686.9,
-    "SBIN": 966.7,
-    "TATAELXSI": 3752.8,
-    "TCS": 2465.7,
-    "TECHM": 1804.5,
-    "TVSMOTOR": 4164.3,
-    "WIPRO": 186.06
+    "PAYTM": 1606.6,
+    "PNBHOUSING": 1130.4,
+    "SBILIFE": 1691.6,
+    "SBIN": 968.8,
+    "TATAELXSI": 3747.3,
+    "TCS": 2464.9,
+    "TECHM": 1801.9,
+    "TVSMOTOR": 4164.4,
+    "WIPRO": 185.55
   },
   "positions": [
     {
@@ -2516,23 +2520,6 @@
           "pnl": 15644.24
         }
       ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "RELIANCE",
-      "direction": "LONG",
-      "entry_price": 1195.0,
-      "entry_time": "2026-10-14 15:50:17",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 28.15153234061536,
-      "strike": 0.0,
-      "margin_blocked": 358500.0,
-      "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
       "stop_price": null
