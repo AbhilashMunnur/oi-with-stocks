@@ -829,3 +829,6 @@ CUMMINSIND,Buy,23-Oct-26,4367.4,27.9,28-Oct-26,4585.77,,3,174696*1,43674,first_t
 PAGEIND,Buy,26-Oct-26,33815.0,30.5,28-Oct-26,33307.78,,2,135260*3,-30433,stop_loss,"1.5% stop ₹33,307.78"
 COLPAL,Buy,26-Oct-26,1619.9,32.5,28-Oct-26,1595.6,,2,89094*3,-20046,stop_loss,"1.5% stop ₹1,595.60"
 SWIGGY,Buy,26-Oct-26,188.3,15.6,28-Oct-26,185.48,,2,68730*3,-15464,stop_loss,1.5% stop ₹185.48
+APOLLOHOSP,Buy,22-Oct-26,7714.5,35.9,28-Oct-26,8100.23,,4,192862*1,48216,first_target,"lot 1 booked — 5% target ₹8,100.23"
+PGEL,Buy,26-Oct-26,480.4,29.5,28-Oct-26,538.05,,2,91276*1,54766,second_target,lot 2 booked — 12% target ₹538.05
+UNITDSPR,Buy,26-Oct-26,1261.0,28.7,28-Oct-26,1242.09,,2,100880*3,-22698,stop_loss,"1.5% stop ₹1,242.09"
