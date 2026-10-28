@@ -551,3 +551,6 @@ PIDILITIND,Buy,30-Sep-26,1481.5,28.5,27-Oct-26,1456.4,27.8,19,148150*3,-37650,st
 WAAREEENER,Buy,01-Oct-26,2352.2,29.0,27-Oct-26,2220.0,16.7,18,82327*2,-46270,stop_loss,"candle stop — cash closed 2,275.00 below the entry-candle stop ₹2,301.10"
 KALYANKJIL,Buy,26-Oct-26,510.4,32.2,27-Oct-26,507.4,35.3,1,137808*3,-12150,stop_loss,candle stop — cash closed 500.00 below the entry-candle stop ₹500.00
 MAZDOCK,Buy,26-Oct-26,1862.9,24.4,27-Oct-26,1716.7,15.5,1,83830*3,-98685,stop_loss,"candle stop — cash closed 1,754.00 below the entry-candle stop ₹1,825.64"
+BAJAJ-AUTO,Buy,05-Oct-26,10107.0,21.8,28-Oct-26,10612.35,,17,151605*1,37901,first_target,"lot 1 booked — 5% target ₹10,612.35"
+BAJAJ-AUTO,Buy,05-Oct-26,10107.0,21.8,28-Oct-26,10569.25,,17,151605*1,34668,second_target,"lot 2 booked — SMMA 50 ₹10,569.25"
+CUMMINSIND,Buy,23-Oct-26,4367.4,27.9,28-Oct-26,4585.77,,3,174696*1,43674,first_target,"lot 1 booked — 5% target ₹4,585.77"

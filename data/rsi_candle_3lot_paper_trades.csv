@@ -824,3 +824,6 @@ MAZDOCK,Buy,26-Oct-26,1862.9,24.4,27-Oct-26,1834.96,,1,83830*3,-18862,stop_loss,
 BOSCHLTD,Sell,01-Sep-26,48550.0,78.0,27-Oct-26,46125.0,59.3,40,242750*1,60625,smma_cross,"final lot booked — strong candle closed 45,600.00 above SMMA 21 ₹45,546.98"
 AUBANK,Buy,26-Oct-26,879.5,24.8,27-Oct-26,866.31,20.0,1,175900*3,-39577,stop_loss,1.5% stop ₹866.31
 MAXHEALTH,Buy,26-Oct-26,849.3,20.8,27-Oct-26,836.56,14.4,1,89176*3,-20065,stop_loss,1.5% stop ₹836.56
+HDFCBANK,Buy,10-Sep-26,693.8,29.4,28-Oct-26,683.39,,34,90194*2,-13529,stop_loss,1.5% stop ₹683.39 (tightened after lot 1 booked)
+CUMMINSIND,Buy,23-Oct-26,4367.4,27.9,28-Oct-26,4585.77,,3,174696*1,43674,first_target,"lot 1 booked — 5% target ₹4,585.77"
+PAGEIND,Buy,26-Oct-26,33815.0,30.5,28-Oct-26,33307.78,,2,135260*3,-30433,stop_loss,"1.5% stop ₹33,307.78"
