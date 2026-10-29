@@ -601,3 +601,7 @@ CIPLA,Buy,12-Oct-26,1329.1,26.8,28-Oct-26,1380.0,33.1,12,112974*1,21632,second_t
 KOTAKBANK,Sell,19-Oct-26,448.05,74.1,29-Oct-26,454.77,,8,179220*3,-40324,stop_loss,1.5% stop ₹454.77
 CROMPTON,Buy,28-Oct-26,205.62,26.3,29-Oct-26,202.54,,1,88417*3,-19894,stop_loss,1.5% stop ₹202.54
 BANDHANBNK,Buy,28-Oct-26,157.08,28.6,29-Oct-26,164.93,,1,113098*1,28274,first_target,lot 1 booked — 5% target ₹164.93
+GLENMARK,Sell,01-Sep-26,2470.4,73.5,29-Oct-26,2345.0,58.1,42,185280*1,47025,smma_cross,"final lot booked — strong candle closed 2,339.00 above SMMA 21 ₹2,304.13"
+HEROMOTOCO,Buy,12-Oct-26,5010.0,29.2,29-Oct-26,5123.5,34.8,13,150300*1,17025,smma_cross,"final lot booked — strong candle closed 5,105.00 below SMMA 21 ₹5,211.94"
+TVSMOTOR,Buy,12-Oct-26,3984.0,27.9,29-Oct-26,3987.81,61.3,13,139440*1,667,second_target,"lot 2 booked — SMMA 50 ₹3,987.81"
+LT,Buy,16-Oct-26,3684.1,20.8,29-Oct-26,3869.21,38.4,9,128944*1,32394,second_target,"lot 2 booked — SMMA 50 ₹3,869.21"
