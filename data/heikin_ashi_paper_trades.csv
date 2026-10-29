@@ -599,3 +599,4 @@ APOLLOHOSP,Buy,23-Oct-26,7778.5,17.5,28-Oct-26,8167.43,,3,194462*1,48616,first_t
 BAJAJ-AUTO,Buy,12-Oct-26,10149.0,17.9,28-Oct-26,10596.0,34.3,12,152235*1,33525,smma_cross,"final lot booked — strong candle closed 10,485.00 below SMMA 21 ₹10,679.66"
 CIPLA,Buy,12-Oct-26,1329.1,26.8,28-Oct-26,1380.0,33.1,12,112974*1,21632,second_target,"lot 2 booked — SMMA 50 ₹1,380.00"
 KOTAKBANK,Sell,19-Oct-26,448.05,74.1,29-Oct-26,454.77,,8,179220*3,-40324,stop_loss,1.5% stop ₹454.77
+CROMPTON,Buy,28-Oct-26,205.62,26.3,29-Oct-26,202.54,,1,88417*3,-19894,stop_loss,1.5% stop ₹202.54
