@@ -580,3 +580,12 @@ NBCC,Buy,26-Oct-26,68.87,21.6,29-Oct-26,72.31,15.7,3,89531*1,22383,first_target,
 YESBANK,Buy,28-Oct-26,15.86,18.8,29-Oct-26,15.69,11.0,1,98649*3,-15861,stop_loss,candle stop — cash closed 15.43 below the entry-candle stop ₹15.54
 INDIGO,Buy,23-Oct-26,4583.7,32.8,30-Oct-26,4812.89,,5,137511*1,34378,first_target,"lot 1 booked — 5% target ₹4,812.89"
 ABCAPITAL,Buy,23-Oct-26,351.05,30.4,30-Oct-26,368.6,,5,217651*1,54413,first_target,lot 1 booked — 5% target ₹368.60
+WIPRO,Buy,01-Oct-26,159.5,29.8,30-Oct-26,199.45,72.6,21,95700*1,119850,rsi_target,final lot booked — RSI 72.6 reached 70
+APOLLOHOSP,Buy,22-Oct-26,7714.5,35.9,30-Oct-26,8352.47,35.1,6,192862*1,79746,second_target,"lot 2 booked — SMMA 50 ₹8,352.47"
+CROMPTON,Buy,23-Oct-26,197.6,31.9,30-Oct-26,194.5,19.3,5,84968*3,-19995,stop_loss,candle stop — cash closed 191.55 below the entry-candle stop ₹192.02
+GLENMARK,Buy,23-Oct-26,2169.0,34.4,30-Oct-26,2332.9,55.9,5,162675*1,61463,smma_cross,"final lot booked — strong candle closed 2,298.70 below SMMA 21 ₹2,305.23"
+INOXWIND,Buy,26-Oct-26,58.81,28.5,30-Oct-26,56.13,19.1,4,75277*3,-51456,stop_loss,candle stop — cash closed 55.20 below the entry-candle stop ₹57.63
+VMM,Buy,26-Oct-26,88.69,25.0,30-Oct-26,85.24,27.4,4,86029*3,-50198,stop_loss,candle stop — cash closed 84.40 below the entry-candle stop ₹84.90
+BDL,Buy,29-Oct-26,1009.2,28.0,30-Oct-26,978.6,24.3,1,85782*3,-39015,stop_loss,candle stop — cash closed 974.00 below the entry-candle stop ₹986.40
+MFSL,Buy,29-Oct-26,1233.1,33.3,30-Oct-26,1208.8,21.8,1,98648*3,-29160,stop_loss,"candle stop — cash closed 1,200.00 below the entry-candle stop ₹1,203.00"
+NAM-INDIA,Buy,29-Oct-26,924.8,28.3,30-Oct-26,913.7,25.9,1,115600*3,-20812,stop_loss,candle stop — cash closed 905.00 below the entry-candle stop ₹906.30

@@ -863,3 +863,6 @@ HCLTECH,Sell,23-Oct-26,1424.0,72.7,30-Oct-26,1445.36,,5,113920*3,-25632,stop_los
 COLPAL,Buy,28-Oct-26,1603.8,31.1,30-Oct-26,1579.74,,2,88209*3,-19847,stop_loss,"1.5% stop ₹1,579.74"
 ABCAPITAL,Buy,23-Oct-26,351.05,30.4,30-Oct-26,368.6,,5,217651*1,54413,first_target,lot 1 booked — 5% target ₹368.60
 RELIANCE,Buy,01-Oct-26,1188.0,31.7,30-Oct-26,1170.18,,21,118800*3,-26730,stop_loss,"1.5% stop ₹1,170.18"
+WIPRO,Buy,01-Oct-26,159.5,29.8,30-Oct-26,199.45,72.6,21,95700*1,119850,rsi_target,final lot booked — RSI 72.6 reached 70
+APOLLOHOSP,Buy,22-Oct-26,7714.5,35.9,30-Oct-26,8352.47,35.1,6,192862*1,79746,second_target,"lot 2 booked — SMMA 50 ₹8,352.47"
+CROMPTON,Buy,23-Oct-26,197.6,31.9,30-Oct-26,194.64,19.3,5,84968*3,-19118,stop_loss,1.5% stop ₹194.64
