@@ -578,3 +578,4 @@ DELHIVERY,Buy,26-Oct-26,380.05,27.1,29-Oct-26,399.05,21.0,3,157721*1,39430,first
 GODREJPROP,Buy,26-Oct-26,1540.0,28.9,29-Oct-26,1617.0,25.0,3,100100*1,25025,first_target,"lot 1 booked — 5% target ₹1,617.00"
 NBCC,Buy,26-Oct-26,68.87,21.6,29-Oct-26,72.31,15.7,3,89531*1,22383,first_target,lot 1 booked — 5% target ₹72.31
 YESBANK,Buy,28-Oct-26,15.86,18.8,29-Oct-26,15.69,11.0,1,98649*3,-15861,stop_loss,candle stop — cash closed 15.43 below the entry-candle stop ₹15.54
+INDIGO,Buy,23-Oct-26,4583.7,32.8,30-Oct-26,4812.89,,5,137511*1,34378,first_target,"lot 1 booked — 5% target ₹4,812.89"

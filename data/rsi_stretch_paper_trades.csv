@@ -523,3 +523,8 @@ MUTHOOTFIN,Buy,23-Oct-26,2395.6,24.1,29-Oct-26,2515.38,,4,131758*1,32940,first_t
 LODHA,Buy,26-Oct-26,981.5,26.4,29-Oct-26,1030.58,,3,122688*1,30672,first_target,"lot 1 booked — 5% target ₹1,030.58"
 HEROMOTOCO,Buy,09-Oct-26,4969.5,29.2,29-Oct-26,5123.5,34.8,14,149085*1,23100,smma_cross,"final lot booked — strong candle closed 5,105.00 below SMMA 21 ₹5,211.94"
 DELHIVERY,Buy,26-Oct-26,380.05,27.1,29-Oct-26,399.05,21.0,3,157721*1,39430,first_target,lot 1 booked — 5% target ₹399.05
+NTPC,Buy,23-Oct-26,298.0,29.4,30-Oct-26,312.9,,5,89400*1,22350,first_target,lot 1 booked — 5% target ₹312.90
+WIPRO,Sell,23-Oct-26,190.1,73.7,30-Oct-26,192.95,,5,114060*3,-25663,stop_loss,1.5% stop ₹192.95
+AUBANK,Buy,28-Oct-26,891.4,21.8,30-Oct-26,878.03,,2,89140*3,-20056,stop_loss,1.5% stop ₹878.03
+BDL,Buy,29-Oct-26,1009.2,28.0,30-Oct-26,994.06,,1,85782*3,-19301,stop_loss,1.5% stop ₹994.06
+SWIGGY,Buy,29-Oct-26,187.45,24.6,30-Oct-26,184.64,,1,68419*3,-15394,stop_loss,1.5% stop ₹184.64

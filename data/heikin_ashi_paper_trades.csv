@@ -605,3 +605,13 @@ GLENMARK,Sell,01-Sep-26,2470.4,73.5,29-Oct-26,2345.0,58.1,42,185280*1,47025,smma
 HEROMOTOCO,Buy,12-Oct-26,5010.0,29.2,29-Oct-26,5123.5,34.8,13,150300*1,17025,smma_cross,"final lot booked — strong candle closed 5,105.00 below SMMA 21 ₹5,211.94"
 TVSMOTOR,Buy,12-Oct-26,3984.0,27.9,29-Oct-26,3987.81,61.3,13,139440*1,667,second_target,"lot 2 booked — SMMA 50 ₹3,987.81"
 LT,Buy,16-Oct-26,3684.1,20.8,29-Oct-26,3869.21,38.4,9,128944*1,32394,second_target,"lot 2 booked — SMMA 50 ₹3,869.21"
+GMRAIRPORT,Buy,26-Oct-26,89.5,26.6,30-Oct-26,88.16,,4,124852*3,-28092,stop_loss,1.5% stop ₹88.16
+WIPRO,Sell,26-Oct-26,191.57,80.6,30-Oct-26,194.44,,4,114942*3,-25862,stop_loss,1.5% stop ₹194.44
+AMBER,Buy,28-Oct-26,6270.0,22.2,30-Oct-26,6175.95,,2,125400*3,-28215,stop_loss,"1.5% stop ₹6,175.95"
+DIXON,Buy,28-Oct-26,11362.0,15.1,30-Oct-26,11191.57,,2,113620*3,-25565,stop_loss,"1.5% stop ₹11,191.57"
+IDFCFIRSTB,Buy,28-Oct-26,74.18,16.5,30-Oct-26,73.07,,2,137604*3,-30961,stop_loss,1.5% stop ₹73.07
+360ONE,Buy,29-Oct-26,1030.5,26.3,30-Oct-26,1015.04,,1,103050*3,-23186,stop_loss,"1.5% stop ₹1,015.04"
+COLPAL,Buy,29-Oct-26,1620.6,20.8,30-Oct-26,1596.29,,1,89133*3,-20055,stop_loss,"1.5% stop ₹1,596.29"
+INOXWIND,Buy,29-Oct-26,60.26,23.2,30-Oct-26,59.36,,1,77133*3,-17355,stop_loss,1.5% stop ₹59.36
+MANAPPURAM,Buy,29-Oct-26,305.4,24.6,30-Oct-26,300.82,,1,183240*3,-41229,stop_loss,1.5% stop ₹300.82
+RVNL,Buy,29-Oct-26,187.4,27.0,30-Oct-26,184.59,,1,72149*3,-16234,stop_loss,1.5% stop ₹184.59
