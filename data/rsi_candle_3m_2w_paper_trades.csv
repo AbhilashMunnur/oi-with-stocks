@@ -589,3 +589,5 @@ VMM,Buy,26-Oct-26,88.69,25.0,30-Oct-26,85.24,27.4,4,86029*3,-50198,stop_loss,can
 BDL,Buy,29-Oct-26,1009.2,28.0,30-Oct-26,978.6,24.3,1,85782*3,-39015,stop_loss,candle stop — cash closed 974.00 below the entry-candle stop ₹986.40
 MFSL,Buy,29-Oct-26,1233.1,33.3,30-Oct-26,1208.8,21.8,1,98648*3,-29160,stop_loss,"candle stop — cash closed 1,200.00 below the entry-candle stop ₹1,203.00"
 NAM-INDIA,Buy,29-Oct-26,924.8,28.3,30-Oct-26,913.7,25.9,1,115600*3,-20812,stop_loss,candle stop — cash closed 905.00 below the entry-candle stop ₹906.30
+NTPC,Buy,22-Oct-26,303.1,29.7,02-Nov-26,318.26,,7,90930*1,22733,first_target,lot 1 booked — 5% target ₹318.26
+VEDL,Buy,26-Oct-26,230.55,28.8,02-Nov-26,242.08,,5,53026*1,13257,first_target,lot 1 booked — 5% target ₹242.08

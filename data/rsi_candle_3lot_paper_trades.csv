@@ -866,3 +866,4 @@ RELIANCE,Buy,01-Oct-26,1188.0,31.7,30-Oct-26,1170.18,,21,118800*3,-26730,stop_lo
 WIPRO,Buy,01-Oct-26,159.5,29.8,30-Oct-26,199.45,72.6,21,95700*1,119850,rsi_target,final lot booked — RSI 72.6 reached 70
 APOLLOHOSP,Buy,22-Oct-26,7714.5,35.9,30-Oct-26,8352.47,35.1,6,192862*1,79746,second_target,"lot 2 booked — SMMA 50 ₹8,352.47"
 CROMPTON,Buy,23-Oct-26,197.6,31.9,30-Oct-26,194.64,19.3,5,84968*3,-19118,stop_loss,1.5% stop ₹194.64
+VEDL,Buy,26-Oct-26,230.55,28.8,02-Nov-26,242.08,,5,53026*1,13257,first_target,lot 1 booked — 5% target ₹242.08
