@@ -633,3 +633,6 @@ APOLLOHOSP,Buy,23-Oct-26,7778.5,17.5,30-Oct-26,8352.47,35.1,5,194462*1,71746,sec
 INDUSINDBK,Buy,28-Oct-26,859.35,21.8,02-Nov-26,846.46,,3,120309*3,-27070,stop_loss,1.5% stop ₹846.46
 PIIND,Buy,28-Oct-26,2048.3,23.5,02-Nov-26,2150.72,,3,71691*1,17923,first_target,"lot 1 booked — 5% target ₹2,150.72"
 POLICYBZR,Buy,30-Oct-26,1015.0,23.3,02-Nov-26,999.77,,1,71050*3,-15986,stop_loss,1.5% stop ₹999.77
+GRASIM,Buy,12-Oct-26,2891.0,23.4,02-Nov-26,3035.55,,15,144550*1,36138,first_target,"lot 1 booked — 5% target ₹3,035.55"
+CHOLAFIN,Buy,28-Oct-26,1565.1,17.3,02-Nov-26,1643.36,,3,195638*1,48909,first_target,"lot 1 booked — 5% target ₹1,643.36"
+SHRIRAMFIN,Buy,30-Oct-26,834.5,17.2,02-Nov-26,876.23,,1,137692*1,34423,first_target,lot 1 booked — 5% target ₹876.23
