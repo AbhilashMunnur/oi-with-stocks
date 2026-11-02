@@ -591,3 +591,6 @@ MFSL,Buy,29-Oct-26,1233.1,33.3,30-Oct-26,1208.8,21.8,1,98648*3,-29160,stop_loss,
 NAM-INDIA,Buy,29-Oct-26,924.8,28.3,30-Oct-26,913.7,25.9,1,115600*3,-20812,stop_loss,candle stop — cash closed 905.00 below the entry-candle stop ₹906.30
 NTPC,Buy,22-Oct-26,303.1,29.7,02-Nov-26,318.26,,7,90930*1,22733,first_target,lot 1 booked — 5% target ₹318.26
 VEDL,Buy,26-Oct-26,230.55,28.8,02-Nov-26,242.08,,5,53026*1,13257,first_target,lot 1 booked — 5% target ₹242.08
+JINDALSTEL,Buy,09-Oct-26,1039.9,27.5,02-Nov-26,1091.9,,16,129988*1,32497,first_target,"lot 1 booked — 5% target ₹1,091.90"
+DIXON,Buy,26-Oct-26,11086.0,21.9,02-Nov-26,11640.3,,5,110860*1,27715,first_target,"lot 1 booked — 5% target ₹11,640.30"
+PAGEIND,Buy,26-Oct-26,33815.0,30.5,02-Nov-26,35505.75,,5,135260*1,33815,first_target,"lot 1 booked — 5% target ₹35,505.75"
