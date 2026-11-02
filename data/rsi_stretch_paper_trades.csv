@@ -541,3 +541,4 @@ ENRIN,Buy,26-Oct-26,2780.6,23.9,02-Nov-26,2919.63,,5,97321*1,24330,first_target,
 SHRIRAMFIN,Buy,28-Oct-26,831.15,25.7,02-Nov-26,872.71,,3,137140*1,34285,first_target,lot 1 booked — 5% target ₹872.71
 GRASIM,Buy,08-Oct-26,2902.0,26.6,02-Nov-26,3047.1,,17,145100*1,36275,first_target,"lot 1 booked — 5% target ₹3,047.10"
 DIXON,Buy,26-Oct-26,11086.0,21.9,02-Nov-26,12416.32,,5,110860*1,66516,second_target,"lot 2 booked — 12% target ₹12,416.32"
+GRASIM,Buy,08-Oct-26,2902.0,26.6,02-Nov-26,3065.1,38.6,17,145100*1,40776,second_target,"lot 2 booked — SMMA 50 ₹3,065.10"

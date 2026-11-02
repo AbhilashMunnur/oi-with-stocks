@@ -880,3 +880,6 @@ ASHOKLEY,Buy,26-Oct-26,143.2,33.1,02-Nov-26,150.36,,5,143200*1,35800,first_targe
 DIXON,Buy,26-Oct-26,11086.0,21.9,02-Nov-26,12416.32,,5,110860*1,66516,second_target,"lot 2 booked — 12% target ₹12,416.32"
 CHOLAFIN,Buy,28-Oct-26,1565.1,45.7,02-Nov-26,1643.36,,3,195638*1,48909,first_target,"lot 1 booked — 5% target ₹1,643.36"
 UNOMINDA,Buy,26-Oct-26,1065.0,34.0,02-Nov-26,1118.25,,5,117150*1,29288,first_target,"lot 1 booked — 5% target ₹1,118.25"
+OIL,Sell,11-Sep-26,489.8,57.4,02-Nov-26,459.25,52.0,36,137144*1,42770,smma_cross,final lot booked — strong candle closed 461.90 above SMMA 21 ₹458.27
+GRASIM,Buy,08-Oct-26,2902.0,26.6,02-Nov-26,3065.1,38.6,17,145100*1,40776,second_target,"lot 2 booked — SMMA 50 ₹3,065.10"
+INDIGO,Buy,23-Oct-26,4583.7,32.8,02-Nov-26,4914.42,34.9,6,137511*1,49607,second_target,"lot 2 booked — SMMA 50 ₹4,914.42"
