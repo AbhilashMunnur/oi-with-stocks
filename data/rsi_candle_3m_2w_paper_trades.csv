@@ -613,3 +613,6 @@ GRASIM,Buy,13-Oct-26,2962.0,26.5,02-Nov-26,3025.64,38.6,14,148100*1,15909,first_
 GRASIM,Buy,13-Oct-26,2962.0,26.5,02-Nov-26,3065.1,38.6,14,148100*1,25776,second_target,"lot 2 booked — SMMA 50 ₹3,065.10"
 INDIGO,Buy,23-Oct-26,4583.7,32.8,02-Nov-26,4914.42,34.9,6,137511*1,49607,second_target,"lot 2 booked — SMMA 50 ₹4,914.42"
 COLPAL,Buy,26-Oct-26,1619.9,32.5,02-Nov-26,1592.5,15.7,5,89094*3,-22605,stop_loss,"candle stop — cash closed 1,575.00 below the entry-candle stop ₹1,587.50"
+ABCAPITAL,Buy,23-Oct-26,351.05,30.4,03-Nov-26,383.5,,7,217651*1,100586,second_target,lot 2 booked — SMMA 50 ₹383.50
+360ONE,Buy,28-Oct-26,995.0,29.9,03-Nov-26,1044.75,,4,99500*1,24875,first_target,"lot 1 booked — 5% target ₹1,044.75"
+PIDILITIND,Buy,29-Oct-26,1442.0,26.8,03-Nov-26,1514.1,,3,144200*1,36050,first_target,"lot 1 booked — 5% target ₹1,514.10"
