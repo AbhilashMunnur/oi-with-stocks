@@ -644,3 +644,8 @@ UNITDSPR,Buy,29-Oct-26,1308.4,23.4,03-Nov-26,1373.82,,3,104672*1,26168,first_tar
 NAM-INDIA,Buy,02-Nov-26,930.0,17.8,03-Nov-26,976.5,,1,116250*1,29062,first_target,lot 1 booked — 5% target ₹976.50
 FORTIS,Buy,26-Oct-26,742.55,18.3,03-Nov-26,779.68,,6,115095*1,28774,first_target,lot 1 booked — 5% target ₹779.68
 KARURVYSYA,Sell,02-Nov-26,343.25,77.0,03-Nov-26,340.41,,1,106408*1,4398,first_target,lot 1 booked — SMMA 21 ₹340.41
+ALKEM,Buy,26-Oct-26,5057.0,26.8,03-Nov-26,5198.59,35.8,6,126425*1,17699,first_target,"lot 1 booked — SMMA 21 ₹5,198.59"
+MARUTI,Buy,26-Oct-26,11438.0,15.4,03-Nov-26,11898.1,19.7,6,114380*1,23005,first_target,"lot 1 booked — SMMA 21 ₹11,898.10"
+BAJFINANCE,Buy,29-Oct-26,952.2,28.5,03-Nov-26,977.39,32.6,3,142830*1,18892,first_target,lot 1 booked — SMMA 21 ₹977.39
+UNITDSPR,Buy,29-Oct-26,1308.4,23.4,03-Nov-26,1384.03,35.0,3,104672*1,30251,second_target,"lot 2 booked — SMMA 50 ₹1,384.03"
+PIDILITIND,Buy,30-Oct-26,1469.9,21.7,03-Nov-26,1511.49,33.3,2,146990*1,20796,first_target,"lot 1 booked — SMMA 21 ₹1,511.49"

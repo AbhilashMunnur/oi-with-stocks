@@ -626,3 +626,9 @@ DMART,Buy,23-Oct-26,3180.0,22.2,03-Nov-26,3339.0,,7,95400*1,23850,first_target,"
 MARUTI,Buy,14-Oct-26,11345.0,29.1,03-Nov-26,11912.25,,14,113450*1,28362,first_target,"lot 1 booked — 5% target ₹11,912.25"
 BRITANNIA,Buy,26-Oct-26,4597.6,29.6,03-Nov-26,4827.48,,6,114940*1,28735,first_target,"lot 1 booked — 5% target ₹4,827.48"
 NESTLEIND,Buy,23-Oct-26,1185.4,28.0,03-Nov-26,1244.67,,7,118540*1,29635,first_target,"lot 1 booked — 5% target ₹1,244.67"
+SHREECEM,Buy,17-Sep-26,22200.0,23.6,03-Nov-26,23814.38,27.5,33,111000*1,40360,second_target,"lot 2 booked — SMMA 50 ₹23,814.38"
+BPCL,Buy,22-Oct-26,290.95,42.1,03-Nov-26,297.59,35.0,8,114925*1,13113,first_target,lot 1 booked — SMMA 21 ₹297.59
+GVT&D,Buy,22-Oct-26,3773.0,29.8,03-Nov-26,4104.3,39.6,8,94325*1,41413,smma_cross,"final lot booked — strong candle closed 4,050.00 below SMMA 21 ₹4,147.18"
+TITAN,Buy,22-Oct-26,4379.4,31.7,03-Nov-26,4580.43,31.9,8,153279*1,35181,first_target,"lot 1 booked — SMMA 21 ₹4,580.43"
+NBCC,Buy,26-Oct-26,68.87,21.6,03-Nov-26,75.7,17.8,6,89531*1,44395,smma_cross,final lot booked — strong candle closed 75.26 below SMMA 21 ₹77.69
+ATHERENERG,Sell,02-Nov-26,1750.0,69.1,03-Nov-26,1766.6,72.8,1,131250*3,-18675,stop_loss,"candle stop — cash closed 1,795.00 above the entry-candle stop ₹1,790.00"
