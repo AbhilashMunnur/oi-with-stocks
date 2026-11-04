@@ -663,3 +663,10 @@ MUTHOOTFIN,Buy,28-Oct-26,2434.3,17.6,04-Nov-26,2726.42,,5,133886*1,80332,second_
 TMPV,Buy,29-Oct-26,269.7,25.3,04-Nov-26,283.19,,4,86304*1,21576,first_target,lot 1 booked — 5% target ₹283.19
 PNB,Sell,03-Nov-26,122.62,70.3,04-Nov-26,124.46,,1,196192*3,-44143,stop_loss,1.5% stop ₹124.46
 BDL,Buy,03-Nov-26,1019.1,23.5,04-Nov-26,1070.06,,1,86624*1,21656,first_target,"lot 1 booked — 5% target ₹1,070.06"
+M&M,Buy,12-Oct-26,2851.9,17.9,04-Nov-26,2960.93,29.1,17,114076*1,21805,first_target,"lot 1 booked — SMMA 21 ₹2,960.93"
+SBILIFE,Buy,26-Oct-26,1658.6,27.7,04-Nov-26,1698.79,28.5,7,124395*1,15069,first_target,"lot 1 booked — SMMA 21 ₹1,698.79"
+SRF,Buy,28-Oct-26,2369.0,19.8,04-Nov-26,2460.2,30.3,5,94760*1,18241,first_target,"lot 1 booked — SMMA 21 ₹2,460.20"
+BAJFINANCE,Buy,29-Oct-26,952.2,28.5,04-Nov-26,993.91,35.3,4,142830*1,31279,second_target,lot 2 booked — SMMA 50 ₹993.91
+CUMMINSIND,Buy,02-Nov-26,4592.0,19.8,04-Nov-26,4786.66,26.3,2,91840*1,19466,first_target,"lot 1 booked — SMMA 21 ₹4,786.66"
+SUZLON,Buy,03-Nov-26,36.04,22.8,04-Nov-26,37.84,17.7,1,91542*1,22885,first_target,lot 1 booked — 5% target ₹37.84
+VBL,Buy,03-Nov-26,413.1,26.7,04-Nov-26,421.84,36.0,1,105340*1,11150,first_target,lot 1 booked — SMMA 21 ₹421.84

@@ -914,3 +914,9 @@ GVT&D,Buy,26-Oct-26,3832.0,26.4,04-Nov-26,4291.84,,7,95800*1,57480,second_target
 JIOFIN,Buy,26-Oct-26,208.64,28.8,04-Nov-26,219.07,,7,98061*1,24515,first_target,lot 1 booked — 5% target ₹219.07
 WAAREEENER,Buy,28-Oct-26,2261.9,34.5,04-Nov-26,2375.0,,5,79166*1,19792,first_target,"lot 1 booked — 5% target ₹2,375.00"
 MAZDOCK,Buy,02-Nov-26,1742.0,22.2,04-Nov-26,1829.1,,2,78390*1,19598,first_target,"lot 1 booked — 5% target ₹1,829.10"
+TORNTPHARM,Buy,21-Oct-26,4577.0,34.9,04-Nov-26,4714.61,37.5,10,114425*1,17201,first_target,"lot 1 booked — SMMA 21 ₹4,714.61"
+TORNTPHARM,Buy,21-Oct-26,4577.0,34.9,04-Nov-26,4707.8,37.5,10,114425*1,16350,second_target,"lot 2 booked — SMMA 50 ₹4,707.80"
+BEL,Buy,23-Oct-26,364.3,32.5,04-Nov-26,395.67,47.0,8,103826*1,44695,second_target,lot 2 booked — SMMA 50 ₹395.67
+SRF,Buy,26-Oct-26,2359.0,29.7,04-Nov-26,2460.2,30.3,7,94360*1,20241,first_target,"lot 1 booked — SMMA 21 ₹2,460.20"
+VEDL,Buy,26-Oct-26,230.55,28.8,04-Nov-26,258.22,41.9,7,53026*1,31816,second_target,lot 2 booked — 12% target ₹258.22
+ATHERENERG,Sell,02-Nov-26,1750.0,69.1,04-Nov-26,1776.25,73.4,2,131250*3,-29531,stop_loss,"1.5% stop ₹1,776.25"
