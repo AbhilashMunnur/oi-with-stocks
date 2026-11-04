@@ -661,3 +661,4 @@ LTF,Buy,28-Oct-26,245.5,17.2,04-Nov-26,257.78,,5,110475*1,27619,first_target,lot
 HINDZINC,Buy,28-Oct-26,511.7,24.3,04-Nov-26,537.28,,5,125366*1,31342,first_target,lot 1 booked — 5% target ₹537.28
 MUTHOOTFIN,Buy,28-Oct-26,2434.3,17.6,04-Nov-26,2726.42,,5,133886*1,80332,second_target,"lot 2 booked — 12% target ₹2,726.42"
 TMPV,Buy,29-Oct-26,269.7,25.3,04-Nov-26,283.19,,4,86304*1,21576,first_target,lot 1 booked — 5% target ₹283.19
+PNB,Sell,03-Nov-26,122.62,70.3,04-Nov-26,124.46,,1,196192*3,-44143,stop_loss,1.5% stop ₹124.46
