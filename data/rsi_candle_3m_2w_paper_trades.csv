@@ -634,3 +634,7 @@ NBCC,Buy,26-Oct-26,68.87,21.6,03-Nov-26,75.7,17.8,6,89531*1,44395,smma_cross,fin
 ATHERENERG,Sell,02-Nov-26,1750.0,69.1,03-Nov-26,1766.6,72.8,1,131250*3,-18675,stop_loss,"candle stop — cash closed 1,795.00 above the entry-candle stop ₹1,790.00"
 TITAN,Buy,22-Oct-26,4379.4,31.7,04-Nov-26,4553.04,,9,153279*1,30386,second_target,"lot 2 booked — SMMA 50 ₹4,553.04"
 TMPV,Buy,23-Oct-26,267.2,31.1,04-Nov-26,280.56,,8,85504*1,21376,first_target,lot 1 booked — 5% target ₹280.56
+BAJAJFINSV,Buy,23-Oct-26,1671.1,29.7,04-Nov-26,1754.65,,8,100266*1,25067,first_target,"lot 1 booked — 5% target ₹1,754.65"
+SRF,Buy,23-Oct-26,2344.2,33.6,04-Nov-26,2461.41,,8,93768*1,23442,first_target,"lot 1 booked — 5% target ₹2,461.41"
+UNOMINDA,Buy,26-Oct-26,1065.0,34.0,04-Nov-26,1166.95,,7,117150*1,56070,second_target,"lot 2 booked — SMMA 50 ₹1,166.95"
+VOLTAS,Buy,26-Oct-26,961.8,24.0,04-Nov-26,1077.22,,7,72135*1,43281,second_target,"lot 2 booked — 12% target ₹1,077.22"
