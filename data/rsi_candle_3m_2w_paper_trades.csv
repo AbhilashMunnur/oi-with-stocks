@@ -642,3 +642,6 @@ GODREJPROP,Buy,26-Oct-26,1540.0,28.9,04-Nov-26,1724.8,,7,100100*1,60060,second_t
 HINDALCO,Buy,23-Oct-26,880.0,34.3,04-Nov-26,924.0,,8,123200*1,30800,first_target,lot 1 booked — 5% target ₹924.00
 SIEMENS,Buy,26-Oct-26,3295.3,26.9,04-Nov-26,3460.07,,7,115336*1,28834,first_target,"lot 1 booked — 5% target ₹3,460.07"
 MUTHOOTFIN,Buy,23-Oct-26,2395.6,24.1,04-Nov-26,2683.07,,8,131758*1,79055,second_target,"lot 2 booked — 12% target ₹2,683.07"
+BHARATFORG,Buy,23-Oct-26,1728.6,29.2,04-Nov-26,1815.03,,8,172860*1,43215,first_target,"lot 1 booked — 5% target ₹1,815.03"
+ABB,Buy,26-Oct-26,6448.0,28.8,04-Nov-26,6770.4,,7,161200*1,40300,first_target,"lot 1 booked — 5% target ₹6,770.40"
+SUZLON,Buy,02-Nov-26,35.7,25.5,04-Nov-26,37.49,,2,90678*1,22670,first_target,lot 1 booked — 5% target ₹37.49
