@@ -552,3 +552,5 @@ LODHA,Buy,26-Oct-26,981.5,26.4,03-Nov-26,1077.35,,6,122688*1,59908,second_target
 DMART,Buy,23-Oct-26,3180.0,22.2,03-Nov-26,3339.0,,7,95400*1,23850,first_target,"lot 1 booked — 5% target ₹3,339.00"
 BRITANNIA,Buy,26-Oct-26,4597.6,29.6,03-Nov-26,4827.48,,6,114940*1,28735,first_target,"lot 1 booked — 5% target ₹4,827.48"
 NESTLEIND,Buy,23-Oct-26,1185.4,28.0,03-Nov-26,1244.67,,7,118540*1,29635,first_target,"lot 1 booked — 5% target ₹1,244.67"
+VOLTAS,Buy,26-Oct-26,961.8,24.0,04-Nov-26,1077.22,,7,72135*1,43281,second_target,"lot 2 booked — 12% target ₹1,077.22"
+DRREDDY,Sell,29-Oct-26,1347.1,73.4,04-Nov-26,1367.31,,4,168388*3,-37887,stop_loss,"1.5% stop ₹1,367.31"
