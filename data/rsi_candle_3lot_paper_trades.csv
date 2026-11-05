@@ -943,3 +943,10 @@ ICICILIFE,Buy,03-Nov-26,411.1,24.2,05-Nov-26,431.66,,2,90442*1,22611,first_targe
 BIOCON,Buy,23-Oct-26,327.55,20.4,05-Nov-26,366.86,,9,163775*1,98265,second_target,lot 2 booked — 12% target ₹366.86
 TMPV,Buy,28-Oct-26,266.75,27.9,05-Nov-26,298.76,,6,85360*1,51216,second_target,lot 2 booked — 12% target ₹298.76
 SONACOMS,Sell,02-Nov-26,903.45,69.6,05-Nov-26,917.0,,3,221345*3,-49803,stop_loss,1.5% stop ₹917.00
+SBIN,Buy,08-Oct-26,954.1,33.0,05-Nov-26,1000.25,38.6,20,143115*1,34616,second_target,"lot 2 booked — SMMA 50 ₹1,000.25"
+TORNTPHARM,Buy,21-Oct-26,4577.0,34.9,05-Nov-26,4745.2,37.5,11,114425*1,21025,smma_cross,"final lot booked — strong candle closed 4,710.00 below SMMA 21 ₹4,714.72"
+BAJAJFINSV,Buy,23-Oct-26,1671.1,29.7,05-Nov-26,1822.78,34.7,9,100266*1,45505,second_target,"lot 2 booked — SMMA 50 ₹1,822.78"
+JIOFIN,Buy,26-Oct-26,208.64,28.8,05-Nov-26,229.95,35.3,8,98061*1,50074,second_target,lot 2 booked — SMMA 50 ₹229.95
+JUBLFOOD,Buy,26-Oct-26,417.5,28.8,05-Nov-26,453.89,43.3,8,104375*1,45490,second_target,lot 2 booked — SMMA 50 ₹453.89
+UNOMINDA,Buy,26-Oct-26,1065.0,34.0,05-Nov-26,1350.9,74.2,8,117150*1,157245,rsi_target,final lot booked — RSI 74.2 reached 70
+YESBANK,Buy,03-Nov-26,15.61,22.9,05-Nov-26,16.39,12.1,2,97094*1,24274,first_target,lot 1 booked — 5% target ₹16.39

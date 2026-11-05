@@ -702,3 +702,12 @@ RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,372.23,,2,90398*1,22599,first_target,
 RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,357.52,,2,90398*1,3845,second_target,lot 2 booked — SMMA 50 ₹357.52
 JIOFIN,Buy,28-Oct-26,207.55,24.8,05-Nov-26,232.46,,6,97548*1,58529,second_target,lot 2 booked — 12% target ₹232.46
 GMRAIRPORT,Buy,02-Nov-26,90.0,26.6,05-Nov-26,100.8,,3,125550*1,75330,second_target,lot 2 booked — 12% target ₹100.80
+M&M,Buy,12-Oct-26,2851.9,17.9,05-Nov-26,3077.15,35.9,18,114076*1,45051,second_target,"lot 2 booked — SMMA 50 ₹3,077.15"
+SBIN,Buy,12-Oct-26,955.0,29.5,05-Nov-26,1000.25,38.6,18,143250*1,33941,second_target,"lot 2 booked — SMMA 50 ₹1,000.25"
+TVSMOTOR,Buy,12-Oct-26,3984.0,27.9,05-Nov-26,4490.0,71.1,18,139440*1,88550,rsi_target,final lot booked — RSI 71.1 reached 70
+JUBLFOOD,Buy,26-Oct-26,417.5,22.4,05-Nov-26,453.89,43.3,8,104375*1,45490,second_target,lot 2 booked — SMMA 50 ₹453.89
+MARUTI,Buy,26-Oct-26,11438.0,15.4,05-Nov-26,12606.21,27.1,8,114380*1,58411,second_target,"lot 2 booked — SMMA 50 ₹12,606.21"
+BAJAJFINSV,Buy,29-Oct-26,1691.7,17.5,05-Nov-26,1822.78,34.7,5,101502*1,39325,second_target,"lot 2 booked — SMMA 50 ₹1,822.78"
+INDUSINDBK,Buy,03-Nov-26,868.75,23.3,05-Nov-26,923.24,30.3,2,121625*1,38141,second_target,lot 2 booked — SMMA 50 ₹923.24
+VBL,Buy,03-Nov-26,413.1,26.7,05-Nov-26,438.19,45.9,2,105340*1,31989,second_target,lot 2 booked — SMMA 50 ₹438.19
+YESBANK,Buy,03-Nov-26,15.61,12.9,05-Nov-26,16.39,12.1,2,97094*1,24274,first_target,lot 1 booked — 5% target ₹16.39
