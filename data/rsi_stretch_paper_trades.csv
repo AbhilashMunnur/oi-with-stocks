@@ -566,3 +566,12 @@ MAZDOCK,Buy,02-Nov-26,1742.0,22.2,04-Nov-26,1829.1,,2,78390*1,19598,first_target
 SRF,Buy,26-Oct-26,2359.0,29.7,04-Nov-26,2460.2,30.3,7,94360*1,20241,first_target,"lot 1 booked — SMMA 21 ₹2,460.20"
 VEDL,Buy,26-Oct-26,230.55,28.8,04-Nov-26,258.22,41.9,7,53026*1,31816,second_target,lot 2 booked — 12% target ₹258.22
 ATHERENERG,Sell,02-Nov-26,1750.0,69.1,04-Nov-26,1776.25,73.4,2,131250*3,-29531,stop_loss,"1.5% stop ₹1,776.25"
+CUMMINSIND,Buy,23-Oct-26,4367.4,27.9,05-Nov-26,4301.89,,9,174696*2,-26204,stop_loss,"1.5% stop ₹4,301.89 (tightened after lot 1 booked)"
+IDEA,Buy,23-Oct-26,11.55,28.0,05-Nov-26,12.88,,9,165107*1,95327,second_target,lot 2 booked — SMMA 50 ₹12.88
+DELHIVERY,Buy,26-Oct-26,380.05,27.1,05-Nov-26,425.66,,8,157721*1,94632,second_target,lot 2 booked — 12% target ₹425.66
+HINDZINC,Buy,26-Oct-26,501.3,28.0,05-Nov-26,561.46,,8,122818*1,73691,second_target,lot 2 booked — 12% target ₹561.46
+IDFCFIRSTB,Buy,26-Oct-26,72.5,24.3,05-Nov-26,76.12,,8,134488*1,33622,first_target,lot 1 booked — 5% target ₹76.12
+LTF,Buy,26-Oct-26,238.75,24.3,05-Nov-26,267.4,,8,107438*1,64463,second_target,lot 2 booked — 12% target ₹267.40
+360ONE,Buy,28-Oct-26,995.0,29.9,05-Nov-26,1114.4,,6,99500*1,59700,second_target,"lot 2 booked — 12% target ₹1,114.40"
+SBICARD,Buy,28-Oct-26,532.0,30.0,05-Nov-26,558.6,,6,85120*1,21280,first_target,lot 1 booked — 5% target ₹558.60
+SHRIRAMFIN,Buy,28-Oct-26,831.15,25.7,05-Nov-26,930.89,,6,137140*1,82284,second_target,lot 2 booked — 12% target ₹930.89

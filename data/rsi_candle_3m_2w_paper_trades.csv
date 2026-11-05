@@ -657,3 +657,17 @@ BPCL,Buy,22-Oct-26,290.95,42.1,04-Nov-26,305.07,42.9,9,114925*1,27884,second_tar
 BEL,Buy,23-Oct-26,364.3,32.5,04-Nov-26,395.67,47.0,8,103826*1,44695,second_target,lot 2 booked — SMMA 50 ₹395.67
 VBL,Buy,26-Oct-26,413.0,44.1,04-Nov-26,421.72,36.0,7,105315*1,11113,first_target,lot 1 booked — SMMA 21 ₹421.72
 VEDL,Buy,26-Oct-26,230.55,28.8,04-Nov-26,258.22,41.9,7,53026*1,31816,second_target,lot 2 booked — 12% target ₹258.22
+HINDZINC,Buy,23-Oct-26,501.0,29.1,05-Nov-26,561.12,,9,122745*1,73647,second_target,lot 2 booked — 12% target ₹561.12
+IDEA,Buy,23-Oct-26,11.55,28.0,05-Nov-26,12.88,,9,165107*1,95313,second_target,lot 2 booked — SMMA 50 ₹12.88
+ASHOKLEY,Buy,26-Oct-26,143.2,33.1,05-Nov-26,160.38,,8,143200*1,85920,second_target,lot 2 booked — 12% target ₹160.38
+AUBANK,Buy,26-Oct-26,879.5,24.8,05-Nov-26,923.48,,8,175900*1,43975,first_target,lot 1 booked — 5% target ₹923.48
+DELHIVERY,Buy,26-Oct-26,380.05,27.1,05-Nov-26,425.66,,8,157721*1,94632,second_target,lot 2 booked — 12% target ₹425.66
+HYUNDAI,Buy,26-Oct-26,1844.7,27.8,05-Nov-26,2043.33,,8,101458*1,54624,second_target,"lot 2 booked — SMMA 50 ₹2,043.33"
+IDFCFIRSTB,Buy,26-Oct-26,72.5,24.3,05-Nov-26,76.12,,8,134488*1,33622,first_target,lot 1 booked — 5% target ₹76.12
+JUBLFOOD,Buy,26-Oct-26,417.5,28.8,05-Nov-26,438.38,,8,104375*1,26094,first_target,lot 1 booked — 5% target ₹438.38
+LTF,Buy,26-Oct-26,238.75,24.3,05-Nov-26,267.4,,8,107438*1,64463,second_target,lot 2 booked — 12% target ₹267.40
+SHRIRAMFIN,Buy,26-Oct-26,831.15,26.4,05-Nov-26,930.89,,8,137140*1,82284,second_target,lot 2 booked — 12% target ₹930.89
+360ONE,Buy,28-Oct-26,995.0,29.9,05-Nov-26,1114.4,,6,99500*1,59700,second_target,"lot 2 booked — 12% target ₹1,114.40"
+CHOLAFIN,Buy,28-Oct-26,1565.1,45.7,05-Nov-26,1731.76,,6,195638*1,104165,second_target,"lot 2 booked — SMMA 50 ₹1,731.76"
+KALYANKJIL,Buy,28-Oct-26,515.7,29.9,05-Nov-26,541.49,,6,139239*1,34810,first_target,lot 1 booked — 5% target ₹541.49
+SBICARD,Buy,28-Oct-26,532.0,30.0,05-Nov-26,558.6,,6,85120*1,21280,first_target,lot 1 booked — 5% target ₹558.60

@@ -670,3 +670,22 @@ BAJFINANCE,Buy,29-Oct-26,952.2,28.5,04-Nov-26,993.91,35.3,4,142830*1,31279,secon
 CUMMINSIND,Buy,02-Nov-26,4592.0,19.8,04-Nov-26,4786.66,26.3,2,91840*1,19466,first_target,"lot 1 booked — SMMA 21 ₹4,786.66"
 SUZLON,Buy,03-Nov-26,36.04,22.8,04-Nov-26,37.84,17.7,1,91542*1,22885,first_target,lot 1 booked — 5% target ₹37.84
 VBL,Buy,03-Nov-26,413.1,26.7,04-Nov-26,421.84,36.0,1,105340*1,11150,first_target,lot 1 booked — SMMA 21 ₹421.84
+IDEA,Buy,26-Oct-26,12.11,18.5,05-Nov-26,12.72,,8,173112*1,43278,first_target,lot 1 booked — 5% target ₹12.72
+IDEA,Buy,26-Oct-26,12.11,18.5,05-Nov-26,12.88,,8,173112*1,55301,second_target,lot 2 booked — SMMA 50 ₹12.88
+JUBLFOOD,Buy,26-Oct-26,417.5,22.4,05-Nov-26,438.38,,8,104375*1,26094,first_target,lot 1 booked — 5% target ₹438.38
+CHOLAFIN,Buy,28-Oct-26,1565.1,17.3,05-Nov-26,1731.76,,6,195638*1,104165,second_target,"lot 2 booked — SMMA 50 ₹1,731.76"
+HINDZINC,Buy,28-Oct-26,511.7,24.3,05-Nov-26,566.93,,6,125366*1,67651,second_target,lot 2 booked — SMMA 50 ₹566.93
+LTF,Buy,28-Oct-26,245.5,17.2,05-Nov-26,274.96,,6,110475*1,66285,second_target,lot 2 booked — 12% target ₹274.96
+OBEROIRLTY,Buy,28-Oct-26,1618.0,24.2,05-Nov-26,1755.06,,6,113260*1,47972,second_target,"lot 2 booked — SMMA 50 ₹1,755.06"
+PIIND,Buy,28-Oct-26,2048.3,23.5,05-Nov-26,2017.58,,6,71690*2,-10754,stop_loss,"1.5% stop ₹2,017.58 (tightened after lot 1 booked)"
+VEDL,Buy,28-Oct-26,235.4,22.8,05-Nov-26,263.65,,6,54142*1,32485,second_target,lot 2 booked — 12% target ₹263.65
+SBICARD,Buy,30-Oct-26,534.0,19.9,05-Nov-26,560.7,,4,85440*1,21360,first_target,lot 1 booked — 5% target ₹560.70
+SHRIRAMFIN,Buy,30-Oct-26,834.5,17.2,05-Nov-26,934.64,,4,137692*1,82616,second_target,lot 2 booked — 12% target ₹934.64
+CUMMINSIND,Buy,02-Nov-26,4592.0,19.8,05-Nov-26,4523.12,,3,91840*2,-13776,stop_loss,"1.5% stop ₹4,523.12 (tightened after lot 1 booked)"
+KARURVYSYA,Sell,02-Nov-26,343.25,77.0,05-Nov-26,348.4,,3,106408*2,-15961,stop_loss,1.5% stop ₹348.40 (tightened after lot 1 booked)
+NAM-INDIA,Buy,02-Nov-26,930.0,17.8,05-Nov-26,1041.6,,3,116250*1,69750,second_target,"lot 2 booked — 12% target ₹1,041.60"
+GODREJCP,Buy,03-Nov-26,837.0,23.8,05-Nov-26,878.85,,2,100440*1,25110,first_target,lot 1 booked — 5% target ₹878.85
+COFORGE,Sell,04-Nov-26,2053.0,74.2,05-Nov-26,2083.79,,1,195035*3,-43883,stop_loss,"1.5% stop ₹2,083.79"
+HCLTECH,Sell,04-Nov-26,1417.0,78.5,05-Nov-26,1438.25,,1,113360*3,-25506,stop_loss,"1.5% stop ₹1,438.25"
+NHPC,Sell,04-Nov-26,75.68,70.0,05-Nov-26,76.82,,1,105195*3,-23669,stop_loss,1.5% stop ₹76.82
+POWERINDIA,Buy,04-Nov-26,29340.0,20.1,05-Nov-26,28899.9,,1,146700*3,-33008,stop_loss,"1.5% stop ₹28,899.90"
