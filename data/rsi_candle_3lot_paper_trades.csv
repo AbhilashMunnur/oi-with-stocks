@@ -934,3 +934,9 @@ SHRIRAMFIN,Buy,26-Oct-26,831.15,26.4,05-Nov-26,930.89,,8,137140*1,82284,second_t
 CHOLAFIN,Buy,28-Oct-26,1565.1,45.7,05-Nov-26,1731.76,,6,195638*1,104165,second_target,"lot 2 booked — SMMA 50 ₹1,731.76"
 SBICARD,Buy,28-Oct-26,532.0,30.0,05-Nov-26,558.6,,6,85120*1,21280,first_target,lot 1 booked — 5% target ₹558.60
 AUBANK,Buy,30-Oct-26,876.8,30.9,05-Nov-26,920.64,,4,87680*1,21920,first_target,lot 1 booked — 5% target ₹920.64
+MARUTI,Buy,22-Oct-26,11253.0,35.0,05-Nov-26,12603.36,,10,112530*1,67518,second_target,"lot 2 booked — 12% target ₹12,603.36"
+MANAPPURAM,Buy,28-Oct-26,293.0,36.6,05-Nov-26,326.98,,6,175800*1,101950,second_target,lot 2 booked — SMMA 50 ₹326.98
+PIDILITIND,Buy,29-Oct-26,1442.0,26.8,05-Nov-26,1556.76,,5,144200*1,57378,second_target,"lot 2 booked — SMMA 50 ₹1,556.76"
+HCLTECH,Sell,02-Nov-26,1436.0,70.9,05-Nov-26,1457.54,,3,114880*3,-25848,stop_loss,"1.5% stop ₹1,457.54"
+VMM,Buy,02-Nov-26,88.6,23.7,05-Nov-26,93.03,,3,85942*1,21486,first_target,lot 1 booked — 5% target ₹93.03
+ICICILIFE,Buy,03-Nov-26,411.1,24.2,05-Nov-26,431.66,,2,90442*1,22611,first_target,lot 1 booked — 5% target ₹431.66

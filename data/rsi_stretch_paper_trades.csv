@@ -575,3 +575,5 @@ LTF,Buy,26-Oct-26,238.75,24.3,05-Nov-26,267.4,,8,107438*1,64463,second_target,lo
 360ONE,Buy,28-Oct-26,995.0,29.9,05-Nov-26,1114.4,,6,99500*1,59700,second_target,"lot 2 booked — 12% target ₹1,114.40"
 SBICARD,Buy,28-Oct-26,532.0,30.0,05-Nov-26,558.6,,6,85120*1,21280,first_target,lot 1 booked — 5% target ₹558.60
 SHRIRAMFIN,Buy,28-Oct-26,831.15,25.7,05-Nov-26,930.89,,6,137140*1,82284,second_target,lot 2 booked — 12% target ₹930.89
+PIDILITIND,Buy,29-Oct-26,1442.0,26.8,05-Nov-26,1556.76,,5,144200*1,57378,second_target,"lot 2 booked — SMMA 50 ₹1,556.76"
+WIPRO,Sell,02-Nov-26,198.12,73.7,05-Nov-26,201.09,,3,118872*3,-26746,stop_loss,1.5% stop ₹201.09

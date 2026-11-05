@@ -689,3 +689,10 @@ COFORGE,Sell,04-Nov-26,2053.0,74.2,05-Nov-26,2083.79,,1,195035*3,-43883,stop_los
 HCLTECH,Sell,04-Nov-26,1417.0,78.5,05-Nov-26,1438.25,,1,113360*3,-25506,stop_loss,"1.5% stop ₹1,438.25"
 NHPC,Sell,04-Nov-26,75.68,70.0,05-Nov-26,76.82,,1,105195*3,-23669,stop_loss,1.5% stop ₹76.82
 POWERINDIA,Buy,04-Nov-26,29340.0,20.1,05-Nov-26,28899.9,,1,146700*3,-33008,stop_loss,"1.5% stop ₹28,899.90"
+AXISBANK,Sell,19-Oct-26,1250.7,70.1,05-Nov-26,1269.46,,13,156338*2,-23451,stop_loss,"1.5% stop ₹1,269.46 (tightened after lot 1 booked)"
+TECHM,Sell,26-Oct-26,1818.0,80.6,05-Nov-26,1845.27,,8,218160*3,-49086,stop_loss,"1.5% stop ₹1,845.27"
+PIDILITIND,Buy,30-Oct-26,1469.9,21.7,05-Nov-26,1556.76,,4,146990*1,43428,second_target,"lot 2 booked — SMMA 50 ₹1,556.76"
+VMM,Buy,02-Nov-26,88.6,15.3,05-Nov-26,93.03,,3,85942*1,21486,first_target,lot 1 booked — 5% target ₹93.03
+INFY,Sell,03-Nov-26,1164.0,72.7,05-Nov-26,1181.46,,2,116400*3,-26190,stop_loss,"1.5% stop ₹1,181.46"
+UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,05-Nov-26,60.22,,2,91760*1,22940,first_target,lot 1 booked — 5% target ₹60.22
+WIPRO,Sell,04-Nov-26,196.6,80.6,05-Nov-26,199.55,,1,117960*3,-26541,stop_loss,1.5% stop ₹199.55
