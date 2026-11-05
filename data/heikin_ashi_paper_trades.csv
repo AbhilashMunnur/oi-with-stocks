@@ -701,3 +701,4 @@ PAYTM,Sell,23-Sep-26,1775.0,71.3,05-Nov-26,1801.62,,31,257375*2,-38606,stop_loss
 RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,372.23,,2,90398*1,22599,first_target,lot 1 booked — 5% target ₹372.23
 RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,357.52,,2,90398*1,3845,second_target,lot 2 booked — SMMA 50 ₹357.52
 JIOFIN,Buy,28-Oct-26,207.55,24.8,05-Nov-26,232.46,,6,97548*1,58529,second_target,lot 2 booked — 12% target ₹232.46
+GMRAIRPORT,Buy,02-Nov-26,90.0,26.6,05-Nov-26,100.8,,3,125550*1,75330,second_target,lot 2 booked — 12% target ₹100.80
