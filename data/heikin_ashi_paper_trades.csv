@@ -697,3 +697,6 @@ INFY,Sell,03-Nov-26,1164.0,72.7,05-Nov-26,1181.46,,2,116400*3,-26190,stop_loss,"
 UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,05-Nov-26,60.22,,2,91760*1,22940,first_target,lot 1 booked — 5% target ₹60.22
 WIPRO,Sell,04-Nov-26,196.6,80.6,05-Nov-26,199.55,,1,117960*3,-26541,stop_loss,1.5% stop ₹199.55
 INDUSINDBK,Buy,03-Nov-26,868.75,23.3,05-Nov-26,912.19,,2,121625*1,30406,first_target,lot 1 booked — 5% target ₹912.19
+PAYTM,Sell,23-Sep-26,1775.0,71.3,05-Nov-26,1801.62,,31,257375*2,-38606,stop_loss,"1.5% stop ₹1,801.62 (tightened after lot 1 booked)"
+RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,372.23,,2,90398*1,22599,first_target,lot 1 booked — 5% target ₹372.23
+RBLBANK,Buy,03-Nov-26,354.5,23.2,05-Nov-26,357.52,,2,90398*1,3845,second_target,lot 2 booked — SMMA 50 ₹357.52
