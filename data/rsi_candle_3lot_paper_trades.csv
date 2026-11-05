@@ -940,3 +940,5 @@ PIDILITIND,Buy,29-Oct-26,1442.0,26.8,05-Nov-26,1556.76,,5,144200*1,57378,second_
 HCLTECH,Sell,02-Nov-26,1436.0,70.9,05-Nov-26,1457.54,,3,114880*3,-25848,stop_loss,"1.5% stop ₹1,457.54"
 VMM,Buy,02-Nov-26,88.6,23.7,05-Nov-26,93.03,,3,85942*1,21486,first_target,lot 1 booked — 5% target ₹93.03
 ICICILIFE,Buy,03-Nov-26,411.1,24.2,05-Nov-26,431.66,,2,90442*1,22611,first_target,lot 1 booked — 5% target ₹431.66
+BIOCON,Buy,23-Oct-26,327.55,20.4,05-Nov-26,366.86,,9,163775*1,98265,second_target,lot 2 booked — 12% target ₹366.86
+TMPV,Buy,28-Oct-26,266.75,27.9,05-Nov-26,298.76,,6,85360*1,51216,second_target,lot 2 booked — 12% target ₹298.76
