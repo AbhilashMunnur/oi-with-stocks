@@ -693,3 +693,7 @@ KALYANKJIL,Buy,28-Oct-26,515.7,29.9,05-Nov-26,531.67,46.9,6,139239*1,21562,secon
 GODREJCP,Buy,29-Oct-26,847.0,44.9,05-Nov-26,867.61,25.5,5,84700*1,10305,first_target,lot 1 booked — SMMA 21 ₹867.61
 YESBANK,Buy,03-Nov-26,15.61,22.9,05-Nov-26,16.39,12.1,2,97094*1,24274,first_target,lot 1 booked — 5% target ₹16.39
 YESBANK,Buy,03-Nov-26,15.61,22.9,06-Nov-26,17.48,,3,97094*1,58257,second_target,lot 2 booked — 12% target ₹17.48
+ICICIGI,Sell,15-Oct-26,1702.9,67.0,06-Nov-26,1664.2,38.2,16,110688*1,12578,smma_cross,"final lot booked — strong candle closed 1,649.00 above SMMA 21 ₹1,601.24"
+HINDALCO,Buy,23-Oct-26,880.0,34.3,06-Nov-26,960.66,41.2,10,123200*1,56463,second_target,lot 2 booked — SMMA 50 ₹960.66
+TATASTEEL,Buy,23-Oct-26,168.5,31.7,06-Nov-26,184.02,51.9,10,92675*1,42667,second_target,lot 2 booked — SMMA 50 ₹184.02
+ATHERENERG,Sell,04-Nov-26,1780.1,71.8,06-Nov-26,1788.0,73.7,2,133508*3,-8888,stop_loss,"candle stop — cash closed 1,821.70 above the entry-candle stop ₹1,815.70"

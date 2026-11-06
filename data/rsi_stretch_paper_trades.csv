@@ -585,3 +585,5 @@ JIOFIN,Buy,26-Oct-26,208.64,28.8,05-Nov-26,229.95,35.3,8,98061*1,50074,second_ta
 POLYCAB,Buy,26-Oct-26,7775.0,26.7,06-Nov-26,7658.38,,9,194375*3,-43734,stop_loss,"1.5% stop ₹7,658.38"
 NHPC,Sell,05-Nov-26,80.85,68.7,06-Nov-26,82.06,,1,112382*3,-25286,stop_loss,1.5% stop ₹82.06
 BHARATFORG,Buy,26-Oct-26,1741.7,27.9,06-Nov-26,1715.57,,9,174170*2,-26126,stop_loss,"1.5% stop ₹1,715.57 (tightened after lot 1 booked)"
+ICICIGI,Sell,15-Oct-26,1702.9,67.0,06-Nov-26,1664.2,38.2,16,110688*1,12578,smma_cross,"final lot booked — strong candle closed 1,649.00 above SMMA 21 ₹1,601.24"
+HINDPETRO,Sell,05-Nov-26,384.4,69.4,06-Nov-26,390.17,55.4,1,155682*3,-35028,stop_loss,1.5% stop ₹390.17
