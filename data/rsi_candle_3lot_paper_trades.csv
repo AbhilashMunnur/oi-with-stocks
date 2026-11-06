@@ -950,3 +950,7 @@ JIOFIN,Buy,26-Oct-26,208.64,28.8,05-Nov-26,229.95,35.3,8,98061*1,50074,second_ta
 JUBLFOOD,Buy,26-Oct-26,417.5,28.8,05-Nov-26,453.89,43.3,8,104375*1,45490,second_target,lot 2 booked — SMMA 50 ₹453.89
 UNOMINDA,Buy,26-Oct-26,1065.0,34.0,05-Nov-26,1350.9,74.2,8,117150*1,157245,rsi_target,final lot booked — RSI 74.2 reached 70
 YESBANK,Buy,03-Nov-26,15.61,22.9,05-Nov-26,16.39,12.1,2,97094*1,24274,first_target,lot 1 booked — 5% target ₹16.39
+POLYCAB,Buy,26-Oct-26,7775.0,26.7,06-Nov-26,7658.38,,9,194375*3,-43734,stop_loss,"1.5% stop ₹7,658.38"
+WIPRO,Sell,02-Nov-26,198.12,73.7,06-Nov-26,201.09,,4,118872*3,-26746,stop_loss,1.5% stop ₹201.09
+POLICYBZR,Buy,04-Nov-26,984.7,28.3,06-Nov-26,969.93,,2,68929*3,-15509,stop_loss,1.5% stop ₹969.93
+SWIGGY,Buy,05-Nov-26,192.8,26.4,06-Nov-26,189.91,,1,74228*3,-16701,stop_loss,1.5% stop ₹189.91

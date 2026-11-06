@@ -582,3 +582,4 @@ M&M,Buy,08-Oct-26,2781.2,20.0,05-Nov-26,3114.94,,20,111248*1,66749,second_target
 BIOCON,Buy,23-Oct-26,327.55,20.4,05-Nov-26,366.86,,9,163775*1,98265,second_target,lot 2 booked — 12% target ₹366.86
 NATIONALUM,Buy,26-Oct-26,313.0,29.8,05-Nov-26,328.65,,8,117375*1,29344,first_target,lot 1 booked — 5% target ₹328.65
 JIOFIN,Buy,26-Oct-26,208.64,28.8,05-Nov-26,229.95,35.3,8,98061*1,50074,second_target,lot 2 booked — SMMA 50 ₹229.95
+POLYCAB,Buy,26-Oct-26,7775.0,26.7,06-Nov-26,7658.38,,9,194375*3,-43734,stop_loss,"1.5% stop ₹7,658.38"
