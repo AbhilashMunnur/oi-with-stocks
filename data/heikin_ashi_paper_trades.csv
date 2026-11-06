@@ -716,3 +716,4 @@ SUPREMEIND,Buy,03-Nov-26,3300.0,27.8,06-Nov-26,3250.5,,3,115500*3,-25988,stop_lo
 POLICYBZR,Buy,05-Nov-26,984.4,20.6,06-Nov-26,969.63,,1,68908*3,-15504,stop_loss,1.5% stop ₹969.63
 SWIGGY,Buy,05-Nov-26,192.8,10.8,06-Nov-26,189.91,,1,74228*3,-16701,stop_loss,1.5% stop ₹189.91
 CROMPTON,Buy,03-Nov-26,201.88,26.3,06-Nov-26,211.97,,3,93874*1,23469,first_target,lot 1 booked — 5% target ₹211.97
+KEI,Buy,03-Nov-26,3933.0,15.6,06-Nov-26,3874.01,,3,137655*3,-30972,stop_loss,"1.5% stop ₹3,874.01"

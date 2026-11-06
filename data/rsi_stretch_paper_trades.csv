@@ -584,3 +584,4 @@ NATIONALUM,Buy,26-Oct-26,313.0,29.8,05-Nov-26,328.65,,8,117375*1,29344,first_tar
 JIOFIN,Buy,26-Oct-26,208.64,28.8,05-Nov-26,229.95,35.3,8,98061*1,50074,second_target,lot 2 booked — SMMA 50 ₹229.95
 POLYCAB,Buy,26-Oct-26,7775.0,26.7,06-Nov-26,7658.38,,9,194375*3,-43734,stop_loss,"1.5% stop ₹7,658.38"
 NHPC,Sell,05-Nov-26,80.85,68.7,06-Nov-26,82.06,,1,112382*3,-25286,stop_loss,1.5% stop ₹82.06
+BHARATFORG,Buy,26-Oct-26,1741.7,27.9,06-Nov-26,1715.57,,9,174170*2,-26126,stop_loss,"1.5% stop ₹1,715.57 (tightened after lot 1 booked)"
