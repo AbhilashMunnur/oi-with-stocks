@@ -725,3 +725,9 @@ ZYDUSLIFE,Sell,04-Nov-26,1211.5,74.1,09-Nov-26,1229.67,,3,109035*3,-24533,stop_l
 ATHERENERG,Sell,06-Nov-26,1788.0,77.3,09-Nov-26,1814.82,,1,134100*3,-30172,stop_loss,"1.5% stop ₹1,814.82"
 MAZDOCK,Buy,03-Nov-26,1779.9,14.8,09-Nov-26,1868.9,,4,80096*1,20024,first_target,"lot 1 booked — 5% target ₹1,868.90"
 PAGEIND,Buy,30-Oct-26,34835.0,24.9,09-Nov-26,36576.75,,6,139340*1,34835,first_target,"lot 1 booked — 5% target ₹36,576.75"
+LT,Buy,16-Oct-26,3684.1,20.8,09-Nov-26,4229.6,72.0,16,128944*1,95463,rsi_target,final lot booked — RSI 72.0 reached 70
+JUBLFOOD,Buy,26-Oct-26,417.5,22.4,09-Nov-26,429.85,36.8,10,104375*1,15438,smma_cross,final lot booked — strong candle closed 428.50 below SMMA 21 ₹442.25
+MANKIND,Buy,26-Oct-26,2351.1,29.1,09-Nov-26,2684.2,70.3,10,117555*1,83275,rsi_target,final lot booked — RSI 70.3 reached 70
+TATASTEEL,Buy,02-Nov-26,179.85,26.8,09-Nov-26,184.19,51.1,5,98918*1,11922,second_target,lot 2 booked — SMMA 50 ₹184.19
+YESBANK,Buy,03-Nov-26,15.61,12.9,09-Nov-26,17.29,13.3,4,97094*1,52248,smma_cross,final lot booked — strong candle closed 17.03 below SMMA 21 ₹18.63
+RECLTD,Buy,05-Nov-26,297.8,28.7,09-Nov-26,303.22,22.0,2,99763*1,9078,first_target,lot 1 booked — SMMA 21 ₹303.22

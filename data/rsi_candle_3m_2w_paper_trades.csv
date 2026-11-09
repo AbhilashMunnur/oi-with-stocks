@@ -700,3 +700,9 @@ ATHERENERG,Sell,04-Nov-26,1780.1,71.8,06-Nov-26,1788.0,73.7,2,133508*3,-8888,sto
 SIEMENS,Buy,26-Oct-26,3295.3,26.9,09-Nov-26,3657.84,,10,115336*1,63444,second_target,"lot 2 booked — SMMA 50 ₹3,657.84"
 PRESTIGE,Sell,05-Nov-26,1615.0,68.0,09-Nov-26,1594.56,,2,145350*1,9197,first_target,"lot 1 booked — SMMA 21 ₹1,594.56"
 COCHINSHIP,Buy,26-Oct-26,1135.0,25.7,09-Nov-26,1271.2,,10,90800*1,54480,second_target,"lot 2 booked — 12% target ₹1,271.20"
+UNIONBANK,Buy,30-Sep-26,172.83,29.7,09-Nov-26,197.0,73.4,28,152955*1,106952,rsi_target,final lot booked — RSI 73.4 reached 70
+ABB,Buy,26-Oct-26,6448.0,28.8,09-Nov-26,6938.83,33.6,10,161200*1,61354,second_target,"lot 2 booked — SMMA 50 ₹6,938.83"
+JUBLFOOD,Buy,26-Oct-26,417.5,28.8,09-Nov-26,429.85,36.8,10,104375*1,15438,smma_cross,final lot booked — strong candle closed 428.50 below SMMA 21 ₹442.25
+DRREDDY,Sell,29-Oct-26,1347.1,73.4,09-Nov-26,1392.0,77.6,7,168388*3,-84188,stop_loss,"candle stop — cash closed 1,385.00 above the entry-candle stop ₹1,374.04"
+SONACOMS,Sell,02-Nov-26,903.45,69.6,09-Nov-26,924.9,82.4,5,221345*3,-78829,stop_loss,candle stop — cash closed 924.00 above the entry-candle stop ₹921.52
+YESBANK,Buy,03-Nov-26,15.61,22.9,09-Nov-26,17.29,13.3,4,97094*1,52248,smma_cross,final lot booked — strong candle closed 17.03 below SMMA 21 ₹18.63
