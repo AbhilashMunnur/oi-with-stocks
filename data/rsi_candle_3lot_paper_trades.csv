@@ -964,3 +964,4 @@ SIEMENS,Buy,26-Oct-26,3295.3,26.9,09-Nov-26,3657.61,,10,115336*1,63404,second_ta
 IOC,Sell,05-Nov-26,146.48,70.4,09-Nov-26,148.68,,2,142818*3,-32134,stop_loss,1.5% stop ₹148.68
 PRESTIGE,Sell,05-Nov-26,1615.0,68.0,09-Nov-26,1594.6,,2,145350*1,9178,first_target,"lot 1 booked — SMMA 21 ₹1,594.60"
 ATHERENERG,Sell,04-Nov-26,1780.1,71.8,09-Nov-26,1806.8,,3,133508*3,-30039,stop_loss,"1.5% stop ₹1,806.80"
+HYUNDAI,Sell,06-Nov-26,2098.0,62.1,09-Nov-26,2097.77,,1,115390*1,63,first_target,"lot 1 booked — SMMA 21 ₹2,097.77"
