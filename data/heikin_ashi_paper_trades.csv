@@ -723,3 +723,4 @@ SBILIFE,Buy,26-Oct-26,1658.6,27.7,06-Nov-26,1752.13,32.1,9,124395*1,35073,second
 TATASTEEL,Buy,02-Nov-26,179.85,26.8,09-Nov-26,188.84,,5,98918*1,24729,first_target,lot 1 booked — 5% target ₹188.84
 ZYDUSLIFE,Sell,04-Nov-26,1211.5,74.1,09-Nov-26,1229.67,,3,109035*3,-24533,stop_loss,"1.5% stop ₹1,229.67"
 ATHERENERG,Sell,06-Nov-26,1788.0,77.3,09-Nov-26,1814.82,,1,134100*3,-30172,stop_loss,"1.5% stop ₹1,814.82"
+MAZDOCK,Buy,03-Nov-26,1779.9,14.8,09-Nov-26,1868.9,,4,80096*1,20024,first_target,"lot 1 booked — 5% target ₹1,868.90"
