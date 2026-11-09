@@ -587,3 +587,6 @@ NHPC,Sell,05-Nov-26,80.85,68.7,06-Nov-26,82.06,,1,112382*3,-25286,stop_loss,1.5%
 BHARATFORG,Buy,26-Oct-26,1741.7,27.9,06-Nov-26,1715.57,,9,174170*2,-26126,stop_loss,"1.5% stop ₹1,715.57 (tightened after lot 1 booked)"
 ICICIGI,Sell,15-Oct-26,1702.9,67.0,06-Nov-26,1664.2,38.2,16,110688*1,12578,smma_cross,"final lot booked — strong candle closed 1,649.00 above SMMA 21 ₹1,601.24"
 HINDPETRO,Sell,05-Nov-26,384.4,69.4,06-Nov-26,390.17,55.4,1,155682*3,-35028,stop_loss,1.5% stop ₹390.17
+SIEMENS,Buy,26-Oct-26,3295.3,26.9,09-Nov-26,3657.61,,10,115336*1,63404,second_target,"lot 2 booked — SMMA 50 ₹3,657.61"
+IOC,Sell,05-Nov-26,146.48,70.4,09-Nov-26,148.68,,2,142818*3,-32134,stop_loss,1.5% stop ₹148.68
+PRESTIGE,Sell,05-Nov-26,1615.0,68.0,09-Nov-26,1594.6,,2,145350*1,9178,first_target,"lot 1 booked — SMMA 21 ₹1,594.60"

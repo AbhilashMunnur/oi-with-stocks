@@ -960,3 +960,6 @@ BHARATFORG,Buy,23-Oct-26,1728.6,29.2,06-Nov-26,1702.67,,10,172860*2,-25929,stop_
 YESBANK,Buy,03-Nov-26,15.61,22.9,06-Nov-26,17.48,,3,97094*1,58257,second_target,lot 2 booked — 12% target ₹17.48
 TATASTEEL,Buy,23-Oct-26,168.5,31.7,06-Nov-26,184.02,51.9,10,92675*1,42667,second_target,lot 2 booked — SMMA 50 ₹184.02
 HINDPETRO,Sell,05-Nov-26,384.4,69.4,06-Nov-26,390.17,55.4,1,155682*3,-35028,stop_loss,1.5% stop ₹390.17
+SIEMENS,Buy,26-Oct-26,3295.3,26.9,09-Nov-26,3657.61,,10,115336*1,63404,second_target,"lot 2 booked — SMMA 50 ₹3,657.61"
+IOC,Sell,05-Nov-26,146.48,70.4,09-Nov-26,148.68,,2,142818*3,-32134,stop_loss,1.5% stop ₹148.68
+PRESTIGE,Sell,05-Nov-26,1615.0,68.0,09-Nov-26,1594.6,,2,145350*1,9178,first_target,"lot 1 booked — SMMA 21 ₹1,594.60"

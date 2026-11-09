@@ -697,3 +697,5 @@ ICICIGI,Sell,15-Oct-26,1702.9,67.0,06-Nov-26,1664.2,38.2,16,110688*1,12578,smma_
 HINDALCO,Buy,23-Oct-26,880.0,34.3,06-Nov-26,960.66,41.2,10,123200*1,56463,second_target,lot 2 booked — SMMA 50 ₹960.66
 TATASTEEL,Buy,23-Oct-26,168.5,31.7,06-Nov-26,184.02,51.9,10,92675*1,42667,second_target,lot 2 booked — SMMA 50 ₹184.02
 ATHERENERG,Sell,04-Nov-26,1780.1,71.8,06-Nov-26,1788.0,73.7,2,133508*3,-8888,stop_loss,"candle stop — cash closed 1,821.70 above the entry-candle stop ₹1,815.70"
+SIEMENS,Buy,26-Oct-26,3295.3,26.9,09-Nov-26,3657.84,,10,115336*1,63444,second_target,"lot 2 booked — SMMA 50 ₹3,657.84"
+PRESTIGE,Sell,05-Nov-26,1615.0,68.0,09-Nov-26,1594.56,,2,145350*1,9197,first_target,"lot 1 booked — SMMA 21 ₹1,594.56"
