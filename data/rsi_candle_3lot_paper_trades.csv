@@ -979,3 +979,6 @@ SHREECEM,Sell,09-Nov-26,24660.0,72.0,11-Nov-26,25029.9,,2,123300*3,-27742,stop_l
 SUZLON,Buy,02-Nov-26,35.7,25.5,11-Nov-26,39.98,,7,90678*1,54407,second_target,lot 2 booked — 12% target ₹39.98
 PHOENIXLTD,Sell,06-Nov-26,2134.0,72.3,11-Nov-26,2166.01,,3,149380*3,-33610,stop_loss,"1.5% stop ₹2,166.01"
 SBICARD,Buy,28-Oct-26,532.0,30.0,11-Nov-26,595.84,,10,85120*1,51072,second_target,lot 2 booked — 12% target ₹595.84
+MFSL,Buy,04-Nov-26,1268.0,28.6,11-Nov-26,1331.4,,5,101440*1,25360,first_target,"lot 1 booked — 5% target ₹1,331.40"
+HYUNDAI,Sell,06-Nov-26,2098.0,62.1,11-Nov-26,2129.47,,3,115390*2,-17308,stop_loss,"1.5% stop ₹2,129.47 (tightened after lot 1 booked)"
+ATHERENERG,Sell,09-Nov-26,1828.7,69.2,11-Nov-26,1856.13,,2,137152*3,-30859,stop_loss,"1.5% stop ₹1,856.13"
