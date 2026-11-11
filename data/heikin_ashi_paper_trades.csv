@@ -737,3 +737,7 @@ BHARTIARTL,Sell,09-Nov-26,2096.3,84.8,11-Nov-26,2127.74,,2,199149*3,-44808,stop_
 TMPV,Buy,29-Oct-26,269.7,25.3,11-Nov-26,302.06,,9,86304*1,51782,second_target,lot 2 booked — 12% target ₹302.06
 CROMPTON,Buy,03-Nov-26,201.88,26.3,11-Nov-26,226.11,,6,93874*1,56325,second_target,lot 2 booked — 12% target ₹226.11
 MFSL,Buy,04-Nov-26,1268.0,18.7,11-Nov-26,1331.4,,5,101440*1,25360,first_target,"lot 1 booked — 5% target ₹1,331.40"
+MPHASIS,Buy,01-Oct-26,2208.5,27.6,11-Nov-26,2405.5,48.8,29,121468*1,54175,smma_cross,"final lot booked — strong candle closed 2,390.00 below SMMA 21 ₹2,441.80"
+BANDHANBNK,Buy,28-Oct-26,157.08,28.6,11-Nov-26,172.39,43.6,10,113098*1,55113,second_target,lot 2 booked — SMMA 50 ₹172.39
+HINDUNILVR,Buy,28-Oct-26,1812.6,27.9,11-Nov-26,1996.21,38.9,10,108756*1,55084,second_target,"lot 2 booked — SMMA 50 ₹1,996.21"
+PAGEIND,Buy,30-Oct-26,34835.0,24.9,11-Nov-26,36657.64,39.7,8,139340*1,36453,second_target,"lot 2 booked — SMMA 50 ₹36,657.64"

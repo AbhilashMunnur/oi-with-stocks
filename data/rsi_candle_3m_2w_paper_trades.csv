@@ -714,3 +714,8 @@ WAAREEENER,Buy,28-Oct-26,2261.9,34.5,11-Nov-26,2533.33,,10,79166*1,47500,second_
 BDL,Buy,02-Nov-26,999.9,28.7,11-Nov-26,1119.89,,7,84992*1,50995,second_target,"lot 2 booked — 12% target ₹1,119.89"
 SUZLON,Buy,02-Nov-26,35.7,25.5,11-Nov-26,39.98,,7,90678*1,54407,second_target,lot 2 booked — 12% target ₹39.98
 MFSL,Buy,04-Nov-26,1268.0,28.6,11-Nov-26,1331.4,,5,101440*1,25360,first_target,"lot 1 booked — 5% target ₹1,331.40"
+PAGEIND,Buy,26-Oct-26,33815.0,30.5,11-Nov-26,36657.64,39.7,12,135260*1,56853,second_target,"lot 2 booked — SMMA 50 ₹36,657.64"
+KALYANKJIL,Buy,28-Oct-26,515.7,29.9,11-Nov-26,671.0,74.2,10,139239*1,209655,rsi_target,final lot booked — RSI 74.2 reached 70
+SUZLON,Buy,02-Nov-26,35.7,25.5,11-Nov-26,39.32,19.0,7,90678*1,45974,smma_cross,final lot booked — strong candle closed 38.88 below SMMA 21 ₹39.92
+HINDPETRO,Sell,05-Nov-26,384.4,69.4,11-Nov-26,404.0,61.5,4,155682*3,-119070,stop_loss,candle stop — cash closed 400.15 above the entry-candle stop ₹392.09
+UNOMINDA,Sell,06-Nov-26,1328.3,77.0,11-Nov-26,1392.0,77.8,3,146113*3,-105105,stop_loss,"candle stop — cash closed 1,373.00 above the entry-candle stop ₹1,354.87"
