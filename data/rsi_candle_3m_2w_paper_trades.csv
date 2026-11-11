@@ -706,3 +706,9 @@ JUBLFOOD,Buy,26-Oct-26,417.5,28.8,09-Nov-26,429.85,36.8,10,104375*1,15438,smma_c
 DRREDDY,Sell,29-Oct-26,1347.1,73.4,09-Nov-26,1392.0,77.6,7,168388*3,-84188,stop_loss,"candle stop — cash closed 1,385.00 above the entry-candle stop ₹1,374.04"
 SONACOMS,Sell,02-Nov-26,903.45,69.6,09-Nov-26,924.9,82.4,5,221345*3,-78829,stop_loss,candle stop — cash closed 924.00 above the entry-candle stop ₹921.52
 YESBANK,Buy,03-Nov-26,15.61,22.9,09-Nov-26,17.29,13.3,4,97094*1,52248,smma_cross,final lot booked — strong candle closed 17.03 below SMMA 21 ₹18.63
+TMPV,Buy,23-Oct-26,267.2,31.1,11-Nov-26,299.26,,13,85504*1,51302,second_target,lot 2 booked — 12% target ₹299.26
+IDFCFIRSTB,Buy,26-Oct-26,72.5,24.3,11-Nov-26,78.73,,12,134488*1,57813,second_target,lot 2 booked — SMMA 50 ₹78.73
+RVNL,Buy,26-Oct-26,182.92,33.5,11-Nov-26,204.87,,12,70424*1,42255,second_target,lot 2 booked — 12% target ₹204.87
+SBICARD,Buy,28-Oct-26,532.0,30.0,11-Nov-26,595.84,,10,85120*1,51072,second_target,lot 2 booked — 12% target ₹595.84
+WAAREEENER,Buy,28-Oct-26,2261.9,34.5,11-Nov-26,2533.33,,10,79166*1,47500,second_target,"lot 2 booked — 12% target ₹2,533.33"
+BDL,Buy,02-Nov-26,999.9,28.7,11-Nov-26,1119.89,,7,84992*1,50995,second_target,"lot 2 booked — 12% target ₹1,119.89"
