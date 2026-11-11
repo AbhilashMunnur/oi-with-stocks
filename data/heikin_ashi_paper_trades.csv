@@ -732,3 +732,5 @@ TATASTEEL,Buy,02-Nov-26,179.85,26.8,09-Nov-26,184.19,51.1,5,98918*1,11922,second
 YESBANK,Buy,03-Nov-26,15.61,12.9,09-Nov-26,17.29,13.3,4,97094*1,52248,smma_cross,final lot booked — strong candle closed 17.03 below SMMA 21 ₹18.63
 RECLTD,Buy,05-Nov-26,297.8,28.7,09-Nov-26,303.22,22.0,2,99763*1,9078,first_target,lot 1 booked — SMMA 21 ₹303.22
 ICICILIFE,Buy,04-Nov-26,428.0,20.9,11-Nov-26,445.43,,5,94160*1,19171,first_target,lot 1 booked — SMMA 21 ₹445.43
+COLPAL,Buy,03-Nov-26,1647.6,20.8,11-Nov-26,1729.98,,6,90618*1,22655,first_target,"lot 1 booked — 5% target ₹1,729.98"
+BHARTIARTL,Sell,09-Nov-26,2096.3,84.8,11-Nov-26,2127.74,,2,199149*3,-44808,stop_loss,"1.5% stop ₹2,127.74"
