@@ -719,3 +719,4 @@ KALYANKJIL,Buy,28-Oct-26,515.7,29.9,11-Nov-26,671.0,74.2,10,139239*1,209655,rsi_
 SUZLON,Buy,02-Nov-26,35.7,25.5,11-Nov-26,39.32,19.0,7,90678*1,45974,smma_cross,final lot booked — strong candle closed 38.88 below SMMA 21 ₹39.92
 HINDPETRO,Sell,05-Nov-26,384.4,69.4,11-Nov-26,404.0,61.5,4,155682*3,-119070,stop_loss,candle stop — cash closed 400.15 above the entry-candle stop ₹392.09
 UNOMINDA,Sell,06-Nov-26,1328.3,77.0,11-Nov-26,1392.0,77.8,3,146113*3,-105105,stop_loss,"candle stop — cash closed 1,373.00 above the entry-candle stop ₹1,354.87"
+ICICILIFE,Buy,29-Oct-26,412.1,26.1,12-Nov-26,461.55,,10,76238*1,45743,second_target,lot 2 booked — 12% target ₹461.55

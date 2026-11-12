@@ -604,3 +604,6 @@ TATASTEEL,Sell,09-Nov-26,187.6,63.1,11-Nov-26,190.41,,2,103180*3,-23215,stop_los
 SBICARD,Buy,28-Oct-26,532.0,30.0,11-Nov-26,595.84,,10,85120*1,51072,second_target,lot 2 booked — 12% target ₹595.84
 HYUNDAI,Sell,06-Nov-26,2098.0,62.1,11-Nov-26,2129.47,,3,115390*2,-17308,stop_loss,"1.5% stop ₹2,129.47 (tightened after lot 1 booked)"
 ATHERENERG,Sell,09-Nov-26,1828.7,69.2,11-Nov-26,1856.13,,2,137152*3,-30859,stop_loss,"1.5% stop ₹1,856.13"
+MFSL,Buy,02-Nov-26,1196.7,28.7,12-Nov-26,1340.3,,8,95736*1,57442,second_target,"lot 2 booked — 12% target ₹1,340.30"
+MOTILALOFS,Sell,11-Nov-26,1166.0,69.7,12-Nov-26,1183.49,,1,180730*3,-40664,stop_loss,"1.5% stop ₹1,183.49"
+PETRONET,Sell,11-Nov-26,327.0,73.1,12-Nov-26,331.9,,1,124260*3,-27958,stop_loss,1.5% stop ₹331.90
