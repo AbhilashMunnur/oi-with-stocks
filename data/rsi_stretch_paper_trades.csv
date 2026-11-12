@@ -607,3 +607,6 @@ ATHERENERG,Sell,09-Nov-26,1828.7,69.2,11-Nov-26,1856.13,,2,137152*3,-30859,stop_
 MFSL,Buy,02-Nov-26,1196.7,28.7,12-Nov-26,1340.3,,8,95736*1,57442,second_target,"lot 2 booked — 12% target ₹1,340.30"
 MOTILALOFS,Sell,11-Nov-26,1166.0,69.7,12-Nov-26,1183.49,,1,180730*3,-40664,stop_loss,"1.5% stop ₹1,183.49"
 PETRONET,Sell,11-Nov-26,327.0,73.1,12-Nov-26,331.9,,1,124260*3,-27958,stop_loss,1.5% stop ₹331.90
+PRESTIGE,Sell,05-Nov-26,1615.0,68.0,12-Nov-26,1639.22,,5,145350*2,-21802,stop_loss,"1.5% stop ₹1,639.22 (tightened after lot 1 booked)"
+DLF,Sell,11-Nov-26,747.45,73.9,12-Nov-26,758.66,,1,142016*3,-31953,stop_loss,1.5% stop ₹758.66
+ETERNAL,Sell,11-Nov-26,366.0,69.8,12-Nov-26,371.49,,1,177510*3,-39940,stop_loss,1.5% stop ₹371.49
