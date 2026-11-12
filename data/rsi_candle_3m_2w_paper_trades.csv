@@ -727,3 +727,11 @@ NHPC,Sell,05-Nov-26,80.85,68.7,12-Nov-26,77.84,,5,112382*1,20934,first_target,lo
 NHPC,Sell,05-Nov-26,80.85,68.7,12-Nov-26,78.15,,5,112382*1,18788,second_target,lot 2 booked — SMMA 50 ₹78.15
 AUBANK,Buy,26-Oct-26,879.5,24.8,12-Nov-26,985.04,,13,175900*1,105540,second_target,lot 2 booked — 12% target ₹985.04
 NATIONALUM,Buy,23-Oct-26,299.6,29.1,12-Nov-26,335.55,,14,112350*1,67410,second_target,lot 2 booked — 12% target ₹335.55
+PAGEIND,Buy,26-Oct-26,33815.0,30.5,12-Nov-26,31380.0,18.8,13,135260*1,-48700,smma_cross,"final lot booked — strong candle closed 31,850.00 below SMMA 21 ₹35,738.36"
+POLICYBZR,Buy,03-Nov-26,942.8,28.5,12-Nov-26,1055.94,19.0,7,65996*1,39598,second_target,"lot 2 booked — 12% target ₹1,055.94"
+PRESTIGE,Sell,05-Nov-26,1615.0,68.0,12-Nov-26,1676.9,60.9,5,145350*2,-55710,stop_loss,"candle stop — cash closed 1,693.90 above the entry-candle stop ₹1,647.30"
+PHOENIXLTD,Sell,06-Nov-26,2134.0,72.3,12-Nov-26,2250.0,76.8,4,149380*3,-121800,stop_loss,"candle stop — cash closed 2,292.00 above the entry-candle stop ₹2,176.68"
+ATHERENERG,Sell,09-Nov-26,1828.7,69.2,12-Nov-26,1894.0,77.5,3,137152*3,-73462,stop_loss,"candle stop — cash closed 1,923.00 above the entry-candle stop ₹1,871.80"
+DLF,Sell,11-Nov-26,747.45,73.9,12-Nov-26,776.9,79.8,1,142016*3,-83932,stop_loss,candle stop — cash closed 769.30 above the entry-candle stop ₹762.40
+MOTILALOFS,Sell,11-Nov-26,1166.0,69.7,12-Nov-26,1225.0,86.1,1,180730*3,-137175,stop_loss,"candle stop — cash closed 1,216.80 above the entry-candle stop ₹1,191.95"
+PETRONET,Sell,11-Nov-26,327.0,73.1,12-Nov-26,333.75,85.0,1,124260*3,-38475,stop_loss,candle stop — cash closed 335.00 above the entry-candle stop ₹333.54

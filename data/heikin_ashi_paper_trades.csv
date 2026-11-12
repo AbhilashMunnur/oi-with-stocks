@@ -746,3 +746,5 @@ PRESTIGE,Sell,09-Nov-26,1571.4,73.8,12-Nov-26,1594.97,,3,141426*3,-31821,stop_lo
 NHPC,Sell,09-Nov-26,80.0,74.4,12-Nov-26,77.84,,3,111200*1,15027,first_target,lot 1 booked — SMMA 21 ₹77.84
 NHPC,Sell,09-Nov-26,80.0,74.4,12-Nov-26,78.15,,3,111200*1,12881,second_target,lot 2 booked — SMMA 50 ₹78.15
 UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,12-Nov-26,62.31,,7,91760*1,39660,second_target,lot 2 booked — SMMA 50 ₹62.31
+PAGEIND,Buy,30-Oct-26,34835.0,24.9,12-Nov-26,31380.0,18.8,9,139340*1,-69100,smma_cross,"final lot booked — strong candle closed 31,850.00 below SMMA 21 ₹35,738.36"
+SUPREMEIND,Buy,09-Nov-26,3316.4,27.8,12-Nov-26,3386.24,41.3,3,116074*1,12222,first_target,"lot 1 booked — SMMA 21 ₹3,386.24"
