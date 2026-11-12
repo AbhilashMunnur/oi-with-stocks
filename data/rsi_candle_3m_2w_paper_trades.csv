@@ -723,3 +723,5 @@ ICICILIFE,Buy,29-Oct-26,412.1,26.1,12-Nov-26,461.55,,10,76238*1,45743,second_tar
 KEI,Buy,26-Oct-26,3897.5,20.4,12-Nov-26,4092.38,,13,136412*1,34103,first_target,"lot 1 booked — 5% target ₹4,092.38"
 POLYCAB,Buy,26-Oct-26,7775.0,26.7,12-Nov-26,8163.75,,13,194375*1,48594,first_target,"lot 1 booked — 5% target ₹8,163.75"
 CUMMINSIND,Buy,06-Nov-26,4139.3,34.6,12-Nov-26,4346.27,,4,82786*1,20697,first_target,"lot 1 booked — 5% target ₹4,346.27"
+NHPC,Sell,05-Nov-26,80.85,68.7,12-Nov-26,77.84,,5,112382*1,20934,first_target,lot 1 booked — SMMA 21 ₹77.84
+NHPC,Sell,05-Nov-26,80.85,68.7,12-Nov-26,78.15,,5,112382*1,18788,second_target,lot 2 booked — SMMA 50 ₹78.15
