@@ -748,3 +748,6 @@ NHPC,Sell,09-Nov-26,80.0,74.4,12-Nov-26,78.15,,3,111200*1,12881,second_target,lo
 UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,12-Nov-26,62.31,,7,91760*1,39660,second_target,lot 2 booked — SMMA 50 ₹62.31
 PAGEIND,Buy,30-Oct-26,34835.0,24.9,12-Nov-26,31380.0,18.8,9,139340*1,-69100,smma_cross,"final lot booked — strong candle closed 31,850.00 below SMMA 21 ₹35,738.36"
 SUPREMEIND,Buy,09-Nov-26,3316.4,27.8,12-Nov-26,3386.24,41.3,3,116074*1,12222,first_target,"lot 1 booked — SMMA 21 ₹3,386.24"
+AUROPHARMA,Sell,12-Nov-26,1821.7,78.1,13-Nov-26,1849.03,,1,200387*3,-45087,stop_loss,"1.5% stop ₹1,849.03"
+BPCL,Sell,12-Nov-26,315.85,70.2,13-Nov-26,313.21,,1,124761*1,5224,first_target,lot 1 booked — SMMA 21 ₹313.21
+BPCL,Sell,12-Nov-26,315.85,70.2,13-Nov-26,314.39,,1,124761*1,2878,second_target,lot 2 booked — SMMA 50 ₹314.39
