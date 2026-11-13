@@ -754,3 +754,11 @@ BPCL,Sell,12-Nov-26,315.85,70.2,13-Nov-26,314.39,,1,124761*1,2878,second_target,
 INDHOTEL,Sell,12-Nov-26,894.35,88.8,13-Nov-26,907.77,,1,178870*3,-40246,stop_loss,1.5% stop ₹907.77
 VOLTAS,Buy,28-Oct-26,1024.1,14.4,13-Nov-26,1146.99,,12,76808*1,46085,second_target,"lot 2 booked — 12% target ₹1,146.99"
 BRITANNIA,Buy,11-Nov-26,4890.0,20.7,13-Nov-26,4816.65,,2,122250*3,-27506,stop_loss,"1.5% stop ₹4,816.65"
+GRASIM,Buy,12-Oct-26,2891.0,23.4,13-Nov-26,3048.0,37.6,24,144550*1,39250,smma_cross,"final lot booked — strong candle closed 3,034.00 below SMMA 21 ₹3,069.74"
+ALKEM,Buy,26-Oct-26,5057.0,26.8,13-Nov-26,5159.0,31.3,14,126425*1,12750,smma_cross,"final lot booked — strong candle closed 5,114.00 below SMMA 21 ₹5,227.87"
+TMPV,Buy,29-Oct-26,269.7,25.3,13-Nov-26,290.65,22.1,11,86304*1,33520,smma_cross,final lot booked — strong candle closed 287.40 below SMMA 21 ₹288.84
+PIDILITIND,Buy,30-Oct-26,1469.9,21.7,13-Nov-26,1545.3,35.4,10,146990*1,37700,smma_cross,"final lot booked — strong candle closed 1,525.70 below SMMA 21 ₹1,528.01"
+SBICARD,Buy,30-Oct-26,534.0,19.9,13-Nov-26,578.6,33.9,10,85440*1,35680,smma_cross,final lot booked — strong candle closed 578.30 below SMMA 21 ₹579.12
+CROMPTON,Buy,03-Nov-26,201.88,26.3,13-Nov-26,215.42,24.6,8,93874*1,31480,smma_cross,final lot booked — strong candle closed 211.38 below SMMA 21 ₹213.57
+UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,13-Nov-26,61.14,53.0,8,91760*1,30320,smma_cross,final lot booked — strong candle closed 60.60 below SMMA 21 ₹61.19
+MFSL,Buy,04-Nov-26,1268.0,18.7,13-Nov-26,1420.16,33.5,7,101440*1,60864,second_target,"lot 2 booked — 12% target ₹1,420.16"

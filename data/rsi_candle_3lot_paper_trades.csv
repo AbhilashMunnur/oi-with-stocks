@@ -998,3 +998,11 @@ ENRIN,Buy,26-Oct-26,2780.6,23.9,13-Nov-26,3114.27,,14,97321*1,58393,second_targe
 ANGELONE,Sell,11-Nov-26,340.65,70.2,13-Nov-26,345.76,,2,170325*3,-38323,stop_loss,1.5% stop ₹345.76
 AMBER,Buy,26-Oct-26,5950.0,28.0,13-Nov-26,6664.0,,14,119000*1,71400,second_target,"lot 2 booked — 12% target ₹6,664.00"
 DRREDDY,Sell,05-Nov-26,1376.7,75.8,13-Nov-26,1397.35,,6,172088*3,-38720,stop_loss,"1.5% stop ₹1,397.35"
+GRASIM,Buy,08-Oct-26,2902.0,26.6,13-Nov-26,3048.0,37.6,26,145100*1,36500,smma_cross,"final lot booked — strong candle closed 3,034.00 below SMMA 21 ₹3,069.74"
+BIOCON,Buy,23-Oct-26,327.55,20.4,13-Nov-26,368.95,23.2,15,163775*1,103500,smma_cross,final lot booked — strong candle closed 364.05 below SMMA 21 ₹364.41
+COCHINSHIP,Buy,28-Oct-26,1126.9,24.2,13-Nov-26,1171.0,24.0,12,90152*1,17640,smma_cross,"final lot booked — strong candle closed 1,178.00 below SMMA 21 ₹1,255.41"
+MANAPPURAM,Buy,28-Oct-26,293.0,36.6,13-Nov-26,309.1,33.6,12,175800*1,48300,smma_cross,final lot booked — strong candle closed 308.00 below SMMA 21 ₹315.65
+SBICARD,Buy,28-Oct-26,532.0,30.0,13-Nov-26,578.6,33.9,12,85120*1,37280,smma_cross,final lot booked — strong candle closed 578.30 below SMMA 21 ₹579.12
+TMPV,Buy,28-Oct-26,266.75,27.9,13-Nov-26,290.65,22.1,12,85360*1,38240,smma_cross,final lot booked — strong candle closed 287.40 below SMMA 21 ₹288.84
+PIDILITIND,Buy,29-Oct-26,1442.0,26.8,13-Nov-26,1545.3,35.4,11,144200*1,51650,smma_cross,"final lot booked — strong candle closed 1,525.70 below SMMA 21 ₹1,528.01"
+MFSL,Buy,04-Nov-26,1268.0,28.6,13-Nov-26,1420.16,33.5,7,101440*1,60864,second_target,"lot 2 booked — 12% target ₹1,420.16"
