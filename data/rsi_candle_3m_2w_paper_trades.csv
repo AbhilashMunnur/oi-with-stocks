@@ -737,3 +737,4 @@ MOTILALOFS,Sell,11-Nov-26,1166.0,69.7,12-Nov-26,1225.0,86.1,1,180730*3,-137175,s
 PETRONET,Sell,11-Nov-26,327.0,73.1,12-Nov-26,333.75,85.0,1,124260*3,-38475,stop_loss,candle stop — cash closed 335.00 above the entry-candle stop ₹333.54
 POWERINDIA,Buy,23-Oct-26,26625.0,27.6,13-Nov-26,29820.0,,15,133125*1,79875,second_target,"lot 2 booked — 12% target ₹29,820.00"
 ENRIN,Buy,26-Oct-26,2780.6,23.9,13-Nov-26,3114.27,,14,97321*1,58393,second_target,"lot 2 booked — 12% target ₹3,114.27"
+AMBER,Buy,26-Oct-26,5950.0,28.0,13-Nov-26,6664.0,,14,119000*1,71400,second_target,"lot 2 booked — 12% target ₹6,664.00"
