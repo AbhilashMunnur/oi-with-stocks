@@ -764,3 +764,6 @@ UJJIVANSFB,Buy,03-Nov-26,57.35,22.6,13-Nov-26,61.14,53.0,8,91760*1,30320,smma_cr
 MFSL,Buy,04-Nov-26,1268.0,18.7,13-Nov-26,1420.16,33.5,7,101440*1,60864,second_target,"lot 2 booked — 12% target ₹1,420.16"
 ASTRAL,Buy,12-Nov-26,1290.0,28.8,16-Nov-26,1270.65,,2,109650*3,-24671,stop_loss,"1.5% stop ₹1,270.65"
 TIINDIA,Buy,11-Nov-26,2300.5,25.1,16-Nov-26,2265.99,,3,92020*3,-20705,stop_loss,"1.5% stop ₹2,265.99"
+PNBHOUSING,Sell,15-Oct-26,1197.0,70.1,16-Nov-26,1145.5,58.5,22,155610*1,33475,smma_cross,"final lot booked — strong candle closed 1,135.90 above SMMA 21 ₹1,119.87"
+VEDL,Buy,28-Oct-26,235.4,22.8,16-Nov-26,254.63,39.5,13,54142*1,22114,smma_cross,final lot booked — strong candle closed 253.00 below SMMA 21 ₹254.95
+RADICO,Buy,03-Nov-26,4306.0,28.8,16-Nov-26,4748.3,70.2,9,129180*2,132690,rsi_target,final lot booked — RSI 70.2 reached 70

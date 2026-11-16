@@ -752,3 +752,13 @@ MAXHEALTH,Buy,28-Oct-26,865.7,40.9,16-Nov-26,969.58,,13,90898*1,54539,second_tar
 BOSCHLTD,Sell,05-Nov-26,52050.0,72.4,16-Nov-26,49447.5,,7,156150*1,39038,first_target,"lot 1 booked — 5% target ₹49,447.50"
 PATANJALI,Sell,11-Nov-26,432.5,75.1,16-Nov-26,410.88,,3,125425*1,31356,first_target,lot 1 booked — 5% target ₹410.88
 PATANJALI,Sell,11-Nov-26,432.5,75.1,16-Nov-26,410.15,,3,125425*1,32402,second_target,lot 2 booked — SMMA 50 ₹410.15
+HINDALCO,Buy,23-Oct-26,880.0,34.3,16-Nov-26,934.15,36.6,16,123200*1,37905,smma_cross,final lot booked — strong candle closed 923.30 below SMMA 21 ₹937.99
+NATIONALUM,Buy,23-Oct-26,299.6,29.1,16-Nov-26,320.9,35.1,16,112350*1,39937,smma_cross,final lot booked — strong candle closed 318.95 below SMMA 21 ₹332.10
+AMBER,Buy,26-Oct-26,5950.0,28.0,16-Nov-26,6208.0,22.7,15,119000*1,25800,smma_cross,"final lot booked — strong candle closed 6,252.00 below SMMA 21 ₹6,539.96"
+PGEL,Buy,26-Oct-26,480.4,29.5,16-Nov-26,541.75,31.7,15,91276*1,58283,smma_cross,final lot booked — strong candle closed 532.40 below SMMA 21 ₹536.40
+RVNL,Buy,26-Oct-26,182.92,33.5,16-Nov-26,195.7,22.5,15,70424*1,24602,smma_cross,final lot booked — strong candle closed 194.36 below SMMA 21 ₹197.76
+SIEMENS,Buy,26-Oct-26,3295.3,26.9,16-Nov-26,3590.0,37.4,15,115336*1,51572,smma_cross,"final lot booked — strong candle closed 3,580.90 below SMMA 21 ₹3,616.75"
+VEDL,Buy,26-Oct-26,230.55,28.8,16-Nov-26,254.63,39.5,15,53026*1,27692,smma_cross,final lot booked — strong candle closed 253.00 below SMMA 21 ₹254.95
+WAAREEENER,Buy,28-Oct-26,2261.9,34.5,16-Nov-26,2436.4,23.7,13,79166*1,30538,smma_cross,"final lot booked — strong candle closed 2,441.00 below SMMA 21 ₹2,454.69"
+POLICYBZR,Buy,03-Nov-26,942.8,28.5,16-Nov-26,1094.3,19.6,9,65996*1,53025,smma_cross,"final lot booked — strong candle closed 1,081.20 below SMMA 21 ₹1,145.71"
+PIIND,Buy,11-Nov-26,1774.0,25.3,16-Nov-26,1684.8,11.6,3,79830*3,-60210,stop_loss,"candle stop — cash closed 1,680.00 below the entry-candle stop ₹1,699.40"
