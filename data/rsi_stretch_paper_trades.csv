@@ -621,3 +621,6 @@ BIOCON,Buy,23-Oct-26,327.55,20.4,13-Nov-26,368.95,23.2,15,163775*1,103500,smma_c
 COCHINSHIP,Buy,28-Oct-26,1126.9,24.2,13-Nov-26,1171.0,24.0,12,90152*1,17640,smma_cross,"final lot booked — strong candle closed 1,178.00 below SMMA 21 ₹1,255.41"
 SBICARD,Buy,28-Oct-26,532.0,30.0,13-Nov-26,578.6,33.9,12,85120*1,37280,smma_cross,final lot booked — strong candle closed 578.30 below SMMA 21 ₹579.12
 PIDILITIND,Buy,29-Oct-26,1442.0,26.8,13-Nov-26,1545.3,35.4,11,144200*1,51650,smma_cross,"final lot booked — strong candle closed 1,525.70 below SMMA 21 ₹1,528.01"
+BOSCHLTD,Sell,05-Nov-26,52050.0,72.4,16-Nov-26,49447.5,,7,156150*1,39038,first_target,"lot 1 booked — 5% target ₹49,447.50"
+PATANJALI,Sell,11-Nov-26,432.5,75.1,16-Nov-26,410.88,,3,125425*1,31356,first_target,lot 1 booked — 5% target ₹410.88
+PATANJALI,Sell,11-Nov-26,432.5,75.1,16-Nov-26,410.15,,3,125425*1,32402,second_target,lot 2 booked — SMMA 50 ₹410.15
