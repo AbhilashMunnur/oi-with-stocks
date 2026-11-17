@@ -1016,3 +1016,5 @@ RVNL,Buy,26-Oct-26,182.92,33.5,16-Nov-26,195.7,22.5,15,70424*1,24602,smma_cross,
 SIEMENS,Buy,26-Oct-26,3295.3,26.9,16-Nov-26,3590.0,37.4,15,115336*1,51572,smma_cross,"final lot booked — strong candle closed 3,580.90 below SMMA 21 ₹3,616.75"
 VEDL,Buy,26-Oct-26,230.55,28.8,16-Nov-26,254.63,39.5,15,53026*1,27692,smma_cross,final lot booked — strong candle closed 253.00 below SMMA 21 ₹254.95
 WAAREEENER,Buy,28-Oct-26,2261.9,34.5,16-Nov-26,2436.4,23.7,13,79166*1,30538,smma_cross,"final lot booked — strong candle closed 2,441.00 below SMMA 21 ₹2,454.69"
+ANGELONE,Sell,16-Nov-26,352.5,73.1,17-Nov-26,357.79,,1,176250*3,-39656,stop_loss,1.5% stop ₹357.79
+BSE,Sell,16-Nov-26,3940.0,74.8,17-Nov-26,3999.1,,1,157600*3,-35460,stop_loss,"1.5% stop ₹3,999.10"
