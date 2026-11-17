@@ -762,3 +762,8 @@ VEDL,Buy,26-Oct-26,230.55,28.8,16-Nov-26,254.63,39.5,15,53026*1,27692,smma_cross
 WAAREEENER,Buy,28-Oct-26,2261.9,34.5,16-Nov-26,2436.4,23.7,13,79166*1,30538,smma_cross,"final lot booked — strong candle closed 2,441.00 below SMMA 21 ₹2,454.69"
 POLICYBZR,Buy,03-Nov-26,942.8,28.5,16-Nov-26,1094.3,19.6,9,65996*1,53025,smma_cross,"final lot booked — strong candle closed 1,081.20 below SMMA 21 ₹1,145.71"
 PIIND,Buy,11-Nov-26,1774.0,25.3,16-Nov-26,1684.8,11.6,3,79830*3,-60210,stop_loss,"candle stop — cash closed 1,680.00 below the entry-candle stop ₹1,699.40"
+ETERNAL,Sell,11-Nov-26,366.0,69.8,17-Nov-26,378.6,84.6,4,177510*3,-91665,stop_loss,candle stop — cash closed 375.05 above the entry-candle stop ₹373.32
+INDHOTEL,Sell,11-Nov-26,881.0,82.6,17-Nov-26,911.0,86.7,4,176200*3,-90000,stop_loss,candle stop — cash closed 901.55 above the entry-candle stop ₹898.70
+PATANJALI,Sell,11-Nov-26,432.5,75.1,17-Nov-26,404.55,73.3,4,125425*1,40527,smma_cross,final lot booked — strong candle closed 404.80 above SMMA 21 ₹383.74
+PAGEIND,Buy,13-Nov-26,31805.0,31.1,17-Nov-26,31140.0,18.1,2,127220*3,-39900,stop_loss,"candle stop — cash closed 31,105.00 below the entry-candle stop ₹31,168.90"
+BANKINDIA,Sell,16-Nov-26,154.6,73.0,17-Nov-26,161.76,75.0,1,160784*3,-111696,stop_loss,candle stop — cash closed 159.28 above the entry-candle stop ₹157.69

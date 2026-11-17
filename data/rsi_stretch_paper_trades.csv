@@ -641,3 +641,4 @@ CDSL,Sell,13-Nov-26,1465.5,74.6,17-Nov-26,1487.48,,2,139222*3,-31325,stop_loss,"
 FORCEMOT,Sell,12-Nov-26,19993.0,74.2,17-Nov-26,20292.89,,3,119958*3,-26991,stop_loss,"1.5% stop ₹20,292.89"
 PAGEIND,Buy,16-Nov-26,31690.0,29.6,17-Nov-26,31214.65,,1,126760*3,-28521,stop_loss,"1.5% stop ₹31,214.65"
 ASHOKLEY,Sell,09-Nov-26,175.19,78.6,17-Nov-26,166.22,,6,175190*1,44841,second_target,lot 2 booked — SMMA 50 ₹166.22
+PATANJALI,Sell,11-Nov-26,432.5,75.1,17-Nov-26,404.55,73.3,4,125425*1,40527,smma_cross,final lot booked — strong candle closed 404.80 above SMMA 21 ₹383.74
