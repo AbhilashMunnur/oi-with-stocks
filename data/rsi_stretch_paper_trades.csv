@@ -644,3 +644,4 @@ ASHOKLEY,Sell,09-Nov-26,175.19,78.6,17-Nov-26,166.22,,6,175190*1,44841,second_ta
 PATANJALI,Sell,11-Nov-26,432.5,75.1,17-Nov-26,404.55,73.3,4,125425*1,40527,smma_cross,final lot booked — strong candle closed 404.80 above SMMA 21 ₹383.74
 ANGELONE,Sell,17-Nov-26,352.25,72.4,18-Nov-26,357.53,,1,176125*3,-39628,stop_loss,1.5% stop ₹357.53
 NAVINFLUOR,Sell,13-Nov-26,9950.0,75.2,18-Nov-26,10099.25,,3,149250*3,-33581,stop_loss,"1.5% stop ₹10,099.25"
+NATIONALUM,Buy,26-Oct-26,313.0,29.8,18-Nov-26,308.31,,17,117375*2,-17606,stop_loss,1.5% stop ₹308.31 (tightened after lot 1 booked)
