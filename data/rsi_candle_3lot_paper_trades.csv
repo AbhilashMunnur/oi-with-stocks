@@ -1037,3 +1037,4 @@ OFSS,Buy,26-Oct-26,9897.0,36.1,18-Nov-26,9748.55,,17,197940*3,-44536,stop_loss,"
 WIPRO,Sell,06-Nov-26,199.83,69.9,18-Nov-26,189.84,,8,119898*1,29975,first_target,lot 1 booked — 5% target ₹189.84
 WIPRO,Sell,06-Nov-26,199.83,69.9,18-Nov-26,190.12,,8,119898*1,29144,second_target,lot 2 booked — SMMA 50 ₹190.12
 TRENT,Sell,17-Nov-26,3208.3,67.6,18-Nov-26,3256.42,,1,144374*3,-32484,stop_loss,"1.5% stop ₹3,256.42"
+NAVINFLUOR,Sell,13-Nov-26,9950.0,75.2,18-Nov-26,10099.25,,3,149250*3,-33581,stop_loss,"1.5% stop ₹10,099.25"
