@@ -645,3 +645,10 @@ PATANJALI,Sell,11-Nov-26,432.5,75.1,17-Nov-26,404.55,73.3,4,125425*1,40527,smma_
 ANGELONE,Sell,17-Nov-26,352.25,72.4,18-Nov-26,357.53,,1,176125*3,-39628,stop_loss,1.5% stop ₹357.53
 NAVINFLUOR,Sell,13-Nov-26,9950.0,75.2,18-Nov-26,10099.25,,3,149250*3,-33581,stop_loss,"1.5% stop ₹10,099.25"
 NATIONALUM,Buy,26-Oct-26,313.0,29.8,18-Nov-26,308.31,,17,117375*2,-17606,stop_loss,1.5% stop ₹308.31 (tightened after lot 1 booked)
+IDEA,Buy,23-Oct-26,11.55,28.0,18-Nov-26,12.24,34.4,18,165107*1,49318,smma_cross,final lot booked — strong candle closed 12.10 below SMMA 21 ₹12.78
+MUTHOOTFIN,Buy,23-Oct-26,2395.6,24.1,18-Nov-26,2657.2,37.7,18,131758*1,71940,smma_cross,"final lot booked — strong candle closed 2,640.00 below SMMA 21 ₹2,717.75"
+HINDZINC,Buy,26-Oct-26,501.3,28.0,18-Nov-26,531.5,41.5,17,122818*1,36995,smma_cross,final lot booked — strong candle closed 527.00 below SMMA 21 ₹550.05
+BDL,Buy,02-Nov-26,999.9,28.7,18-Nov-26,1013.85,25.5,12,84992*1,5929,smma_cross,"final lot booked — strong candle closed 1,012.70 below SMMA 21 ₹1,086.48"
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30

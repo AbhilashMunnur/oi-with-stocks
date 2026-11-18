@@ -767,3 +767,19 @@ INDHOTEL,Sell,11-Nov-26,881.0,82.6,17-Nov-26,911.0,86.7,4,176200*3,-90000,stop_l
 PATANJALI,Sell,11-Nov-26,432.5,75.1,17-Nov-26,404.55,73.3,4,125425*1,40527,smma_cross,final lot booked — strong candle closed 404.80 above SMMA 21 ₹383.74
 PAGEIND,Buy,13-Nov-26,31805.0,31.1,17-Nov-26,31140.0,18.1,2,127220*3,-39900,stop_loss,"candle stop — cash closed 31,105.00 below the entry-candle stop ₹31,168.90"
 BANKINDIA,Sell,16-Nov-26,154.6,73.0,17-Nov-26,161.76,75.0,1,160784*3,-111696,stop_loss,candle stop — cash closed 159.28 above the entry-candle stop ₹157.69
+INFY,Buy,25-Sep-26,1010.0,31.6,18-Nov-26,1110.7,47.9,38,80800*1,40280,smma_cross,"final lot booked — strong candle closed 1,108.80 below SMMA 21 ₹1,121.36"
+SBIN,Buy,08-Oct-26,954.1,33.0,18-Nov-26,1142.05,71.9,29,143115*1,140962,rsi_target,final lot booked — RSI 71.9 reached 70
+JINDALSTEL,Buy,09-Oct-26,1039.9,27.5,18-Nov-26,1113.2,54.4,28,129988*1,45812,smma_cross,"final lot booked — strong candle closed 1,103.00 below SMMA 21 ₹1,107.89"
+TITAN,Buy,22-Oct-26,4379.4,31.7,18-Nov-26,4689.5,38.4,19,153279*1,54268,smma_cross,"final lot booked — strong candle closed 4,648.10 below SMMA 21 ₹4,708.30"
+HCLTECH,Sell,23-Oct-26,1424.0,72.7,18-Nov-26,1356.82,60.0,18,113920*1,26871,first_target,"lot 1 booked — SMMA 21 ₹1,356.82"
+HINDZINC,Buy,23-Oct-26,501.0,29.1,18-Nov-26,531.5,41.5,18,122745*1,37362,smma_cross,final lot booked — strong candle closed 527.00 below SMMA 21 ₹550.05
+IDEA,Buy,23-Oct-26,11.55,28.0,18-Nov-26,12.24,34.4,18,165107*1,49318,smma_cross,final lot booked — strong candle closed 12.10 below SMMA 21 ₹12.78
+MUTHOOTFIN,Buy,23-Oct-26,2395.6,24.1,18-Nov-26,2657.2,37.7,18,131758*1,71940,smma_cross,"final lot booked — strong candle closed 2,640.00 below SMMA 21 ₹2,717.75"
+TATASTEEL,Buy,23-Oct-26,168.5,31.7,18-Nov-26,180.65,40.2,18,92675*1,33413,smma_cross,final lot booked — strong candle closed 179.00 below SMMA 21 ₹180.61
+VBL,Buy,26-Oct-26,413.0,44.1,18-Nov-26,428.75,40.5,17,105315*1,20081,smma_cross,final lot booked — strong candle closed 424.55 below SMMA 21 ₹426.21
+ICICILIFE,Buy,29-Oct-26,412.1,26.1,18-Nov-26,443.2,51.6,14,76238*1,28767,smma_cross,final lot booked — strong candle closed 445.40 below SMMA 21 ₹447.75
+BDL,Buy,02-Nov-26,999.9,28.7,18-Nov-26,1013.85,25.5,12,84992*1,5929,smma_cross,"final lot booked — strong candle closed 1,012.70 below SMMA 21 ₹1,086.48"
+WIPRO,Sell,02-Nov-26,198.12,73.7,18-Nov-26,188.21,61.8,12,118872*1,29718,first_target,lot 1 booked — 5% target ₹188.21
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30

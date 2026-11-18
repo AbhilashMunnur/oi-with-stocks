@@ -1040,3 +1040,6 @@ TRENT,Sell,17-Nov-26,3208.3,67.6,18-Nov-26,3256.42,,1,144374*3,-32484,stop_loss,
 NAVINFLUOR,Sell,13-Nov-26,9950.0,75.2,18-Nov-26,10099.25,,3,149250*3,-33581,stop_loss,"1.5% stop ₹10,099.25"
 DRREDDY,Sell,13-Nov-26,1388.8,73.0,18-Nov-26,1409.63,,3,173600*3,-39060,stop_loss,"1.5% stop ₹1,409.63"
 GLENMARK,Sell,16-Nov-26,2655.9,70.8,18-Nov-26,2695.74,,2,199192*3,-44818,stop_loss,"1.5% stop ₹2,695.74"
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
+IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30
