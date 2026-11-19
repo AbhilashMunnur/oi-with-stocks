@@ -783,3 +783,4 @@ WIPRO,Sell,02-Nov-26,198.12,73.7,18-Nov-26,188.21,61.8,12,118872*1,29718,first_t
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30
+WIPRO,Sell,02-Nov-26,198.12,73.7,19-Nov-26,190.02,,13,118872*1,24303,second_target,lot 2 booked — SMMA 50 ₹190.02

@@ -652,3 +652,4 @@ BDL,Buy,02-Nov-26,999.9,28.7,18-Nov-26,1013.85,25.5,12,84992*1,5929,smma_cross,"
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30
+TCS,Sell,23-Oct-26,2543.5,73.1,19-Nov-26,2363.75,,19,114458*1,40443,second_target,"lot 2 booked — SMMA 50 ₹2,363.75"

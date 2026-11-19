@@ -1043,3 +1043,5 @@ GLENMARK,Sell,16-Nov-26,2655.9,70.8,18-Nov-26,2695.74,,2,199192*3,-44818,stop_lo
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_target,lot 1 booked — 5% target ₹80.54
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30
+GODREJCP,Buy,30-Oct-26,807.9,32.7,19-Nov-26,904.85,,14,80790*1,48474,second_target,lot 2 booked — 12% target ₹904.85
+TECHM,Sell,06-Nov-26,1849.8,70.8,19-Nov-26,1757.31,,9,221976*1,55494,first_target,"lot 1 booked — 5% target ₹1,757.31"
