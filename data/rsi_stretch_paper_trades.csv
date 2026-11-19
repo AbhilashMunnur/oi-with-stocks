@@ -655,3 +655,4 @@ IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,
 TCS,Sell,23-Oct-26,2543.5,73.1,19-Nov-26,2363.75,,19,114458*1,40443,second_target,"lot 2 booked — SMMA 50 ₹2,363.75"
 GMRAIRPORT,Sell,18-Nov-26,104.95,70.4,19-Nov-26,104.94,,1,146405*1,37,first_target,lot 1 booked — SMMA 21 ₹104.94
 MAHABANK,Sell,18-Nov-26,97.24,74.9,19-Nov-26,98.7,,1,126412*3,-28443,stop_loss,1.5% stop ₹98.70
+PHOENIXLTD,Sell,13-Nov-26,2211.7,79.5,19-Nov-26,2244.88,,4,154819*3,-34834,stop_loss,"1.5% stop ₹2,244.88"
