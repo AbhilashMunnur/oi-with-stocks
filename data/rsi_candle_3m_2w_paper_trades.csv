@@ -784,3 +784,4 @@ IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27342,first_targe
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,84.06,22.7,4,109366*1,4622,second_target,lot 2 booked — SMMA 50 ₹84.06
 IRFC,Sell,12-Nov-26,84.78,71.7,18-Nov-26,80.54,22.7,4,109366*1,27348,rsi_target,final lot booked — RSI 22.7 reached 30
 WIPRO,Sell,02-Nov-26,198.12,73.7,19-Nov-26,190.02,,13,118872*1,24303,second_target,lot 2 booked — SMMA 50 ₹190.02
+GMRAIRPORT,Sell,18-Nov-26,104.95,70.4,19-Nov-26,104.94,,1,146405*1,37,first_target,lot 1 booked — SMMA 21 ₹104.94
