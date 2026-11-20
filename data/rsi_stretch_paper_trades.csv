@@ -660,3 +660,4 @@ MAXHEALTH,Sell,18-Nov-26,1034.6,76.2,19-Nov-26,1050.12,,1,108633*3,-24442,stop_l
 MARICO,Sell,11-Nov-26,916.65,76.2,19-Nov-26,930.4,,6,219996*3,-49499,stop_loss,1.5% stop ₹930.40
 SRF,Buy,26-Oct-26,2359.0,29.7,19-Nov-26,2532.03,36.8,18,94360*1,34607,second_target,"lot 2 booked — SMMA 50 ₹2,532.03"
 ASHOKLEY,Sell,09-Nov-26,175.19,78.6,19-Nov-26,167.5,45.6,8,175190*1,38450,smma_cross,final lot booked — strong candle closed 166.21 above SMMA 21 ₹159.67
+GMRAIRPORT,Sell,18-Nov-26,104.95,70.4,20-Nov-26,103.35,,2,146405*1,11156,second_target,lot 2 booked — SMMA 50 ₹103.35
