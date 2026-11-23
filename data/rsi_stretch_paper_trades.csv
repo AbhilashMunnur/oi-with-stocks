@@ -665,3 +665,4 @@ PIIND,Buy,19-Nov-26,1625.4,24.4,20-Nov-26,1601.02,,1,73143*3,-16457,stop_loss,"1
 TCS,Sell,23-Oct-26,2543.5,73.1,20-Nov-26,2395.6,57.9,20,114458*1,33278,smma_cross,"final lot booked — strong candle closed 2,376.20 above SMMA 21 ₹2,375.91"
 ENRIN,Buy,26-Oct-26,2780.6,23.9,20-Nov-26,2944.1,50.5,19,97321*1,28612,smma_cross,"final lot booked — strong candle closed 2,913.30 below SMMA 21 ₹3,010.49"
 GMRAIRPORT,Sell,18-Nov-26,104.95,70.4,20-Nov-26,103.92,51.0,2,146405*1,7184,smma_cross,final lot booked — strong candle closed 105.00 above SMMA 21 ₹96.66
+PAGEIND,Buy,18-Nov-26,31010.0,29.5,23-Nov-26,30544.85,,3,124040*3,-27909,stop_loss,"1.5% stop ₹30,544.85"
