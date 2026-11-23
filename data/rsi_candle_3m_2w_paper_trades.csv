@@ -798,3 +798,7 @@ SHREECEM,Buy,17-Sep-26,22200.0,23.6,23-Nov-26,25440.0,,47,111000*1,81000,expiry,
 FEDERALBNK,Buy,30-Sep-26,322.35,34.4,23-Nov-26,365.1,,38,161175*1,106875,expiry,contract expiry 2026-11-23
 HDFCAMC,Buy,30-Sep-26,2309.5,25.6,23-Nov-26,2700.3,,38,138570*1,117240,expiry,contract expiry 2026-11-23
 TCS,Buy,30-Sep-26,2066.0,28.2,23-Nov-26,2406.4,,38,92970*1,76590,expiry,contract expiry 2026-11-23
+ABB,Buy,26-Oct-26,6448.0,28.8,23-Nov-26,6906.0,33.2,20,161200*1,57250,smma_cross,"final lot booked — strong candle closed 6,870.00 below SMMA 21 ₹6,872.90"
+ASHOKLEY,Buy,26-Oct-26,143.2,33.1,23-Nov-26,159.9,36.1,20,143200*1,83500,smma_cross,final lot booked — strong candle closed 159.00 below SMMA 21 ₹159.79
+JIOFIN,Buy,26-Oct-26,208.64,28.8,23-Nov-26,222.2,28.7,20,98061*1,31866,smma_cross,final lot booked — strong candle closed 219.70 below SMMA 21 ₹223.17
+JSWENERGY,Buy,26-Oct-26,454.55,35.5,23-Nov-26,505.5,27.8,20,97728*1,54771,smma_cross,final lot booked — strong candle closed 502.55 below SMMA 21 ₹506.61

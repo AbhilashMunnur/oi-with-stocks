@@ -1068,3 +1068,12 @@ FEDERALBNK,Buy,30-Sep-26,322.35,34.4,23-Nov-26,364.0,,38,161175*1,104125,expiry,
 TCS,Buy,30-Sep-26,2066.0,28.2,23-Nov-26,2409.0,,38,92970*1,77175,expiry,contract expiry 2026-11-23
 PAGEIND,Buy,17-Nov-26,31140.0,29.6,23-Nov-26,30672.9,,4,124560*3,-28026,stop_loss,"1.5% stop ₹30,672.90"
 MANAPPURAM,Buy,20-Nov-26,283.3,34.9,23-Nov-26,279.05,,1,169980*3,-38246,stop_loss,1.5% stop ₹279.05
+IDEA,Buy,23-Oct-26,11.55,28.0,23-Nov-26,12.01,32.9,21,165107*1,32878,smma_cross,final lot booked — strong candle closed 11.91 below SMMA 21 ₹12.68
+MUTHOOTFIN,Buy,23-Oct-26,2395.6,24.1,23-Nov-26,2557.7,34.7,21,131758*1,44577,smma_cross,"final lot booked — strong candle closed 2,543.30 below SMMA 21 ₹2,697.53"
+NTPC,Buy,23-Oct-26,298.0,29.4,23-Nov-26,317.95,27.5,21,89400*1,29925,smma_cross,final lot booked — strong candle closed 315.45 below SMMA 21 ₹320.38
+TATASTEEL,Buy,23-Oct-26,168.5,31.7,23-Nov-26,164.46,24.6,21,92675*1,-11110,smma_cross,final lot booked — strong candle closed 163.00 below SMMA 21 ₹179.67
+ABB,Buy,26-Oct-26,6448.0,28.8,23-Nov-26,6906.0,33.2,20,161200*1,57250,smma_cross,"final lot booked — strong candle closed 6,870.00 below SMMA 21 ₹6,872.90"
+ASHOKLEY,Buy,26-Oct-26,143.2,33.1,23-Nov-26,159.9,36.1,20,143200*1,83500,smma_cross,final lot booked — strong candle closed 159.00 below SMMA 21 ₹159.79
+JIOFIN,Buy,26-Oct-26,208.64,28.8,23-Nov-26,222.2,28.7,20,98061*1,31866,smma_cross,final lot booked — strong candle closed 219.70 below SMMA 21 ₹223.17
+JSWENERGY,Buy,26-Oct-26,454.55,35.5,23-Nov-26,505.5,27.8,20,97728*1,54771,smma_cross,final lot booked — strong candle closed 502.55 below SMMA 21 ₹506.61
+BDL,Buy,02-Nov-26,999.9,28.7,23-Nov-26,1029.15,26.4,15,84992*1,12431,smma_cross,"final lot booked — strong candle closed 1,020.00 below SMMA 21 ₹1,079.04"

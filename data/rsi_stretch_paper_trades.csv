@@ -666,3 +666,6 @@ TCS,Sell,23-Oct-26,2543.5,73.1,20-Nov-26,2395.6,57.9,20,114458*1,33278,smma_cros
 ENRIN,Buy,26-Oct-26,2780.6,23.9,20-Nov-26,2944.1,50.5,19,97321*1,28612,smma_cross,"final lot booked — strong candle closed 2,913.30 below SMMA 21 ₹3,010.49"
 GMRAIRPORT,Sell,18-Nov-26,104.95,70.4,20-Nov-26,103.92,51.0,2,146405*1,7184,smma_cross,final lot booked — strong candle closed 105.00 above SMMA 21 ₹96.66
 PAGEIND,Buy,18-Nov-26,31010.0,29.5,23-Nov-26,30544.85,,3,124040*3,-27909,stop_loss,"1.5% stop ₹30,544.85"
+NTPC,Buy,23-Oct-26,298.0,29.4,23-Nov-26,317.95,27.5,21,89400*1,29925,smma_cross,final lot booked — strong candle closed 315.45 below SMMA 21 ₹320.38
+ABB,Buy,26-Oct-26,6448.0,28.8,23-Nov-26,6906.0,33.2,20,161200*1,57250,smma_cross,"final lot booked — strong candle closed 6,870.00 below SMMA 21 ₹6,872.90"
+JIOFIN,Buy,26-Oct-26,208.64,28.8,23-Nov-26,222.2,28.7,20,98061*1,31866,smma_cross,final lot booked — strong candle closed 219.70 below SMMA 21 ₹223.17
