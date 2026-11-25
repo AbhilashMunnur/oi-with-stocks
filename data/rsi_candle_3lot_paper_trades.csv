@@ -1097,3 +1097,7 @@ DMART,Buy,23-Oct-26,3180.0,22.2,25-Nov-26,3561.6,,23,95400*1,57240,second_target
 SBIN,Sell,23-Nov-26,1144.15,82.3,25-Nov-26,1161.31,,2,171623*3,-38615,stop_loss,"1.5% stop ₹1,161.31"
 ULTRACEMCO,Sell,23-Nov-26,12789.0,75.0,25-Nov-26,12980.83,,2,127890*3,-28775,stop_loss,"1.5% stop ₹12,980.83"
 MANKIND,Sell,11-Nov-26,2679.3,69.6,25-Nov-26,2719.49,,10,133965*3,-30142,stop_loss,"1.5% stop ₹2,719.49"
+INDIGO,Buy,23-Oct-26,4583.7,32.8,25-Nov-26,5749.9,70.4,23,137511*1,174930,rsi_target,final lot booked — RSI 70.4 reached 70
+POWERINDIA,Buy,23-Oct-26,26625.0,27.6,25-Nov-26,29790.0,35.5,23,133125*1,79125,smma_cross,"final lot booked — strong candle closed 29,770.00 below SMMA 21 ₹29,793.66"
+GVT&D,Buy,26-Oct-26,3832.0,26.4,25-Nov-26,4076.2,40.0,22,95800*1,30525,smma_cross,"final lot booked — strong candle closed 4,070.00 below SMMA 21 ₹4,185.66"
+BRITANNIA,Buy,28-Oct-26,4616.0,37.4,25-Nov-26,5023.27,32.6,20,115400*1,50909,second_target,"lot 2 booked — SMMA 50 ₹5,023.27"

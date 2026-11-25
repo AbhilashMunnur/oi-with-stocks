@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 4698749.13,
-  "closed_count": 445,
+  "realised_pnl": 4861608.34,
+  "closed_count": 447,
   "day_date": "2026-11-25",
-  "day_realised_pnl": -185413.07,
-  "updated_at": "2026-11-25 15:00:16",
+  "day_realised_pnl": -22553.86,
+  "updated_at": "2026-11-25 15:58:20",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -2156,6 +2156,11 @@
       "pnl": -21223.13
     },
     {
+      "symbol": "GVT&D",
+      "exit_date": "2026-11-25",
+      "pnl": 111955.0
+    },
+    {
       "symbol": "WIPRO",
       "exit_date": "2026-10-23",
       "pnl": -25582.5
@@ -2329,6 +2334,11 @@
       "symbol": "MANKIND",
       "exit_date": "2026-11-25",
       "pnl": -30142.12
+    },
+    {
+      "symbol": "POWERINDIA",
+      "exit_date": "2026-11-25",
+      "pnl": 192281.25
     }
   ],
   "qualify_skips": {
@@ -2347,34 +2357,34 @@
     "WIPRO": 3
   },
   "last_marks": {
-    "360ONE": 1173.0,
-    "ABCAPITAL": 424.1,
-    "APOLLOHOSP": 9405.0,
-    "ASIANPAINT": 2664.0,
-    "BOSCHLTD": 49300.0,
-    "BRITANNIA": 5046.0,
-    "CONCOR": 430.7,
-    "CUB": 246.0,
-    "DELHIVERY": 466.3,
-    "DIXON": 12937.0,
-    "DMART": 3575.0,
-    "FEDERALBNK": 358.2,
-    "GVT&D": 4064.5,
-    "IDFCFIRSTB": 87.73,
-    "LODHA": 1212.7,
-    "LTF": 284.3,
-    "M&M": 3510.2,
-    "MARUTI": 14270.0,
-    "MAZDOCK": 1818.5,
-    "MFSL": 1484.5,
-    "NAVINFLUOR": 9980.0,
-    "NESTLEIND": 1353.8,
-    "PIIND": 1587.1,
-    "PNB": 149.45,
-    "POWERINDIA": 29850.0,
-    "SHRIRAMFIN": 995.35,
-    "SRF": 2536.0,
-    "VOLTAS": 1233.1
+    "360ONE": 1171.5,
+    "ABCAPITAL": 422.5,
+    "APLAPOLLO": 1478.0,
+    "APOLLOHOSP": 9351.0,
+    "ASIANPAINT": 2654.2,
+    "BOSCHLTD": 49350.0,
+    "BRITANNIA": 5081.4,
+    "CONCOR": 429.05,
+    "CUB": 245.49,
+    "DELHIVERY": 464.5,
+    "DIXON": 12897.0,
+    "DMART": 3593.2,
+    "FEDERALBNK": 358.85,
+    "IDFCFIRSTB": 87.65,
+    "LODHA": 1205.9,
+    "LTF": 284.99,
+    "M&M": 3514.3,
+    "MANAPPURAM": 272.35,
+    "MARUTI": 14347.0,
+    "MAZDOCK": 1810.1,
+    "MFSL": 1459.0,
+    "NAVINFLUOR": 9966.0,
+    "NESTLEIND": 1359.9,
+    "PIIND": 1585.0,
+    "PNB": 149.22,
+    "SHRIRAMFIN": 987.85,
+    "SRF": 2535.1,
+    "VOLTAS": 1237.8
   },
   "positions": [
     {
@@ -2506,38 +2516,6 @@
       "stop_price": null
     },
     {
-      "symbol": "POWERINDIA",
-      "direction": "LONG",
-      "entry_price": 26625.0,
-      "entry_time": "2026-10-23 19:33:08",
-      "lot_size": 25,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 27.636646776193516,
-      "strike": 0.0,
-      "margin_blocked": 133125.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 27956.25,
-          "exit_time": "2026-10-27 10:31:22",
-          "reason": "first_target",
-          "pnl": 33281.25
-        },
-        {
-          "lots": 1,
-          "exit_price": 29820.0,
-          "exit_time": "2026-11-13 09:33:11",
-          "reason": "second_target",
-          "pnl": 79875.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ABCAPITAL",
       "direction": "LONG",
       "entry_price": 357.2,
@@ -2575,12 +2553,12 @@
       "entry_price": 4597.6,
       "entry_time": "2026-10-26 21:50:04",
       "lot_size": 125,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 29.61453769196757,
       "strike": 0.0,
-      "margin_blocked": 229880.0,
+      "margin_blocked": 114940.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2588,6 +2566,13 @@
           "exit_time": "2026-11-03 13:31:35",
           "reason": "first_target",
           "pnl": 28735.0
+        },
+        {
+          "lots": 1,
+          "exit_price": 5023.27,
+          "exit_time": "2026-11-25 15:58:20",
+          "reason": "second_target",
+          "pnl": 53209.21
         }
       ],
       "priced_on": "futures",
@@ -2677,38 +2662,6 @@
           "exit_time": "2026-11-02 12:30:39",
           "reason": "second_target",
           "pnl": 66516.0
-        }
-      ],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "GVT&D",
-      "direction": "LONG",
-      "entry_price": 3832.0,
-      "entry_time": "2026-10-26 21:50:04",
-      "lot_size": 125,
-      "lots_open": 1,
-      "lots_total": 3,
-      "expiry": "2026-12-29",
-      "rsi_at_entry": 26.43339655887148,
-      "strike": 0.0,
-      "margin_blocked": 95800.0,
-      "closed_legs": [
-        {
-          "lots": 1,
-          "exit_price": 4023.6,
-          "exit_time": "2026-10-27 12:31:14",
-          "reason": "first_target",
-          "pnl": 23950.0
-        },
-        {
-          "lots": 1,
-          "exit_price": 4291.84,
-          "exit_time": "2026-11-04 14:01:25",
-          "reason": "second_target",
-          "pnl": 57480.0
         }
       ],
       "priced_on": "futures",
@@ -3135,6 +3088,40 @@
       "rsi_at_entry": 86.27177341436101,
       "strike": 0.0,
       "margin_blocked": 727200.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "APLAPOLLO",
+      "direction": "LONG",
+      "entry_price": 1478.0,
+      "entry_time": "2026-11-25 15:58:20",
+      "lot_size": 350,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2027-01-25",
+      "rsi_at_entry": 18.768243012412086,
+      "strike": 0.0,
+      "margin_blocked": 310380.0,
+      "closed_legs": [],
+      "priced_on": "futures",
+      "s2_invalid_pending": "",
+      "stop_price": null
+    },
+    {
+      "symbol": "MANAPPURAM",
+      "direction": "LONG",
+      "entry_price": 272.35,
+      "entry_time": "2026-11-25 15:58:20",
+      "lot_size": 3000,
+      "lots_open": 3,
+      "lots_total": 3,
+      "expiry": "2027-01-25",
+      "rsi_at_entry": 29.076521428245982,
+      "strike": 0.0,
+      "margin_blocked": 490230.00000000006,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",

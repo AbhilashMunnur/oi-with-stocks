@@ -804,3 +804,6 @@ JIOFIN,Buy,26-Oct-26,208.64,28.8,23-Nov-26,222.2,28.7,20,98061*1,31866,smma_cros
 JSWENERGY,Buy,26-Oct-26,454.55,35.5,23-Nov-26,505.5,27.8,20,97728*1,54771,smma_cross,final lot booked — strong candle closed 502.55 below SMMA 21 ₹506.61
 NESTLEIND,Buy,23-Oct-26,1185.4,28.0,25-Nov-26,1327.65,,23,118540*1,71124,second_target,"lot 2 booked — 12% target ₹1,327.65"
 DMART,Buy,23-Oct-26,3180.0,22.2,25-Nov-26,3561.6,,23,95400*1,57240,second_target,"lot 2 booked — 12% target ₹3,561.60"
+INDIGO,Buy,23-Oct-26,4583.7,32.8,25-Nov-26,5749.9,70.4,23,137511*1,174930,rsi_target,final lot booked — RSI 70.4 reached 70
+POWERINDIA,Buy,23-Oct-26,26625.0,27.6,25-Nov-26,29790.0,35.5,23,133125*1,79125,smma_cross,"final lot booked — strong candle closed 29,770.00 below SMMA 21 ₹29,793.66"
+BRITANNIA,Buy,26-Oct-26,4597.6,29.6,25-Nov-26,5023.27,32.6,22,114940*1,53209,second_target,"lot 2 booked — SMMA 50 ₹5,023.27"
