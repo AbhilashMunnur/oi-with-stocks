@@ -815,3 +815,4 @@ JIOFIN,Buy,28-Oct-26,207.55,24.8,23-Nov-26,222.2,28.7,18,97548*1,34427,smma_cros
 DABUR,Buy,11-Nov-26,386.8,27.6,25-Nov-26,406.14,,10,106370*1,26593,first_target,lot 1 booked — 5% target ₹406.14
 IRFC,Sell,23-Nov-26,81.06,75.5,25-Nov-26,82.28,,2,104567*3,-23528,stop_loss,1.5% stop ₹82.28
 POLICYBZR,Buy,23-Nov-26,1107.4,29.2,25-Nov-26,1162.77,,2,77518*1,19380,first_target,"lot 1 booked — 5% target ₹1,162.77"
+NESTLEIND,Buy,29-Oct-26,1197.1,17.2,25-Nov-26,1340.75,,19,119710*1,71826,second_target,"lot 2 booked — 12% target ₹1,340.75"
