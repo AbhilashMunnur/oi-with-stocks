@@ -820,3 +820,4 @@ BSE,Sell,18-Nov-26,3792.3,81.0,25-Nov-26,3849.18,,5,151692*3,-34131,stop_loss,"1
 KEI,Buy,23-Nov-26,3842.7,29.9,25-Nov-26,3785.06,,2,134494*3,-30261,stop_loss,"1.5% stop ₹3,785.06"
 ETERNAL,Sell,19-Nov-26,372.6,77.9,25-Nov-26,378.19,,4,180711*3,-40660,stop_loss,1.5% stop ₹378.19
 FORTIS,Buy,26-Oct-26,742.55,18.3,25-Nov-26,831.66,,22,115095*1,69057,second_target,lot 2 booked — 12% target ₹831.66
+ADANIGREEN,Sell,12-Nov-26,1437.0,72.6,25-Nov-26,1365.15,,9,172440*1,43110,first_target,"lot 1 booked — 5% target ₹1,365.15"
