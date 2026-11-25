@@ -1077,3 +1077,13 @@ ASHOKLEY,Buy,26-Oct-26,143.2,33.1,23-Nov-26,159.9,36.1,20,143200*1,83500,smma_cr
 JIOFIN,Buy,26-Oct-26,208.64,28.8,23-Nov-26,222.2,28.7,20,98061*1,31866,smma_cross,final lot booked — strong candle closed 219.70 below SMMA 21 ₹223.17
 JSWENERGY,Buy,26-Oct-26,454.55,35.5,23-Nov-26,505.5,27.8,20,97728*1,54771,smma_cross,final lot booked — strong candle closed 502.55 below SMMA 21 ₹506.61
 BDL,Buy,02-Nov-26,999.9,28.7,23-Nov-26,1029.15,26.4,15,84992*1,12431,smma_cross,"final lot booked — strong candle closed 1,020.00 below SMMA 21 ₹1,079.04"
+ADANIPORTS,Sell,11-Nov-26,1933.4,65.6,25-Nov-26,1962.4,,10,183673*3,-41326,stop_loss,"1.5% stop ₹1,962.40"
+BLUESTARCO,Sell,20-Nov-26,1770.0,71.1,25-Nov-26,1796.55,,3,123900*3,-27877,stop_loss,"1.5% stop ₹1,796.55"
+AXISBANK,Sell,23-Nov-26,1410.0,78.5,25-Nov-26,1431.15,,2,176250*3,-39656,stop_loss,"1.5% stop ₹1,431.15"
+BANKINDIA,Sell,23-Nov-26,162.02,77.5,25-Nov-26,164.45,,2,168501*3,-37913,stop_loss,1.5% stop ₹164.45
+HDFCBANK,Sell,23-Nov-26,829.95,77.4,25-Nov-26,842.4,,2,124492*3,-28011,stop_loss,1.5% stop ₹842.40
+INDUSINDBK,Sell,23-Nov-26,975.0,70.2,25-Nov-26,989.62,,2,136500*3,-30712,stop_loss,1.5% stop ₹989.62
+KOTAKBANK,Sell,23-Nov-26,507.5,80.9,25-Nov-26,515.11,,2,203000*3,-45675,stop_loss,1.5% stop ₹515.11
+RELIANCE,Sell,23-Nov-26,1367.4,75.5,25-Nov-26,1387.91,,2,136740*3,-30766,stop_loss,"1.5% stop ₹1,387.91"
+TRENT,Sell,23-Nov-26,3249.9,67.3,25-Nov-26,3298.65,,2,146246*3,-32905,stop_loss,"1.5% stop ₹3,298.65"
+UNIONBANK,Sell,23-Nov-26,211.59,82.8,25-Nov-26,214.76,,2,187257*3,-42133,stop_loss,1.5% stop ₹214.76

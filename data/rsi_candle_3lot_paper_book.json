@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 6046321.08,
-  "closed_count": 700,
-  "day_date": "2026-11-23",
-  "day_realised_pnl": 451118.0,
-  "updated_at": "2026-11-23 16:03:36",
+  "realised_pnl": 5689345.32,
+  "closed_count": 710,
+  "day_date": "2026-11-25",
+  "day_realised_pnl": -356975.76,
+  "updated_at": "2026-11-25 09:32:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -107,7 +107,8 @@
     "2026-11-18",
     "2026-11-19",
     "2026-11-20",
-    "2026-11-23"
+    "2026-11-23",
+    "2026-11-25"
   ],
   "closed_results": [
     {
@@ -801,6 +802,11 @@
       "pnl": -27118.35
     },
     {
+      "symbol": "INDUSINDBK",
+      "exit_date": "2026-11-25",
+      "pnl": -30712.5
+    },
+    {
       "symbol": "NAUKRI",
       "exit_date": "2026-07-09",
       "pnl": -29180.25
@@ -1181,6 +1187,11 @@
       "pnl": 105018.38
     },
     {
+      "symbol": "UNIONBANK",
+      "exit_date": "2026-11-25",
+      "pnl": -42132.86
+    },
+    {
       "symbol": "UNITDSPR",
       "exit_date": "2026-07-24",
       "pnl": -25358.4
@@ -1454,6 +1465,11 @@
       "symbol": "TRENT",
       "exit_date": "2026-11-18",
       "pnl": -32484.04
+    },
+    {
+      "symbol": "TRENT",
+      "exit_date": "2026-11-25",
+      "pnl": -32905.24
     },
     {
       "symbol": "CIPLA",
@@ -2516,9 +2532,19 @@
       "pnl": -40804.87
     },
     {
+      "symbol": "ADANIPORTS",
+      "exit_date": "2026-11-25",
+      "pnl": -41326.42
+    },
+    {
       "symbol": "BLUESTARCO",
       "exit_date": "2026-08-31",
       "pnl": -21791.25
+    },
+    {
+      "symbol": "BLUESTARCO",
+      "exit_date": "2026-11-25",
+      "pnl": -27877.5
     },
     {
       "symbol": "SHREECEM",
@@ -2564,6 +2590,11 @@
       "symbol": "AXISBANK",
       "exit_date": "2026-09-01",
       "pnl": 58051.4
+    },
+    {
+      "symbol": "AXISBANK",
+      "exit_date": "2026-11-25",
+      "pnl": -39656.25
     },
     {
       "symbol": "ASIANPAINT",
@@ -2789,6 +2820,11 @@
       "symbol": "HDFCBANK",
       "exit_date": "2026-10-28",
       "pnl": 9019.4
+    },
+    {
+      "symbol": "HDFCBANK",
+      "exit_date": "2026-11-25",
+      "pnl": -28010.81
     },
     {
       "symbol": "TMPV",
@@ -3231,6 +3267,11 @@
       "pnl": -45256.5
     },
     {
+      "symbol": "KOTAKBANK",
+      "exit_date": "2026-11-25",
+      "pnl": -45675.0
+    },
+    {
       "symbol": "ULTRACEMCO",
       "exit_date": "2026-10-01",
       "pnl": -24702.75
@@ -3291,6 +3332,11 @@
       "pnl": -26730.0
     },
     {
+      "symbol": "RELIANCE",
+      "exit_date": "2026-11-25",
+      "pnl": -30766.5
+    },
+    {
       "symbol": "INDIANB",
       "exit_date": "2026-10-01",
       "pnl": -36612.0
@@ -3319,6 +3365,11 @@
       "symbol": "BANKINDIA",
       "exit_date": "2026-11-17",
       "pnl": -36176.4
+    },
+    {
+      "symbol": "BANKINDIA",
+      "exit_date": "2026-11-25",
+      "pnl": -37912.68
     },
     {
       "symbol": "DMART",
@@ -3647,79 +3698,70 @@
     "IEX": 3,
     "M&M": 2,
     "NMDC": 1,
+    "TRENT": 3,
     "UNOMINDA": 2,
     "VBL": 2
   },
   "last_marks": {
-    "360ONE": 1193.7,
-    "ABCAPITAL": 422.6,
-    "ADANIENT": 2691.0,
-    "ADANIPORTS": 1942.4,
-    "APOLLOHOSP": 9390.0,
-    "AUBANK": 985.95,
-    "AXISBANK": 1410.0,
-    "BAJAJFINSV": 1874.8,
-    "BANKBARODA": 278.0,
-    "BANKINDIA": 162.02,
-    "BEL": 398.75,
-    "BLUESTARCO": 1761.2,
-    "BOSCHLTD": 49300.0,
-    "BRITANNIA": 4889.9,
-    "BSE": 3793.9,
-    "CANBK": 135.2,
-    "CDSL": 1415.0,
-    "CHOLAFIN": 1846.9,
-    "CIPLA": 1408.6,
-    "CONCOR": 430.05,
-    "CUB": 245.8,
-    "DELHIVERY": 461.4,
-    "DIXON": 13339.0,
-    "DMART": 3423.5,
-    "EICHERMOT": 8231.0,
-    "ETERNAL": 367.85,
-    "FEDERALBNK": 364.15,
-    "GODREJCP": 918.0,
-    "GVT&D": 4211.0,
-    "HCLTECH": 1368.0,
-    "HDFCBANK": 829.95,
-    "HINDZINC": 531.0,
-    "ICICILIFE": 469.5,
-    "IDFCFIRSTB": 86.54,
-    "INDIGO": 5546.9,
-    "INDUSINDBK": 975.0,
-    "IOC": 147.1,
-    "KARURVYSYA": 385.1,
-    "KOTAKBANK": 507.5,
-    "KPITTECH": 528.0,
-    "LICHSGFIN": 616.95,
-    "LODHA": 1224.4,
-    "LTF": 273.03,
+    "360ONE": 1210.65,
+    "ABCAPITAL": 425.35,
+    "ADANIENT": 2735.0,
+    "APOLLOHOSP": 9272.0,
+    "AUBANK": 1010.8,
+    "BAJAJFINSV": 1926.8,
+    "BANKBARODA": 281.14,
+    "BEL": 400.05,
+    "BOSCHLTD": 49255.0,
+    "BRITANNIA": 4922.9,
+    "BSE": 3808.0,
+    "CANBK": 136.34,
+    "CDSL": 1429.6,
+    "CHOLAFIN": 1895.0,
+    "CIPLA": 1425.0,
+    "CONCOR": 437.9,
+    "CUB": 246.2,
+    "DELHIVERY": 464.3,
+    "DIXON": 13540.0,
+    "DMART": 3491.2,
+    "EICHERMOT": 8270.0,
+    "ETERNAL": 371.85,
+    "FEDERALBNK": 364.0,
+    "GODREJCP": 934.5,
+    "GVT&D": 4116.9,
+    "HCLTECH": 1389.5,
+    "HINDZINC": 520.85,
+    "ICICILIFE": 488.4,
+    "IDFCFIRSTB": 88.14,
+    "INDIGO": 5662.0,
+    "IOC": 149.0,
+    "KARURVYSYA": 382.95,
+    "KPITTECH": 536.75,
+    "LICHSGFIN": 622.35,
+    "LODHA": 1227.5,
+    "LTF": 290.7,
     "MANKIND": 2657.0,
-    "MARUTI": 14231.0,
-    "MAXHEALTH": 1093.9,
-    "MAZDOCK": 1813.0,
-    "MFSL": 1448.5,
-    "MOTILALOFS": 1248.1,
-    "NAVINFLUOR": 10236.0,
-    "NESTLEIND": 1317.9,
-    "OBEROIRLTY": 1857.9,
-    "ONGC": 223.39,
-    "PIIND": 1585.5,
-    "PNB": 151.5,
-    "POWERINDIA": 30800.0,
-    "RELIANCE": 1367.4,
-    "SBIN": 1144.15,
+    "MARUTI": 14203.0,
+    "MAXHEALTH": 1091.95,
+    "MAZDOCK": 1819.0,
+    "MFSL": 1539.7,
+    "MOTILALOFS": 1237.1,
+    "NAVINFLUOR": 9993.0,
+    "NESTLEIND": 1327.6,
+    "OBEROIRLTY": 1879.0,
+    "ONGC": 224.15,
+    "PIIND": 1587.3,
+    "PNB": 150.0,
+    "POWERINDIA": 29800.0,
+    "SBIN": 1155.65,
     "SHREECEM": 25365.0,
-    "SHRIRAMFIN": 995.45,
-    "SONACOMS": 894.7,
-    "SRF": 2514.2,
-    "TATAELXSI": 3854.4,
-    "TECHM": 1805.9,
-    "TITAN": 4686.1,
-    "TRENT": 3249.9,
-    "ULTRACEMCO": 12789.0,
-    "UNIONBANK": 211.59,
-    "VMM": 93.93
+    "SHRIRAMFIN": 1023.3,
+    "SONACOMS": 895.9,
+    "SRF": 2559.1,
+    "TATAELXSI": 3920.8,
+    "TECHM": 1816.0,
+    "TITAN": 4667.1,
+    "ULTRACEMCO": 12902.0,
+    "VMM": 95.21
   },
   "positions": [
     {
@@ -4887,23 +4929,6 @@
       "stop_price": null
     },
     {
-      "symbol": "ADANIPORTS",
-      "direction": "SHORT",
-      "entry_price": 1933.4,
-      "entry_time": "2026-11-11 17:34:15",
-      "lot_size": 475,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 65.5685775412058,
-      "strike": 0.0,
-      "margin_blocked": 551019.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "MANKIND",
       "direction": "SHORT",
       "entry_price": 2679.3,
@@ -5040,40 +5065,6 @@
       "stop_price": null
     },
     {
-      "symbol": "BLUESTARCO",
-      "direction": "SHORT",
-      "entry_price": 1770.0,
-      "entry_time": "2026-11-20 15:50:27",
-      "lot_size": 350,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 71.12784072999727,
-      "strike": 0.0,
-      "margin_blocked": 371700.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "AXISBANK",
-      "direction": "SHORT",
-      "entry_price": 1410.0,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 625,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 78.5472983261621,
-      "strike": 0.0,
-      "margin_blocked": 528750.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "BANKBARODA",
       "direction": "SHORT",
       "entry_price": 278.0,
@@ -5085,23 +5076,6 @@
       "rsi_at_entry": 78.18827323695223,
       "strike": 0.0,
       "margin_blocked": 487890.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "BANKINDIA",
-      "direction": "SHORT",
-      "entry_price": 162.02,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 5200,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 77.45265337549782,
-      "strike": 0.0,
-      "margin_blocked": 505502.4,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -5176,40 +5150,6 @@
       "stop_price": null
     },
     {
-      "symbol": "HDFCBANK",
-      "direction": "SHORT",
-      "entry_price": 829.95,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 77.35354515684443,
-      "strike": 0.0,
-      "margin_blocked": 373477.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "INDUSINDBK",
-      "direction": "SHORT",
-      "entry_price": 975.0,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 700,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 70.23876417106776,
-      "strike": 0.0,
-      "margin_blocked": 409500.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "IOC",
       "direction": "SHORT",
       "entry_price": 147.1,
@@ -5221,23 +5161,6 @@
       "rsi_at_entry": 61.569365577927094,
       "strike": 0.0,
       "margin_blocked": 430267.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "KOTAKBANK",
-      "direction": "SHORT",
-      "entry_price": 507.5,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 2000,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 80.93311987238934,
-      "strike": 0.0,
-      "margin_blocked": 609000.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
@@ -5295,23 +5218,6 @@
       "stop_price": null
     },
     {
-      "symbol": "RELIANCE",
-      "direction": "SHORT",
-      "entry_price": 1367.4,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 500,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 75.52033055919239,
-      "strike": 0.0,
-      "margin_blocked": 410220.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "SBIN",
       "direction": "SHORT",
       "entry_price": 1144.15,
@@ -5346,23 +5252,6 @@
       "stop_price": null
     },
     {
-      "symbol": "TRENT",
-      "direction": "SHORT",
-      "entry_price": 3249.9,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 225,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 67.31329961101679,
-      "strike": 0.0,
-      "margin_blocked": 438736.5,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
       "symbol": "ULTRACEMCO",
       "direction": "SHORT",
       "entry_price": 12789.0,
@@ -5374,23 +5263,6 @@
       "rsi_at_entry": 75.00246973731966,
       "strike": 0.0,
       "margin_blocked": 383670.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "UNIONBANK",
-      "direction": "SHORT",
-      "entry_price": 211.59,
-      "entry_time": "2026-11-23 16:03:36",
-      "lot_size": 4425,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 82.81420669735488,
-      "strike": 0.0,
-      "margin_blocked": 561771.45,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
