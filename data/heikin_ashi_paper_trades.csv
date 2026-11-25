@@ -816,3 +816,5 @@ DABUR,Buy,11-Nov-26,386.8,27.6,25-Nov-26,406.14,,10,106370*1,26593,first_target,
 IRFC,Sell,23-Nov-26,81.06,75.5,25-Nov-26,82.28,,2,104567*3,-23528,stop_loss,1.5% stop ₹82.28
 POLICYBZR,Buy,23-Nov-26,1107.4,29.2,25-Nov-26,1162.77,,2,77518*1,19380,first_target,"lot 1 booked — 5% target ₹1,162.77"
 NESTLEIND,Buy,29-Oct-26,1197.1,17.2,25-Nov-26,1340.75,,19,119710*1,71826,second_target,"lot 2 booked — 12% target ₹1,340.75"
+BSE,Sell,18-Nov-26,3792.3,81.0,25-Nov-26,3849.18,,5,151692*3,-34131,stop_loss,"1.5% stop ₹3,849.18"
+KEI,Buy,23-Nov-26,3842.7,29.9,25-Nov-26,3785.06,,2,134494*3,-30261,stop_loss,"1.5% stop ₹3,785.06"
