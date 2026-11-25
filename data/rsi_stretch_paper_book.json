@@ -1,10 +1,10 @@
 {
   "capital": 40000000,
-  "realised_pnl": 4739041.57,
-  "closed_count": 442,
+  "realised_pnl": 4728891.26,
+  "closed_count": 444,
   "day_date": "2026-11-25",
-  "day_realised_pnl": -145120.64,
-  "updated_at": "2026-11-25 11:31:15",
+  "day_realised_pnl": -155270.95,
+  "updated_at": "2026-11-25 12:01:07",
   "blocked_reentry": [],
   "session_dates": [
     "2026-07-02",
@@ -1696,6 +1696,11 @@
       "pnl": 180020.83
     },
     {
+      "symbol": "SBIN",
+      "exit_date": "2026-11-25",
+      "pnl": -38615.06
+    },
+    {
       "symbol": "RVNL",
       "exit_date": "2026-09-15",
       "pnl": -17844.75
@@ -2314,6 +2319,11 @@
       "symbol": "AXISBANK",
       "exit_date": "2026-11-25",
       "pnl": -39656.25
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "exit_date": "2026-11-25",
+      "pnl": -28775.25
     }
   ],
   "qualify_skips": {
@@ -2332,37 +2342,35 @@
     "WIPRO": 3
   },
   "last_marks": {
-    "360ONE": 1195.4,
-    "ABCAPITAL": 427.15,
-    "APOLLOHOSP": 9362.5,
-    "ASIANPAINT": 2663.9,
-    "BOSCHLTD": 49210.0,
-    "BRITANNIA": 4992.1,
-    "CONCOR": 436.7,
+    "360ONE": 1195.8,
+    "ABCAPITAL": 427.05,
+    "APOLLOHOSP": 9402.0,
+    "ASIANPAINT": 2661.3,
+    "BOSCHLTD": 49495.0,
+    "BRITANNIA": 5007.9,
+    "CONCOR": 437.7,
     "CUB": 245.98,
-    "DELHIVERY": 468.7,
-    "DIXON": 13048.0,
-    "DMART": 3531.6,
-    "FEDERALBNK": 360.15,
-    "GVT&D": 4120.9,
-    "IDFCFIRSTB": 87.83,
-    "LODHA": 1212.6,
-    "LTF": 291.5,
-    "M&M": 3521.9,
-    "MANKIND": 2685.1,
-    "MARUTI": 14247.0,
-    "MAZDOCK": 1820.7,
-    "MFSL": 1497.0,
-    "NAVINFLUOR": 10002.0,
-    "NESTLEIND": 1341.0,
-    "PIIND": 1595.0,
-    "PNB": 149.8,
-    "POWERINDIA": 29630.0,
-    "SBIN": 1157.25,
-    "SHRIRAMFIN": 1016.95,
-    "SRF": 2561.4,
-    "ULTRACEMCO": 12958.0,
-    "VOLTAS": 1247.1
+    "DELHIVERY": 469.0,
+    "DIXON": 13120.0,
+    "DMART": 3588.6,
+    "FEDERALBNK": 362.05,
+    "GVT&D": 4113.9,
+    "IDFCFIRSTB": 88.41,
+    "LODHA": 1212.2,
+    "LTF": 292.75,
+    "M&M": 3503.0,
+    "MANKIND": 2697.2,
+    "MARUTI": 14239.0,
+    "MAZDOCK": 1820.8,
+    "MFSL": 1498.0,
+    "NAVINFLUOR": 10022.0,
+    "NESTLEIND": 1339.3,
+    "PIIND": 1595.2,
+    "PNB": 149.9,
+    "POWERINDIA": 29945.0,
+    "SHRIRAMFIN": 1013.45,
+    "SRF": 2544.9,
+    "VOLTAS": 1239.7
   },
   "positions": [
     {
@@ -2435,12 +2443,12 @@
       "entry_price": 3180.0,
       "entry_time": "2026-10-23 19:33:08",
       "lot_size": 150,
-      "lots_open": 2,
+      "lots_open": 1,
       "lots_total": 3,
       "expiry": "2026-12-29",
       "rsi_at_entry": 22.171040035221665,
       "strike": 0.0,
-      "margin_blocked": 190800.0,
+      "margin_blocked": 95400.0,
       "closed_legs": [
         {
           "lots": 1,
@@ -2448,6 +2456,13 @@
           "exit_time": "2026-11-03 13:01:15",
           "reason": "first_target",
           "pnl": 23850.0
+        },
+        {
+          "lots": 1,
+          "exit_price": 3561.6,
+          "exit_time": "2026-11-25 12:01:07",
+          "reason": "second_target",
+          "pnl": 57240.0
         }
       ],
       "priced_on": "futures",
@@ -3133,40 +3148,6 @@
       "rsi_at_entry": 86.27177341436101,
       "strike": 0.0,
       "margin_blocked": 727200.0,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "SBIN",
-      "direction": "SHORT",
-      "entry_price": 1144.15,
-      "entry_time": "2026-11-23 16:03:49",
-      "lot_size": 750,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 82.33277226092324,
-      "strike": 0.0,
-      "margin_blocked": 514867.50000000006,
-      "closed_legs": [],
-      "priced_on": "futures",
-      "s2_invalid_pending": "",
-      "stop_price": null
-    },
-    {
-      "symbol": "ULTRACEMCO",
-      "direction": "SHORT",
-      "entry_price": 12789.0,
-      "entry_time": "2026-11-23 16:03:49",
-      "lot_size": 50,
-      "lots_open": 3,
-      "lots_total": 3,
-      "expiry": "2027-01-25",
-      "rsi_at_entry": 75.00246973731966,
-      "strike": 0.0,
-      "margin_blocked": 383670.0,
       "closed_legs": [],
       "priced_on": "futures",
       "s2_invalid_pending": "",
