@@ -1104,3 +1104,6 @@ BRITANNIA,Buy,28-Oct-26,4616.0,37.4,25-Nov-26,5023.27,32.6,20,115400*1,50909,sec
 CDSL,Sell,18-Nov-26,1434.0,67.7,26-Nov-26,1455.51,,6,136230*3,-30652,stop_loss,"1.5% stop ₹1,455.51"
 BANKINDIA,Sell,25-Nov-26,161.52,68.7,26-Nov-26,163.94,,1,167981*3,-37796,stop_loss,1.5% stop ₹163.94
 HCLTECH,Sell,06-Nov-26,1444.9,67.2,26-Nov-26,1466.57,,14,115592*2,-17339,stop_loss,"1.5% stop ₹1,466.57 (tightened after lot 1 booked)"
+TITAN,Buy,23-Oct-26,4331.5,29.5,26-Nov-26,4674.4,36.9,24,151602*1,60007,smma_cross,"final lot booked — strong candle closed 4,631.10 below SMMA 21 ₹4,698.98"
+DIXON,Buy,26-Oct-26,11086.0,21.9,26-Nov-26,12555.0,32.8,23,110860*1,73450,smma_cross,"final lot booked — strong candle closed 12,718.00 below SMMA 21 ₹12,726.75"
+TECHM,Sell,06-Nov-26,1849.8,70.8,26-Nov-26,1877.55,81.9,14,221976*2,-33296,stop_loss,"1.5% stop ₹1,877.55 (tightened after lot 1 booked)"
