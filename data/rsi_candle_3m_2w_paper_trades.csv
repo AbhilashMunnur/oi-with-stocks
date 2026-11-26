@@ -808,3 +808,4 @@ INDIGO,Buy,23-Oct-26,4583.7,32.8,25-Nov-26,5749.9,70.4,23,137511*1,174930,rsi_ta
 POWERINDIA,Buy,23-Oct-26,26625.0,27.6,25-Nov-26,29790.0,35.5,23,133125*1,79125,smma_cross,"final lot booked — strong candle closed 29,770.00 below SMMA 21 ₹29,793.66"
 BRITANNIA,Buy,26-Oct-26,4597.6,29.6,25-Nov-26,5023.27,32.6,22,114940*1,53209,second_target,"lot 2 booked — SMMA 50 ₹5,023.27"
 ADANIGREEN,Sell,11-Nov-26,1429.2,64.0,26-Nov-26,1357.74,,11,171504*1,42876,first_target,"lot 1 booked — 5% target ₹1,357.74"
+COFORGE,Sell,06-Nov-26,2084.6,66.8,26-Nov-26,1980.37,,14,198037*1,49509,first_target,"lot 1 booked — 5% target ₹1,980.37"
