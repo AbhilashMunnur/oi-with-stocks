@@ -685,3 +685,5 @@ BRITANNIA,Buy,26-Oct-26,4597.6,29.6,25-Nov-26,5023.27,32.6,22,114940*1,53209,sec
 GVT&D,Buy,26-Oct-26,3832.0,26.4,25-Nov-26,4076.2,40.0,22,95800*1,30525,smma_cross,"final lot booked — strong candle closed 4,070.00 below SMMA 21 ₹4,185.66"
 DIXON,Buy,26-Oct-26,11086.0,21.9,26-Nov-26,12555.0,32.8,23,110860*1,73450,smma_cross,"final lot booked — strong candle closed 12,718.00 below SMMA 21 ₹12,726.75"
 DABUR,Sell,26-Nov-26,418.75,73.7,27-Nov-26,418.71,,1,115156*1,54,first_target,lot 1 booked — SMMA 21 ₹418.71
+NAVINFLUOR,Sell,19-Nov-26,10273.0,75.1,27-Nov-26,10427.09,,6,154095*3,-34671,stop_loss,"1.5% stop ₹10,427.09"
+CUB,Sell,23-Nov-26,245.8,65.7,27-Nov-26,233.51,,4,114297*1,28574,first_target,lot 1 booked — 5% target ₹233.51

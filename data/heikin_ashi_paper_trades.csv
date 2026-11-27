@@ -833,3 +833,5 @@ GAIL,Sell,23-Nov-26,188.0,77.8,26-Nov-26,190.82,,3,133480*3,-30033,stop_loss,1.5
 TECHM,Sell,09-Nov-26,1828.8,73.7,26-Nov-26,1856.23,,13,219456*2,-32918,stop_loss,"1.5% stop ₹1,856.23 (tightened after lot 1 booked)"
 BANKBARODA,Sell,25-Nov-26,278.66,83.4,27-Nov-26,282.84,,2,163016*3,-36679,stop_loss,1.5% stop ₹282.84
 MAHABANK,Sell,26-Nov-26,94.3,84.2,27-Nov-26,95.71,,1,122590*3,-27583,stop_loss,1.5% stop ₹95.71
+HYUNDAI,Sell,23-Nov-26,2060.0,70.4,27-Nov-26,1957.0,,4,113300*1,28325,first_target,"lot 1 booked — 5% target ₹1,957.00"
+HYUNDAI,Sell,23-Nov-26,2060.0,70.4,27-Nov-26,2040.71,,4,113300*1,5304,second_target,"lot 2 booked — SMMA 50 ₹2,040.71"
