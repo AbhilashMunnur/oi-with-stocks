@@ -836,3 +836,6 @@ MAHABANK,Sell,26-Nov-26,94.3,84.2,27-Nov-26,95.71,,1,122590*3,-27583,stop_loss,1
 HYUNDAI,Sell,23-Nov-26,2060.0,70.4,27-Nov-26,1957.0,,4,113300*1,28325,first_target,"lot 1 booked — 5% target ₹1,957.00"
 HYUNDAI,Sell,23-Nov-26,2060.0,70.4,27-Nov-26,2040.71,,4,113300*1,5304,second_target,"lot 2 booked — SMMA 50 ₹2,040.71"
 ADANIGREEN,Sell,12-Nov-26,1437.0,72.6,27-Nov-26,1329.72,,11,172440*1,64369,second_target,"lot 2 booked — SMMA 50 ₹1,329.72"
+BANDHANBNK,Buy,28-Oct-26,157.08,28.6,27-Nov-26,166.52,36.9,22,113098*1,33984,smma_cross,final lot booked — strong candle closed 166.25 below SMMA 21 ₹168.38
+SHRIRAMFIN,Buy,30-Oct-26,834.5,17.2,27-Nov-26,922.0,28.4,20,137692*1,72188,smma_cross,final lot booked — strong candle closed 923.50 below SMMA 21 ₹956.30
+SWIGGY,Buy,26-Nov-26,185.17,26.5,27-Nov-26,182.39,20.3,1,71290*3,-16040,stop_loss,1.5% stop ₹182.39

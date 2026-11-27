@@ -687,3 +687,4 @@ DIXON,Buy,26-Oct-26,11086.0,21.9,26-Nov-26,12555.0,32.8,23,110860*1,73450,smma_c
 DABUR,Sell,26-Nov-26,418.75,73.7,27-Nov-26,418.71,,1,115156*1,54,first_target,lot 1 booked — SMMA 21 ₹418.71
 NAVINFLUOR,Sell,19-Nov-26,10273.0,75.1,27-Nov-26,10427.09,,6,154095*3,-34671,stop_loss,"1.5% stop ₹10,427.09"
 CUB,Sell,23-Nov-26,245.8,65.7,27-Nov-26,233.51,,4,114297*1,28574,first_target,lot 1 booked — 5% target ₹233.51
+SHRIRAMFIN,Buy,28-Oct-26,831.15,25.7,27-Nov-26,922.0,28.4,22,137140*1,74951,smma_cross,final lot booked — strong candle closed 923.50 below SMMA 21 ₹956.30

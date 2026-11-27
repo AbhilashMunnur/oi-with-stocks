@@ -814,3 +814,5 @@ NATIONALUM,Buy,25-Nov-26,290.9,32.7,27-Nov-26,305.44,,2,109088*1,27272,first_tar
 DABUR,Sell,26-Nov-26,418.75,73.7,27-Nov-26,418.68,,1,115156*1,90,first_target,lot 1 booked — SMMA 21 ₹418.68
 CUB,Sell,23-Nov-26,245.8,65.7,27-Nov-26,233.51,,4,114297*1,28574,first_target,lot 1 booked — 5% target ₹233.51
 ADANIGREEN,Sell,11-Nov-26,1429.2,64.0,27-Nov-26,1329.72,,12,171504*1,59689,second_target,"lot 2 booked — SMMA 50 ₹1,329.72"
+HYUNDAI,Buy,26-Oct-26,1844.7,27.8,27-Nov-26,1986.3,33.0,24,101458*1,38940,smma_cross,"final lot booked — strong candle closed 2,006.00 below SMMA 21 ₹2,067.29"
+SHRIRAMFIN,Buy,26-Oct-26,831.15,26.4,27-Nov-26,922.0,28.4,24,137140*1,74951,smma_cross,final lot booked — strong candle closed 923.50 below SMMA 21 ₹956.30
