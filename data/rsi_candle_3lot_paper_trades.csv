@@ -1109,3 +1109,6 @@ DIXON,Buy,26-Oct-26,11086.0,21.9,26-Nov-26,12555.0,32.8,23,110860*1,73450,smma_c
 TECHM,Sell,06-Nov-26,1849.8,70.8,26-Nov-26,1877.55,81.9,14,221976*2,-33296,stop_loss,"1.5% stop ₹1,877.55 (tightened after lot 1 booked)"
 NATIONALUM,Buy,25-Nov-26,290.9,32.7,27-Nov-26,305.44,,2,109088*1,27272,first_target,lot 1 booked — 5% target ₹305.44
 DABUR,Sell,26-Nov-26,418.75,73.7,27-Nov-26,418.68,,1,115156*1,90,first_target,lot 1 booked — SMMA 21 ₹418.68
+BANKBARODA,Sell,23-Nov-26,278.0,78.2,27-Nov-26,282.17,,4,162630*3,-36592,stop_loss,1.5% stop ₹282.17
+COFORGE,Sell,25-Nov-26,2039.3,52.3,27-Nov-26,2069.89,,2,193734*3,-43590,stop_loss,"1.5% stop ₹2,069.89"
+MOTILALOFS,Sell,26-Nov-26,1233.0,69.8,27-Nov-26,1251.49,,1,191115*3,-43001,stop_loss,"1.5% stop ₹1,251.49"
